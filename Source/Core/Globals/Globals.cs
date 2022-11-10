@@ -1,0 +1,20 @@
+﻿global using System;
+global using System.Collections;
+global using System.Collections.Generic;
+global using System.Collections.ObjectModel;
+global using System.Runtime.InteropServices;
+global using System.Runtime.Serialization;
+global using System.Runtime.CompilerServices;
+global using System.Diagnostics.CodeAnalysis;
+global using System.Diagnostics;
+global using System.Globalization;
+global using System.Text;
+global using System.Threading;
+global using System.Windows.Forms;
+global using System.Net;
+global using System.Linq;
+
+global using Microsoft.WindowsAPICodePack.Net.ApplicationServices;
+global using Microsoft.WindowsAPICodePack.Net.Resources;
+global using Microsoft.WindowsAPICodePack.Net.NetworkList;
+global using Microsoft.WindowsAPICodePack.Net.Internal;
