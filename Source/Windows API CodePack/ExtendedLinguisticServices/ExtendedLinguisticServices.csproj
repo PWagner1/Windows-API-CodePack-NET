@@ -8,8 +8,8 @@
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<RootNamespace>Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices</RootNamespace>
-		<AssemblyName>Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices</AssemblyName>
+		<RootNamespace>Microsoft.WindowsAPICodePack.ExtendedLinguisticServices</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.ExtendedLinguisticServices</AssemblyName>
 		<UseWindowsForms>True</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -21,7 +21,7 @@
 	<PropertyGroup>
 		<PackageIcon>Windows.png</PackageIcon>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices</Title>
+		<Title>Microsoft.WindowsAPICodePack.ExtendedLinguisticServices</Title>
 		<PackageVersion>7.0.0</PackageVersion>
 
 		<Description>

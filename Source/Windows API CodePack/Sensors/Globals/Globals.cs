@@ -19,3 +19,7 @@ global using System.Windows.Forms;
 global using System.Net;
 global using System.Linq;
 global using System.Linq.Expressions;
+
+global using Microsoft.WindowsAPICodePack.Net.Sensors.Resources;
+global using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
+global using MS.WindowsAPICodePack.Internal;

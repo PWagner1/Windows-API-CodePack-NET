@@ -1,4 +1,6 @@
-﻿namespace Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+
+namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
     // This singleton object is correctly finalized on appdomain unload.    
     internal class ServiceCache : CriticalFinalizerObject
@@ -117,7 +119,7 @@
                 for (int i = 0; i < length; ++i)
                 {
                     Guid guid = (Guid)Marshal.PtrToStructure(
-                        (IntPtr)((UInt64)pServices + InteropTools.OffsetOfGuidInService),
+                        (IntPtr)((UInt64)pServices + InteropTools.OffsetOfGuidInService), 
                         InteropTools.TypeOfGuid);
                     _guidToService.Remove(guid);
                     pServices = (IntPtr)((UInt64)pServices + InteropTools.SizeOfService);

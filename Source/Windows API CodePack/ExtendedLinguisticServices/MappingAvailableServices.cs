@@ -1,5 +1,8 @@
-﻿namespace Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+
+namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
+
     /// <summary>
     /// This class contains constants describing the existing ELS services for Windows 7.
     /// </summary>

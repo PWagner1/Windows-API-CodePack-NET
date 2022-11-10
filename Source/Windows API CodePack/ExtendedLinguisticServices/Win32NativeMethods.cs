@@ -1,5 +1,8 @@
-﻿namespace Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+
+namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
+
     internal static class Win32NativeMethods
     {
         [DllImport("elscore.dll", EntryPoint = "MappingGetServices", SetLastError = true, CharSet = CharSet.Unicode)]

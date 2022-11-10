@@ -1,5 +1,8 @@
-﻿namespace Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+
+namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
+
     /// <summary>
     /// This exception is thrown by the managed wrappers of ELS when the underlying
     /// unmanaged implementation returns an HResult which is not S_OK (0).
@@ -31,8 +34,8 @@
         /// Initializes a new instance of the <see cref="LinguisticException">LinguisticException</see> class
         ///  with the specified context and the serialization information.
         /// </summary>
-        /// <param name="info">The <see cref="SerializationInfo">SerializationInfo</see> associated with this exception.</param>
-        /// <param name="context">A <see cref="StreamingContext">StreamingContext</see> that represents the context of this exception.</param>
+        /// <param name="info">The <see cref="System.Runtime.Serialization.SerializationInfo">SerializationInfo</see> associated with this exception.</param>
+        /// <param name="context">A <see cref="System.Runtime.Serialization.StreamingContext">StreamingContext</see> that represents the context of this exception.</param>
         protected LinguisticException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
@@ -70,4 +73,5 @@
             }
         }
     }
+
 }

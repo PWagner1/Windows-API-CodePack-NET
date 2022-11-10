@@ -1,5 +1,8 @@
-﻿namespace Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+
+namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
+
     /// <summary>
     /// Contains the text recognition data properties retrieved by MappingService.RecognizeText or
     /// MappingService.BeginRecognizeText.

@@ -1,5 +1,8 @@
-﻿namespace Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+
+namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
+
     /// <summary>
     /// Converts byte arrays containing Unicode null-terminated strings into .NET string objects.
     /// </summary>
@@ -12,7 +15,7 @@
         /// <param name="dataRange">The <see cref="MappingDataRange">MappingDataRange</see> to convert</param>
         /// <returns>The resulting string</returns>
         public string Format(MappingDataRange dataRange)
-        {
+        {            
             if (dataRange == null) { throw new ArgumentNullException("dataRange"); }
 
             byte[] data = dataRange.GetData();
@@ -30,7 +33,7 @@
                     break;
                 }
             }
-
+            
             string resultText = Encoding.Unicode.GetString(data, 0, nullIndex);
             return resultText;
         }

@@ -8,8 +8,8 @@
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<RootNamespace>Microsoft.WindowsAPICodePack.Net.Core</RootNamespace>
-		<AssemblyName>Microsoft.WindowsAPICodePack.Net.Core</AssemblyName>
+		<RootNamespace>Microsoft.WindowsAPICodePack.Core</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.Core</AssemblyName>
 		<UseWindowsForms>True</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -21,7 +21,7 @@
 	<PropertyGroup>
 		<PackageIcon>Windows.png</PackageIcon>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>Microsoft.WindowsAPICodePack.Net.Core</Title>
+		<Title>Microsoft.WindowsAPICodePack.Core</Title>
 		<PackageVersion>7.0.0</PackageVersion>
 
 		<Description>

@@ -1,5 +1,8 @@
-﻿namespace Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+
+namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
+
     /// <summary>
     /// Represents an ELS service.
     /// A detailed overview of the Extended Linguistic Services platform is available at:
@@ -219,7 +222,7 @@
                     _service, bag._text.AddrOfPinnedObject(), (uint)length, (uint)index,
                     bag._options, ref bag._win32PropertyBag);
                 if (hResult != 0)
-                {
+                {                    
                     throw new LinguisticException(hResult);
                 }
                 return bag;

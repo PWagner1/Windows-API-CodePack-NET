@@ -1,5 +1,8 @@
-﻿namespace Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+
+namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
+
     /// <summary>
     /// Defines an interface with which the low-level data contained inside
     /// <see cref="MappingPropertyBag">MappingPropertyBag</see> and
@@ -24,4 +27,5 @@
         /// provided <see cref="MappingPropertyBag">MappingPropertyBag</see> object.</returns>
         T[] FormatAll(MappingPropertyBag bag);
     }
+
 }

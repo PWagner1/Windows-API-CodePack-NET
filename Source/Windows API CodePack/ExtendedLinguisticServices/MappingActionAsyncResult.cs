@@ -1,12 +1,15 @@
-﻿namespace Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+
+namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
+
     /// <summary>
     /// A <see cref="MappingAsyncResult">MappingAsyncResult</see> subclass to be used only for asynchronous calls to service actions.
     /// <seealso cref="MappingService.BeginDoAction">MappingService.BeginDoAction</seealso>
     /// </summary>
     public class MappingActionAsyncResult : MappingAsyncResult
     {
-
+        
         internal MappingActionAsyncResult(
             object callerData,
             AsyncCallback asyncCallback,
@@ -30,4 +33,5 @@
         /// </summary>
         public string ActionId { get; private set; }
     }
+
 }

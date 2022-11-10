@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices.Resources {
+namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.Resources {
     using System;
     
     
@@ -39,8 +39,8 @@ namespace Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices.Resources 
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices.Resources.LocalizedMe" +
-                            "ssages", typeof(LocalizedMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.WindowsAPICodePack.ExtendedLinguisticServices.Resources.LocalizedMessag" +
+                            "es", typeof(LocalizedMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

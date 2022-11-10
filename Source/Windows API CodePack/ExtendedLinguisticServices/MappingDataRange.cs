@@ -1,5 +1,8 @@
-﻿namespace Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+
+namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
+
     /// <summary>
     /// Contains text recognition results for a recognized text subrange. An array of structures of this type
     /// is retrieved by an ELS service in a <see cref="MappingPropertyBag">MappingPropertyBag</see> structure.

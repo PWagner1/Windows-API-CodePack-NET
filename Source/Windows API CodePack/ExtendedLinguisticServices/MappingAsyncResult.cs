@@ -1,5 +1,8 @@
-﻿namespace Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices
+// Copyright (c) Microsoft Corporation.  All rights reserved.
+
+namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
+
     /// <summary>
     /// <see cref="System.IAsyncResult">IAsyncResult</see> implementation for use with asynchronous calls to ELS.
     /// </summary>
@@ -103,7 +106,7 @@
                 return _waitHandle;
             }
         }
-
+                
         /// <summary>
         /// From MSDN:
         /// Most implementers of the IAsyncResult interface
@@ -155,4 +158,5 @@
 
         #endregion
     }
+
 }
