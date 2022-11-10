@@ -38,6 +38,7 @@
                 ArrayList currList = (ArrayList)eventList[eventId];
                 currList.Add(eventToRegister);
             }
+
             readerWriterLock.ReleaseWriterLock();
         }
 
@@ -60,6 +61,7 @@
             {
                 throw new InvalidOperationException(LocalizedMessages.MessageManagerHandlerNotRegistered);
             }
+
             readerWriterLock.ReleaseWriterLock();
         }
 
@@ -89,8 +91,8 @@
                 (int)m.WParam == PowerManagementNativeMethods.PowerSettingChangeMessage)
             {
                 PowerManagementNativeMethods.PowerBroadcastSetting ps =
-                     (PowerManagementNativeMethods.PowerBroadcastSetting)Marshal.PtrToStructure(
-                         m.LParam, typeof(PowerManagementNativeMethods.PowerBroadcastSetting));
+                    (PowerManagementNativeMethods.PowerBroadcastSetting)Marshal.PtrToStructure(
+                        m.LParam, typeof(PowerManagementNativeMethods.PowerBroadcastSetting));
 
                 IntPtr pData = new IntPtr(m.LParam.ToInt64() + Marshal.SizeOf(ps));
                 Guid currentEvent = ps.PowerSetting;
@@ -115,3 +117,4 @@
         }
 
     }
+}

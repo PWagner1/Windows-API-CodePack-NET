@@ -921,7 +921,7 @@ namespace Microsoft.WindowsAPICodePack.Net.Dialogs
         // even though the Win32 API allows them to be separate.
         private TaskDialogButtonBase GetButtonForId(int id)
         {
-            return (TaskDialogButtonBase)controls.GetControlbyId(id);
+            return (TaskDialogButtonBase)controls.GetControlById(id);
         }
 
         #endregion

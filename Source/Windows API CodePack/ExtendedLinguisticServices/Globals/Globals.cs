@@ -5,6 +5,7 @@ global using System.Collections.Generic;
 global using System.Collections.ObjectModel;
 global using System.Drawing;
 global using System.Drawing.Printing;
+global using System.Runtime.ConstrainedExecution;
 global using System.Runtime.InteropServices;
 global using System.Runtime.Serialization;
 global using System.Runtime.CompilerServices;
@@ -19,8 +20,4 @@ global using System.Net;
 global using System.Linq;
 global using System.Linq.Expressions;
 
-global using Microsoft.WindowsAPICodePack.Net.ApplicationServices;
-global using Microsoft.WindowsAPICodePack.Net.Resources;
-global using Microsoft.WindowsAPICodePack.Net.NetworkList;
-global using Microsoft.WindowsAPICodePack.Net.Internal;
-global using Microsoft.WindowsAPICodePack.Shell.Net.PropertySystem;
+global using Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices.Resources;
