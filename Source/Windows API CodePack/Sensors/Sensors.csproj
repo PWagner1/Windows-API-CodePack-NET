@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>
@@ -8,8 +8,8 @@
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<RootNamespace>Microsoft.WindowsAPICodePack.Net.Core</RootNamespace>
-		<AssemblyName>Microsoft.WindowsAPICodePack.Net.Core</AssemblyName>
+		<RootNamespace>Microsoft.WindowsAPICodePack.Net.Sensors</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.Net.Sensors</AssemblyName>
 		<UseWindowsForms>True</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -21,11 +21,11 @@
 	<PropertyGroup>
 		<PackageIcon>Windows.png</PackageIcon>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>Microsoft.WindowsAPICodePack.Net.Core</Title>
+		<Title>Microsoft.WindowsAPICodePack.Net.Sensors</Title>
 		<PackageVersion>7.0.0</PackageVersion>
 
 		<Description>
-			This package contains the core binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
+			This package contains the sensors binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
 
 			Modified to use .NET Frameworks 4.6.2 - 4.8.1, .NET Core 3.1 or .NET 5 - 7.
 		</Description>
@@ -43,21 +43,6 @@
 	<ItemGroup>
 		<None Include="Content\Windows.png" Pack="true" PackagePath="" />
 		<None Include="Licenses\LICENSE.txt" Pack="true" PackagePath="" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="Resources\LocalizedMessages.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>LocalizedMessages.resx</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Update="Resources\LocalizedMessages.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>LocalizedMessages.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
 	</ItemGroup>
 
 </Project>

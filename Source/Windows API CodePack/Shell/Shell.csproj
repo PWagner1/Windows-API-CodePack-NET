@@ -8,8 +8,8 @@
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<RootNamespace>Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices</RootNamespace>
-		<AssemblyName>Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices</AssemblyName>
+		<RootNamespace>Microsoft.WindowsAPICodePack.Net.Shell</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.Net.Shell</AssemblyName>
 		<UseWindowsForms>True</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -21,11 +21,11 @@
 	<PropertyGroup>
 		<PackageIcon>Windows.png</PackageIcon>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>Microsoft.WindowsAPICodePack.Net.ExtendedLinguisticServices</Title>
+		<Title>Microsoft.WindowsAPICodePack.Net.Shell</Title>
 		<PackageVersion>7.0.0</PackageVersion>
 
 		<Description>
-			This package contains the extended linguistic services binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
+			This package contains the shell binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
 
 			Modified to use .NET Frameworks 4.6.2 - 4.8.1, .NET Core 3.1 or .NET 5 - 7.
 		</Description>
@@ -36,32 +36,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	    <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.0" />
-	    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+		<PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.0" />
+		<PackageReference Include="System.Net.Http" Version="4.3.4" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<None Include="Content\Windows.png" Pack="true" PackagePath="" />
 		<None Include="Licenses\LICENSE.txt" Pack="true" PackagePath="" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <Compile Update="Resources\LocalizedMessages.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>LocalizedMessages.resx</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <EmbeddedResource Update="Resources\LocalizedMessages.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>LocalizedMessages.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Content\" />
-	</ItemGroup>
-
 </Project>

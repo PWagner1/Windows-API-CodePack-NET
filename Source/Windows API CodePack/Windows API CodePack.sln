@@ -3,9 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33103.201
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedLinguisticServices", "ExtendedLinguisticServices\ExtendedLinguisticServices.csproj", "{54ED53D3-419F-40F3-8502-4FC507EE36DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedLinguisticServices", "ExtendedLinguisticServices\ExtendedLinguisticServices.csproj", "{54ED53D3-419F-40F3-8502-4FC507EE36DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{BD817BCA-83E4-4425-9FEE-573E75962B6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{BD817BCA-83E4-4425-9FEE-573E75962B6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sensors", "Sensors\Sensors.csproj", "{F026A12E-2A20-45B7-9319-297616CDB9D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shell", "Shell\Shell.csproj", "{52FB8A04-3954-4390-BB4D-7290F642D539}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShellExtensions", "ShellExtensions\ShellExtensions.csproj", "{F5F7D8DE-665D-4E6B-AB9E-45A6E73D27FB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +27,18 @@ Global
 		{BD817BCA-83E4-4425-9FEE-573E75962B6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD817BCA-83E4-4425-9FEE-573E75962B6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD817BCA-83E4-4425-9FEE-573E75962B6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F026A12E-2A20-45B7-9319-297616CDB9D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F026A12E-2A20-45B7-9319-297616CDB9D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F026A12E-2A20-45B7-9319-297616CDB9D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F026A12E-2A20-45B7-9319-297616CDB9D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52FB8A04-3954-4390-BB4D-7290F642D539}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52FB8A04-3954-4390-BB4D-7290F642D539}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52FB8A04-3954-4390-BB4D-7290F642D539}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52FB8A04-3954-4390-BB4D-7290F642D539}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5F7D8DE-665D-4E6B-AB9E-45A6E73D27FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5F7D8DE-665D-4E6B-AB9E-45A6E73D27FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5F7D8DE-665D-4E6B-AB9E-45A6E73D27FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5F7D8DE-665D-4E6B-AB9E-45A6E73D27FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
