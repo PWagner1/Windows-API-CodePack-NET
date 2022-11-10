@@ -1,7 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net462;net47;net471;net472;net48;net481;netcoreapp3.1;net5.0-windows;net6.0-windows;net7.0-windows</TargetFrameworks>
+		<TargetFrameworks>
+			net462;net47;net471;net472;net48;net481;netcoreapp3.1;net5.0-windows;net6.0-windows;net7.0-windows
+		</TargetFrameworks>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -13,14 +15,37 @@
 		<Nullable>enable</Nullable>
 		<AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
 		<LangVersion>latest</LangVersion>
+		<LibraryVersion>7.0.0</LibraryVersion>
+	</PropertyGroup>
+	
+	<PropertyGroup>
 		<PackageIcon>Windows 11 Logo 128 x 128.png</PackageIcon>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>WindowsAPICodePack.Net.ExtendedLinguisticServices</Title>
+		<PackageVersion>7.0.0</PackageVersion>
+
+		<Description>
+			This package contains the extended linguistic services binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
+
+			Modified to use .NET Frameworks 4.6.2 - 4.8.1, .NET Core 3.1 or .NET 5 - 7.
+		</Description>
+
+		<!--<PackageLicenseFile>License.txt</PackageLicenseFile>
+
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+
+		<PackageLicenseExpression>MS-PL</PackageLicenseExpression>-->
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.0" />
-	  <PackageReference Include="System.Net.Http" Version="4.3.4" />
+	    <PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.0" />
+	    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="Windows 11 Logo 128 x 128.png" Link="Icon.png" Pack="True" PackagePath="\" />
+		
+		<None Include="MIT License.txt" Link="License.txt" Pack="true" PackagePath="" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -36,13 +61,6 @@
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>LocalizedMessages.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Update="Windows 11 Logo 128 x 128.png">
-	    <Pack>True</Pack>
-	    <PackagePath>\</PackagePath>
-	  </None>
 	</ItemGroup>
 
 </Project>
