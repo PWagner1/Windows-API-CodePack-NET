@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>
@@ -8,11 +8,12 @@
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<RootNamespace>Microsoft.WindowsAPICodePack.Net.ShellExtensions</RootNamespace>
-		<AssemblyName>Microsoft.WindowsAPICodePack.Net.ShellExtensions</AssemblyName>
+		<RootNamespace>Microsoft.WindowsAPICodePack.ShellExtensions</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.ShellExtensions</AssemblyName>
 		<UseWindowsForms>True</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
 		<AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
 		<LangVersion>latest</LangVersion>
 		<LibraryVersion>7.0.0</LibraryVersion>
@@ -21,11 +22,11 @@
 	<PropertyGroup>
 		<PackageIcon>Windows.png</PackageIcon>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>Microsoft.WindowsAPICodePack.Net.ShellExtensions</Title>
+		<Title>Microsoft.WindowsAPICodePack.ShellExtensions</Title>
 		<PackageVersion>7.0.0</PackageVersion>
 
 		<Description>
-			This package contains extensions to the shell binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
+			This package contains extensions the shell binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
 
 			Modified to use .NET Frameworks 4.6.2 - 4.8.1, .NET Core 3.1 or .NET 5 - 7.
 		</Description>
@@ -38,11 +39,6 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.0" />
 		<PackageReference Include="System.Net.Http" Version="4.3.4" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<None Include="Content\Windows.png" Pack="true" PackagePath="" />
-		<None Include="Licenses\LICENSE.txt" Pack="true" PackagePath="" />
 	</ItemGroup>
 
 </Project>

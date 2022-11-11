@@ -17,7 +17,7 @@
 		<LangVersion>latest</LangVersion>
 		<LibraryVersion>7.0.0</LibraryVersion>
 	</PropertyGroup>
-	
+
 	<PropertyGroup>
 		<PackageIcon>Windows.png</PackageIcon>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -41,12 +41,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="Content\Windows.png" Pack="true" PackagePath="" />
-		<None Include="Licenses\LICENSE.txt" Pack="true" PackagePath="" />
+	  <ProjectReference Include="..\Core\Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\Core\Core.csproj" />
+	  <Reference Include="PresentationCore">
+	    <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\PresentationCore.dll</HintPath>
+	  </Reference>
+	  <Reference Include="PresentationFramework">
+	    <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7\PresentationFramework.dll</HintPath>
+	  </Reference>
+	  <Reference Include="System.Xaml">
+	    <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7\System.Xaml.dll</HintPath>
+	  </Reference>
+	  <Reference Include="WindowsBase" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -65,8 +73,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="Controls\CommandLinkWPF.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </None>
+	  <Folder Include="ExplorerBrowser\" />
 	</ItemGroup>
+
 </Project>

@@ -19,3 +19,4 @@ global using System.Windows.Forms;
 global using System.Net;
 global using System.Linq;
 global using System.Linq.Expressions;
+global using MS.WindowsAPICodePack.Internal;
