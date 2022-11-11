@@ -8,8 +8,8 @@
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<RootNamespace>Microsoft.WindowsAPICodePack.Net.Shell</RootNamespace>
-		<AssemblyName>Microsoft.WindowsAPICodePack.Net.Shell</AssemblyName>
+		<RootNamespace>Microsoft.WindowsAPICodePack.Shell</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.Shell</AssemblyName>
 		<UseWindowsForms>True</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -21,7 +21,7 @@
 	<PropertyGroup>
 		<PackageIcon>Windows.png</PackageIcon>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>Microsoft.WindowsAPICodePack.Net.Shell</Title>
+		<Title>Microsoft.WindowsAPICodePack.Shell</Title>
 		<PackageVersion>7.0.0</PackageVersion>
 
 		<Description>
@@ -43,5 +43,30 @@
 	<ItemGroup>
 		<None Include="Content\Windows.png" Pack="true" PackagePath="" />
 		<None Include="Licenses\LICENSE.txt" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Core\Core.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Resources\LocalizedMessages.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>LocalizedMessages.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Resources\LocalizedMessages.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>LocalizedMessages.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="Controls\CommandLinkWPF.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </None>
 	</ItemGroup>
 </Project>
