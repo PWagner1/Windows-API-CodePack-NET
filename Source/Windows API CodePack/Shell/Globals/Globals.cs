@@ -31,6 +31,7 @@ global using System.Text;
 global using System.Threading;
 global using System.Windows;
 global using System.Windows.Forms;
+global using System.Windows.Forms.Integration;
 global using System.Windows.Interop;
 global using System.Windows.Input;
 global using System.Windows.Markup;

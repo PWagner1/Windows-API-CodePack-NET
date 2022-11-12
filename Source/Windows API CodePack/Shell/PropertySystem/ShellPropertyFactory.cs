@@ -148,14 +148,14 @@
                 throw new ArgumentException(LocalizedMessages.ShellPropertyFactoryConstructorNotFound, "type");
             }
 
-            var key = Expression.Parameter(argTypes[0], "propKey");
-            var desc = Expression.Parameter(argTypes[1], "desc");
-            var third = Expression.Parameter(typeof(object), "third"); //needs to be object to avoid casting later
+            var key = System.Linq.Expressions.Expression.Parameter(argTypes[0], "propKey");
+            var desc = System.Linq.Expressions.Expression.Parameter(argTypes[1], "desc");
+            var third = System.Linq.Expressions.Expression.Parameter(typeof(object), "third"); //needs to be object to avoid casting later
 
-            var create = Expression.New(ctorInfo, key, desc,
-                Expression.Convert(third, argTypes[2]));
+            var create = System.Linq.Expressions.Expression.New(ctorInfo, key, desc,
+                System.Linq.Expressions.Expression.Convert(third, argTypes[2]));
 
-            return Expression.Lambda<Func<PropertyKey, ShellPropertyDescription, object, IShellProperty>>(
+            return System.Linq.Expressions.Expression.Lambda<Func<PropertyKey, ShellPropertyDescription, object, IShellProperty>>(
                 create, key, desc, third).Compile();
         }
 

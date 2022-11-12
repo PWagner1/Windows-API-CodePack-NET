@@ -1,4 +1,7 @@
-﻿namespace Microsoft.WindowsAPICodePack.Shell
+﻿using Brushes = System.Drawing.Brushes;
+using Color = System.Drawing.Color;
+
+namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
     /// Windows Glass Form

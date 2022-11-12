@@ -610,6 +610,15 @@ namespace Microsoft.WindowsAPICodePack.Shell.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Reference path is invalid..
+        /// </summary>
+        internal static string InvalidReferencePath {
+            get {
+                return ResourceManager.GetString("InvalidReferencePath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IsExpandedMode cannot be changed while dialog is showing..
         /// </summary>
         internal static string IsExpandedModeCannotBeChanged {

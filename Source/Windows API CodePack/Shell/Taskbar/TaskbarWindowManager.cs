@@ -1,5 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
+using Size = System.Drawing.Size;
+
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
     internal static class TaskbarWindowManager

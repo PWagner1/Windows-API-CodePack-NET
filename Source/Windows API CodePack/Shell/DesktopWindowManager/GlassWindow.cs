@@ -1,4 +1,8 @@
-﻿namespace Microsoft.WindowsAPICodePack.Shell
+﻿using Brushes = System.Windows.Media.Brushes;
+using Point = System.Windows.Point;
+using Size = System.Windows.Size;
+
+namespace Microsoft.WindowsAPICodePack.Shell
 {
 
     /// <summary>

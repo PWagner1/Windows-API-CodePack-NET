@@ -1,6 +1,10 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 using System.Drawing.Drawing2D;
+using Application = System.Windows.Forms.Application;
+using Brushes = System.Drawing.Brushes;
+using Color = System.Drawing.Color;
+using LinearGradientBrush = System.Drawing.Drawing2D.LinearGradientBrush;
 
 namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
 {

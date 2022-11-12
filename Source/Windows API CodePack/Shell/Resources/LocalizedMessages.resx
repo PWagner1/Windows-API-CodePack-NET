@@ -513,4 +513,7 @@
   <data name="ShellObjectWatcherUnableToChangeEvents" xml:space="preserve">
     <value>Unable to change watched events while listening.</value>
   </data>
+  <data name="InvalidReferencePath" xml:space="preserve">
+    <value>Reference path is invalid.</value>
+  </data>
 </root>
