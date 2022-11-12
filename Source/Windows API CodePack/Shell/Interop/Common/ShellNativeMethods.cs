@@ -58,7 +58,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// IPropertyStoreFactory::GetPropertyStore.
         /// </summary>
         [Flags]
-        internal enum GetPropertyStoreOptions
+        public enum GetPropertyStoreOptions
         {
             /// <summary>
             /// Meaning to a calling process: Return a read-only property store that contains all 

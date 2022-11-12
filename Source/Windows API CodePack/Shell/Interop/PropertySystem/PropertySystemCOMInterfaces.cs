@@ -70,7 +70,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
     [ComImport]
     [Guid(ShellIIDGuid.IPropertyStore)]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    interface IPropertyStore
+    public interface IPropertyStore
     {
         /// <summary>
         /// Gets the number of properties contained in the property store.
