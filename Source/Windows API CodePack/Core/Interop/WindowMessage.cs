@@ -1,6 +1,6 @@
 ﻿namespace MS.WindowsAPICodePack.Internal
 {
-    internal enum WindowMessage
+    public enum WindowMessage
     {
         Null = 0x00,
         Create = 0x01,

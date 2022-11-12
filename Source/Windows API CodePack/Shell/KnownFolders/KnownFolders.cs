@@ -1,11 +1,5 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Runtime.InteropServices;
-using MS.WindowsAPICodePack.Internal;
-
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>

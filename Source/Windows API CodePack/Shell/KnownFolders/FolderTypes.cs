@@ -1,9 +1,5 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-using System;
-using System.Collections.Generic;
-using Microsoft.WindowsAPICodePack.Shell.Resources;
-
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>

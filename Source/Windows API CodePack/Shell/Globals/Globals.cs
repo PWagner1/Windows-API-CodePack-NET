@@ -32,6 +32,8 @@ global using System.Windows;
 global using System.Windows.Interop;
 global using System.Windows.Markup;
 global using System.Windows.Media;
+global using System.Windows.Media.Imaging;
 global using System.Windows.Threading;
+global using Microsoft.WindowsAPICodePack.Shell.Interop;
 global using Microsoft.WindowsAPICodePack.Dialogs.Controls;
 global using Microsoft.WindowsAPICodePack.Shell;

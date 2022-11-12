@@ -1,9 +1,5 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 
-using System;
-using System.Runtime.InteropServices;
-using System.Windows.Media.Imaging;
-
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>

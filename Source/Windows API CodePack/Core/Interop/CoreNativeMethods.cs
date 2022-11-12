@@ -6,7 +6,7 @@ namespace MS.WindowsAPICodePack.Internal
     /// Wrappers for Native Methods and Structs.
     /// This type is intended for internal use only
     /// </summary>    
-    internal static class CoreNativeMethods
+    public static class CoreNativeMethods
     {
         #region General Definitions
 
@@ -167,7 +167,7 @@ namespace MS.WindowsAPICodePack.Internal
         /// <returns>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call GetLastError. </returns>
         [DllImport("user32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool DestroyIcon(IntPtr hIcon);
+        public static extern bool DestroyIcon(IntPtr hIcon);
 
         #endregion
 
