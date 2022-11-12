@@ -37,7 +37,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
     }
 
     [Flags]
-    internal enum WindowStyles
+    public enum WindowStyles
     {
         /// <summary>
         /// The window has a thin-line border.

@@ -2,14 +2,14 @@
 
 namespace Microsoft.WindowsAPICodePack.Shell
 {
-    internal static class ShellObjectFactory
+    public static class ShellObjectFactory
     {
         /// <summary>
         /// Creates a ShellObject given a native IShellItem interface
         /// </summary>
         /// <param name="nativeShellItem"></param>
         /// <returns>A newly constructed ShellObject object</returns>
-        internal static ShellObject Create(IShellItem nativeShellItem)
+        public static ShellObject Create(IShellItem nativeShellItem)
         {
             // Sanity check
             Debug.Assert(nativeShellItem != null, "nativeShellItem should not be null");

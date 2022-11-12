@@ -2,7 +2,7 @@
 
 namespace Microsoft.WindowsAPICodePack.Shell
 {
-    internal static class ShellNativeMethods
+    public static class ShellNativeMethods
     {
         #region Shell Enums
 
@@ -38,7 +38,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
             Enable = 0x00000001,
             Visible = 0x00000002
         }
-        internal enum ShellItemDesignNameOptions
+
+        public enum ShellItemDesignNameOptions
         {
             Normal = 0x00000000,           // SIGDN_NORMAL
             ParentRelativeParsing = unchecked((int)0x80018001),   // SIGDN_INFOLDER | SIGDN_FORPARSING
@@ -242,7 +243,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         }
 
         [Flags]
-        internal enum ShellFileGetAttributesOptions
+        public enum ShellFileGetAttributesOptions
         {
             /// <summary>
             /// The specified items can be copied.
