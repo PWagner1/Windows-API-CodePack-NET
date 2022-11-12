@@ -1,9 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
-using System;
-using System.Windows;
-using System.Windows.Forms;
-using MS.WindowsAPICodePack.Internal;
+using Message = System.Windows.Forms.Message;
 
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {

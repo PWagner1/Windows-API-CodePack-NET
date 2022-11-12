@@ -1,10 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-using System;
-using System.Runtime.InteropServices;
-using Microsoft.WindowsAPICodePack.Shell;
-using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
-using MS.WindowsAPICodePack.Internal;
+using SystemProperties = Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties;
 
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {

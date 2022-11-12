@@ -1,14 +1,5 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-using System;
-using System.Drawing;
-using System.IO;
-using System.Windows;
-using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using Microsoft.WindowsAPICodePack.Shell;
-
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
     /// <summary>

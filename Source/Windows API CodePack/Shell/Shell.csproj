@@ -10,12 +10,14 @@
 		<RootNamespace>Microsoft.WindowsAPICodePack.Shell</RootNamespace>
 		<AssemblyName>Microsoft.WindowsAPICodePack.Shell</AssemblyName>
 		<LangVersion>latest</LangVersion>
+		<LibraryVersion>7.0.0</LibraryVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
 	<Nullable>enable</Nullable>
 	<UseWPF>true</UseWPF>
 	<Title>Microsoft.WindowsAPICodePack.Shell</Title>
+		<PackageVersion>7.0.0</PackageVersion>
 	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 	<PackageIcon>Windows.png</PackageIcon>
 	<PackageReadmeFile>License.md</PackageReadmeFile>

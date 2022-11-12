@@ -1,4 +1,6 @@
-﻿namespace Microsoft.WindowsAPICodePack.Shell
+﻿using Message = Microsoft.WindowsAPICodePack.Shell.Interop.Message;
+
+namespace Microsoft.WindowsAPICodePack.Shell
 {
     internal class MessageListener : IDisposable
     {

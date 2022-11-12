@@ -1,9 +1,5 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
-using System;
-using System.Windows;
-using Microsoft.WindowsAPICodePack.Shell.Resources;
-
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
     internal class TaskbarWindow : IDisposable

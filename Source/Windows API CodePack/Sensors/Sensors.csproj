@@ -8,8 +8,8 @@
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<RootNamespace>Microsoft.WindowsAPICodePack.Net.Sensors</RootNamespace>
-		<AssemblyName>Microsoft.WindowsAPICodePack.Net.Sensors</AssemblyName>
+		<RootNamespace>Microsoft.WindowsAPICodePack.Sensors</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.Sensors</AssemblyName>
 		<UseWindowsForms>True</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -21,7 +21,7 @@
 	<PropertyGroup>
 		<PackageIcon>Windows.png</PackageIcon>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>Microsoft.WindowsAPICodePack.Net.Sensors</Title>
+		<Title>Microsoft.WindowsAPICodePack.Sensors</Title>
 		<PackageVersion>7.0.0</PackageVersion>
 
 		<Description>

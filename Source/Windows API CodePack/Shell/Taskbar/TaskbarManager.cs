@@ -1,11 +1,5 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-using System;
-using System.Diagnostics;
-using System.Windows.Interop;
-using MS.WindowsAPICodePack.Internal;
-using Microsoft.WindowsAPICodePack.Shell.Resources;
-
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
     /// <summary>

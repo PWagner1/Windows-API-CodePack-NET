@@ -1,5 +1,7 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
+using ThumbnailAlphaType = Microsoft.WindowsAPICodePack.Taskbar.ThumbnailAlphaType;
+
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     internal enum SICHINTF

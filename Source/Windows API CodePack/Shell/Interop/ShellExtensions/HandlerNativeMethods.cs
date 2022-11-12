@@ -1,4 +1,6 @@
-﻿namespace Microsoft.WindowsAPICodePack.Shell.Interop
+﻿using Color = System.Drawing.Color;
+
+namespace Microsoft.WindowsAPICodePack.Shell.Interop
 {
     internal static class HandlerNativeMethods
     {
