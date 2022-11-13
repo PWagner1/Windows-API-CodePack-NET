@@ -7,8 +7,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<RootNamespace>WindowsAPICodePackShell</RootNamespace>
-		<AssemblyName>WindowsAPICodePackShell</AssemblyName>
+		<RootNamespace>Microsoft.WindowsAPICodePack.Shell</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.Shell</AssemblyName>
 		<LangVersion>latest</LangVersion>
 		<LibraryVersion>7.0.0</LibraryVersion>
 	</PropertyGroup>
@@ -26,6 +26,8 @@
 	<RepositoryType>git</RepositoryType>
 	<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 	<PackageLicenseFile>License.md</PackageLicenseFile>
+	<PackageId>$(Title)</PackageId>
+	<Authors>$(Authors)</Authors>
   </PropertyGroup>
 
 	<ItemGroup>

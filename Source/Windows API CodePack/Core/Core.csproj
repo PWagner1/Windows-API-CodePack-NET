@@ -8,8 +8,8 @@
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<RootNamespace>WindowsAPICodePackCore</RootNamespace>
-		<AssemblyName>WindowsAPICodePackCore</AssemblyName>
+		<RootNamespace>Microsoft.WindowsAPICodePack.Core</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.Core</AssemblyName>
 		<UseWindowsForms>True</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -37,6 +37,8 @@
 		<RepositoryUrl>git</RepositoryUrl>
 
 		<Authors>$(Title)</Authors>
+
+		<PackageId>$(Title)</PackageId>
 	</PropertyGroup>
 
 	<ItemGroup>

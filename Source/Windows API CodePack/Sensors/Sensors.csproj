@@ -8,8 +8,8 @@
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<RootNamespace>WindowsAPICodePackSensors</RootNamespace>
-		<AssemblyName>WindowsAPICodePackSensors</AssemblyName>
+		<RootNamespace>Microsoft.WindowsAPICodePack.Sensors</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.Sensors</AssemblyName>
 		<UseWindowsForms>True</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -36,6 +36,8 @@
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 
 		<PackageLicenseFile>License.md</PackageLicenseFile>
+
+		<PackageId>$(Title)</PackageId>
 	</PropertyGroup>
 
 	<ItemGroup>

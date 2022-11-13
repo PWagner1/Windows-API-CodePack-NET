@@ -8,8 +8,8 @@
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<RootNamespace>WindowsAPICodePackExtendedLinguisticServices</RootNamespace>
-		<AssemblyName>WindowsAPICodePackExtendedLinguisticServices</AssemblyName>
+		<RootNamespace>Microsoft.WindowsAPICodePack.ExtendedLinguisticServices</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.ExtendedLinguisticServices</AssemblyName>
 		<UseWindowsForms>True</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -38,6 +38,8 @@
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 
 		<Authors>$(Title)</Authors>
+
+		<PackageId>$(Title)</PackageId>
 	</PropertyGroup>
 
 	<ItemGroup>

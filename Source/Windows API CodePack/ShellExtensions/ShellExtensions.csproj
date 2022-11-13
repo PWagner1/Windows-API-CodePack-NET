@@ -7,8 +7,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<RootNamespace>WindowsAPICodePackShellExtensions</RootNamespace>
-		<AssemblyName>WindowsAPICodePackShellExtensions</AssemblyName>
+		<RootNamespace>Microsoft.WindowsAPICodePack.ShellExtensions</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.ShellExtensions</AssemblyName>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
@@ -23,6 +23,7 @@
 		<PackageLicenseFile>License.md</PackageLicenseFile>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 		<Authors>$(Title)</Authors>
+		<PackageId>$(Title)</PackageId>
 	</PropertyGroup>
 
 	<ItemGroup>
