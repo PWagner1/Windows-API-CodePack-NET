@@ -3,7 +3,7 @@ namespace Microsoft.WindowsAPICodePack.Shell;
 [ComImport,
  Guid(ShellIIDGuid.IEnumIDList),
  InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-internal interface IEnumIDList
+public interface IEnumIDList
 {
     [PreserveSig]
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

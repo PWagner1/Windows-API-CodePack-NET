@@ -1,4 +1,4 @@
-﻿global using Microsoft.WindowsAPICodePack.ShellExtensions.Resources;
+﻿global using WindowsAPICodePackShellExtensions.Resources;
 global using Microsoft.WindowsAPICodePack.Shell;
 global using Microsoft.Win32;
 global using Microsoft.WindowsAPICodePack.Shell.Interop;

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Microsoft.WindowsAPICodePack.ShellExtensions.Resources {
+namespace WindowsAPICodePackShellExtensions.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Microsoft.WindowsAPICodePack.ShellExtensions.Resources.LocalizedMessages", typeof(LocalizedMessages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("WindowsAPICodePackShellExtensions.Resources.LocalizedMessages", typeof(LocalizedMessages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

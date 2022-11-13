@@ -7,26 +7,22 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<RootNamespace>Microsoft.WindowsAPICodePack.ShellExtensions</RootNamespace>
-		<AssemblyName>Microsoft.WindowsAPICodePack.ShellExtensions</AssemblyName>
+		<RootNamespace>WindowsAPICodePackShellExtensions</RootNamespace>
+		<AssemblyName>WindowsAPICodePackShellExtensions</AssemblyName>
 		<LangVersion>latest</LangVersion>
-		<LibraryVersion>7.0.0</LibraryVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
-		<Title>Microsoft.WindowsAPICodePack.ShellExtensions</Title>
-		<PackageVersion>7.0.0</PackageVersion>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<PackageIcon>Windows.png</PackageIcon>
-		<PackageReadmeFile>License.md</PackageReadmeFile>
-		<RepositoryType>git</RepositoryType>
+		<Title>WindowsAPICodePackShellExtensions</Title>
 		<Description>
 			This package contains extensions to the shell binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
-
-			Modified to use .NET Frameworks 4.6.2 - 4.8.1, .NET Core 3.1 or .NET 5 - 7.
 		</Description>
+		<PackageIcon>Windows.png</PackageIcon>
+		<PackageLicenseFile>License.md</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<Authors>$(Title)</Authors>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -59,15 +55,13 @@
 	  </EmbeddedResource>
 	</ItemGroup>
 
-  <ItemGroup>
-	<None Update="Content\Windows.png">
-	  <PackagePath>\</PackagePath>
-	  <Pack>True</Pack>
-	</None>
-	<None Update="Licenses\License.md">
-	  <PackagePath>\</PackagePath>
-	  <Pack>True</Pack>
-	</None>
-  </ItemGroup>
+	<ItemGroup>
+	  <None Update="../../../Assets/Documents/Licenses/License.md">
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Update="../../../Assets/Icon/PNG/Windows.png">
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 </Project>

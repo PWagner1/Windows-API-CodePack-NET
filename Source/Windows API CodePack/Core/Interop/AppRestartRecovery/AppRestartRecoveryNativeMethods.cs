@@ -2,7 +2,7 @@
 
 namespace Microsoft.WindowsAPICodePack.ApplicationServices
 {
-    internal static class AppRestartRecoveryNativeMethods
+    public static class AppRestartRecoveryNativeMethods
     {
         #region Application Restart and Recovery Definitions
 

@@ -3,7 +3,7 @@ global using Microsoft.WindowsAPICodePack.Dialogs.Controls;
 global using Microsoft.WindowsAPICodePack.Shell;
 global using Microsoft.WindowsAPICodePack.Shell.Interop;
 global using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
-global using Microsoft.WindowsAPICodePack.Shell.Resources;
+global using WindowsAPICodePackShell.Resources;
 global using Microsoft.WindowsAPICodePack.Taskbar;
 global using Microsoft.WindowsAPICodePack.Controls.WindowsForms;
 

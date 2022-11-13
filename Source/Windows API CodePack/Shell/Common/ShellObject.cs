@@ -5,7 +5,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
     /// <summary>
     /// The base class for all Shell objects in Shell Namespace.
     /// </summary>
-    abstract public class ShellObject : IDisposable, IEquatable<ShellObject>
+    public abstract class ShellObject : IDisposable, IEquatable<ShellObject>
     {
 
         #region Public Static Methods

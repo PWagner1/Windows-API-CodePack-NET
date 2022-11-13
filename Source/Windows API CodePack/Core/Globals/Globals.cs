@@ -20,6 +20,6 @@ global using System.Net;
 global using System.Linq;
 global using System.Linq.Expressions;
 
-global using Microsoft.WindowsAPICodePack.Core.Resources;
+global using WindowsAPICodePackCore.Resources;
 global using MS.WindowsAPICodePack.Internal;
 global using Microsoft.WindowsAPICodePack.Shell.PropertySystem;

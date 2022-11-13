@@ -442,7 +442,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         }
 
         [Flags]
-        internal enum ShellFolderEnumerationOptions : ushort
+        public enum ShellFolderEnumerationOptions : ushort
         {
             CheckingForChildren = 0x0010,
             Folders = 0x0020,

@@ -1,0 +1,23 @@
+<Project>
+	<PropertyGroup>
+		<AssemblyVersion>7.0.0</AssemblyVersion>
+
+		<PackageVersion>7.0.0</PackageVersion>
+
+		<FileVersion>7.0.0</FileVersion>
+
+		<LangVersion>preview</LangVersion>
+
+		<AnalysLevel>preview</AnalysLevel>
+
+		<Description>
+			$(Description) 
+
+			Modified to use .NET Frameworks 4.6.2 - 4.8.1, .NET Core 3.1 or .NET 5 - 7.
+		</Description>
+
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		
+		<NeutralLanguage>en</NeutralLanguage>
+	</PropertyGroup>
+</Project>

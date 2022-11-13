@@ -7,8 +7,8 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<RootNamespace>Microsoft.WindowsAPICodePack.Shell</RootNamespace>
-		<AssemblyName>Microsoft.WindowsAPICodePack.Shell</AssemblyName>
+		<RootNamespace>WindowsAPICodePackShell</RootNamespace>
+		<AssemblyName>WindowsAPICodePackShell</AssemblyName>
 		<LangVersion>latest</LangVersion>
 		<LibraryVersion>7.0.0</LibraryVersion>
 	</PropertyGroup>
@@ -16,15 +16,16 @@
 	<PropertyGroup>
 	<Nullable>enable</Nullable>
 	<UseWPF>true</UseWPF>
-	<Title>Microsoft.WindowsAPICodePack.Shell</Title>
+	<Title>WindowsAPICodePackShell</Title>
 		<PackageVersion>7.0.0</PackageVersion>
-	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<Description>
+		This package contains the shell binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
+    </Description>
+	<PackageProjectUrl>https://github.com/Wagnerp/Windows-API-CodePack-NET</PackageProjectUrl>
 	<PackageIcon>Windows.png</PackageIcon>
-	<PackageReadmeFile>License.md</PackageReadmeFile>
 	<RepositoryType>git</RepositoryType>
-	<Description>This package contains the shell binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
-
-Modified to use .NET Frameworks 4.6.2 - 4.8.1, .NET Core 3.1 or .NET 5 - 7.</Description>
+	<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+	<PackageLicenseFile>License.md</PackageLicenseFile>
   </PropertyGroup>
 
 	<ItemGroup>
@@ -42,6 +43,11 @@ Modified to use .NET Frameworks 4.6.2 - 4.8.1, .NET Core 3.1 or .NET 5 - 7.</Des
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
 	  <Compile Update="Resources\LocalizedMessages.Designer.cs">
 	    <DesignTime>True</DesignTime>
 	    <AutoGen>True</AutoGen>
@@ -50,21 +56,23 @@ Modified to use .NET Frameworks 4.6.2 - 4.8.1, .NET Core 3.1 or .NET 5 - 7.</Des
 	</ItemGroup>
 
 	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
 	  <EmbeddedResource Update="Resources\LocalizedMessages.resx">
 	    <Generator>ResXFileCodeGenerator</Generator>
 	    <LastGenOutput>LocalizedMessages.Designer.cs</LastGenOutput>
 	  </EmbeddedResource>
 	</ItemGroup>
 
-  <ItemGroup>
-	<None Update="Content\Windows.png">
-	  <Pack>True</Pack>
-	  <PackagePath>\</PackagePath>
-	</None>
-	<None Update="Licenses\License.md">
-	  <Pack>True</Pack>
-	  <PackagePath>\</PackagePath>
-	</None>
-  </ItemGroup>
+	<ItemGroup>
+	  <None Update="../../../Assets/Documents/Licenses/License.md">
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Update="../../../Assets/Icon/PNG/Windows.png">
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
 
 </Project>
