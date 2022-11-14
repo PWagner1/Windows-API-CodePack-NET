@@ -65,7 +65,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         // IObjectCollection
         void AddObject(
-            [MarshalAs(UnmanagedType.Interface)] object pvObject);
+            [MarshalAs(UnmanagedType.Interface)] object? pvObject);
         void AddFromArray(
             [MarshalAs(UnmanagedType.Interface)] IObjectArray poaSource);
         void RemoveObject(uint uiIndex);

@@ -7,7 +7,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         #region Private Fields
 
         private IEnumIDList nativeEnumIdList;
-        private ShellObject currentItem;
+        private ShellObject? currentItem;
         ShellContainer nativeShellFolder;
 
         #endregion
@@ -43,7 +43,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         #region IEnumerator<ShellObject> Members
 
-        public ShellObject Current
+        public ShellObject? Current
         {
             get
             {
@@ -68,7 +68,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         #region IEnumerator Members
 
-        object IEnumerator.Current
+        object? IEnumerator.Current
         {
             get { return currentItem; }
 

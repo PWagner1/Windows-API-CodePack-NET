@@ -15,7 +15,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             CoreHelpers.ThrowIfNotWin7();
         }
 
-        internal ShellSearchConnector(IShellItem2 shellItem)
+        internal ShellSearchConnector(IShellItem2? shellItem)
             : this()
         {            
             nativeShellItem = shellItem;

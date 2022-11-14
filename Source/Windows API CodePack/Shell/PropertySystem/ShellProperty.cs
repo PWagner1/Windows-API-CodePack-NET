@@ -23,7 +23,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
         #region Private Methods
 
-        private ShellObject ParentShellObject { get; set; }
+        private ShellObject? ParentShellObject { get; set; }
 
         private IPropertyStore NativePropertyStore { get; set; }
 
@@ -116,7 +116,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         internal ShellProperty(
             PropertyKey propertyKey,
             ShellPropertyDescription description,
-            ShellObject parent)
+            ShellObject? parent)
         {
             this.propertyKey = propertyKey;
             this.description = description;

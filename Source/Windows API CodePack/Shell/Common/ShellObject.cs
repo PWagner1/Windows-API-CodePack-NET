@@ -16,7 +16,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="parsingName">The parsing name of the object.</param>
         /// <returns>A newly constructed ShellObject object.</returns>
-        public static ShellObject FromParsingName(string? parsingName)
+        public static ShellObject? FromParsingName(string? parsingName)
         {
             return ShellObjectFactory.Create(parsingName);
         }
@@ -40,7 +40,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Internal member to keep track of the native IShellItem2
         /// </summary>
-        internal IShellItem2 nativeShellItem;
+        // ReSharper disable once InconsistentNaming
+        internal IShellItem2? nativeShellItem;
 
         #endregion
 
@@ -50,7 +51,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
         }
 
-        internal ShellObject(IShellItem2 shellItem)
+        internal ShellObject(IShellItem2? shellItem)
         {
             nativeShellItem = shellItem;
         }
@@ -84,7 +85,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <exception cref="System.Runtime.InteropServices.ExternalException">If the native object cannot be created.
         /// The ErrorCode member will contain the external error code.</exception>
-        virtual internal IShellItem2 NativeShellItem2
+        virtual internal IShellItem2? NativeShellItem2
         {
             get
             {
@@ -105,7 +106,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Return the native ShellFolder object
         /// </summary>
-        virtual internal IShellItem NativeShellItem
+        virtual internal IShellItem? NativeShellItem
         {
             get { return NativeShellItem2; }
         }
@@ -330,18 +331,18 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
         }
 
-        private ShellObject parentShellObject;
+        private ShellObject? parentShellObject;
         /// <summary>
         /// Gets the parent ShellObject.
         /// Returns null if the object has no parent, i.e. if this object is the Desktop folder.
         /// </summary>
-        public ShellObject Parent
+        public ShellObject? Parent
         {
             get
             {
                 if (parentShellObject == null && NativeShellItem2 != null)
                 {
-                    IShellItem parentShellItem;
+                    IShellItem? parentShellItem;
                     HResult hr = NativeShellItem2.GetParent(out parentShellItem);
 
                     if (hr == HResult.Ok && parentShellItem != null)
@@ -466,8 +467,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             if (other != null)
             {
-                IShellItem ifirst = NativeShellItem;
-                IShellItem isecond = other.NativeShellItem;
+                IShellItem? ifirst = NativeShellItem;
+                IShellItem? isecond = other.NativeShellItem;
                 if (ifirst != null && isecond != null)
                 {
                     int result = 0;

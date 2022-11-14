@@ -142,7 +142,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="obj">The object to compare</param>
         /// <returns>Returns true if the objects are equal; false otherwise.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null || !(obj is IconReference)) { return false; }
             return (this == (IconReference)obj);

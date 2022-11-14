@@ -26,7 +26,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// </summary>
         /// <param name="canonicalName">Canonical name of the property whose description is required.</param>
         /// <returns>Property Description for a given property key</returns>
-        public static ShellPropertyDescription GetPropertyDescription(string canonicalName)
+        public static ShellPropertyDescription GetPropertyDescription(string? canonicalName)
         {
             PropertyKey propKey;
 

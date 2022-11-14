@@ -18,30 +18,33 @@ namespace Microsoft.WindowsAPICodePack.Sensors
             iReport.GetSensorValues(keyCollection, out valuesCollection);
 
             uint items = 0;
-            keyCollection.GetCount(out items);
-            for (uint index = 0; index < items; index++)
-            {
-                PropertyKey key;
-                using (PropVariant propValue = new PropVariant())
-                {
-                    keyCollection.GetAt(index, out key);
-                    valuesCollection.GetValue(ref key, propValue);
-
-                    if (data.ContainsKey(key.FormatId))
-                    {
-                        data[key.FormatId].Add(propValue.Value);
-                    }
-                    else
-                    {
-                        data.Add(key.FormatId, new List<object> { propValue.Value });
-                    }
-                }
-            }
-
             if (keyCollection != null)
             {
-                Marshal.ReleaseComObject(keyCollection);
-                keyCollection = null;
+                keyCollection.GetCount(out items);
+                for (uint index = 0; index < items; index++)
+                {
+                    PropertyKey key;
+                    using (PropVariant propValue = new PropVariant())
+                    {
+                        keyCollection.GetAt(index, out key);
+                        if (valuesCollection != null) valuesCollection.GetValue(ref key, propValue);
+
+                        if (data.ContainsKey(key.FormatId))
+                        {
+                            data[key.FormatId].Add(propValue.Value);
+                        }
+                        else
+                        {
+                            data.Add(key.FormatId, new List<object> { propValue.Value });
+                        }
+                    }
+                }
+
+                if (keyCollection != null)
+                {
+                    Marshal.ReleaseComObject(keyCollection);
+                    keyCollection = null;
+                }
             }
 
             if (valuesCollection != null)

@@ -28,7 +28,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Creates a new instance of this class with the specified name.
         /// </summary>
         /// <param name="name">Text to display for this control</param>
-        public CommonFileDialogComboBox(string name)
+        public CommonFileDialogComboBox(string? name)
             : base(name, string.Empty)
         {
         }
@@ -108,25 +108,28 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
             Debug.Assert(dialog != null, "CommonFileDialogComboBox.Attach: dialog parameter can not be null");
 
             // Add the combo box control
-            dialog.AddComboBox(Id);
-
-            // Add the combo box items
-            for (int index = 0; index < items.Count; index++)
-                dialog.AddControlItem(Id, index, items[index].Text);
-
-            // Set the currently selected item
-            if (selectedIndex >= 0 && selectedIndex < items.Count)
+            if (dialog != null)
             {
-                dialog.SetSelectedControlItem(Id, selectedIndex);
-            }
-            else if (selectedIndex != -1)
-            {
-                throw new IndexOutOfRangeException(LocalizedMessages.ComboBoxIndexOutsideBounds);
-            }
+                dialog.AddComboBox(Id);
 
-            // Make this control prominent if needed
-            if (IsProminent)
-                dialog.MakeProminent(Id);
+                // Add the combo box items
+                for (int index = 0; index < items.Count; index++)
+                    dialog.AddControlItem(Id, index, items[index].Text);
+
+                // Set the currently selected item
+                if (selectedIndex >= 0 && selectedIndex < items.Count)
+                {
+                    dialog.SetSelectedControlItem(Id, selectedIndex);
+                }
+                else if (selectedIndex != -1)
+                {
+                    throw new IndexOutOfRangeException(LocalizedMessages.ComboBoxIndexOutsideBounds);
+                }
+
+                // Make this control prominent if needed
+                if (IsProminent)
+                    dialog.MakeProminent(Id);
+            }
 
             // Sync additional properties
             SyncUnmanagedProperties();
@@ -139,11 +142,11 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
     /// </summary>
     public class CommonFileDialogComboBoxItem
     {
-        private string text = string.Empty;
+        private string? text = string.Empty;
         /// <summary>
         /// Gets or sets the string that is displayed for this item.
         /// </summary>
-        public string Text
+        public string? Text
         {
             get { return text; }
             set { text = value; }
@@ -160,7 +163,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Creates a new instance of this class with the specified text.
         /// </summary>
         /// <param name="text">The text to use for the combo box item.</param>
-        public CommonFileDialogComboBoxItem(string text)
+        public CommonFileDialogComboBoxItem(string? text)
         {
             this.text = text;
         }

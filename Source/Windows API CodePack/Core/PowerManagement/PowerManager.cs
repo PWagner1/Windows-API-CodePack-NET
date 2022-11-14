@@ -24,13 +24,9 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// <exception cref="System.PlatformNotSupportedException">Requires Vista/Windows Server 2008.</exception>
         public static event EventHandler PowerPersonalityChanged
         {
-            add
-            {
-
-
+            add =>
                 MessageManager.RegisterPowerEvent(
                     EventManager.PowerPersonalityChange, value);
-            }
 
             remove
             {
@@ -346,9 +342,9 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
                     }
                 }
 
-                return (bool)isMonitorOn;
+                return ((bool)isMonitorOn)!;
             }
-            internal set { isMonitorOn = value; }
+            internal set => isMonitorOn = value;
         }
 
         /// <summary>

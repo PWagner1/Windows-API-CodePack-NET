@@ -21,7 +21,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 if (notifyStruct.item1 != IntPtr.Zero &&
                     (((ShellObjectChangeTypes)_event) & ShellObjectChangeTypes.SystemImageUpdate) == ShellObjectChangeTypes.None)
                 {
-                    IShellItem2 nativeShellItem;
+                    IShellItem2? nativeShellItem;
                     if (CoreErrorHelper.Succeeded(ShellNativeMethods.SHCreateItemFromIDList(
                         notifyStruct.item1, ref guid, out nativeShellItem)))
                     {
@@ -40,7 +40,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                 if (notifyStruct.item2 != IntPtr.Zero)
                 {
-                    IShellItem2 nativeShellItem;
+                    IShellItem2? nativeShellItem;
                     if (CoreErrorHelper.Succeeded(ShellNativeMethods.SHCreateItemFromIDList(
                         notifyStruct.item2, ref guid, out nativeShellItem)))
                     {                        

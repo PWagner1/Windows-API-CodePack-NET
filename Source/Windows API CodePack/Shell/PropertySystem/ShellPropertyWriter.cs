@@ -8,12 +8,12 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
     public class ShellPropertyWriter : IDisposable
     {
 
-        private ShellObject parentShellObject;
+        private ShellObject? parentShellObject;
 
         // Reference to our writable PropertyStore
         internal IPropertyStore writablePropStore;
 
-        internal ShellPropertyWriter(ShellObject parent)
+        internal ShellPropertyWriter(ShellObject? parent)
         {
             ParentShellObject = parent;
 
@@ -57,7 +57,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <summary>
         /// Reference to parent ShellObject (associated with this writer)
         /// </summary>
-        protected ShellObject ParentShellObject
+        protected ShellObject? ParentShellObject
         {
             get { return parentShellObject; }
             private set { parentShellObject = value; }
@@ -117,7 +117,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// </summary>
         /// <param name="canonicalName">The canonical name.</param>
         /// <param name="value">The property value.</param>
-        public void WriteProperty(string canonicalName, object value)
+        public void WriteProperty(string? canonicalName, object value)
         {
             WriteProperty(canonicalName, value, true);
         }
@@ -130,7 +130,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <param name="value">The property value.</param>
         /// <param name="allowTruncatedValue">True to allow truncation (default); otherwise False.</param>
         /// <exception cref="System.ArgumentException">If the given canonical name is not valid.</exception>
-        public void WriteProperty(string canonicalName, object value, bool allowTruncatedValue)
+        public void WriteProperty(string? canonicalName, object value, bool allowTruncatedValue)
         {
             // Get the PropertyKey using the canonicalName passed in
             PropertyKey propKey;

@@ -32,8 +32,16 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
             try
             {
                 IntPtr result;
-                _guidToService.TryGetValue(guid, out result);
-                return result;
+                if (_guidToService != null)
+                {
+                    _guidToService.TryGetValue(guid, out result);
+
+                    return result;
+                }
+                else
+                {
+                    return IntPtr.Zero;
+                }
             }
             finally
             {
@@ -87,7 +95,9 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
                 Guid guid = (Guid)Marshal.PtrToStructure(
                     (IntPtr)((UInt64)pServices + InteropTools.OffsetOfGuidInService), InteropTools.TypeOfGuid);
                 IntPtr cachedValue;
+#pragma warning disable CS8602
                 _guidToService.TryGetValue(guid, out cachedValue);
+#pragma warning restore CS8602
                 if (cachedValue == IntPtr.Zero)
                 {
                     _guidToService.Add(guid, pServices);

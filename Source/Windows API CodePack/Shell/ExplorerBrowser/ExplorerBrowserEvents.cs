@@ -11,7 +11,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
         /// <summary>
         /// The location being navigated to
         /// </summary>
-        public ShellObject PendingLocation { get; set; }
+        public ShellObject? PendingLocation { get; set; }
 
         /// <summary>
         /// Set to 'True' to cancel the navigation.
@@ -28,7 +28,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
         /// <summary>
         /// The new location of the explorer browser
         /// </summary>
-        public ShellObject NewLocation { get; set; }
+        public ShellObject? NewLocation { get; set; }
     }
 
     /// <summary>
@@ -39,6 +39,6 @@ namespace Microsoft.WindowsAPICodePack.Controls
         /// <summary>
         /// The location the the browser would have navigated to.
         /// </summary>
-        public ShellObject FailedLocation { get; set; }
+        public ShellObject? FailedLocation { get; set; }
     }
 }

@@ -71,7 +71,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             ShellNativeMethods.SHChangeNotifyEntry entry = new ShellNativeMethods.SHChangeNotifyEntry();
             entry.recursively = _recursive;
 
-            entry.pIdl = _shellObject.PIDL;
+            entry.pIdl = _shellObject.Pidl;
 
             _registrationId = ShellNativeMethods.SHChangeNotifyRegister(
                 _listenerHandle,

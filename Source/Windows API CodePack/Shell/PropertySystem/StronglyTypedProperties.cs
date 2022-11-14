@@ -20,10 +20,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// </summary>
         public class PropertySystem : PropertyStoreItems
         {
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystem(ShellObject parent)
+            internal PropertySystem(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -147,7 +147,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             /// <para>Type:     String -- VT_LPWSTR  (For variants: VT_BSTR)  Legacy code may treat this as VT_LPSTR.</para>
             /// <para>FormatID: (FMTID_SummaryInformation) {F29F85E0-4FF9-1068-AB91-08002B27B3D9}, 6 (PIDSI_COMMENTS)</para>
             /// </summary>
-            public ShellProperty<String> Comment
+            public ShellProperty<string?> Comment
             {
                 get
                 {
@@ -158,7 +158,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                         hashtable.Add(key, shellObjectParent.Properties.CreateTypedProperty<String>(key));
                     }
 
-                    return hashtable[key] as ShellProperty<String>;
+                    return hashtable[key] as ShellProperty<string?>;
                 }
             }
 
@@ -3399,10 +3399,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemAppUserModel(ShellObject parent)
+            internal PropertySystemAppUserModel(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -3569,10 +3569,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemAudio(ShellObject parent)
+            internal PropertySystemAudio(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -3810,10 +3810,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemCalendar(ShellObject parent)
+            internal PropertySystemCalendar(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -4153,10 +4153,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemCommunication(ShellObject parent)
+            internal PropertySystemCommunication(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -4373,10 +4373,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemComputer(ShellObject parent)
+            internal PropertySystemComputer(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -4418,10 +4418,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemContact(ShellObject parent)
+            internal PropertySystemContact(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -5970,10 +5970,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertyContactJA(ShellObject parent)
+            internal PropertyContactJA(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -6059,10 +6059,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemDevice(ShellObject parent)
+            internal PropertySystemDevice(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -6104,10 +6104,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemDeviceInterface(ShellObject parent)
+            internal PropertySystemDeviceInterface(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -6215,10 +6215,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemDevices(ShellObject parent)
+            internal PropertySystemDevices(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -7266,10 +7266,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertyDevicesNotifications(ShellObject parent)
+            internal PropertyDevicesNotifications(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -7421,10 +7421,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemDocument(ShellObject parent)
+            internal PropertySystemDocument(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -7989,10 +7989,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemDRM(ShellObject parent)
+            internal PropertySystemDRM(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -8122,10 +8122,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemGPS(ShellObject parent)
+            internal PropertySystemGPS(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -9303,10 +9303,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemIdentity(ShellObject parent)
+            internal PropertySystemIdentity(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -9480,10 +9480,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemIdentityProvider(ShellObject parent)
+            internal PropertySystemIdentityProvider(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -9547,10 +9547,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemImage(ShellObject parent)
+            internal PropertySystemImage(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -9877,10 +9877,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemJournal(ShellObject parent)
+            internal PropertySystemJournal(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -9942,10 +9942,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemLayoutPattern(ShellObject parent)
+            internal PropertySystemLayoutPattern(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -10011,10 +10011,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemLink(ShellObject parent)
+            internal PropertySystemLink(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -10027,7 +10027,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             /// <para>Type:     String -- VT_LPWSTR  (For variants: VT_BSTR)</para>
             /// <para>FormatID: {436F2667-14E2-4FEB-B30A-146C53B5B674}, 100</para>
             /// </summary>
-            public ShellProperty<String> Arguments
+            public ShellProperty<string?> Arguments
             {
                 get
                 {
@@ -10038,7 +10038,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                         hashtable.Add(key, shellObjectParent.Properties.CreateTypedProperty<String>(key));
                     }
 
-                    return hashtable[key] as ShellProperty<String>;
+                    return hashtable[key] as ShellProperty<string?>;
                 }
             }
 
@@ -10256,10 +10256,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemMedia(ShellObject parent)
+            internal PropertySystemMedia(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -10980,10 +10980,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemMessage(ShellObject parent)
+            internal PropertySystemMessage(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -11525,10 +11525,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemMusic(ShellObject parent)
+            internal PropertySystemMusic(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -11945,10 +11945,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemNote(ShellObject parent)
+            internal PropertySystemNote(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -12012,10 +12012,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemPhoto(ShellObject parent)
+            internal PropertySystemPhoto(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -13921,10 +13921,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemPropGroup(ShellObject parent)
+            internal PropertySystemPropGroup(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -14343,10 +14343,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemPropList(ShellObject parent)
+            internal PropertySystemPropList(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -14664,10 +14664,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemRecordedTV(ShellObject parent)
+            internal PropertySystemRecordedTV(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -15027,10 +15027,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemSearch(ShellObject parent)
+            internal PropertySystemSearch(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -15382,10 +15382,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemShell(ShellObject parent)
+            internal PropertySystemShell(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -15449,10 +15449,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemSoftware(ShellObject parent)
+            internal PropertySystemSoftware(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -15516,10 +15516,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemSync(ShellObject parent)
+            internal PropertySystemSync(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -15837,10 +15837,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemTask(ShellObject parent)
+            internal PropertySystemTask(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -15923,10 +15923,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemVideo(ShellObject parent)
+            internal PropertySystemVideo(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }
@@ -16255,10 +16255,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
 
 
-            private ShellObject shellObjectParent;
+            private ShellObject? shellObjectParent;
             private Hashtable hashtable = new Hashtable();
 
-            internal PropertySystemVolume(ShellObject parent)
+            internal PropertySystemVolume(ShellObject? parent)
             {
                 shellObjectParent = parent;
             }

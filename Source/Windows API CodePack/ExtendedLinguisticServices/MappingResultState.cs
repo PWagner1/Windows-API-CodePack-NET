@@ -55,13 +55,14 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         /// <param name="obj">Object to compare.</param>
         /// <returns>True if obj is equal to this instance, false otherwise.</returns>
-        public override bool Equals(Object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null)
             {
                 return false;
             }
 
+            // ReSharper disable once ReferenceEqualsWithValueType
             if (ReferenceEquals(obj, this))
             {
                 return true;

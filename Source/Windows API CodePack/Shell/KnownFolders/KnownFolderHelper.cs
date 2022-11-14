@@ -70,7 +70,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             Debug.Assert(knownFolderNative != null, "Native IKnownFolder should not be null.");
 
             // Get the native IShellItem2 from the native IKnownFolder
-            IShellItem2 shellItem;
+            IShellItem2? shellItem;
             Guid guid = new Guid(ShellIIDGuid.IShellItem2);
             HResult hr = knownFolderNative.GetShellItem(0, ref guid, out shellItem);
 

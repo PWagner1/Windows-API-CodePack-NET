@@ -49,7 +49,7 @@ internal interface ICondition : IPersistStream
     // Any one of ppszPropertyName, pcop and ppropvar may be NULL.
     [PreserveSig]
     HResult GetComparisonInfo(
-        [Out, MarshalAs(UnmanagedType.LPWStr)] out string ppszPropertyName,
+        [Out, MarshalAs(UnmanagedType.LPWStr)] out string? ppszPropertyName,
         [Out] out SearchConditionOperation pcop,
         [Out] PropVariant ppropvar);
 

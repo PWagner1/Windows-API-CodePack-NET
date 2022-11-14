@@ -54,7 +54,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
 
         private StorageStream _stream = null;
         private FileInfo _info = null;
-        private ShellObject _shellObject = null;
+        private ShellObject? _shellObject = null;
 
         #region IThumbnailProvider Members
 
@@ -257,7 +257,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
 
         #region IInitializeWithItem Members
 
-        void IInitializeWithItem.Initialize(IShellItem shellItem, AccessModes accessMode)
+        void IInitializeWithItem.Initialize(IShellItem? shellItem, AccessModes accessMode)
         {
             _shellObject = ShellObjectFactory.Create(shellItem);
         }

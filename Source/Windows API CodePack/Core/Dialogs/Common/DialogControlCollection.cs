@@ -46,7 +46,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             base.InsertItem(index, control);
 
             // Notify that we've added a control.
-            hostingDialog.ApplyCollectionChanged();
+            if (hostingDialog != null) hostingDialog.ApplyCollectionChanged();
         }
 
         /// <summary>

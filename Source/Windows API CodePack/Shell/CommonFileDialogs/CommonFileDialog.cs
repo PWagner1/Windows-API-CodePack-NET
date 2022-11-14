@@ -22,7 +22,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             }
         }
         private Collection<string> _filenames;
-        internal readonly Collection<IShellItem> Items;
+        internal readonly Collection<IShellItem?> Items;
         internal DialogShowState ShowState = DialogShowState.PreShow;
 
         private IFileDialog? _nativeDialog;
@@ -48,7 +48,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
             _filenames = new Collection<string>();
             _filters = new CommonFileDialogFilterCollection();
-            Items = new Collection<IShellItem>();
+            Items = new Collection<IShellItem?>();
             _controls = new CommonFileDialogControlCollection<CommonFileDialogControl>(this);
         }
 
@@ -69,7 +69,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         internal abstract void InitializeNativeFileDialog();
         internal abstract IFileDialog? GetNativeFileDialog();
         internal abstract void PopulateWithFileNames(Collection<string> names);
-        internal abstract void PopulateWithIShellItems(Collection<IShellItem> shellItems);
+        internal abstract void PopulateWithIShellItems(Collection<IShellItem?> shellItems);
         internal abstract void CleanUpNativeFileDialog();
         internal abstract ShellNativeMethods.FileOpenOptions GetDerivedOptionFlags(ShellNativeMethods.FileOpenOptions flags);
 
@@ -106,19 +106,13 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <summary>
         /// Gets the collection of controls for the dialog.
         /// </summary>
-        public CommonFileDialogControlCollection<CommonFileDialogControl> Controls
-        {
-            get { return _controls; }
-        }
+        public CommonFileDialogControlCollection<CommonFileDialogControl> Controls => _controls;
 
         private CommonFileDialogFilterCollection _filters;
         /// <summary>
         /// Gets the filters used by the dialog.
         /// </summary>
-        public CommonFileDialogFilterCollection Filters
-        {
-            get { return _filters; }
-        }
+        public CommonFileDialogFilterCollection Filters => _filters;
 
         private string? _title;
         /// <summary>
@@ -127,11 +121,14 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <value>A <see cref="System.String"/> object.</value>
         public string? Title
         {
-            get { return _title; }
+            get => _title;
             set
             {
                 _title = value;
-                if (NativeDialogShowing) { _nativeDialog.SetTitle(value); }
+                if (NativeDialogShowing)
+                {
+                    if (_nativeDialog != null) _nativeDialog.SetTitle(value);
+                }
             }
         }
 
@@ -147,7 +144,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <exception cref="System.InvalidOperationException">This property cannot be set when the dialog is visible.</exception>
         public bool EnsureFileExists
         {
-            get { return _ensureFileExists; }
+            get => _ensureFileExists;
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.EnsureFileExistsCannotBeChanged);
@@ -163,7 +160,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <exception cref="System.InvalidOperationException">This property cannot be set when the dialog is visible.</exception>
         public bool EnsurePathExists
         {
-            get { return _ensurePathExists; }
+            get => _ensurePathExists;
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.EnsurePathExistsCannotBeChanged);
@@ -179,7 +176,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// 
         public bool EnsureValidNames
         {
-            get { return _ensureValidNames; }
+            get => _ensureValidNames;
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.EnsureValidNamesCannotBeChanged);
@@ -197,7 +194,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <exception cref="System.InvalidOperationException">This property cannot be set when the dialog is visible.</exception>
         public bool EnsureReadOnly
         {
-            get { return _ensureReadOnly; }
+            get => _ensureReadOnly;
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.EnsureReadonlyCannotBeChanged);
@@ -213,7 +210,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <exception cref="System.InvalidOperationException">This property cannot be set when the dialog is visible.</exception>
         public bool RestoreDirectory
         {
-            get { return _restoreDirectory; }
+            get => _restoreDirectory;
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.RestoreDirectoryCannotBeChanged);
@@ -232,7 +229,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         public bool ShowPlacesList
         {
 
-            get { return _showPlacesList; }
+            get => _showPlacesList;
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.ShowPlacesListCannotBeChanged);
@@ -248,7 +245,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <exception cref="System.InvalidOperationException">This property cannot be set when the dialog is visible.</exception>
         public bool AddToMostRecentlyUsedList
         {
-            get { return _addToMruList; }
+            get => _addToMruList;
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.AddToMostRecentlyUsedListCannotBeChanged);
@@ -264,7 +261,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <exception cref="System.InvalidOperationException">This property cannot be set when the dialog is visible.</exception>
         public bool ShowHiddenItems
         {
-            get { return _showHiddenItems; }
+            get => _showHiddenItems;
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.ShowHiddenItemsCannotBeChanged);
@@ -279,8 +276,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <value>A <see cref="System.Boolean"/> value. </value>
         public bool AllowPropertyEditing
         {
-            get { return _allowPropertyEditing; }
-            set { _allowPropertyEditing = value; }
+            get => _allowPropertyEditing;
+            set => _allowPropertyEditing = value;
         }
 
         private bool _navigateToShortcut = true;
@@ -291,7 +288,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <exception cref="System.InvalidOperationException">This property cannot be set when the dialog is visible.</exception>
         public bool NavigateToShortcut
         {
-            get { return _navigateToShortcut; }
+            get => _navigateToShortcut;
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.NavigateToShortcutCannotBeChanged);
@@ -401,7 +398,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <value>A <see cref="Microsoft.WindowsAPICodePack.Shell.ShellObject"></see> object.</value>
         /// <exception cref="System.InvalidOperationException">This property cannot be used when multiple files
         /// are selected.</exception>
-        public ShellObject FileAsShellObject
+        public ShellObject? FileAsShellObject
         {
             get
             {
@@ -466,7 +463,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             }
 
             // Create a native shellitem from our path
-            IShellItem2 nativeShellItem;
+            IShellItem2? nativeShellItem;
             Guid guid = new Guid(ShellIIDGuid.IShellItem2);
             int retCode = ShellNativeMethods.SHCreateItemFromParsingName(path, IntPtr.Zero, ref guid, out nativeShellItem);
 
@@ -491,8 +488,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <value>A <see cref="System.String"/> object.</value>
         public string? InitialDirectory
         {
-            get { return _initialDirectory; }
-            set { _initialDirectory = value; }
+            get => _initialDirectory;
+            set => _initialDirectory = value;
         }
 
         private ShellContainer? _initialDirectoryShellContainer;
@@ -503,8 +500,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public ShellContainer? InitialDirectoryShellContainer
         {
-            get { return _initialDirectoryShellContainer; }
-            set { _initialDirectoryShellContainer = value; }
+            get => _initialDirectoryShellContainer;
+            set => _initialDirectoryShellContainer = value;
         }
 
         private string? _defaultDirectory;
@@ -513,8 +510,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public string? DefaultDirectory
         {
-            get { return _defaultDirectory; }
-            set { _defaultDirectory = value; }
+            get => _defaultDirectory;
+            set => _defaultDirectory = value;
         }
 
         private ShellContainer? _defaultDirectoryShellContainer;
@@ -524,8 +521,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public ShellContainer? DefaultDirectoryShellContainer
         {
-            get { return _defaultDirectoryShellContainer; }
-            set { _defaultDirectoryShellContainer = value; }
+            get => _defaultDirectoryShellContainer;
+            set => _defaultDirectoryShellContainer = value;
         }
 
         // Null = use default identifier.
@@ -536,8 +533,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public Guid CookieIdentifier
         {
-            get { return _cookieIdentifier; }
-            set { _cookieIdentifier = value; }
+            get => _cookieIdentifier;
+            set => _cookieIdentifier = value;
         }
 
         /// <summary>
@@ -699,7 +696,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             if (!string.IsNullOrEmpty(_initialDirectory))
             {
                 // Create a native shellitem from our path
-                IShellItem2 initialDirectoryShellItem;
+                IShellItem2? initialDirectoryShellItem;
                 ShellNativeMethods.SHCreateItemFromParsingName(_initialDirectory, IntPtr.Zero, ref guid, out initialDirectoryShellItem);
 
                 // If we get a real shell item back, 
@@ -713,7 +710,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             if (!string.IsNullOrEmpty(_defaultDirectory))
             {
                 // Create a native shellitem from our path
-                IShellItem2 defaultDirectoryShellItem;
+                IShellItem2? defaultDirectoryShellItem;
                 ShellNativeMethods.SHCreateItemFromParsingName(_defaultDirectory, IntPtr.Zero, ref guid, out defaultDirectoryShellItem);
 
                 // If we get a real shell item back, 
@@ -985,16 +982,11 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
               "Items list empty - shouldn't happen unless dialog canceled or not yet shown.");
         }
 
-        private bool NativeDialogShowing
-        {
-            get
-            {
-                return (_nativeDialog != null)
-                    && (ShowState == DialogShowState.Showing || ShowState == DialogShowState.Closing);
-            }
-        }
+        private bool NativeDialogShowing =>
+            (_nativeDialog != null)
+            && (ShowState == DialogShowState.Showing || ShowState == DialogShowState.Closing);
 
-        internal static string GetFileNameFromShellItem(IShellItem item)
+        internal static string GetFileNameFromShellItem(IShellItem? item)
         {
             string filename = null;
             IntPtr pszString = IntPtr.Zero;
@@ -1007,9 +999,9 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             return filename;
         }
 
-        internal static IShellItem GetShellItemAt(IShellItemArray array, int i)
+        internal static IShellItem? GetShellItemAt(IShellItemArray array, int i)
         {
-            IShellItem result;
+            IShellItem? result;
             uint index = (uint)i;
             array.GetItemAt(index, out result);
             return result;
@@ -1177,7 +1169,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 return (args.Cancel ? HResult.False : HResult.Ok);
             }
 
-            public HResult OnFolderChanging(IFileDialog pfd, IShellItem psiFolder)
+            public HResult OnFolderChanging(IFileDialog pfd, IShellItem? psiFolder)
             {
                 CommonFileDialogFolderChangeEventArgs args = new CommonFileDialogFolderChangeEventArgs(
                     GetFileNameFromShellItem(psiFolder));
@@ -1320,14 +1312,9 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <summary>
         /// Indicates whether this feature is supported on the current platform.
         /// </summary>
-        public static bool IsPlatformSupported
-        {
-            get
-            {
-                // We need Windows Vista onwards ...
-                return CoreHelpers.RunningOnVista;
-            }
-        }
+        public static bool IsPlatformSupported =>
+            // We need Windows Vista onwards ...
+            CoreHelpers.RunningOnVista;
     }
 
 

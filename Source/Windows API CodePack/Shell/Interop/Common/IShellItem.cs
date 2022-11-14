@@ -29,7 +29,7 @@ public interface IShellItem
     [PreserveSig]
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     HResult Compare(
-        [In, MarshalAs(UnmanagedType.Interface)] IShellItem psi,
+        [In, MarshalAs(UnmanagedType.Interface)] IShellItem? psi,
         [In] SICHINTF hint,
         out int piOrder);
 }

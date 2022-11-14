@@ -21,10 +21,10 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
 
         private ObservableCollection<ShellObject> selectedItems;
         private ObservableCollection<ShellObject> items;
-        private ObservableCollection<ShellObject> navigationLog;
+        private ObservableCollection<ShellObject?> navigationLog;
         private DispatcherTimer dtCLRUpdater = new DispatcherTimer();
 
-        private ShellObject initialNavigationTarget;
+        private ShellObject? initialNavigationTarget;
         private ExplorerBrowserViewMode? initialViewMode;
 
         private AutoResetEvent itemsChanged = new AutoResetEvent(false);
@@ -44,7 +44,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
             // back the dependency collection properties with instances
             SelectedItems = selectedItems = new ObservableCollection<ShellObject>();
             Items = items = new ObservableCollection<ShellObject>();
-            NavigationLog = navigationLog = new ObservableCollection<ShellObject>();
+            NavigationLog = navigationLog = new ObservableCollection<ShellObject?>();
 
             // hook up events for collection synchronization
             ExplorerBrowserControl.ItemsChanged += new EventHandler(ItemsChanged);
@@ -176,7 +176,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
         void NavigationLogChanged(object sender, NavigationLogEventArgs args)
         {
             navigationLog.Clear();
-            foreach (ShellObject obj in ExplorerBrowserControl.NavigationLog.Locations)
+            foreach (ShellObject? obj in ExplorerBrowserControl.NavigationLog.Locations)
             {
                 navigationLog.Add(obj);
             }

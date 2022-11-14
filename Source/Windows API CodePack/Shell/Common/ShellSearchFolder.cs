@@ -82,7 +82,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             private set
             {
                 searchScopePaths = value.ToArray();
-                List<IShellItem> shellItems = new List<IShellItem>(searchScopePaths.Length);
+                List<IShellItem?> shellItems = new List<IShellItem?>(searchScopePaths.Length);
 
                 Guid shellItemGuid = new Guid(ShellIIDGuid.IShellItem);
                 Guid shellItemArrayGuid = new Guid(ShellIIDGuid.IShellItemArray);
@@ -90,7 +90,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 // Create IShellItem for all the scopes we were given
                 foreach (string path in searchScopePaths)
                 {
-                    IShellItem scopeShellItem;
+                    IShellItem? scopeShellItem;
 
                     int hr = ShellNativeMethods.SHCreateItemFromParsingName(path, IntPtr.Zero, ref shellItemGuid, out scopeShellItem);
 
@@ -107,7 +107,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
         }
 
-        internal override IShellItem NativeShellItem
+        internal override IShellItem? NativeShellItem
         {
             get
             {
@@ -115,7 +115,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                 if (NativeSearchFolderItemFactory == null) { return null; }
 
-                IShellItem shellItem;
+                IShellItem? shellItem;
                 int hr = NativeSearchFolderItemFactory.GetShellItem(ref guid, out shellItem);
 
                 if (!CoreErrorHelper.Succeeded(hr)) { throw new ShellException(hr); }
@@ -131,12 +131,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="canonicalNames">Array of canonical names for properties on which the folder is stacked.</param>
         /// <exception cref="System.ArgumentException">If one of the given canonical names is invalid.</exception>
-        public void SetStacks(params string[] canonicalNames)
+        public void SetStacks(params string?[] canonicalNames)
         {
             if (canonicalNames == null) { throw new ArgumentNullException("canonicalNames"); }
             List<PropertyKey> propertyKeyList = new List<PropertyKey>();
 
-            foreach (string prop in canonicalNames)
+            foreach (string? prop in canonicalNames)
             {
                 // Get the PropertyKey using the canonicalName passed in
                 PropertyKey propKey;

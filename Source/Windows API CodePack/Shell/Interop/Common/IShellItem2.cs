@@ -1,3 +1,5 @@
+using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
+
 namespace Microsoft.WindowsAPICodePack.Shell;
 
 [ComImport,
@@ -16,7 +18,7 @@ internal interface IShellItem2 : IShellItem
 
     [PreserveSig]
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-    HResult GetParent([MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
+    HResult GetParent([MarshalAs(UnmanagedType.Interface)] out IShellItem? ppsi);
 
     [PreserveSig]
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

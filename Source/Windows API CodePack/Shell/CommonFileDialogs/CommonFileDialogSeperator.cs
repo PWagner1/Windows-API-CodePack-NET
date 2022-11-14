@@ -16,7 +16,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
             Debug.Assert(dialog != null, "CommonFileDialogSeparator.Attach: dialog parameter can not be null");
 
             // Add a separator
-            dialog.AddSeparator(Id);
+            if (dialog != null) dialog.AddSeparator(Id);
 
             // Sync unmanaged properties with managed properties
             SyncUnmanagedProperties();

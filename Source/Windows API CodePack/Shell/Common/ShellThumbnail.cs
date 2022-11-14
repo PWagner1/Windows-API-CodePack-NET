@@ -12,7 +12,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Native shellItem
         /// </summary>
-        private IShellItem shellItemNative;
+        private IShellItem? shellItemNative;
 
         /// <summary>
         /// Internal member to keep track of the current size

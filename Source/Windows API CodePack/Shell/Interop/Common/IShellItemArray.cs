@@ -43,7 +43,7 @@ internal interface IShellItemArray
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     HResult GetItemAt(
         [In] uint dwIndex,
-        [MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
+        [MarshalAs(UnmanagedType.Interface)] out IShellItem? ppsi);
 
     // Not supported: IEnumShellItems (will use GetCount and GetItemAt instead).
     [PreserveSig]

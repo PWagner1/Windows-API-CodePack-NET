@@ -7,25 +7,25 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
     /// </summary>
     public abstract class DialogControl
     {
-        private static int nextId = DialogsDefaults.MinimumDialogControlId;
+        private static int _nextId = DialogsDefaults.MinimumDialogControlId;
 
         /// <summary>
         /// Creates a new instance of a dialog control
         /// </summary>
         protected DialogControl()
         {
-            Id = nextId;
+            Id = _nextId;
 
             // Support wrapping of control IDs in case you create a lot of custom controls
-            if (nextId == Int32.MaxValue) { nextId = DialogsDefaults.MinimumDialogControlId; }
-            else { nextId++; }
+            if (_nextId == Int32.MaxValue) { _nextId = DialogsDefaults.MinimumDialogControlId; }
+            else { _nextId++; }
         }
 
         /// <summary>
         /// Creates a new instance of a dialog control with the specified name.
         /// </summary>
         /// <param name="name">The name for this dialog.</param>
-        protected DialogControl(string name)
+        protected DialogControl(string? name)
             : this()
         {
             Name = name;
@@ -37,14 +37,14 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public IDialogControlHost? HostingDialog { get; set; } = null!;
 
-        private string name = null!;
+        private string? _name;
         /// <summary>
         /// Gets the name for this control.
         /// </summary>
         /// <value>A <see cref="System.String"/> value.</value>        
-        public string Name
+        public string? Name
         {
-            get { return name; }
+            get => _name;
             set
             { 
                 // Names for controls need to be quite stable, 
@@ -55,7 +55,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                     throw new ArgumentException(LocalizedMessages.DialogControlNameCannotBeEmpty);
                 }
 
-                if (!string.IsNullOrEmpty(name))
+                if (!string.IsNullOrEmpty(_name))
                 {
                     throw new InvalidOperationException(LocalizedMessages.DialogControlsCannotBeRenamed);
                 }
@@ -63,7 +63,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 // Note that we don't notify the hosting dialog of 
                 // the change, as the initial set of name is (must be)
                 // always legal, and renames are always illegal.
-                name = value;
+                _name = value;
             }
         }
                 
@@ -118,9 +118,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <returns>A <see cref="System.Boolean"/> value.</returns>
         public override bool Equals(object obj)
         {
-            DialogControl? control = obj as DialogControl;
-
-            if (control != null)
+            if (obj is DialogControl control)
                 return (Id == control.Id);
 
             return false;

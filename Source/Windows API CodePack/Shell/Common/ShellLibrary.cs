@@ -162,7 +162,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             Guid guid = new Guid(ShellIIDGuid.IShellItem);
 
-            IShellItem shellItemIn;
+            IShellItem? shellItemIn;
             ShellNativeMethods.SHCreateItemFromParsingName(folderPath, IntPtr.Zero, ref guid, out shellItemIn);
 
             nativeShellLibrary = (INativeShellLibrary)new ShellLibraryCoClass();
@@ -272,7 +272,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 Guid guid = new Guid(ShellIIDGuid.IShellItem);
 
-                IShellItem saveFolderItem;
+                IShellItem? saveFolderItem;
 
                 nativeShellLibrary.GetDefaultSaveFolder(
                     ShellNativeMethods.DefaultSaveFolderType.Detect,
@@ -296,7 +296,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 string fullPath = new DirectoryInfo(value).FullName;
 
                 Guid guid = new Guid(ShellIIDGuid.IShellItem);
-                IShellItem saveFolderItem;
+                IShellItem? saveFolderItem;
 
                 ShellNativeMethods.SHCreateItemFromParsingName(fullPath, IntPtr.Zero, ref guid, out saveFolderItem);
 
@@ -360,12 +360,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         internal const string FileExtension = ".library-ms";
 
-        internal override IShellItem NativeShellItem
+        internal override IShellItem? NativeShellItem
         {
             get { return NativeShellItem2; }
         }
 
-        internal override IShellItem2 NativeShellItem2
+        internal override IShellItem2? NativeShellItem2
         {
             get { return nativeShellItem; }
         }
@@ -400,7 +400,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             string? librariesFolderPath = (kf != null) ? kf.Path : string.Empty;
 
             Guid guid = new Guid(ShellIIDGuid.IShellItem);
-            IShellItem nativeShellItem;
+            IShellItem? nativeShellItem;
             string shellItemPath = Path.Combine(librariesFolderPath, libraryName + FileExtension);
             int hr = ShellNativeMethods.SHCreateItemFromParsingName(shellItemPath, IntPtr.Zero, ref guid, out nativeShellItem);
 
@@ -443,7 +443,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             string? shellItemPath = Path.Combine(folderPath, libraryName + FileExtension);
             ShellFile item = ShellFile.FromFilePath(shellItemPath);
 
-            IShellItem nativeShellItem = item.NativeShellItem;
+            IShellItem? nativeShellItem = item.NativeShellItem;
             INativeShellLibrary nativeShellLibrary = (INativeShellLibrary)new ShellLibraryCoClass();
             AccessModes flags = isReadOnly ?
                     AccessModes.Read :
@@ -471,7 +471,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="nativeShellItem">IShellItem</param>
         /// <param name="isReadOnly">read-only flag</param>
         /// <returns>A ShellLibrary Object</returns>
-        internal static ShellLibrary FromShellItem(IShellItem nativeShellItem, bool isReadOnly)
+        internal static ShellLibrary? FromShellItem(IShellItem? nativeShellItem, bool isReadOnly)
         {
             CoreHelpers.ThrowIfNotWin7();
 
@@ -483,7 +483,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             nativeShellLibrary.LoadLibraryFromItem(nativeShellItem, flags);
 
-            ShellLibrary library = new ShellLibrary(nativeShellLibrary);
+            ShellLibrary? library = new ShellLibrary(nativeShellLibrary);
             library.nativeShellItem = (IShellItem2)nativeShellItem;
 
             return library;
@@ -717,7 +717,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             for (uint i = 0; i < count; ++i)
             {
-                IShellItem shellItem;
+                IShellItem? shellItem;
                 itemArray.GetItemAt(i, out shellItem);
                 list.Add(new ShellFileSystemFolder(shellItem as IShellItem2));
             }

@@ -11,68 +11,68 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// <summary>
         /// Holds the text that is displayed for this control.
         /// </summary>
-        private string textValue;
+        private string? _textValue;
 
         /// <summary>
         /// Gets or sets the text string that is displayed on the control.
         /// </summary>
-        public virtual string Text
+        public virtual string? Text
         {
-            get { return textValue; }
+            get => _textValue;
             set
             {
                 // Don't update this property if it hasn't changed
-                if (value != textValue)
+                if (value != _textValue)
                 {
-                    textValue = value;
+                    _textValue = value;
                     ApplyPropertyChange("Text");
                 }
             }
         }
 
-        private bool enabled = true;
+        private bool _enabled = true;
         /// <summary>
         /// Gets or sets a value that determines if this control is enabled.  
         /// </summary>
         public bool Enabled
         {
-            get { return enabled; }
+            get => _enabled;
             set
             {
                 // Don't update this property if it hasn't changed
-                if (value == enabled) { return; }
+                if (value == _enabled) { return; }
 
-                enabled = value;
+                _enabled = value;
                 ApplyPropertyChange("Enabled");
             }
         }
 
-        private bool visible = true;
+        private bool _visible = true;
         /// <summary>
         /// Gets or sets a boolean value that indicates whether  
         /// this control is visible.
         /// </summary>
         public bool Visible
         {
-            get { return visible; }
+            get => _visible;
             set
             {
                 // Don't update this property if it hasn't changed
-                if (value == visible) { return; }
+                if (value == _visible) { return; }
 
-                visible = value;
+                _visible = value;
                 ApplyPropertyChange("Visible");
             }
         }
 
-        private bool isAdded;
+        private bool _isAdded;
         /// <summary>
         /// Has this control been added to the dialog
         /// </summary>
         internal bool IsAdded
         {
-            get { return isAdded; }
-            set { isAdded = value; }
+            get => _isAdded;
+            set => _isAdded = value;
         }
 
         /// <summary>
@@ -84,10 +84,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Creates a new instance of this class with the text.
         /// </summary>
         /// <param name="text">The text of the common file dialog control.</param>
-        protected CommonFileDialogControl(string text)
+        protected CommonFileDialogControl(string? text)
             : base()
         {
-            textValue = text;
+            _textValue = text;
         }
 
         /// <summary>
@@ -95,10 +95,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// </summary>
         /// <param name="name">The name of the common file dialog control.</param>
         /// <param name="text">The text of the common file dialog control.</param>
-        protected CommonFileDialogControl(string name, string text)
+        protected CommonFileDialogControl(string? name, string? text)
             : base(name)
         {
-            textValue = text;
+            _textValue = text;
         }
 
         /// <summary>

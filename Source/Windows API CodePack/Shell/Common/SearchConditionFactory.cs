@@ -115,7 +115,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         }
 
         [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        private static SearchCondition CreateLeafCondition(string propertyName, PropVariant propVar, string valueType, SearchConditionOperation operation)
+        private static SearchCondition CreateLeafCondition(string propertyName, PropVariant propVar, string? valueType, SearchConditionOperation operation)
         {
             IConditionFactory nativeConditionFactory = null;
             SearchCondition condition = null;

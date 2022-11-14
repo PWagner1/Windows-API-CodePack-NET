@@ -30,7 +30,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// </summary>
         public ExplorerBrowserContentOptions ContentOptions { get; private set; }
 
-        private IShellItemArray shellItemsArray;
+        private IShellItemArray? shellItemsArray;
         private ShellObjectCollection itemsCollection;
         /// <summary>
         /// The set of ShellObjects in the Explorer Browser
@@ -57,7 +57,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
             }
         }
 
-        private IShellItemArray selectedShellItemsArray;
+        private IShellItemArray? selectedShellItemsArray;
         private ShellObjectCollection selectedItemsCollection;
         /// <summary>
         /// The set of selected ShellObjects in the Explorer Browser
@@ -114,7 +114,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// </summary>
         /// <param name="shellObject">The shell container to navigate to.</param>
         /// <exception cref="System.Runtime.InteropServices.COMException">Will throw if navigation fails for any other reason.</exception>
-        public void Navigate(ShellObject shellObject)
+        public void Navigate(ShellObject? shellObject)
         {
             if (shellObject == null)
             {
@@ -273,7 +273,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
             base.OnPaint(e);
         }
 
-        ShellObject antecreationNavigationTarget;
+        ShellObject? antecreationNavigationTarget;
         ExplorerBrowserViewEvents viewEvents;
 
         /// <summary>
@@ -721,9 +721,9 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// Gets the selected items in the explorer browser as an IShellItemArray
         /// </summary>
         /// <returns></returns>
-        internal IShellItemArray GetSelectedItemsArray()
+        internal IShellItemArray? GetSelectedItemsArray()
         {
-            IShellItemArray iArray = null;
+            IShellItemArray? iArray = null;
             IFolderView2 iFV2 = GetFolderView2();
             if (iFV2 != null)
             {
@@ -810,9 +810,9 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// Gets the items in the ExplorerBrowser as an IShellItemArray
         /// </summary>
         /// <returns></returns>
-        internal IShellItemArray GetItemsArray()
+        internal IShellItemArray? GetItemsArray()
         {
-            IShellItemArray iArray = null;
+            IShellItemArray? iArray = null;
             IFolderView2 iFV2 = GetFolderView2();
             if (iFV2 != null)
             {

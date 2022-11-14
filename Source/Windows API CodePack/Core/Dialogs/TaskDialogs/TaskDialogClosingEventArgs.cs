@@ -15,6 +15,6 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <summary>
         /// Gets or sets the text of the custom button that was clicked.
         /// </summary>
-        public string CustomButton { get; set; }
+        public string? CustomButton { get; set; }
     }
 }

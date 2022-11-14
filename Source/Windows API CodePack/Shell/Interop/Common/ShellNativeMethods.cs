@@ -466,11 +466,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
         internal struct FilterSpec
         {
             [MarshalAs(UnmanagedType.LPWStr)]
-            internal string Name;
+            internal string? Name;
             [MarshalAs(UnmanagedType.LPWStr)]
             internal string Spec;
 
-            internal FilterSpec(string name, string spec)
+            internal FilterSpec(string? name, string spec)
             {
                 Name = name;
                 Spec = spec;
@@ -492,7 +492,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         internal static extern int SHCreateShellItemArrayFromDataObject(
             System.Runtime.InteropServices.ComTypes.IDataObject pdo,
             ref Guid riid,
-            [MarshalAs(UnmanagedType.Interface)] out IShellItemArray iShellItemArray);
+            [MarshalAs(UnmanagedType.Interface)] out IShellItemArray? iShellItemArray);
 
         [DllImport("shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern int SHCreateItemFromParsingName(
@@ -500,7 +500,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             // The following parameter is not used - binding context.
             IntPtr pbc,
             ref Guid riid,
-            [MarshalAs(UnmanagedType.Interface)] out IShellItem2 shellItem);
+            [MarshalAs(UnmanagedType.Interface)] out IShellItem2? shellItem);
 
         [DllImport("shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern int SHCreateItemFromParsingName(
@@ -508,7 +508,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             // The following parameter is not used - binding context.
             IntPtr pbc,
             ref Guid riid,
-            [MarshalAs(UnmanagedType.Interface)] out IShellItem shellItem);
+            [MarshalAs(UnmanagedType.Interface)] out IShellItem? shellItem);
 
         [DllImport("shlwapi.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern int PathParseIconLocation(
@@ -519,7 +519,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         internal static extern int SHCreateItemFromIDList(
             /*PCIDLIST_ABSOLUTE*/ IntPtr pidl,
             ref Guid riid,
-            [MarshalAs(UnmanagedType.Interface)] out IShellItem2 ppv);
+            [MarshalAs(UnmanagedType.Interface)] out IShellItem2? ppv);
 
         [DllImport("shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern int SHParseDisplayName(
@@ -545,7 +545,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             IntPtr pidlParent,
             [In, MarshalAs(UnmanagedType.Interface)] IShellFolder psfParent,
             IntPtr pidl,
-            [MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi
+            [MarshalAs(UnmanagedType.Interface)] out IShellItem? ppsi
         );
 
         [DllImport("shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
@@ -604,7 +604,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         [DllImport("Shell32", CharSet = CharSet.Unicode, CallingConvention = CallingConvention.Winapi, SetLastError = true)]
         internal static extern int SHShowManageLibraryUI(
-            [In, MarshalAs(UnmanagedType.Interface)] IShellItem library,
+            [In, MarshalAs(UnmanagedType.Interface)] IShellItem? library,
             [In] IntPtr hwndOwner,
             [In] string title,
             [In] string instruction,

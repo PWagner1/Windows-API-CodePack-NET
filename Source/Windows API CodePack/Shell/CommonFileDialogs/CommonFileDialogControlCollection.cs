@@ -8,11 +8,11 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
     /// <typeparam name="T">DialogControl</typeparam>
     public sealed class CommonFileDialogControlCollection<T> : Collection<T> where T : DialogControl
     {
-        private IDialogControlHost? hostingDialog;
+        private readonly IDialogControlHost? _hostingDialog;
 
         internal CommonFileDialogControlCollection(IDialogControlHost? host)
         {
-            hostingDialog = host;
+            _hostingDialog = host;
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
                 throw new InvalidOperationException(
                     LocalizedMessages.DialogControlCollectionRemoveControlFirst);
             }
-            if (!hostingDialog.IsCollectionChangeAllowed())
+            if (_hostingDialog != null && !_hostingDialog.IsCollectionChangeAllowed())
             {
                 throw new InvalidOperationException(
                     LocalizedMessages.DialogControlCollectionModifyingControls);
@@ -50,11 +50,11 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
             }
 
             // Reparent, add control.
-            control.HostingDialog = hostingDialog;
+            control.HostingDialog = _hostingDialog;
             base.InsertItem(index, control);
 
             // Notify that we've added a control.
-            hostingDialog.ApplyCollectionChanged();
+            if (_hostingDialog != null) _hostingDialog.ApplyCollectionChanged();
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// <returns>A DialogControl who's Id matches the value of the
         /// <paramref name="id"/> parameter.</returns>
         /// 
-        internal DialogControl GetSubControlbyId(IEnumerable<DialogControl> controlCollection, int id)
+        internal DialogControl GetSubControlbyId(IEnumerable<DialogControl>? controlCollection, int id)
         {
             // if ctrlColl is null, it will throw in the foreach.
             if (controlCollection == null) { return null; }

@@ -10,7 +10,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
     /// </permission>
     public sealed class CommonSaveFileDialog : CommonFileDialog
     {
-        private NativeFileSaveDialog saveDialogCoClass;
+        private NativeFileSaveDialog? _saveDialogCoClass;
 
         /// <summary>
         /// Creates a new instance of this class.
@@ -24,7 +24,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         #region Public API specific to Save
 
-        private bool overwritePrompt = true;
+        private bool _overwritePrompt = true;
         /// <summary>
         /// Gets or sets a value that controls whether to prompt before 
         /// overwriting an existing file of the same name. Default value is true.
@@ -34,15 +34,15 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </permission>
         public bool OverwritePrompt
         {
-            get { return overwritePrompt; }
+            get { return _overwritePrompt; }
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.OverwritePromptCannotBeChanged);
-                overwritePrompt = value;
+                _overwritePrompt = value;
             }
         }
 
-        private bool createPrompt;
+        private bool _createPrompt;
         /// <summary>
         /// Gets or sets a value that controls whether to prompt for creation if the item returned in the save dialog does not exist. 
         /// </summary>
@@ -52,15 +52,15 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </permission>
         public bool CreatePrompt
         {
-            get { return createPrompt; }
+            get { return _createPrompt; }
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.CreatePromptCannotBeChanged);
-                createPrompt = value;
+                _createPrompt = value;
             }
         }
 
-        private bool isExpandedMode;
+        private bool _isExpandedMode;
         /// <summary>
         /// Gets or sets a value that controls whether to the save dialog 
         /// displays in expanded mode. 
@@ -72,15 +72,15 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </permission>
         public bool IsExpandedMode
         {
-            get { return isExpandedMode; }
+            get { return _isExpandedMode; }
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.IsExpandedModeCannotBeChanged);
-                isExpandedMode = value;
+                _isExpandedMode = value;
             }
         }
 
-        private bool alwaysAppendDefaultExtension;
+        private bool _alwaysAppendDefaultExtension;
         /// <summary>
         /// Gets or sets a value that controls whether the 
         /// returned file name has a file extension that matches the 
@@ -92,11 +92,11 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </permission>
         public bool AlwaysAppendDefaultExtension
         {
-            get { return alwaysAppendDefaultExtension; }
+            get { return _alwaysAppendDefaultExtension; }
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.AlwaysAppendDefaultExtensionCannotBeChanged);
-                alwaysAppendDefaultExtension = value;
+                _alwaysAppendDefaultExtension = value;
             }
         }
 
@@ -225,23 +225,23 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         internal override void InitializeNativeFileDialog()
         {
-            if (saveDialogCoClass == null)
+            if (_saveDialogCoClass == null)
             {
-                saveDialogCoClass = new NativeFileSaveDialog();
+                _saveDialogCoClass = new NativeFileSaveDialog();
             }
         }
 
         internal override IFileDialog? GetNativeFileDialog()
         {
-            Debug.Assert(saveDialogCoClass != null, "Must call Initialize() before fetching dialog interface");
-            return (IFileDialog)saveDialogCoClass;
+            Debug.Assert(_saveDialogCoClass != null, "Must call Initialize() before fetching dialog interface");
+            return (IFileDialog)_saveDialogCoClass;
         }
 
         internal override void PopulateWithFileNames(
             Collection<string> names)
         {
-            IShellItem item;
-            saveDialogCoClass.GetResult(out item);
+            IShellItem? item;
+            _saveDialogCoClass.GetResult(out item);
 
             if (item == null)
             {
@@ -251,10 +251,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             names.Add(GetFileNameFromShellItem(item));
         }
 
-        internal override void PopulateWithIShellItems(Collection<IShellItem> items)
+        internal override void PopulateWithIShellItems(Collection<IShellItem?> items)
         {
-            IShellItem item;
-            saveDialogCoClass.GetResult(out item);
+            IShellItem? item;
+            _saveDialogCoClass.GetResult(out item);
 
             if (item == null)
             {
@@ -266,27 +266,27 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         internal override void CleanUpNativeFileDialog()
         {
-            if (saveDialogCoClass != null)
+            if (_saveDialogCoClass != null)
             {
-                Marshal.ReleaseComObject(saveDialogCoClass);
+                Marshal.ReleaseComObject(_saveDialogCoClass);
             }
         }
 
         internal override ShellNativeMethods.FileOpenOptions GetDerivedOptionFlags(ShellNativeMethods.FileOpenOptions flags)
         {
-            if (overwritePrompt)
+            if (_overwritePrompt)
             {
                 flags |= ShellNativeMethods.FileOpenOptions.OverwritePrompt;
             }
-            if (createPrompt)
+            if (_createPrompt)
             {
                 flags |= ShellNativeMethods.FileOpenOptions.CreatePrompt;
             }
-            if (!isExpandedMode)
+            if (!_isExpandedMode)
             {
                 flags |= ShellNativeMethods.FileOpenOptions.DefaultNoMiniMode;
             }
-            if (alwaysAppendDefaultExtension)
+            if (_alwaysAppendDefaultExtension)
             {
                 flags |= ShellNativeMethods.FileOpenOptions.StrictFileTypes;
             }

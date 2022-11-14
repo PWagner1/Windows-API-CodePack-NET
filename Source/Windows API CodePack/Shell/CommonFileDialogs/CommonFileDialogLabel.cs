@@ -16,14 +16,14 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Creates a new instance of this class with the specified text.
         /// </summary>
         /// <param name="text">The text to display for this control.</param>
-        public CommonFileDialogLabel(string text) : base(text) { }
+        public CommonFileDialogLabel(string? text) : base(text) { }
 
         /// <summary>
         /// Creates a new instance of this class with the specified name and text.
         /// </summary>
         /// <param name="name">The name of this control.</param>
         /// <param name="text">The text to display for this control.</param>
-        public CommonFileDialogLabel(string name, string text) : base(name, text) { }
+        public CommonFileDialogLabel(string? name, string? text) : base(name, text) { }
 
         /// <summary>
         /// Attach this control to the dialog object
@@ -34,7 +34,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
             Debug.Assert(dialog != null, "CommonFileDialog.Attach: dialog parameter can not be null");
 
             // Add a text control
-            dialog.AddText(Id, Text);
+            if (dialog != null) dialog.AddText(Id, Text);
 
             // Sync unmanaged properties with managed properties
             SyncUnmanagedProperties();

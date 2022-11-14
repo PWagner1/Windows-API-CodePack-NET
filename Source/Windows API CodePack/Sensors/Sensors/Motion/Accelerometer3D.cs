@@ -48,16 +48,19 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// Creates a new instance of this class.
         /// </summary>
         /// <param name="report">The sensor report to evaluate.</param>
-        public Acceleration3D(SensorReport report)
+        public Acceleration3D(SensorReport? report)
         {
             if (report == null) { throw new ArgumentNullException("report"); }
 
-            acceleration[(int)AccelerationAxis.XAxis] =
-                (float)report.Values[SensorPropertyKeys.SensorDataTypeAccelerationXG.FormatId][0];
-            acceleration[(int)AccelerationAxis.YAxis] =
-                (float)report.Values[SensorPropertyKeys.SensorDataTypeAccelerationYG.FormatId][1];
-            acceleration[(int)AccelerationAxis.ZAxis] =
-                (float)report.Values[SensorPropertyKeys.SensorDataTypeAccelerationZG.FormatId][2];
+            if (report.Values != null)
+            {
+                acceleration[(int)AccelerationAxis.XAxis] =
+                    (float)report.Values[SensorPropertyKeys.SensorDataTypeAccelerationXG.FormatId][0];
+                acceleration[(int)AccelerationAxis.YAxis] =
+                    (float)report.Values[SensorPropertyKeys.SensorDataTypeAccelerationYG.FormatId][1];
+                acceleration[(int)AccelerationAxis.ZAxis] =
+                    (float)report.Values[SensorPropertyKeys.SensorDataTypeAccelerationZG.FormatId][2];
+            }
         }
 
         /// <summary>

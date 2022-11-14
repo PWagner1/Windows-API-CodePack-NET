@@ -18,6 +18,6 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
     /// </summary>
     public abstract class JumpListTask
     {
-        internal abstract IShellLinkW NativeShellLink { get; }
+        internal abstract IShellLinkW? NativeShellLink { get; }
     }
 }

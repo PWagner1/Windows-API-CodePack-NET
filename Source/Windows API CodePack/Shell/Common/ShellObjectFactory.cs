@@ -9,7 +9,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="nativeShellItem"></param>
         /// <returns>A newly constructed ShellObject object</returns>
-        public static ShellObject Create(IShellItem nativeShellItem)
+        public static ShellObject? Create(IShellItem? nativeShellItem)
         {
             // Sanity check
             Debug.Assert(nativeShellItem != null, "nativeShellItem should not be null");
@@ -21,7 +21,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
 
             // A lot of APIs need IShellItem2, so just keep a copy of it here
-            IShellItem2 nativeShellItem2 = nativeShellItem as IShellItem2;
+            IShellItem2? nativeShellItem2 = nativeShellItem as IShellItem2;
 
             // Get the System.ItemType property
             string itemType = ShellHelper.GetItemType(nativeShellItem2);
@@ -39,7 +39,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             bool isFolder = (sfgao & ShellNativeMethods.ShellFileGetAttributesOptions.Folder) != 0;
 
             // Shell Library
-            ShellLibrary shellLibrary = null;
+            ShellLibrary? shellLibrary = null;
 
             // Create the right type of ShellObject based on the above information 
 
@@ -71,7 +71,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     // 5. Is it a (File-System / Non-Virtual) Known Folder
                     if (!IsVirtualKnownFolder(nativeShellItem2))
                     { //needs to check if it is a known folder and not virtual
-                        FileSystemKnownFolder kf = new FileSystemKnownFolder(nativeShellItem2);
+                        FileSystemKnownFolder? kf = new FileSystemKnownFolder(nativeShellItem2);
                         return kf;
                     }
 
@@ -81,7 +81,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 // 5. Is it a (Non File-System / Virtual) Known Folder
                 if (IsVirtualKnownFolder(nativeShellItem2))
                 { //needs to check if known folder is virtual
-                    NonFileSystemKnownFolder kf = new NonFileSystemKnownFolder(nativeShellItem2);
+                    NonFileSystemKnownFolder? kf = new NonFileSystemKnownFolder(nativeShellItem2);
                     return kf;
                 }
 
@@ -95,7 +95,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         }
 
         // This is a work around for the STA thread bug.  This will execute the call on a non-sta thread, then return the result
-        private static bool IsVirtualKnownFolder(IShellItem2 nativeShellItem2)
+        private static bool IsVirtualKnownFolder(IShellItem2? nativeShellItem2)
         {
             IntPtr pidl = IntPtr.Zero;
             try
@@ -151,7 +151,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="parsingName"></param>
         /// <returns>A newly constructed ShellObject object</returns>
-        internal static ShellObject Create(string? parsingName)
+        internal static ShellObject? Create(string? parsingName)
         {
             if (string.IsNullOrEmpty(parsingName))
             {
@@ -159,7 +159,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
 
             // Create a native shellitem from our path
-            IShellItem2 nativeShellItem;
+            IShellItem2? nativeShellItem;
             Guid guid = new Guid(ShellIIDGuid.IShellItem2);
             int retCode = ShellNativeMethods.SHCreateItemFromParsingName(parsingName, IntPtr.Zero, ref guid, out nativeShellItem);
 
@@ -175,14 +175,14 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="idListPtr"></param>
         /// <returns></returns>
-        internal static ShellObject Create(IntPtr idListPtr)
+        internal static ShellObject? Create(IntPtr idListPtr)
         {
             // Throw exception if not running on Win7 or newer.
             CoreHelpers.ThrowIfNotVista();
 
             Guid guid = new Guid(ShellIIDGuid.IShellItem2);
 
-            IShellItem2 nativeShellItem;
+            IShellItem2? nativeShellItem;
             int retCode = ShellNativeMethods.SHCreateItemFromIDList(idListPtr, ref guid, out nativeShellItem);
 
             if (!CoreErrorHelper.Succeeded(retCode)) { return null; }
@@ -195,9 +195,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="idListPtr"></param>
         /// <param name="parent"></param>
         /// <returns></returns>
-        internal static ShellObject Create(IntPtr idListPtr, ShellContainer parent)
+        internal static ShellObject? Create(IntPtr idListPtr, ShellContainer parent)
         {
-            IShellItem nativeShellItem;
+            IShellItem? nativeShellItem;
 
             int retCode = ShellNativeMethods.SHCreateShellItem(
                 IntPtr.Zero,

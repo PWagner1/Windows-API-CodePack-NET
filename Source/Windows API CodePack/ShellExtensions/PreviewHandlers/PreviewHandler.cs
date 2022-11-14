@@ -195,7 +195,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
 
         #region IInitializeWithItem Members
 
-        void IInitializeWithItem.Initialize(IShellItem shellItem, AccessModes accessMode)
+        void IInitializeWithItem.Initialize(IShellItem? shellItem, AccessModes accessMode)
         {
             IPreviewFromShellObject preview = this as IPreviewFromShellObject;
             if (preview == null)

@@ -26,7 +26,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Creates a new instance of this class with the specified name.
         /// </summary>
         /// <param name="name">The name of this control.</param>
-        public CommonFileDialogRadioButtonList(string name) : base(name, string.Empty) { }
+        public CommonFileDialogRadioButtonList(string? name) : base(name, string.Empty) { }
 
         #region ICommonFileDialogIndexedControls Members
 
@@ -97,22 +97,25 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
             Debug.Assert(dialog != null, "CommonFileDialogRadioButtonList.Attach: dialog parameter can not be null");
 
             // Add the radio button list control
-            dialog.AddRadioButtonList(Id);
+            if (dialog != null)
+            {
+                dialog.AddRadioButtonList(Id);
 
-            // Add the radio button list items
-            for (int index = 0; index < items.Count; index++)
-            {
-                dialog.AddControlItem(Id, index, items[index].Text);
-            }
+                // Add the radio button list items
+                for (int index = 0; index < items.Count; index++)
+                {
+                    dialog.AddControlItem(Id, index, items[index].Text);
+                }
 
-            // Set the currently selected item
-            if (selectedIndex >= 0 && selectedIndex < items.Count)
-            {
-                dialog.SetSelectedControlItem(Id, selectedIndex);
-            }
-            else if (selectedIndex != -1)
-            {
-                throw new IndexOutOfRangeException(LocalizedMessages.RadioButtonListIndexOutOfBounds);
+                // Set the currently selected item
+                if (selectedIndex >= 0 && selectedIndex < items.Count)
+                {
+                    dialog.SetSelectedControlItem(Id, selectedIndex);
+                }
+                else if (selectedIndex != -1)
+                {
+                    throw new IndexOutOfRangeException(LocalizedMessages.RadioButtonListIndexOutOfBounds);
+                }
             }
 
             // Sync unmanaged properties with managed properties
@@ -128,7 +131,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// <summary>
         /// Gets or sets the string that will be displayed for this list item.
         /// </summary>
-        public string Text { get; set; }
+        public string? Text { get; set; }
 
         /// <summary>
         /// Creates a new instance of this class.
@@ -139,7 +142,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Creates a new instance of this class with the specified text.
         /// </summary>
         /// <param name="text">The string that you want to display for this list item.</param>
-        public CommonFileDialogRadioButtonListItem(string text)
+        public CommonFileDialogRadioButtonListItem(string? text)
         {
             Text = text;
         }

@@ -168,7 +168,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern HResult BrowseToObject([MarshalAs(UnmanagedType.IUnknown)] object punk, uint uFlags);
+        public virtual extern HResult BrowseToObject([MarshalAs(UnmanagedType.IUnknown)] object? punk, uint uFlags);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern void FillFromObject([MarshalAs(UnmanagedType.IUnknown)] object punk, int dwFlags);
@@ -306,7 +306,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
         /// <returns></returns>
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HResult BrowseToObject([MarshalAs(UnmanagedType.IUnknown)] object punk, uint uFlags);
+        HResult BrowseToObject([MarshalAs(UnmanagedType.IUnknown)] object? punk, uint uFlags);
 
         /// <summary>
         /// Creates a results folder and fills it with items.

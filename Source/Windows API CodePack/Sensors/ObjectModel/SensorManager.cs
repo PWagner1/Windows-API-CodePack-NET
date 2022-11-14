@@ -53,10 +53,10 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <returns>A strongly types list of sensors.</returns>        
         public static SensorList<T> GetSensorsByTypeId<T>() where T : Sensor
         {
-            object[] attrs = typeof(T).GetCustomAttributes(typeof(SensorDescriptionAttribute), true);
+            object?[] attrs = typeof(T).GetCustomAttributes(typeof(SensorDescriptionAttribute), true);
             if (attrs != null && attrs.Length > 0)
             {
-                SensorDescriptionAttribute sda = attrs[0] as SensorDescriptionAttribute;
+                SensorDescriptionAttribute? sda = attrs[0] as SensorDescriptionAttribute;
 
                 ISensorCollection? nativeSensorCollection = null;
                 HResult hr = sensorManager.GetSensorsByType(sda.SensorTypeGuid, out nativeSensorCollection);
@@ -110,7 +110,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
 
             foreach (Sensor sensor in sensors)
             {
-                sensorCollection.Add(sensor.internalObject);
+                sensorCollection.Add(sensor.InternalObject);
             }
 
             sensorManager.RequestPermissions(parentWindowHandle, sensorCollection, modal);
@@ -167,7 +167,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                     S sensor = GetSensorWrapperInstance<S>(iSensor);
                     if (sensor != null)
                     {
-                        sensor.internalObject = iSensor;
+                        sensor.InternalObject = iSensor;
                         sensors.Add(sensor);
                     }
                 }
@@ -247,7 +247,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
             try
             {
                 S sensor = (S)Activator.CreateInstance(sensorClassType);
-                sensor.internalObject = nativeISensor;
+                sensor.InternalObject = nativeISensor;
                 return sensor;
             }
             catch (InvalidCastException)

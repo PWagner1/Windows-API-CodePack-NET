@@ -9,10 +9,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
     /// </summary>
     public partial class ShellProperties : IDisposable
     {
-        private ShellObject ParentShellObject { get; set; }
+        private ShellObject? ParentShellObject { get; set; }
         private ShellPropertyCollection defaultPropertyCollection;
 
-        internal ShellProperties(ShellObject parent)
+        internal ShellProperties(ShellObject? parent)
         {
             ParentShellObject = parent;
         }
@@ -34,7 +34,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// </summary>
         /// <param name="canonicalName">The canonical name.</param>
         /// <returns>An IShellProperty.</returns>
-        public IShellProperty GetProperty(string canonicalName)
+        public IShellProperty GetProperty(string? canonicalName)
         {
             return CreateTypedProperty(canonicalName);
         }
@@ -58,7 +58,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <typeparam name="T">The type of property to retrieve.</typeparam>
         /// <param name="canonicalName">The canonical name.</param>
         /// <returns>A strongly-typed ShellProperty for the given canonical name.</returns>
-        public ShellProperty<T> GetProperty<T>(string canonicalName)
+        public ShellProperty<T> GetProperty<T>(string? canonicalName)
         {
             return CreateTypedProperty(canonicalName) as ShellProperty<T>;
         }
@@ -119,7 +119,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             return ShellPropertyFactory.CreateShellProperty(propKey, ParentShellObject);
         }
 
-        internal IShellProperty CreateTypedProperty(string canonicalName)
+        internal IShellProperty CreateTypedProperty(string? canonicalName)
         {
             // Otherwise, call the native PropertyStore method
             PropertyKey propKey;

@@ -26,7 +26,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             ParsingName = absPath;
         }
 
-        internal ShellFile(IShellItem2 shellItem)
+        internal ShellFile(IShellItem2? shellItem)
         {
             nativeShellItem = shellItem;
         }

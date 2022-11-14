@@ -21,7 +21,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         internal static void RegisterPowerEvent(Guid eventId, EventHandler eventToRegister)
         {
             EnsureInitialized();
-            _window.RegisterPowerEvent(eventId, eventToRegister);
+            if (_window != null) _window.RegisterPowerEvent(eventId, eventToRegister);
         }
 
         /// <summary>

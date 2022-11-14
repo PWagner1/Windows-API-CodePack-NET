@@ -16,21 +16,21 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Creates a new instance of this class with the specified text.
         /// </summary>
         /// <param name="text">The text to display for this control.</param>
-        public CommonFileDialogTextBox(string text) : base(text) { }
+        public CommonFileDialogTextBox(string? text) : base(text) { }
 
         /// <summary>
         /// Creates a new instance of this class with the specified name and text.
         /// </summary>
         /// <param name="name">The name of this control.</param>
         /// <param name="text">The text to display for this control.</param>
-        public CommonFileDialogTextBox(string name, string text) : base(name, text) { }
+        public CommonFileDialogTextBox(string? name, string? text) : base(name, text) { }
 
         internal bool Closed { get; set; }
 
         /// <summary>
         /// Gets or sets a value for the text string contained in the CommonFileDialogTextBox.
         /// </summary>
-        public override string Text
+        public override string? Text
         {
             get
             {
@@ -68,10 +68,13 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
             Debug.Assert(dialog != null, "CommonFileDialogTextBox.Attach: dialog parameter can not be null");
 
             // Add a text entry control
-            dialog.AddEditBox(Id, Text);
+            if (dialog != null)
+            {
+                dialog.AddEditBox(Id, Text);
 
-            // Set to local instance in order to gate access to same.
-            customizedDialog = dialog;
+                // Set to local instance in order to gate access to same.
+                customizedDialog = dialog;
+            }
 
             // Sync unmanaged properties with managed properties
             SyncUnmanagedProperties();
@@ -88,7 +91,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
 
             if (customizedDialog != null)
             {
-                string textValue;
+                string? textValue;
                 customizedDialog.GetEditBoxText(Id, out textValue);
 
                 base.Text = textValue;

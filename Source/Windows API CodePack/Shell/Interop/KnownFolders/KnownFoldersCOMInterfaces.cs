@@ -25,7 +25,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         [PreserveSig]
         HResult GetShellItem([In] int i,
              ref Guid interfaceGuid,
-             [Out, MarshalAs(UnmanagedType.Interface)] out IShellItem2 shellItem);
+             [Out, MarshalAs(UnmanagedType.Interface)] out IShellItem2? shellItem);
 
         [return: MarshalAs(UnmanagedType.LPWStr)]
         [MethodImpl(MethodImplOptions.InternalCall,

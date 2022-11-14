@@ -20,6 +20,6 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <param name="name">The name for this control.</param>
         /// <param name="text">The value for this controls 
         /// <see cref="P:Microsoft.WindowsAPICodePack.Dialogs.TaskDialogButtonBase.Text"/> property.</param>
-        public TaskDialogRadioButton(string name, string? text) : base(name, text) { }
+        public TaskDialogRadioButton(string? name, string? text) : base(name, text) { }
     }
 }

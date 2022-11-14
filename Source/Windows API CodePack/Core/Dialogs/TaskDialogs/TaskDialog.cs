@@ -16,7 +16,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         private static TaskDialog? _staticDialog;
 
         // Main current native dialog.
-        private NativeTaskDialog _nativeDialog;
+        private NativeTaskDialog? _nativeDialog;
 
         private List<TaskDialogButtonBase> _buttons = new();
         private List<TaskDialogButtonBase> _radioButtons = new();
@@ -27,27 +27,27 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <summary>
         /// Occurs when a progress bar changes.
         /// </summary>
-        public event EventHandler<TaskDialogTickEventArgs> Tick;
+        public event EventHandler<TaskDialogTickEventArgs>? Tick;
 
         /// <summary>
         /// Occurs when a user clicks a hyperlink.
         /// </summary>
-        public event EventHandler<TaskDialogHyperlinkClickedEventArgs> HyperlinkClick;
+        public event EventHandler<TaskDialogHyperlinkClickedEventArgs>? HyperlinkClick;
 
         /// <summary>
         /// Occurs when the TaskDialog is closing.
         /// </summary>
-        public event EventHandler<TaskDialogClosingEventArgs> Closing;
+        public event EventHandler<TaskDialogClosingEventArgs>? Closing;
 
         /// <summary>
         /// Occurs when a user clicks on Help.
         /// </summary>
-        public event EventHandler HelpInvoked;
+        public event EventHandler? HelpInvoked;
 
         /// <summary>
         /// Occurs when the TaskDialog is opened.
         /// </summary>
-        public event EventHandler Opened;
+        public event EventHandler? Opened;
 
         /// <summary>
         /// Gets or sets a value that contains the owner window's handle.
@@ -165,11 +165,11 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             }
         }
 
-        private string _detailsExpandedLabel;
+        private string? _detailsExpandedLabel;
         /// <summary>
         /// Gets or sets a value that contains the expanded control text.
         /// </summary>
-        public string DetailsExpandedLabel
+        public string? DetailsExpandedLabel
         {
             get => _detailsExpandedLabel;
             set
@@ -317,12 +317,12 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             }
         }
 
-        private TaskDialogProgressBar _progressBar;
+        private TaskDialogProgressBar? _progressBar;
         /// <summary>
         /// Gets or sets the progress bar on the taskdialog. ProgressBar a visual representation 
         /// of the progress of a long running operation.
         /// </summary>
-        public TaskDialogProgressBar ProgressBar
+        public TaskDialogProgressBar? ProgressBar
         {
             get => _progressBar;
             set
@@ -555,7 +555,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         // Analyzes the final state of the NativeTaskDialog instance and creates the 
         // final TaskDialogResult that will be returned from the public API
-        private static TaskDialogResult ConstructDialogResult(NativeTaskDialog native)
+        private static TaskDialogResult ConstructDialogResult(NativeTaskDialog? native)
         {
             Debug.Assert(native.ShowState == DialogShowState.Closed, "dialog result being constructed for unshown dialog.");
 
@@ -828,7 +828,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 }
 
                 TaskDialogRadioButton radButton;
-                TaskDialogProgressBar progBar;
+                TaskDialogProgressBar? progBar;
 
                 // Loop through child controls 
                 // and sort the controls based on type.
@@ -1090,7 +1090,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         internal void RaiseHyperlinkClickEvent(string link)
         {
-            EventHandler<TaskDialogHyperlinkClickedEventArgs> handler = HyperlinkClick;
+            EventHandler<TaskDialogHyperlinkClickedEventArgs>? handler = HyperlinkClick;
             if (handler != null)
             {
                 handler(this, new TaskDialogHyperlinkClickedEventArgs(link));
@@ -1105,7 +1105,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         // the full dialog state.
         internal int RaiseClosingEvent(int id)
         {
-            EventHandler<TaskDialogClosingEventArgs> handler = Closing;
+            EventHandler<TaskDialogClosingEventArgs>? handler = Closing;
             if (handler != null)
             {
                 TaskDialogButtonBase customButton = null;

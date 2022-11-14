@@ -17,7 +17,7 @@
         /// <param name="propKey">PropertyKey</param>
         /// <param name="shellObject">Shell object from which to get property</param>
         /// <returns>ShellProperty matching type of value in property.</returns>
-        public static IShellProperty CreateShellProperty(PropertyKey propKey, ShellObject shellObject)
+        public static IShellProperty CreateShellProperty(PropertyKey propKey, ShellObject? shellObject)
         {
             return GenericCreateShellProperty(propKey, shellObject);
         }

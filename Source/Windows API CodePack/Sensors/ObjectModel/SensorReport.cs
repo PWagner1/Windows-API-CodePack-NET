@@ -43,7 +43,8 @@ namespace Microsoft.WindowsAPICodePack.Sensors
             SensorReport sensorReport = new SensorReport();
             sensorReport._originator = originator;
             sensorReport._timeStamp = timeStamp;
-            sensorReport._sensorData = SensorData.FromNativeReport(originator.internalObject, iReport);
+            if (originator != null)
+                sensorReport._sensorData = SensorData.FromNativeReport(originator.InternalObject, iReport);
 
             return sensorReport;
         }

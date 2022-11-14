@@ -51,7 +51,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         internal ShellContainer() { }
 
-        internal ShellContainer(IShellItem2 shellItem) : base(shellItem) { }
+        internal ShellContainer(IShellItem2? shellItem) : base(shellItem) { }
 
         #endregion
 

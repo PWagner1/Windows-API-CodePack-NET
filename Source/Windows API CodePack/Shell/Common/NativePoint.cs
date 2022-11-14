@@ -46,20 +46,14 @@
         /// <param name="first">First NativePoint</param>
         /// <param name="second">Second NativePoint</param>
         /// <returns>True if first NativePoint is not equal to the second; false otherwise.</returns>
-        public static bool operator !=(NativePoint first, NativePoint second)
-        {
-            return !(first == second);
-        }
+        public static bool operator !=(NativePoint first, NativePoint second) => !(first == second);
 
         /// <summary>
         /// Determines if this NativePoint is equal to another.
         /// </summary>
         /// <param name="obj">Another NativePoint to compare</param>
         /// <returns>True if this NativePoint is equal obj; false otherwise.</returns>
-        public override bool Equals(object obj)
-        {
-            return (obj != null && obj is NativePoint) ? this == (NativePoint)obj : false;
-        }
+        public override bool Equals(object? obj) => (obj != null && obj is NativePoint) ? this == (NativePoint)obj : false;
 
         /// <summary>
         /// Gets a hash code for the NativePoint.

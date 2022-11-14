@@ -64,11 +64,11 @@ namespace Microsoft.WindowsAPICodePack.Controls
         /// <summary>
         /// The navigation log
         /// </summary>
-        public IEnumerable<ShellObject> Locations
+        public IEnumerable<ShellObject?> Locations
         {
             get { foreach (var obj in _locations) { yield return obj; } }
         }
-        private List<ShellObject> _locations = new List<ShellObject>();
+        private List<ShellObject?> _locations = new List<ShellObject?>();
 
         /// <summary>
         /// An index into the Locations collection. The ShellObject pointed to 
@@ -87,7 +87,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
         /// Gets the shell object in the Locations collection pointed to
         /// by CurrentLocationIndex.
         /// </summary>
-        public ShellObject CurrentLocation
+        public ShellObject? CurrentLocation
         {
             get
             {
@@ -217,7 +217,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
             }
 
             // initiate traversal request
-            ShellObject location = _locations[(int)locationIndex];
+            ShellObject? location = _locations[(int)locationIndex];
             pendingNavigation = new PendingNavigation(location, locationIndex);
             parent.Navigate(location);
             return true;
@@ -232,7 +232,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
             if (index == currentLocationIndex) { return false; }
 
             // initiate traversal request
-            ShellObject location = _locations[(int)index];
+            ShellObject? location = _locations[(int)index];
             pendingNavigation = new PendingNavigation(location, index);
             parent.Navigate(location);
             return true;
@@ -246,13 +246,13 @@ namespace Microsoft.WindowsAPICodePack.Controls
     /// </summary>
     internal class PendingNavigation
     {
-        internal PendingNavigation(ShellObject location, int index)
+        internal PendingNavigation(ShellObject? location, int index)
         {
             Location = location;
             Index = index;
         }
 
-        internal ShellObject Location { get; set; }
+        internal ShellObject? Location { get; set; }
         internal int Index { get; set; }
     }
 }

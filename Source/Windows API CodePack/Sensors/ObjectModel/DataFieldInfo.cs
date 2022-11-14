@@ -22,18 +22,12 @@ public struct DataFieldInfo : IEquatable<DataFieldInfo>
     /// <summary>
     /// Gets the property's key.
     /// </summary>
-    public PropertyKey Key
-    {
-        get { return _propKey; }
-    }
+    public PropertyKey Key => _propKey;
 
     /// <summary>
     /// Gets the property's value.
     /// </summary>
-    public object Value
-    {
-        get { return _value; }
-    }
+    public object Value => _value;
 
     /// <summary>
     /// Returns the hash code for a particular DataFieldInfo structure.
@@ -50,7 +44,7 @@ public struct DataFieldInfo : IEquatable<DataFieldInfo>
     /// </summary>
     /// <param name="obj">The object to compare.</param>
     /// <returns><b>true</b> if this instance and another object are equal; otherwise <b>false</b>.</returns>
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj == null) { return false; }
 

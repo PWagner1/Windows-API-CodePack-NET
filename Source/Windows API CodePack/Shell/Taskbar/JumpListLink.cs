@@ -87,11 +87,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         public WindowShowCommand ShowCommand { get; set; }
 
         private IPropertyStore nativePropertyStore;
-        private IShellLinkW nativeShellLink;
+        private IShellLinkW? nativeShellLink;
         /// <summary>
         /// Gets an IShellLinkW representation of this object
         /// </summary>
-        internal override IShellLinkW NativeShellLink
+        internal override IShellLinkW? NativeShellLink
         {
             get
             {

@@ -27,7 +27,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <summary>
         /// Gets a value that specifies the most recent data reported by the sensor.
         /// </summary>        
-        public SensorReport DataReport { get; private set; }
+        public SensorReport? DataReport { get; private set; }
 
         /// <summary>
         /// Gets a value that specifies the GUID for the sensor instance.
@@ -36,19 +36,19 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         {
             get
             {
-                if (sensorId == null)
+                if (_sensorId == null)
                 {
                     Guid id;
-                    HResult hr = nativeISensor.GetID(out id);
+                    HResult hr = _nativeISensor.GetID(out id);
                     if (hr == HResult.Ok)
                     {
-                        sensorId = id;
+                        _sensorId = id;
                     }
                 }
-                return sensorId;
+                return _sensorId;
             }
         }
-        private Guid? sensorId;
+        private Guid? _sensorId;
 
         /// <summary>
         /// Gets a value that specifies the GUID for the sensor category.
@@ -57,20 +57,20 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         {
             get
             {
-                if (categoryId == null)
+                if (_categoryId == null)
                 {
                     Guid id;
-                    HResult hr = nativeISensor.GetCategory(out id);
+                    HResult hr = _nativeISensor.GetCategory(out id);
                     if (hr == HResult.Ok)
                     {
-                        categoryId = id;
+                        _categoryId = id;
                     }
                 }
 
-                return categoryId;
+                return _categoryId;
             }
         }
-        private Guid? categoryId;
+        private Guid? _categoryId;
 
         /// <summary>
         /// Gets a value that specifies the GUID for the sensor type.
@@ -79,37 +79,37 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         {
             get
             {
-                if (typeId == null)
+                if (_typeId == null)
                 {
                     Guid id;
-                    HResult hr = nativeISensor.GetType(out id);
+                    HResult hr = _nativeISensor.GetType(out id);
                     if (hr == HResult.Ok)
-                        typeId = id;
+                        _typeId = id;
                 }
 
-                return typeId;
+                return _typeId;
             }
         }
-        private Guid? typeId;
+        private Guid? _typeId;
 
         /// <summary>
         /// Gets a value that specifies the sensor's friendly name.
         /// </summary>
-        public string FriendlyName
+        public string? FriendlyName
         {
             get
             {
-                if (friendlyName == null)
+                if (_friendlyName == null)
                 {
-                    string name;
-                    HResult hr = nativeISensor.GetFriendlyName(out name);
+                    string? name;
+                    HResult hr = _nativeISensor.GetFriendlyName(out name);
                     if (hr == HResult.Ok)
-                        friendlyName = name;
+                        _friendlyName = name;
                 }
-                return friendlyName;
+                return _friendlyName;
             }
         }
-        private string friendlyName;
+        private string? _friendlyName;
 
         /// <summary>
         /// Gets a value that specifies the sensor's current state.
@@ -119,7 +119,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
             get
             {
                 NativeSensorState state;
-                nativeISensor.GetState(out state);
+                _nativeISensor.GetState(out state);
                 return (SensorState)state;
             }
         }
@@ -129,10 +129,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// </summary>
         public uint ReportInterval
         {
-            get
-            {
-                return (uint)GetProperty(SensorPropertyKeys.SensorPropertyCurrentReportInterval);
-            }
+            get => (uint)GetProperty(SensorPropertyKeys.SensorPropertyCurrentReportInterval);
             set
             {
                 SetProperties(new DataFieldInfo[] { new DataFieldInfo(SensorPropertyKeys.SensorPropertyCurrentReportInterval, value) });
@@ -142,13 +139,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <summary>
         /// Gets a value that specifies the minimum report interval.
         /// </summary>
-        public uint MinimumReportInterval
-        {
-            get
-            {
-                return (uint)GetProperty(SensorPropertyKeys.SensorPropertyMinReportInterval);
-            }
-        }
+        public uint MinimumReportInterval => (uint)GetProperty(SensorPropertyKeys.SensorPropertyMinReportInterval);
 
         /// <summary>
         /// Gets a value that specifies the manufacturer of the sensor.
@@ -157,63 +148,63 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         {
             get
             {
-                if (manufacturer == null)
+                if (_manufacturer == null)
                 {
-                    manufacturer = (string)GetProperty(SensorPropertyKeys.SensorPropertyManufacturer);
+                    _manufacturer = (string)GetProperty(SensorPropertyKeys.SensorPropertyManufacturer);
                 }
-                return manufacturer;
+                return _manufacturer;
             }
         }
-        private string manufacturer;
+        private string? _manufacturer;
 
         /// <summary>
         /// Gets a value that specifies the sensor's model.
         /// </summary>
-        public string Model
+        public string? Model
         {
             get
             {
-                if (model == null)
+                if (_model == null)
                 {
-                    model = (string)GetProperty(SensorPropertyKeys.SensorPropertyModel);
+                    _model = (string)GetProperty(SensorPropertyKeys.SensorPropertyModel);
                 }
-                return model;
+                return _model;
             }
         }
-        private string model;
+        private string? _model;
 
         /// <summary>
         /// Gets a value that specifies the sensor's serial number.
         /// </summary>
-        public string SerialNumber
+        public string? SerialNumber
         {
             get
             {
-                if (serialNumber == null)
+                if (_serialNumber == null)
                 {
-                    serialNumber = (string)GetProperty(SensorPropertyKeys.SensorPropertySerialNumber);
+                    _serialNumber = (string)GetProperty(SensorPropertyKeys.SensorPropertySerialNumber);
                 }
-                return serialNumber;
+                return _serialNumber;
             }
         }
-        private string serialNumber;
+        private string? _serialNumber;
 
         /// <summary>
         /// Gets a value that specifies the sensor's description.
         /// </summary>
-        public string Description
+        public string? Description
         {
             get
             {
-                if (description == null)
+                if (_description == null)
                 {
-                    description = (string)GetProperty(SensorPropertyKeys.SensorPropertyDescription);
+                    _description = (string)GetProperty(SensorPropertyKeys.SensorPropertyDescription);
                 }
 
-                return description;
+                return _description;
             }
         }
-        private string description;
+        private string? _description;
 
         /// <summary>
         /// Gets a value that specifies the sensor's connection type.
@@ -222,31 +213,31 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         {
             get
             {
-                if (connectionType == null)
+                if (_connectionType == null)
                 {
-                    connectionType = (SensorConnectionType)GetProperty(SensorPropertyKeys.SensorPropertyConnectionType);
+                    _connectionType = (SensorConnectionType)GetProperty(SensorPropertyKeys.SensorPropertyConnectionType);
                 }
-                return connectionType;
+                return _connectionType;
             }
         }
-        private SensorConnectionType? connectionType;
+        private SensorConnectionType? _connectionType;
 
         /// <summary>
         /// Gets a value that specifies the sensor's device path.
         /// </summary>
-        public string DevicePath
+        public string? DevicePath
         {
             get
             {
-                if (devicePath == null)
+                if (_devicePath == null)
                 {
-                    devicePath = (string)GetProperty(SensorPropertyKeys.SensorPropertyDeviceId);
+                    _devicePath = (string)GetProperty(SensorPropertyKeys.SensorPropertyDeviceId);
                 }
 
-                return devicePath;
+                return _devicePath;
             }
         }
-        private string devicePath;
+        private string? _devicePath;
 
         /// <summary>
         /// Gets or sets a value that specifies whether the data should be automatically updated.   
@@ -254,10 +245,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// </summary>        
         public bool AutoUpdateDataReport
         {
-            get
-            {
-                return IsEventInterestSet(EventInterestTypes.DataUpdated);
-            }
+            get => IsEventInterestSet(EventInterestTypes.DataUpdated);
             set
             {
                 if (value)
@@ -296,7 +284,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         {
 
             ISensorDataReport iReport;
-            HResult hr = nativeISensor.GetData(out iReport);
+            HResult hr = _nativeISensor.GetData(out iReport);
             if (hr == HResult.Ok)
             {
                 try
@@ -339,7 +327,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         {
             using (PropVariant pv = new PropVariant())
             {
-                HResult hr = nativeISensor.GetProperty(ref propKey, pv);
+                HResult hr = _nativeISensor.GetProperty(ref propKey, pv);
                 if (hr != HResult.Ok)
                 {
                     Exception e = Marshal.GetExceptionForHR((int)hr);
@@ -392,7 +380,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                 }
 
                 Dictionary<PropertyKey, object> data = new Dictionary<PropertyKey, object>();
-                HResult hr = nativeISensor.GetProperties(keyCollection, out valuesCollection);
+                HResult hr = _nativeISensor.GetProperties(keyCollection, out valuesCollection);
                 if (CoreErrorHelper.Succeeded(hr) && valuesCollection != null)
                 {
                     try
@@ -433,14 +421,14 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <returns>A strongly typed list of supported properties.</returns>        
         public IList<PropertyKey> GetSupportedProperties()
         {
-            if (nativeISensor == null)
+            if (_nativeISensor == null)
             {
                 throw new SensorPlatformException(LocalizedMessages.SensorNotInitialized);
             }
 
             List<PropertyKey> list = new List<PropertyKey>();
             IPortableDeviceKeyCollection? collection;
-            HResult hr = nativeISensor.GetSupportedDataFields(out collection);
+            HResult hr = _nativeISensor.GetSupportedDataFields(out collection);
             if (hr == HResult.Ok)
             {
                 try
@@ -499,7 +487,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                 }
 
                 object[] data = new object[propIndexes.Length];
-                HResult hr = nativeISensor.GetProperties(keyCollection, out valuesCollection);
+                HResult hr = _nativeISensor.GetProperties(keyCollection, out valuesCollection);
                 if (hr == HResult.Ok)
                 {
                     try
@@ -591,7 +579,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
 
             Dictionary<PropertyKey, object> results = new Dictionary<PropertyKey, object>();
             IPortableDeviceValues pdv2 = null;
-            HResult hr = nativeISensor.SetProperties(pdv, out pdv2);
+            HResult hr = _nativeISensor.SetProperties(pdv, out pdv2);
             if (hr == HResult.Ok)
             {
                 try
@@ -650,7 +638,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
             }
         }
 
-        void ISensorEvents.OnEvent(ISensor sensor, Guid eventID, ISensorDataReport newData)
+        void ISensorEvents.OnEvent(ISensor sensor, Guid eventId, ISensorDataReport newData)
         {
         }
 
@@ -662,18 +650,15 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         #endregion
 
         #region Implementation
-        private ISensor nativeISensor;
-        internal ISensor internalObject
+        private ISensor _nativeISensor;
+        internal ISensor InternalObject
         {
-            get
-            {
-                return nativeISensor;
-            }
+            get => _nativeISensor;
             set
             {
-                nativeISensor = value;
+                _nativeISensor = value;
                 SetEventInterest(EventInterestTypes.StateChanged);
-                nativeISensor.SetEventSink(this);
+                _nativeISensor.SetEventSink(this);
                 Initialize();
             }
         }
@@ -684,7 +669,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <param name="eventType">The type of event of interest.</param>        
         protected void SetEventInterest(Guid eventType)
         {
-            if (nativeISensor == null)
+            if (_nativeISensor == null)
             {
                 throw new SensorPlatformException(LocalizedMessages.SensorNotInitialized);
             }
@@ -699,7 +684,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
             interestingEvents.CopyTo(newEventInterest, 0);
             newEventInterest[interestCount] = eventType;
 
-            HResult hr = nativeISensor.SetEventInterest(newEventInterest, (uint)(interestCount + 1));
+            HResult hr = _nativeISensor.SetEventInterest(newEventInterest, (uint)(interestCount + 1));
             if (hr != HResult.Ok)
             {
                 throw Marshal.GetExceptionForHR((int)hr);
@@ -712,7 +697,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <param name="eventType">The type of event of interest.</param>
         protected void ClearEventInterest(Guid eventType)
         {
-            if (nativeISensor == null)
+            if (_nativeISensor == null)
             {
                 throw new SensorPlatformException(LocalizedMessages.SensorNotInitialized);
             }
@@ -734,7 +719,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                     }
                 }
 
-                nativeISensor.SetEventInterest(newEventInterest, (uint)(interestCount - 1));
+                _nativeISensor.SetEventInterest(newEventInterest, (uint)(interestCount - 1));
             }
 
         }
@@ -746,7 +731,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <returns><b>true</b> if the sensor will report interest in the specified event.</returns>
         protected bool IsEventInterestSet(Guid eventType)
         {
-            if (nativeISensor == null)
+            if (_nativeISensor == null)
             {
                 throw new SensorPlatformException(LocalizedMessages.SensorNotInitialized);
             }
@@ -759,7 +744,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         {
             IntPtr values;
             uint interestCount;
-            nativeISensor.GetEventInterest(out values, out interestCount);
+            _nativeISensor.GetEventInterest(out values, out interestCount);
             Guid[] interestingEvents = new Guid[interestCount];
             for (int index = 0; index < interestCount; index++)
             {

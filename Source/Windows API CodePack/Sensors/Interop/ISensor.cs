@@ -35,7 +35,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// </summary>
         /// <param name="friendlyName">The friendly name for the sensor</param>
         [PreserveSig]
-        HResult GetFriendlyName([Out, MarshalAs(UnmanagedType.BStr)] out string friendlyName);
+        HResult GetFriendlyName([Out, MarshalAs(UnmanagedType.BStr)] out string? friendlyName);
 
         /// <summary>
         /// Sensor metadata: make, model, serial number, etc

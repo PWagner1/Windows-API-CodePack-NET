@@ -7,7 +7,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
     /// </summary>
     public class ShellObjectCollection : IEnumerable, IDisposable, IList<ShellObject>
     {
-        private List<ShellObject> content = new List<ShellObject>();
+        private List<ShellObject?> content = new List<ShellObject?>();
 
         bool readOnly;
         bool isDisposed;
@@ -18,7 +18,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="iArray">IShellItemArray pointer</param>
         /// <param name="readOnly">Indicates whether the collection shouldbe read-only or not</param>
-        internal ShellObjectCollection(IShellItemArray iArray, bool readOnly)
+        internal ShellObjectCollection(IShellItemArray? iArray, bool readOnly)
         {
             this.readOnly = readOnly;
 
@@ -31,7 +31,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     content.Capacity = (int)itemCount;
                     for (uint index = 0; index < itemCount; index++)
                     {
-                        IShellItem iShellItem = null;
+                        IShellItem? iShellItem;
                         iArray.GetItemAt(index, out iShellItem);
                         content.Add(ShellObjectFactory.Create(iShellItem));
                     }
@@ -50,7 +50,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>ShellObjectCollection created from the given IDataObject</returns>
         public static ShellObjectCollection FromDataObject(System.Runtime.InteropServices.ComTypes.IDataObject dataObject)
         {
-            IShellItemArray shellItemArray;
+            IShellItemArray? shellItemArray;
             Guid iid = new Guid(ShellIIDGuid.IShellItemArray);
             ShellNativeMethods.SHCreateShellItemArrayFromDataObject(dataObject, ref iid, out shellItemArray);
             return new ShellObjectCollection(shellItemArray, true);
@@ -91,7 +91,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 if (disposing)
                 {
-                    foreach (ShellObject shellObject in content)
+                    foreach (ShellObject? shellObject in content)
                     {
                         shellObject.Dispose();
                     }
@@ -117,7 +117,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns></returns>
         public IEnumerator GetEnumerator()
         {
-            foreach (ShellObject obj in content)
+            foreach (ShellObject? obj in content)
             {
                 yield return obj;
             }
@@ -163,7 +163,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 }
 
                 // calculate offset array (folder IDL + item IDLs)
-                uint[] offsets = new uint[itemCount + 1];
+                uint[] offsets  = new uint[itemCount + 1];
                 for (int index = 0; index < itemCount; index++)
                 {
                     if (index == 0)
@@ -215,7 +215,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="item">The item to search for.</param>
         /// <returns>The index of the item found, or -1 if not found.</returns>
-        public int IndexOf(ShellObject item)
+        public int IndexOf(ShellObject? item)
         {
             return content.IndexOf(item);
         }
@@ -225,7 +225,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="index">The index at which to insert.</param>
         /// <param name="item">The item to insert.</param>
-        public void Insert(int index, ShellObject item)
+        public void Insert(int index, ShellObject? item)
         {
             if (readOnly)
             {
@@ -254,7 +254,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="index">The index of the item to retrieve.</param>
         /// <returns>The ShellObject at the specified index</returns>
-        public ShellObject this[int index]
+        public ShellObject? this[int index]
         {
             get
             {
@@ -279,7 +279,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Adds a ShellObject to the collection,
         /// </summary>
         /// <param name="item">The ShellObject to add.</param>
-        public void Add(ShellObject item)
+        public void Add(ShellObject? item)
         {
             if (readOnly)
             {
@@ -307,7 +307,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="item">The ShellObject.</param>
         /// <returns>true, if the ShellObject is in the list, false otherwise.</returns>
-        public bool Contains(ShellObject item)
+        public bool Contains(ShellObject? item)
         {
             return content.Contains(item);
         }
@@ -317,7 +317,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="array">The destination to copy to.</param>
         /// <param name="arrayIndex">The index into the array at which copying will commence.</param>
-        public void CopyTo(ShellObject[] array, int arrayIndex)
+        public void CopyTo(ShellObject?[] array, int arrayIndex)
         {
             if (array == null) { throw new ArgumentNullException("array"); }
             if (array.Length < arrayIndex + content.Count)
@@ -358,7 +358,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="item">The ShellObject to remove.</param>
         /// <returns>True if the item could be removed, false otherwise.</returns>
-        public bool Remove(ShellObject item)
+        public bool Remove(ShellObject? item)
         {
             if (readOnly)
             {
@@ -376,9 +376,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Allows for enumeration through the list of ShellObjects in the collection.
         /// </summary>
         /// <returns>The IEnumerator interface to use for enumeration.</returns>
-        IEnumerator<ShellObject> IEnumerable<ShellObject>.GetEnumerator()
+        IEnumerator<ShellObject?> IEnumerable<ShellObject>.GetEnumerator()
         {
-            foreach (ShellObject obj in content)
+            foreach (ShellObject? obj in content)
             {
                 yield return obj;
             }

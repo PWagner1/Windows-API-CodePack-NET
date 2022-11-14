@@ -28,7 +28,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// Creates a new Property collection given an IShellItem2 native interface
         /// </summary>
         /// <param name="parent">Parent ShellObject</param>
-        public ShellPropertyCollection(ShellObject parent)
+        public ShellPropertyCollection(ShellObject? parent)
             : base(new List<IShellProperty>())
         {
             ParentShellObject = parent;
@@ -66,7 +66,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
         #region Private Methods
 
-        private ShellObject ParentShellObject { get; set; }
+        private ShellObject? ParentShellObject { get; set; }
 
         private IPropertyStore NativePropertyStore { get; set; }
 
@@ -92,7 +92,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             }
         }
 
-        internal static IPropertyStore CreateDefaultPropertyStore(ShellObject shellObj)
+        internal static IPropertyStore CreateDefaultPropertyStore(ShellObject? shellObj)
         {
             IPropertyStore nativePropertyStore = null;
 

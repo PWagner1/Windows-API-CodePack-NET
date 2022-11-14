@@ -4,9 +4,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
 {
     internal class ShellItemArray : IShellItemArray
     {
-        List<IShellItem> shellItemsList = new List<IShellItem>();
+        List<IShellItem?> shellItemsList = new List<IShellItem?>();
 
-        internal ShellItemArray(IShellItem[] shellItems)
+        internal ShellItemArray(IShellItem?[] shellItems)
         {
             shellItemsList.AddRange(shellItems);
         }
@@ -39,7 +39,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             return HResult.Ok;
         }
 
-        public HResult GetItemAt(uint dwIndex, out IShellItem ppsi)
+        public HResult GetItemAt(uint dwIndex, out IShellItem? ppsi)
         {
             int index = (int)dwIndex;
 

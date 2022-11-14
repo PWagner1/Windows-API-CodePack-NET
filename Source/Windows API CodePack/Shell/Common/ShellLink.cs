@@ -14,7 +14,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         #region Internal Constructors
 
-        internal ShellLink(IShellItem2 shellItem)
+        internal ShellLink(IShellItem2? shellItem)
         {
             nativeShellItem = shellItem;
         }
@@ -72,7 +72,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Gets the ShellObject to which this link points to.
         /// </summary>
-        public ShellObject TargetShellObject
+        public ShellObject? TargetShellObject
         {
             get { return ShellObjectFactory.Create(TargetLocation); }
         }
@@ -101,11 +101,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
         }
 
-        private string internalArguments;
+        private string? internalArguments;
         /// <summary>
         /// Gets the arguments associated with this link.
         /// </summary>
-        public string Arguments
+        public string? Arguments
         {
             get
             {
@@ -118,11 +118,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
         }
 
-        private string internalComments;
+        private string? internalComments;
         /// <summary>
         /// Gets the comments associated with this link.
         /// </summary>
-        public string Comments
+        public string? Comments
         {
             get
             {

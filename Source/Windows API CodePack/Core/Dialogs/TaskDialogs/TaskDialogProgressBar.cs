@@ -17,7 +17,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// And using the default values: Min = 0, Max = 100, Current = 0
         /// </summary>
         /// <param name="name">The name of the control.</param>        
-        public TaskDialogProgressBar(string name) : base(name) { }
+        public TaskDialogProgressBar(string? name) : base(name) { }
 
         /// <summary>
         /// Creates a new instance of this class with the specified 

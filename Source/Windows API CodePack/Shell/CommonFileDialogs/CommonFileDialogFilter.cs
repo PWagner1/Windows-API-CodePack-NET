@@ -10,15 +10,15 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         // We'll keep a parsed list of separate 
         // extensions and rebuild as needed.
 
-        private Collection<string?> extensions;
-        private string rawDisplayName;
+        private readonly Collection<string?> _extensions;
+        private string? _rawDisplayName;
 
         /// <summary>
         /// Creates a new instance of this class.
         /// </summary>
         public CommonFileDialogFilter()
         {
-            extensions = new Collection<string?>();
+            _extensions = new Collection<string?>();
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// The <paramref name="extensionList"/> cannot be null or a 
         /// zero-length string. 
         /// </permission>
-        public CommonFileDialogFilter(string rawDisplayName, string extensionList)
+        public CommonFileDialogFilter(string? rawDisplayName, string extensionList)
             : this()
         {
             if (string.IsNullOrEmpty(extensionList))
@@ -43,7 +43,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 throw new ArgumentNullException("extensionList");
             }
 
-            this.rawDisplayName = rawDisplayName;
+            this._rawDisplayName = rawDisplayName;
 
             // Parse string and create extension strings.
             // Format: "bat,cmd", or "bat;cmd", or "*.bat;*.cmd"
@@ -51,7 +51,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             string?[] rawExtensions = extensionList.Split(',', ';');
             foreach (string? extension in rawExtensions)
             {
-                extensions.Add(NormalizeExtension(extension));
+                _extensions.Add(NormalizeExtension(extension));
             }
         }
         /// <summary>
@@ -61,19 +61,19 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// The value for this property cannot be set to null or a 
         /// zero-length string. 
         /// </permission>        
-        public string DisplayName
+        public string? DisplayName
         {
             get
             {
-                if (showExtensions)
+                if (_showExtensions)
                 {
                     return string.Format(CultureInfo.InvariantCulture,
                         "{0} ({1})",
-                        rawDisplayName, 
-                        GetDisplayExtensionList(extensions));
+                        _rawDisplayName, 
+                        GetDisplayExtensionList(_extensions));
                 }
 
-                return rawDisplayName;
+                return _rawDisplayName;
             }
 
             set
@@ -82,7 +82,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 {
                     throw new ArgumentNullException("value");
                 }
-                rawDisplayName = value;
+                _rawDisplayName = value;
             }
         }
 
@@ -90,27 +90,27 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// Gets a collection of the individual extensions 
         /// described by this filter.
         /// </summary>
-        public Collection<string?> Extensions
-        {
-            get { return extensions; }
-        }
+        public Collection<string?> Extensions => _extensions;
 
-        private bool showExtensions = true;
+        private bool _showExtensions = true;
         /// <summary>
         /// Gets or sets a value that controls whether the extensions are displayed.
         /// </summary>
         public bool ShowExtensions
         {
-            get { return showExtensions; }
-            set { showExtensions = value; }
+            get => _showExtensions;
+            set => _showExtensions = value;
         }
 
         private static string? NormalizeExtension(string? rawExtension)
         {
-            rawExtension = rawExtension.Trim();
-            rawExtension = rawExtension.Replace("*.", null);
-            rawExtension = rawExtension.Replace(".", null);
-            return rawExtension;
+            if (rawExtension != null)
+            {
+                rawExtension = rawExtension.Trim();
+                rawExtension = rawExtension.Replace("*.", null);
+                rawExtension = rawExtension.Replace(".", null);
+                return rawExtension;
+            }
         }
 
         private static string GetDisplayExtensionList(Collection<string?> extensions)
@@ -135,7 +135,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         internal ShellNativeMethods.FilterSpec GetFilterSpec()
         {
             StringBuilder filterList = new StringBuilder();
-            foreach (string? extension in extensions)
+            foreach (string? extension in _extensions)
             {
                 if (filterList.Length > 0) { filterList.Append(";"); }
 
@@ -155,8 +155,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             return string.Format(CultureInfo.InvariantCulture,
                 "{0} ({1})",
-                rawDisplayName,
-                GetDisplayExtensionList(extensions));
+                _rawDisplayName,
+                GetDisplayExtensionList(_extensions));
         }
     }
 }

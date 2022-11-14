@@ -16,7 +16,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         #region Internal Constructors
 
-        internal FileSystemKnownFolder(IShellItem2 shellItem) : base(shellItem) { }
+        internal FileSystemKnownFolder(IShellItem2? shellItem) : base(shellItem) { }
 
         internal FileSystemKnownFolder(IKnownFolderNative kf)
         {
@@ -44,15 +44,15 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     // Need to use the PIDL to get the native IKnownFolder interface.
 
                     // Get the PIDL for the ShellItem
-                    if (nativeShellItem != null && base.PIDL == IntPtr.Zero)
+                    if (nativeShellItem != null && base.Pidl == IntPtr.Zero)
                     {
-                        base.PIDL = ShellHelper.PidlFromShellItem(nativeShellItem);
+                        base.Pidl = ShellHelper.PidlFromShellItem(nativeShellItem);
                     }
 
                     // If we have a valid PIDL, get the native IKnownFolder
-                    if (base.PIDL != IntPtr.Zero)
+                    if (base.Pidl != IntPtr.Zero)
                     {
-                        knownFolderNative = KnownFolderHelper.FromPIDL(base.PIDL);
+                        knownFolderNative = KnownFolderHelper.FromPIDL(base.Pidl);
                     }
 
                     Debug.Assert(knownFolderNative != null);

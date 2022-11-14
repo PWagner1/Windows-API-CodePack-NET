@@ -296,7 +296,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         private int HandleHyperlinkClick(IntPtr href)
         {
-            string link = Marshal.PtrToStringUni(href);
+            string link = Marshal.PtrToStringUni(href) ?? string.Empty;
             outerDialog.RaiseHyperlinkClickEvent(link);
 
             return CoreErrorHelper.Ignored;

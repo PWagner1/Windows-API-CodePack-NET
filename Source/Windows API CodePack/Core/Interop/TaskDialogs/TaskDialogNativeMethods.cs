@@ -48,7 +48,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             [MarshalAs(UnmanagedType.LPWStr)]
             internal string? expandedInformation;
             [MarshalAs(UnmanagedType.LPWStr)]
-            internal string expandedControlText;
+            internal string? expandedControlText;
             [MarshalAs(UnmanagedType.LPWStr)]
             internal string? collapsedControlText;
             internal IconUnion footerIcon;  // NOTE: 32-bit union field, holds pszFooterIcon as well

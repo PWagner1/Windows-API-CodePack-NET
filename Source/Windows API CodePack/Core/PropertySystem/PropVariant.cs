@@ -21,7 +21,7 @@ namespace MS.WindowsAPICodePack.Internal
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         private static Dictionary<Type, Action<PropVariant, Array, uint>>? GenerateVectorActions()
         {
-            Dictionary<Type, Action<PropVariant, Array, uint>>? cache = new Dictionary<Type, Action<PropVariant, Array, uint>>();
+            Dictionary<Type, Action<PropVariant, Array, uint>>? cache = new();
 
             cache.Add(typeof(Int16), (pv, array, i) =>
             {
@@ -138,8 +138,8 @@ namespace MS.WindowsAPICodePack.Internal
         }
 
         // A dictionary and lock to contain compiled expression trees for constructors
-        private static Dictionary<Type, Func<object, PropVariant>> _cache = new Dictionary<Type, Func<object, PropVariant>>();
-        private static object _padlock = new object();
+        private static Dictionary<Type, Func<object, PropVariant>> _cache = new();
+        private static object _padlock = new();
 
         // Retrieves a cached constructor expression.
         // If no constructor has been cached, it attempts to find/add it.  If it cannot be found
@@ -155,8 +155,9 @@ namespace MS.WindowsAPICodePack.Internal
                 {
                     // iterates through all constructors
                     ConstructorInfo constructor = typeof(PropVariant)
-                        .GetConstructor(new Type[] { type });
+                        .GetConstructor(new Type[] { type })!;
 
+                    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
                     if (constructor == null)
                     { // if the method was not found, throw.
                         throw new ArgumentException(LocalizedMessages.PropVariantTypeNotSupported);

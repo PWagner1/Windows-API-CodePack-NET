@@ -34,21 +34,21 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Creates a new instance of this class with the specified text.
         /// </summary>
         /// <param name="text">The text to display for this control.</param>
-        public CommonFileDialogCheckBox(string text) : base(text) { }
+        public CommonFileDialogCheckBox(string? text) : base(text) { }
 
         /// <summary>
         /// Creates a new instance of this class with the specified name and text.
         /// </summary>
         /// <param name="name">The name of this control.</param>
         /// <param name="text">The text to display for this control.</param>
-        public CommonFileDialogCheckBox(string name, string text) : base(name, text) { }
+        public CommonFileDialogCheckBox(string? name, string? text) : base(name, text) { }
 
         /// <summary>
         /// Creates a new instance of this class with the specified text and check state.
         /// </summary>
         /// <param name="text">The text to display for this control.</param>
         /// <param name="isChecked">The check state of this control.</param>
-        public CommonFileDialogCheckBox(string text, bool isChecked)
+        public CommonFileDialogCheckBox(string? text, bool isChecked)
             : base(text)
         {
             this.isChecked = isChecked;
@@ -60,7 +60,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// <param name="name">The name of this control.</param>
         /// <param name="text">The text to display for this control.</param>
         /// <param name="isChecked">The check state of this control.</param>
-        public CommonFileDialogCheckBox(string name, string text, bool isChecked)
+        public CommonFileDialogCheckBox(string? name, string? text, bool isChecked)
             : base(name, text)
         {
             this.isChecked = isChecked;
@@ -88,10 +88,16 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
             Debug.Assert(dialog != null, "CommonFileDialogCheckBox.Attach: dialog parameter can not be null");
 
             // Add a check button control
-            dialog.AddCheckButton(Id, Text, isChecked);
+            if (dialog != null)
+            {
+                dialog.AddCheckButton(Id, Text, isChecked);
 
-            // Make this control prominent if needed
-            if (IsProminent) { dialog.MakeProminent(Id); }
+                // Make this control prominent if needed
+                if (IsProminent)
+                {
+                    dialog.MakeProminent(Id);
+                }
+            }
 
             // Make sure this property is set
             ApplyPropertyChange("IsChecked");
