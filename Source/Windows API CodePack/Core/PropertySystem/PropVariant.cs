@@ -17,11 +17,11 @@ namespace MS.WindowsAPICodePack.Internal
         #region Vector Action Cache
 
         // A static dictionary of delegates to get data from array's contained within PropVariants
-        private static Dictionary<Type, Action<PropVariant, Array, uint>> _vectorActions = null;
+        private static Dictionary<Type, Action<PropVariant, Array, uint>>? _vectorActions = null;
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-        private static Dictionary<Type, Action<PropVariant, Array, uint>> GenerateVectorActions()
+        private static Dictionary<Type, Action<PropVariant, Array, uint>>? GenerateVectorActions()
         {
-            Dictionary<Type, Action<PropVariant, Array, uint>> cache = new Dictionary<Type, Action<PropVariant, Array, uint>>();
+            Dictionary<Type, Action<PropVariant, Array, uint>>? cache = new Dictionary<Type, Action<PropVariant, Array, uint>>();
 
             cache.Add(typeof(Int16), (pv, array, i) =>
             {

@@ -20,7 +20,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// Creates a new instance of this class with the specified name.
         /// </summary>
         /// <param name="name">The name of this dialog.</param>
-        public CommonSaveFileDialog(string name) : base(name) { }
+        public CommonSaveFileDialog(string? name) : base(name) { }
 
         #region Public API specific to Save
 
@@ -231,14 +231,14 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             }
         }
 
-        internal override IFileDialog GetNativeFileDialog()
+        internal override IFileDialog? GetNativeFileDialog()
         {
             Debug.Assert(saveDialogCoClass != null, "Must call Initialize() before fetching dialog interface");
             return (IFileDialog)saveDialogCoClass;
         }
 
         internal override void PopulateWithFileNames(
-            System.Collections.ObjectModel.Collection<string> names)
+            Collection<string> names)
         {
             IShellItem item;
             saveDialogCoClass.GetResult(out item);
@@ -251,7 +251,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             names.Add(GetFileNameFromShellItem(item));
         }
 
-        internal override void PopulateWithIShellItems(System.Collections.ObjectModel.Collection<IShellItem> items)
+        internal override void PopulateWithIShellItems(Collection<IShellItem> items)
         {
             IShellItem item;
             saveDialogCoClass.GetResult(out item);

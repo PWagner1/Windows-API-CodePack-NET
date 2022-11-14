@@ -10,7 +10,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <summary>
         /// Gets or sets this item's path
         /// </summary>
-        string Path { get; set; }
+        string? Path { get; set; }
     }
 
     /// <summary>

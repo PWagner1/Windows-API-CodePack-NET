@@ -115,7 +115,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Collection enumeration
         /// </summary>
         /// <returns></returns>
-        public System.Collections.IEnumerator GetEnumerator()
+        public IEnumerator GetEnumerator()
         {
             foreach (ShellObject obj in content)
             {

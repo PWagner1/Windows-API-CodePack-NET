@@ -48,10 +48,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
         public void SetAeroGlassTransparency()
         {
             // Set the Background to transparent from Win32 perpective 
-            HwndSource.FromHwnd(windowHandle).CompositionTarget.BackgroundColor = System.Windows.Media.Colors.Transparent;
+            HwndSource.FromHwnd(windowHandle).CompositionTarget.BackgroundColor = Colors.Transparent;
 
             // Set the Background to transparent from WPF perpective 
-            this.Background = Brushes.Transparent;
+            Background = Brushes.Transparent;
         }
 
         /// <summary>
@@ -84,9 +84,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 // Create a margin structure
                 Margins margins = new Margins();
                 margins.LeftWidth = (int)topLeftFrame.X;
-                margins.RightWidth = (int)(this.ActualWidth - bottomRightFrame.X);
+                margins.RightWidth = (int)(ActualWidth - bottomRightFrame.X);
                 margins.TopHeight = (int)(topLeftFrame.Y);
-                margins.BottomHeight = (int)(this.ActualHeight - bottomRightFrame.Y);
+                margins.BottomHeight = (int)(ActualHeight - bottomRightFrame.Y);
 
                 // Extend the Frame into client area
                 DesktopWindowManagerNativeMethods.DwmExtendFrameIntoClientArea(windowHandle, ref margins);
@@ -133,7 +133,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             base.OnSourceInitialized(e);
             WindowInteropHelper interopHelper = new WindowInteropHelper(this);
-            this.windowHandle = interopHelper.Handle;
+            windowHandle = interopHelper.Handle;
 
             // add Window Proc hook to capture DWM messages
             HwndSource source = HwndSource.FromHwnd(windowHandle);

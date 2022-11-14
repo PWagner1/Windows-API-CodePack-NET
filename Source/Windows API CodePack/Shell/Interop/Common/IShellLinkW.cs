@@ -45,5 +45,5 @@ internal interface IShellLinkW
         uint dwReserved);
     void Resolve(IntPtr hwnd, uint fFlags);
     void SetPath(
-        [MarshalAs(UnmanagedType.LPWStr)] string pszFile);
+        [MarshalAs(UnmanagedType.LPWStr)] string? pszFile);
 }

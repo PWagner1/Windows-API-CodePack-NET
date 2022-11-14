@@ -10,7 +10,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         // We'll keep a parsed list of separate 
         // extensions and rebuild as needed.
 
-        private Collection<string> extensions;
+        private Collection<string?> extensions;
         private string rawDisplayName;
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public CommonFileDialogFilter()
         {
-            extensions = new Collection<string>();
+            extensions = new Collection<string?>();
         }
 
         /// <summary>
@@ -48,10 +48,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             // Parse string and create extension strings.
             // Format: "bat,cmd", or "bat;cmd", or "*.bat;*.cmd"
             // Can support leading "." or "*." - these will be stripped.
-            string[] rawExtensions = extensionList.Split(',', ';');
-            foreach (string extension in rawExtensions)
+            string?[] rawExtensions = extensionList.Split(',', ';');
+            foreach (string? extension in rawExtensions)
             {
-                extensions.Add(CommonFileDialogFilter.NormalizeExtension(extension));
+                extensions.Add(NormalizeExtension(extension));
             }
         }
         /// <summary>
@@ -67,10 +67,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 if (showExtensions)
                 {
-                    return string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                    return string.Format(CultureInfo.InvariantCulture,
                         "{0} ({1})",
                         rawDisplayName, 
-                        CommonFileDialogFilter.GetDisplayExtensionList(extensions));
+                        GetDisplayExtensionList(extensions));
                 }
 
                 return rawDisplayName;
@@ -90,7 +90,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// Gets a collection of the individual extensions 
         /// described by this filter.
         /// </summary>
-        public Collection<string> Extensions
+        public Collection<string?> Extensions
         {
             get { return extensions; }
         }
@@ -105,7 +105,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             set { showExtensions = value; }
         }
 
-        private static string NormalizeExtension(string rawExtension)
+        private static string? NormalizeExtension(string? rawExtension)
         {
             rawExtension = rawExtension.Trim();
             rawExtension = rawExtension.Replace("*.", null);
@@ -113,10 +113,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             return rawExtension;
         }
 
-        private static string GetDisplayExtensionList(Collection<string> extensions)
+        private static string GetDisplayExtensionList(Collection<string?> extensions)
         {
             StringBuilder extensionList = new StringBuilder();
-            foreach (string extension in extensions)
+            foreach (string? extension in extensions)
             {
                 if (extensionList.Length > 0) { extensionList.Append(", "); }
                 extensionList.Append("*.");
@@ -135,7 +135,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         internal ShellNativeMethods.FilterSpec GetFilterSpec()
         {
             StringBuilder filterList = new StringBuilder();
-            foreach (string extension in extensions)
+            foreach (string? extension in extensions)
             {
                 if (filterList.Length > 0) { filterList.Append(";"); }
 
@@ -153,10 +153,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <returns>A <see cref="System.String"/>.</returns>
         public override string ToString()
         {
-            return string.Format(System.Globalization.CultureInfo.InvariantCulture,
+            return string.Format(CultureInfo.InvariantCulture,
                 "{0} ({1})",
                 rawDisplayName,
-                CommonFileDialogFilter.GetDisplayExtensionList(extensions));
+                GetDisplayExtensionList(extensions));
         }
     }
 }

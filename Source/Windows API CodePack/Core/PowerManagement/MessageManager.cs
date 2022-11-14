@@ -8,8 +8,8 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
     /// </summary>
     internal static class MessageManager
     {
-        private static object lockObject = new object();
-        private static PowerRegWindow window;
+        private static object _lockObject = new();
+        private static PowerRegWindow? _window;
 
         #region Internal static methods
 
@@ -21,7 +21,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         internal static void RegisterPowerEvent(Guid eventId, EventHandler eventToRegister)
         {
             EnsureInitialized();
-            window.RegisterPowerEvent(eventId, eventToRegister);
+            _window.RegisterPowerEvent(eventId, eventToRegister);
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         internal static void UnregisterPowerEvent(Guid eventId, EventHandler eventToUnregister)
         {
             EnsureInitialized();
-            window.UnregisterPowerEvent(eventId, eventToUnregister);
+            _window.UnregisterPowerEvent(eventId, eventToUnregister);
         }
 
         #endregion
@@ -43,13 +43,13 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// </summary>
         private static void EnsureInitialized()
         {
-            lock (lockObject)
+            lock (_lockObject)
             {
-                if (window == null)
+                if (_window == null)
                 {
                     // Create a new hidden window to listen
                     // for power management related window messages.
-                    window = new PowerRegWindow();
+                    _window = new PowerRegWindow();
                 }
             }
         }
@@ -60,8 +60,8 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// </summary>
         internal class PowerRegWindow : Form
         {
-            private Hashtable eventList = new Hashtable();
-            private ReaderWriterLock readerWriterLock = new ReaderWriterLock();
+            private Hashtable _eventList = new();
+            private ReaderWriterLock _readerWriterLock = new();
 
             internal PowerRegWindow()
                 : base()
@@ -79,20 +79,20 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             /// <param name="eventToRegister">Event handler for the event.</param>
             internal void RegisterPowerEvent(Guid eventId, EventHandler eventToRegister)
             {
-                readerWriterLock.AcquireWriterLock(Timeout.Infinite);
-                if (!eventList.Contains(eventId))
+                _readerWriterLock.AcquireWriterLock(Timeout.Infinite);
+                if (!_eventList.Contains(eventId))
                 {
-                    Power.RegisterPowerSettingNotification(this.Handle, eventId);
+                    Power.RegisterPowerSettingNotification(Handle, eventId);
                     ArrayList newList = new ArrayList();
                     newList.Add(eventToRegister);
-                    eventList.Add(eventId, newList);
+                    _eventList.Add(eventId, newList);
                 }
                 else
                 {
-                    ArrayList currList = (ArrayList)eventList[eventId];
+                    ArrayList currList = (ArrayList)_eventList[eventId];
                     currList.Add(eventToRegister);
                 }
-                readerWriterLock.ReleaseWriterLock();
+                _readerWriterLock.ReleaseWriterLock();
             }
 
             /// <summary>
@@ -104,17 +104,17 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             /// a function that is not registered.</exception>
             internal void UnregisterPowerEvent(Guid eventId, EventHandler eventToUnregister)
             {
-                readerWriterLock.AcquireWriterLock(Timeout.Infinite);
-                if (eventList.Contains(eventId))
+                _readerWriterLock.AcquireWriterLock(Timeout.Infinite);
+                if (_eventList.Contains(eventId))
                 {
-                    ArrayList currList = (ArrayList)eventList[eventId];
+                    ArrayList currList = (ArrayList)_eventList[eventId];
                     currList.Remove(eventToUnregister);
                 }
                 else
                 {
                     throw new InvalidOperationException(LocalizedMessages.MessageManagerHandlerNotRegistered);
                 }
-                readerWriterLock.ReleaseWriterLock();
+                _readerWriterLock.ReleaseWriterLock();
             }
 
             #endregion
@@ -160,7 +160,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
 
                     if (!EventManager.IsMessageCaught(currentEvent))
                     {
-                        ExecuteEvents((ArrayList)eventList[currentEvent]);
+                        ExecuteEvents((ArrayList)_eventList[currentEvent]);
                     }
                 }
                 else

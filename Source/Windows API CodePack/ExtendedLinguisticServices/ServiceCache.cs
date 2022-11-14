@@ -8,9 +8,9 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         private static ServiceCache staticInstance = new ServiceCache();
 
         // Guid -> IntPtr
-        private Dictionary<Guid, IntPtr> _guidToService = new Dictionary<Guid, IntPtr>();
+        private Dictionary<Guid, IntPtr>? _guidToService = new Dictionary<Guid, IntPtr>();
         // IntPtr -> this (serves as a set)
-        private List<IntPtr> _servicePointers = new List<IntPtr>();
+        private List<IntPtr>? _servicePointers = new List<IntPtr>();
         // The lock
         private ReaderWriterLockSlim _cacheLock = new ReaderWriterLockSlim();
         // Active resources refcount, signed 64-bit
@@ -162,13 +162,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
             }
         }
 
-        private bool IsInvalid
-        {
-            get
-            {
-                return Interlocked.CompareExchange(ref _finalized, 1, 1) != 0;
-            }
-        }
+        private bool IsInvalid => Interlocked.CompareExchange(ref _finalized, 1, 1) != 0;
 
         private void ReleaseHandle()
         {
@@ -199,12 +193,6 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
             }
         }
 
-        internal static ServiceCache Instance
-        {
-            get
-            {
-                return staticInstance;
-            }
-        }
+        internal static ServiceCache Instance => staticInstance;
     }
 }

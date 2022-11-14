@@ -40,7 +40,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
 
             _shellObject = shellObject;
-            this._recursive = recursive;
+            _recursive = recursive;
 
             var result = MessageListenerFilter.Register(OnWindowMessageReceived);
             _listenerHandle = result.WindowHandle;

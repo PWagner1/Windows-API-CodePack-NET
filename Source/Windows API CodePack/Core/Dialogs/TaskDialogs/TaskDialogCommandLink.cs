@@ -17,7 +17,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         /// <param name="name">The name for this button.</param>
         /// <param name="text">The label for this button.</param>
-        public TaskDialogCommandLink(string name, string text) : base(name, text) { }
+        public TaskDialogCommandLink(string name, string? text) : base(name, text) { }
 
         /// <summary>
         /// Creates a new instance of this class with the specified name,label, and instruction.
@@ -25,17 +25,17 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <param name="name">The name for this button.</param>
         /// <param name="text">The label for this button.</param>
         /// <param name="instruction">The instruction for this command link.</param>
-        public TaskDialogCommandLink(string name, string text, string instruction)
+        public TaskDialogCommandLink(string name, string? text, string? instruction)
             : base(name, text)
         {
             this.instruction = instruction;
         }
 
-        private string instruction;
+        private string? instruction;
         /// <summary>
         /// Gets or sets the instruction associated with this command link button.
         /// </summary>
-        public string Instruction
+        public string? Instruction
         {
             get { return instruction; }
             set { instruction = value; }

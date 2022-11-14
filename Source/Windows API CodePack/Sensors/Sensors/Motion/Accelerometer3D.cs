@@ -15,7 +15,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         {
             get
             {                
-                return new Acceleration3D(this.DataReport);
+                return new Acceleration3D(DataReport);
             }
         }
     }
@@ -52,11 +52,11 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         {
             if (report == null) { throw new ArgumentNullException("report"); }
 
-            this.acceleration[(int)AccelerationAxis.XAxis] =
+            acceleration[(int)AccelerationAxis.XAxis] =
                 (float)report.Values[SensorPropertyKeys.SensorDataTypeAccelerationXG.FormatId][0];
-            this.acceleration[(int)AccelerationAxis.YAxis] =
+            acceleration[(int)AccelerationAxis.YAxis] =
                 (float)report.Values[SensorPropertyKeys.SensorDataTypeAccelerationYG.FormatId][1];
-            this.acceleration[(int)AccelerationAxis.ZAxis] =
+            acceleration[(int)AccelerationAxis.ZAxis] =
                 (float)report.Values[SensorPropertyKeys.SensorDataTypeAccelerationZG.FormatId][2];
         }
 

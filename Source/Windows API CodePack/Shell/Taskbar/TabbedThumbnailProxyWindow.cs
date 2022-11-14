@@ -27,15 +27,15 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         internal UIElement WindowsControl { get; private set; }
 
-        internal IntPtr WindowToTellTaskbarAbout { get { return this.Handle; } }
+        internal IntPtr WindowToTellTaskbarAbout { get { return Handle; } }
 
         protected override void WndProc(ref Message m)
         {
             bool handled = false;
 
-            if (this.TabbedThumbnail != null)
+            if (TabbedThumbnail != null)
             {
-                handled = TaskbarWindowManager.DispatchMessage(ref m, this.TabbedThumbnail.TaskbarWindow);
+                handled = TaskbarWindowManager.DispatchMessage(ref m, TabbedThumbnail.TaskbarWindow);
             }
 
             // If it's a WM_Destroy message, then also forward it to the base class (our native window)

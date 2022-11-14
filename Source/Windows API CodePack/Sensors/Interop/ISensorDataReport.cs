@@ -66,7 +66,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <param name="keys">The collection of keys for values to obtain data for</param>
         /// <param name="values">The values returned by the query</param>
         void GetSensorValues(
-            [In, MarshalAs(UnmanagedType.Interface)] IPortableDeviceKeyCollection keys,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IPortableDeviceValues values);
+            [In, MarshalAs(UnmanagedType.Interface)] IPortableDeviceKeyCollection? keys,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IPortableDeviceValues? values);
     }
 }

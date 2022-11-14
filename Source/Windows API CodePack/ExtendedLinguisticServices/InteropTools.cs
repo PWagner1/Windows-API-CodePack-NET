@@ -56,7 +56,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
             int offset = 0;
             for (int i = 0; i < count; i++)
             {
-                retVal[i] = Marshal.PtrToStringUni(Marshal.ReadIntPtr(strPtr, offset));
+                retVal[i] = Marshal.PtrToStringUni(Marshal.ReadIntPtr(strPtr, offset)) ?? string.Empty;
                 offset += IntPtr.Size;
             }
 

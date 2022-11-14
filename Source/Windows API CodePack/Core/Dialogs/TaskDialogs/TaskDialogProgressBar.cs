@@ -50,13 +50,13 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 // Check for positive numbers
                 if (value < 0)
                 {
-                    throw new System.ArgumentException(LocalizedMessages.TaskDialogProgressBarMinValueGreaterThanZero, "value");
+                    throw new ArgumentException(LocalizedMessages.TaskDialogProgressBarMinValueGreaterThanZero, "value");
                 }
 
                 // Check if min / max differ
                 if (value >= Maximum)
                 {
-                    throw new System.ArgumentException(LocalizedMessages.TaskDialogProgressBarMinValueLessThanMax, "value");
+                    throw new ArgumentException(LocalizedMessages.TaskDialogProgressBarMinValueLessThanMax, "value");
                 }
 
                 _minimum = value;
@@ -76,7 +76,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 // Check if min / max differ
                 if (value < Minimum)
                 {
-                    throw new System.ArgumentException(LocalizedMessages.TaskDialogProgressBarMaxValueGreaterThanMin, "value");
+                    throw new ArgumentException(LocalizedMessages.TaskDialogProgressBarMaxValueGreaterThanMin, "value");
                 }
                 _maximum = value;
                 ApplyPropertyChange("Maximum");
@@ -87,16 +87,16 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public int Value
         {
-            get { return this._value; }
+            get { return _value; }
             set
             {
                 CheckPropertyChangeAllowed("Value");
                 // Check for positive numbers
                 if (value < Minimum || value > Maximum)
                 {
-                    throw new System.ArgumentException(LocalizedMessages.TaskDialogProgressBarValueInRange, "value");
+                    throw new ArgumentException(LocalizedMessages.TaskDialogProgressBarValueInRange, "value");
                 }
-                this._value = value;
+                _value = value;
                 ApplyPropertyChange("Value");
             }
         }

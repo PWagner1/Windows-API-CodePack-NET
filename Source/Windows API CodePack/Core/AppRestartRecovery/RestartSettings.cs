@@ -58,7 +58,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// and restrictions for restarting the application.</returns>
         public override string ToString()
         {
-            return string.Format(System.Globalization.CultureInfo.InvariantCulture,
+            return string.Format(CultureInfo.InvariantCulture,
                 LocalizedMessages.RestartSettingsFormatString,
                 command, restrictions.ToString());
         }

@@ -191,7 +191,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 if (typeof(T) != ValueType)
                 {
                     throw new NotSupportedException(
-                        string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                        string.Format(CultureInfo.InvariantCulture,
                         LocalizedMessages.ShellPropertyWrongType, ValueType.Name));
                 }
 

@@ -111,7 +111,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             IKnownFolderManager knownFolderManager = (IKnownFolderManager)new KnownFolderManagerClass();
 
             knownFolderManager.GetFolderByName(canonicalName, out knownFolderNative);
-            IKnownFolder kf = KnownFolderHelper.GetKnownFolder(knownFolderNative);
+            IKnownFolder kf = GetKnownFolder(knownFolderNative);
 
             if (kf == null)
             {
@@ -128,7 +128,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>A known folder representing the specified name.</returns>
         public static IKnownFolder FromPath(string path)
         {
-            return KnownFolderHelper.FromParsingName(path);
+            return FromParsingName(path);
         }
 
         /// <summary>
@@ -158,10 +158,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 }
 
                 // It's probably a special folder, try to get it                
-                IKnownFolderNative knownFolderNative = KnownFolderHelper.FromPIDL(pidl);
+                IKnownFolderNative knownFolderNative = FromPIDL(pidl);
                 if (knownFolderNative != null)
                 {
-                    IKnownFolder kf = KnownFolderHelper.GetKnownFolder(knownFolderNative);
+                    IKnownFolder kf = GetKnownFolder(knownFolderNative);
                     if (kf == null)
                     {
                         throw new ArgumentException(LocalizedMessages.KnownFolderParsingName, "parsingName");
@@ -180,7 +180,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     throw new ArgumentException(LocalizedMessages.KnownFolderParsingName, "parsingName");
                 }
 
-                IKnownFolder kf2 = KnownFolderHelper.GetKnownFolder(KnownFolderHelper.FromPIDL(pidl));
+                IKnownFolder kf2 = GetKnownFolder(FromPIDL(pidl));
                 if (kf2 == null)
                 {
                     throw new ArgumentException(LocalizedMessages.KnownFolderParsingName, "parsingName");

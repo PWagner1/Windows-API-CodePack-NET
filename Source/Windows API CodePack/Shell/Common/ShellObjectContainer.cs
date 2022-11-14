@@ -33,7 +33,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                     if (CoreErrorHelper.Failed(hr))
                     {
-                        string str = ShellHelper.GetParsingName(NativeShellItem);
+                        string? str = ShellHelper.GetParsingName(NativeShellItem);
                         if (str != null && str != Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
                         {
                             throw new ShellException(hr);

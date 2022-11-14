@@ -180,11 +180,11 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
 
                 if (value)
                 {
-                    PowerManager.SetThreadExecutionState(ExecutionStates.Continuous | ExecutionStates.DisplayRequired);
+                    SetThreadExecutionState(ExecutionStates.Continuous | ExecutionStates.DisplayRequired);
                 }
                 else
                 {
-                    PowerManager.SetThreadExecutionState(ExecutionStates.Continuous);
+                    SetThreadExecutionState(ExecutionStates.Continuous);
                 }
 
                 monitorRequired = value;
@@ -214,9 +214,9 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
                 CoreHelpers.ThrowIfNotXP();
 
                 if (value)
-                    PowerManager.SetThreadExecutionState(ExecutionStates.Continuous | ExecutionStates.SystemRequired);
+                    SetThreadExecutionState(ExecutionStates.Continuous | ExecutionStates.SystemRequired);
                 else
-                    PowerManager.SetThreadExecutionState(ExecutionStates.Continuous);
+                    SetThreadExecutionState(ExecutionStates.Continuous);
 
                 requestBlockSleep = value;
             }

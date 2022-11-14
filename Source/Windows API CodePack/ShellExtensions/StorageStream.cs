@@ -15,7 +15,7 @@
                 throw new ArgumentNullException("stream");
             }
             _isReadOnly = readOnly;
-            this._stream = stream;
+            _stream = stream;
         }
 
         /// <summary>
@@ -153,7 +153,7 @@
             {
                 ThrowIfDisposed();
                 const int STATFLAG_NONAME = 1;
-                System.Runtime.InteropServices.ComTypes.STATSTG stats;
+                STATSTG stats;
                 _stream.Stat(out stats, STATFLAG_NONAME);
                 return stats.cbSize;
             }

@@ -12,8 +12,8 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
     /// This class is a wrapper around the Windows Explorer Browser control.
     /// </summary>
     public sealed class ExplorerBrowser :
-        System.Windows.Forms.UserControl,
-        Microsoft.WindowsAPICodePack.Controls.IServiceProvider,
+        UserControl,
+        IServiceProvider,
         IExplorerPaneVisibility,
         IExplorerBrowserEvents,
         ICommDlgBrowser3,
@@ -283,7 +283,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         {
             base.OnCreateControl();
 
-            if (this.DesignMode == false)
+            if (DesignMode == false)
             {
                 explorerBrowserControl = new ExplorerBrowserClass();
 
@@ -304,7 +304,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 rect.Right = ClientRectangle.Right;
                 rect.Bottom = ClientRectangle.Bottom;
 
-                explorerBrowserControl.Initialize(this.Handle, ref rect, null);
+                explorerBrowserControl.Initialize(Handle, ref rect, null);
 
                 // Force an initial show frames so that IExplorerPaneVisibility works the first time it is set.
                 // This also enables the control panel to be browsed to. If it is not set, then navigating to 
@@ -383,7 +383,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// <param name="riid">requested interface guid</param>
         /// <param name="ppvObject">caller-allocated memory for interface pointer</param>
         /// <returns></returns>
-        HResult Microsoft.WindowsAPICodePack.Controls.IServiceProvider.QueryService(
+        HResult IServiceProvider.QueryService(
             ref Guid guidService, ref Guid riid, out IntPtr ppvObject)
         {
             HResult hr = HResult.Ok;
@@ -693,9 +693,9 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         {
             Guid iid = new Guid(ExplorerBrowserIIDGuid.IFolderView2);
             IntPtr view = IntPtr.Zero;
-            if (this.explorerBrowserControl != null)
+            if (explorerBrowserControl != null)
             {
-                HResult hr = this.explorerBrowserControl.GetCurrentView(ref iid, out view);
+                HResult hr = explorerBrowserControl.GetCurrentView(ref iid, out view);
                 switch (hr)
                 {
                     case HResult.Ok:

@@ -75,7 +75,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
             // Make sure that this control is enabled and has a specified delegate
             if (Enabled)
             {
-                this.CheckedChanged(this, EventArgs.Empty);
+                CheckedChanged(this, EventArgs.Empty);
             }
         }
 
@@ -83,15 +83,15 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Attach the CheckButton control to the dialog object.
         /// </summary>
         /// <param name="dialog">the target dialog</param>
-        internal override void Attach(IFileDialogCustomize dialog)
+        internal override void Attach(IFileDialogCustomize? dialog)
         {
             Debug.Assert(dialog != null, "CommonFileDialogCheckBox.Attach: dialog parameter can not be null");
 
             // Add a check button control
-            dialog.AddCheckButton(this.Id, this.Text, this.isChecked);
+            dialog.AddCheckButton(Id, Text, isChecked);
 
             // Make this control prominent if needed
-            if (IsProminent) { dialog.MakeProminent(this.Id); }
+            if (IsProminent) { dialog.MakeProminent(Id); }
 
             // Make sure this property is set
             ApplyPropertyChange("IsChecked");

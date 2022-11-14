@@ -110,7 +110,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             get
             {
-                return (this.Flags & ThumbButtonOptions.Hidden) == 0;
+                return (Flags & ThumbButtonOptions.Hidden) == 0;
             }
             set
             {
@@ -120,11 +120,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
                     if (value)
                     {
-                        this.Flags &= ~(ThumbButtonOptions.Hidden);
+                        Flags &= ~(ThumbButtonOptions.Hidden);
                     }
                     else
                     {
-                        this.Flags |= ThumbButtonOptions.Hidden;
+                        Flags |= ThumbButtonOptions.Hidden;
                     }
 
                     UpdateThumbnailButton();
@@ -142,7 +142,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             get
             {
-                return (this.Flags & ThumbButtonOptions.Disabled) == 0;
+                return (Flags & ThumbButtonOptions.Disabled) == 0;
             }
             set
             {
@@ -152,11 +152,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
                     if (value)
                     {
-                        this.Flags &= ~(ThumbButtonOptions.Disabled);
+                        Flags &= ~(ThumbButtonOptions.Disabled);
                     }
                     else
                     {
-                        this.Flags |= ThumbButtonOptions.Disabled;
+                        Flags |= ThumbButtonOptions.Disabled;
                     }
 
                     UpdateThumbnailButton();
@@ -173,7 +173,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             get
             {
-                return (this.Flags & ThumbButtonOptions.DismissOnClick) == 0;
+                return (Flags & ThumbButtonOptions.DismissOnClick) == 0;
             }
             set
             {
@@ -183,11 +183,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
                     if (value)
                     {
-                        this.Flags |= ThumbButtonOptions.DismissOnClick;
+                        Flags |= ThumbButtonOptions.DismissOnClick;
                     }
                     else
                     {
-                        this.Flags &= ~(ThumbButtonOptions.DismissOnClick);
+                        Flags &= ~(ThumbButtonOptions.DismissOnClick);
                     }
 
                     UpdateThumbnailButton();
@@ -208,7 +208,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             get
             {
-                return (this.Flags & ThumbButtonOptions.NonInteractive) == 0;
+                return (Flags & ThumbButtonOptions.NonInteractive) == 0;
             }
             set
             {
@@ -218,11 +218,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
                     if (value)
                     {
-                        this.Flags &= ~(ThumbButtonOptions.NonInteractive);
+                        Flags &= ~(ThumbButtonOptions.NonInteractive);
                     }
                     else
                     {
-                        this.Flags |= ThumbButtonOptions.NonInteractive;
+                        Flags |= ThumbButtonOptions.NonInteractive;
                     }
 
                     UpdateThumbnailButton();

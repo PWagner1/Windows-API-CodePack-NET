@@ -39,20 +39,20 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Attach the Menu control to the dialog object.
         /// </summary>
         /// <param name="dialog">the target dialog</param>
-        internal override void Attach(IFileDialogCustomize dialog)
+        internal override void Attach(IFileDialogCustomize? dialog)
         {
             Debug.Assert(dialog != null, "CommonFileDialogMenu.Attach: dialog parameter can not be null");
 
             // Add the menu control
-            dialog.AddMenu(this.Id, this.Text);
+            dialog.AddMenu(Id, Text);
 
             // Add the menu items
-            foreach (CommonFileDialogMenuItem item in this.items)
-                dialog.AddControlItem(this.Id, item.Id, item.Text);
+            foreach (CommonFileDialogMenuItem item in items)
+                dialog.AddControlItem(Id, item.Id, item.Text);
 
             // Make prominent as needed
             if (IsProminent)
-                dialog.MakeProminent(this.Id);
+                dialog.MakeProminent(Id);
 
             // Sync unmanaged properties with managed properties
             SyncUnmanagedProperties();
@@ -89,7 +89,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Attach this control to the dialog object
         /// </summary>
         /// <param name="dialog">Target dialog</param>
-        internal override void Attach(IFileDialogCustomize dialog)
+        internal override void Attach(IFileDialogCustomize? dialog)
         {
             // Items are added via the menu itself
         }

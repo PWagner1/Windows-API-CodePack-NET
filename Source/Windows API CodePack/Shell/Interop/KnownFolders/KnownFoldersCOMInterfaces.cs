@@ -30,7 +30,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         [return: MarshalAs(UnmanagedType.LPWStr)]
         [MethodImpl(MethodImplOptions.InternalCall,
             MethodCodeType = MethodCodeType.Runtime)]
-        string GetPath([In] int option);
+        string? GetPath([In] int option);
 
         [MethodImpl(MethodImplOptions.InternalCall,
             MethodCodeType = MethodCodeType.Runtime)]

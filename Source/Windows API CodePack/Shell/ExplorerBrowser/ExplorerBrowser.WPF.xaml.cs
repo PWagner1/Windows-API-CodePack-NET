@@ -58,8 +58,8 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
             try
             {
                 host.Child = ExplorerBrowserControl;
-                this.root.Children.Clear();
-                this.root.Children.Add(host);
+                root.Children.Clear();
+                root.Children.Add(host);
             }
             catch
             {

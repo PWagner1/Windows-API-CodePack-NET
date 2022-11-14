@@ -46,7 +46,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
             {
                 if (customizedDialog != null)
                 {
-                    customizedDialog.SetEditBoxText(this.Id, value);
+                    customizedDialog.SetEditBoxText(Id, value);
                 }
 
                 base.Text = value;
@@ -57,18 +57,18 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Holds an instance of the customized (/native) dialog and should
         /// be null until after the Attach() call is made.
         /// </summary>
-        private IFileDialogCustomize customizedDialog;
+        private IFileDialogCustomize? customizedDialog;
 
         /// <summary>
         /// Attach the TextBox control to the dialog object
         /// </summary>
         /// <param name="dialog">Target dialog</param>
-        internal override void Attach(IFileDialogCustomize dialog)
+        internal override void Attach(IFileDialogCustomize? dialog)
         {
             Debug.Assert(dialog != null, "CommonFileDialogTextBox.Attach: dialog parameter can not be null");
 
             // Add a text entry control
-            dialog.AddEditBox(this.Id, this.Text);
+            dialog.AddEditBox(Id, Text);
 
             // Set to local instance in order to gate access to same.
             customizedDialog = dialog;
@@ -89,7 +89,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
             if (customizedDialog != null)
             {
                 string textValue;
-                customizedDialog.GetEditBoxText(this.Id, out textValue);
+                customizedDialog.GetEditBoxText(Id, out textValue);
 
                 base.Text = textValue;
             }

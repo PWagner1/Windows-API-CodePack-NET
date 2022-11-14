@@ -56,7 +56,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 // Check for 0; negative number check not required as System.Windows.Size only allows positive numbers.
                 if (value.Height == 0 || value.Width == 0)
                 {
-                    throw new System.ArgumentOutOfRangeException("value", LocalizedMessages.ShellThumbnailSizeCannotBe0);
+                    throw new ArgumentOutOfRangeException("value", LocalizedMessages.ShellThumbnailSizeCannotBe0);
                 }
 
                 System.Windows.Size size = (FormatOption == ShellThumbnailFormatOption.IconOnly) ?
@@ -64,8 +64,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                 if (value.Height > size.Height || value.Width > size.Width)
                 {
-                    throw new System.ArgumentOutOfRangeException("value",
-                        string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                    throw new ArgumentOutOfRangeException("value",
+                        string.Format(CultureInfo.InvariantCulture,
                         LocalizedMessages.ShellThumbnailCurrentSizeRange, size.ToString()));
                 }
 
@@ -312,7 +312,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             IntPtr hBitmap = GetHBitmap(size);
 
             // return a System.Drawing.Bitmap from the hBitmap
-            Bitmap returnValue = Bitmap.FromHbitmap(hBitmap);
+            Bitmap returnValue = Image.FromHbitmap(hBitmap);
 
             // delete HBitmap to avoid memory leaks
             ShellNativeMethods.DeleteObject(hBitmap);
@@ -334,7 +334,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             BitmapSource returnValue = Imaging.CreateBitmapSourceFromHBitmap(
                 hBitmap,
                 IntPtr.Zero,
-                System.Windows.Int32Rect.Empty,
+                Int32Rect.Empty,
                 BitmapSizeOptions.FromEmptyOptions());
 
             // delete HBitmap to avoid memory leaks

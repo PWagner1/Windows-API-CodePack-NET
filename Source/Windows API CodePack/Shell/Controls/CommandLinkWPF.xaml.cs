@@ -16,9 +16,9 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
             // Throw PlatformNotSupportedException if the user is not running Vista or beyond
             CoreHelpers.ThrowIfNotVista();
 
-            this.DataContext = this;
+            DataContext = this;
             InitializeComponent();
-            this.button.Click += new RoutedEventHandler(button_Click);
+            button.Click += new RoutedEventHandler(button_Click);
         }
 
         void button_Click(object sender, RoutedEventArgs e)

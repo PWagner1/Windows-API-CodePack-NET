@@ -26,8 +26,8 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// <seealso cref="ApplicationRestartRecoveryManager"/>
         public RecoverySettings(RecoveryData data, uint interval)
         {
-            this.recoveryData = data;
-            this.pingInterval = interval;
+            recoveryData = data;
+            pingInterval = interval;
         }
 
         /// <summary>
@@ -60,11 +60,11 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// <returns>A <see cref="System.String"/> object.</returns>
         public override string ToString()
         {
-            return string.Format(System.Globalization.CultureInfo.InvariantCulture,
+            return string.Format(CultureInfo.InvariantCulture,
                 LocalizedMessages.RecoverySettingsFormatString,
-                this.recoveryData.Callback.Method.ToString(),
-                this.recoveryData.State.ToString(),
-                this.PingInterval);
+                recoveryData.Callback.Method.ToString(),
+                recoveryData.State.ToString(),
+                PingInterval);
         }
     }
 }

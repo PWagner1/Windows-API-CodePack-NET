@@ -46,7 +46,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions.Interop
         /// <param name="squareLength"></param>
         /// <param name="bitmapHandle"></param>
         /// <param name="bitmapType"></param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#")]
+        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#"), SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#")]
         void GetThumbnail(uint squareLength, [Out] out IntPtr bitmapHandle, [Out] out UInt32 bitmapType);        
     }
 
@@ -69,7 +69,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions.Interop
     /// <summary>
     /// Provides means by which to initialize with a stream.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
+    [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
     [ComImport]
     [Guid("b824b49d-22ac-4161-ac8a-9916e8fa3f7f")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]

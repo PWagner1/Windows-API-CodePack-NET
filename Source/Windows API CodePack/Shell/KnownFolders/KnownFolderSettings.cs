@@ -39,7 +39,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 knownFolderProperties.localizedNameResourceId = Marshal.PtrToStringUni(nativeFolderDefinition.localizedName);
                 knownFolderProperties.iconResourceId = Marshal.PtrToStringUni(nativeFolderDefinition.icon);
                 knownFolderProperties.security = Marshal.PtrToStringUni(nativeFolderDefinition.security);
-                knownFolderProperties.fileAttributes = (System.IO.FileAttributes)nativeFolderDefinition.attributes;
+                knownFolderProperties.fileAttributes = (FileAttributes)nativeFolderDefinition.attributes;
                 knownFolderProperties.definitionOptions = nativeFolderDefinition.definitionOptions;
                 knownFolderProperties.folderTypeId = nativeFolderDefinition.folderTypeId;
                 knownFolderProperties.folderType = FolderTypes.GetFolderType(knownFolderProperties.folderTypeId);
@@ -83,11 +83,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>
         /// A <see cref="System.String"/> containing the path, or <see cref="System.String.Empty"/> if this known folder does not exist.
         /// </returns>
-        private string GetPath(out bool fileExists, IKnownFolderNative knownFolderNative)
+        private string? GetPath(out bool fileExists, IKnownFolderNative knownFolderNative)
         {
             Debug.Assert(knownFolderNative != null);
 
-            string kfPath = string.Empty;
+            string? kfPath = string.Empty;
             fileExists = true;
 
             // Virtual folders do not have path.
@@ -101,11 +101,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 kfPath = knownFolderNative.GetPath(0);
             }
-            catch (System.IO.FileNotFoundException)
+            catch (FileNotFoundException)
             {
                 fileExists = false;
             }
-            catch (System.IO.DirectoryNotFoundException)
+            catch (DirectoryNotFoundException)
             {
                 fileExists = false;
             }
@@ -121,7 +121,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Gets the path for this known folder.
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
-        public string Path
+        public string? Path
         {
             get { return knownFolderProperties.path; }
         }
@@ -176,7 +176,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Gets this known folder's tool tip text.
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
-        public string Tooltip
+        public string? Tooltip
         {
             get { return knownFolderProperties.tooltip; }
         }
@@ -194,7 +194,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Gets this known folder's localized name.
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
-        public string LocalizedName
+        public string? LocalizedName
         {
             get { return knownFolderProperties.localizedName; }
         }
@@ -222,7 +222,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// such as "read-only".
         /// </summary>
         /// <value>A <see cref="System.IO.FileAttributes"/> value.</value>
-        public System.IO.FileAttributes FileAttributes
+        public FileAttributes FileAttributes
         {
             get { return knownFolderProperties.fileAttributes; }
         }

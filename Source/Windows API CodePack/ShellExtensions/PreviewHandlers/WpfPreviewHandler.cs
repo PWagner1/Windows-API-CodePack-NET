@@ -131,7 +131,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
                  (byte)(argb & 0xFF))); //b                 
         }
 
-        protected override void SetFont(Interop.LogFont font)
+        protected override void SetFont(LogFont font)
         {
             if (font == null) { throw new ArgumentNullException("font"); }
             

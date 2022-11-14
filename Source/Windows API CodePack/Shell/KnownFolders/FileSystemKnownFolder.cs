@@ -77,7 +77,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Gets the path for this known folder.
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
-        public override string Path
+        public override string? Path
         {
             get { return KnownFolderSettings.Path; }
         }
@@ -131,7 +131,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Gets this known folder's parsing name.
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
-        public override string ParsingName
+        public override string? ParsingName
         {
             get { return base.ParsingName; }
         }
@@ -140,7 +140,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Gets this known folder's tool tip text.
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
-        public string Tooltip
+        public string? Tooltip
         {
             get { return KnownFolderSettings.Tooltip; }
         }
@@ -158,7 +158,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Gets this known folder's localized name.
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
-        public string LocalizedName
+        public string? LocalizedName
         {
             get { return KnownFolderSettings.LocalizedName; }
         }
@@ -186,7 +186,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// such as "read-only".
         /// </summary>
         /// <value>A <see cref="System.IO.FileAttributes"/> value.</value>
-        public System.IO.FileAttributes FileAttributes
+        public FileAttributes FileAttributes
         {
             get { return KnownFolderSettings.FileAttributes; }
         }

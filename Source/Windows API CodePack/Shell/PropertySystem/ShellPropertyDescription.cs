@@ -484,7 +484,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
         internal ShellPropertyDescription(PropertyKey key)
         {
-            this.propertyKey = key;
+            propertyKey = key;
         }
 
         #endregion

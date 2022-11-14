@@ -19,11 +19,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             NativeSearchFolderItemFactory = (ISearchFolderItemFactory)new SearchFolderItemFactoryCoClass();
 
-            this.SearchCondition = searchCondition;
+            SearchCondition = searchCondition;
 
             if (searchScopePath != null && searchScopePath.Length > 0 && searchScopePath[0] != null)
             {
-                this.SearchScopePaths = searchScopePath.Select(cont => cont.ParsingName);
+                SearchScopePaths = searchScopePath.Select(cont => cont.ParsingName);
             }
         }
 
@@ -41,10 +41,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             if (searchScopePath != null && searchScopePath.Length > 0 && searchScopePath[0] != null)
             {
-                this.SearchScopePaths = searchScopePath;
+                SearchScopePaths = searchScopePath;
             }
 
-            this.SearchCondition = searchCondition;
+            SearchCondition = searchCondition;
         }
 
         internal ISearchFolderItemFactory NativeSearchFolderItemFactory { get; set; }

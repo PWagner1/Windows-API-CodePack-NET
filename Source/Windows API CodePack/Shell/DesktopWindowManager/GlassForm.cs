@@ -45,7 +45,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public void SetAeroGlassTransparency()
         {
-            this.BackColor = Color.Transparent;
+            BackColor = Color.Transparent;
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             if (AeroGlassCompositionEnabled)
             {
-                Rectangle clientScreen = this.RectangleToScreen(this.ClientRectangle);
+                Rectangle clientScreen = RectangleToScreen(ClientRectangle);
                 Rectangle controlScreen = control.RectangleToScreen(control.ClientRectangle);
 
                 Margins margins = new Margins();
@@ -79,10 +79,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public void ResetAeroGlass()
         {
-            if (this.Handle != IntPtr.Zero)
+            if (Handle != IntPtr.Zero)
             {
                 Margins margins = new Margins(true);
-                DesktopWindowManagerNativeMethods.DwmExtendFrameIntoClientArea(this.Handle, ref margins);
+                DesktopWindowManagerNativeMethods.DwmExtendFrameIntoClientArea(Handle, ref margins);
             }
         }
         #endregion
@@ -131,7 +131,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 if (AeroGlassCompositionEnabled && e != null)
                 {
                     // Paint the all the regions black to enable glass
-                    e.Graphics.FillRectangle(Brushes.Black, this.ClientRectangle);
+                    e.Graphics.FillRectangle(Brushes.Black, ClientRectangle);
                 }
             }
         }

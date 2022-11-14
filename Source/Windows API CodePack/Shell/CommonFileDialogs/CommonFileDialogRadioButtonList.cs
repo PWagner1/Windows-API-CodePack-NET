@@ -34,7 +34,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// <summary>
         /// Gets or sets the current index of the selected item.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")]
         public int SelectedIndex
         {
             get { return selectedIndex; }
@@ -92,23 +92,23 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Attach the RadioButtonList control to the dialog object
         /// </summary>
         /// <param name="dialog">The target dialog</param>
-        internal override void Attach(IFileDialogCustomize dialog)
+        internal override void Attach(IFileDialogCustomize? dialog)
         {
             Debug.Assert(dialog != null, "CommonFileDialogRadioButtonList.Attach: dialog parameter can not be null");
 
             // Add the radio button list control
-            dialog.AddRadioButtonList(this.Id);
+            dialog.AddRadioButtonList(Id);
 
             // Add the radio button list items
             for (int index = 0; index < items.Count; index++)
             {
-                dialog.AddControlItem(this.Id, index, items[index].Text);
+                dialog.AddControlItem(Id, index, items[index].Text);
             }
 
             // Set the currently selected item
             if (selectedIndex >= 0 && selectedIndex < items.Count)
             {
-                dialog.SetSelectedControlItem(this.Id, this.selectedIndex);
+                dialog.SetSelectedControlItem(Id, selectedIndex);
             }
             else if (selectedIndex != -1)
             {

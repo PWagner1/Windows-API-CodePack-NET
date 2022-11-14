@@ -29,7 +29,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        internal static void AddThumbnailButtons(System.Windows.UIElement control, params ThumbnailToolBarButton[] buttons)
+        internal static void AddThumbnailButtons(UIElement control, params ThumbnailToolBarButton[] buttons)
         {
             // Try to get an existing taskbar window for this user uielement            
             TaskbarWindow taskbarWindow = GetTaskbarWindow(control, TaskbarProxyWindowType.ThumbnailToolbar);
@@ -125,7 +125,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             preview.AddedToTaskbar = true;
         }
 
-        internal static TaskbarWindow GetTaskbarWindow(System.Windows.UIElement windowsControl, TaskbarProxyWindowType taskbarProxyWindowType)
+        internal static TaskbarWindow GetTaskbarWindow(UIElement windowsControl, TaskbarProxyWindowType taskbarProxyWindowType)
         {
             if (windowsControl == null) { throw new ArgumentNullException("windowsControl"); }
 
@@ -268,7 +268,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                     }
 
                     // Clip the bitmap we just got.
-                    Bitmap bmp = Bitmap.FromHbitmap(hBitmap);
+                    Bitmap bmp = Image.FromHbitmap(hBitmap);
 
                     Rectangle clippingRectangle = taskbarWindow.TabbedThumbnail.ClippingRectangle.Value;
 
@@ -629,7 +629,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="taskbarWindow">The proxy window for which a bitmap needs to be created</param>
         /// <param name="requestedSize">Size for the requested bitmap image</param>
         /// <returns>Bitmap captured from the window handle or UIElement. Null if the window is hidden or it's size is zero.</returns>
-        private static IntPtr GrabBitmap(TaskbarWindow taskbarWindow, System.Drawing.Size requestedSize)
+        private static IntPtr GrabBitmap(TaskbarWindow taskbarWindow, Size requestedSize)
         {
             IntPtr hBitmap = IntPtr.Zero;
 

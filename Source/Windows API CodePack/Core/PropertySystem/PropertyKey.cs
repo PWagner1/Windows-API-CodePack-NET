@@ -136,7 +136,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <returns>String representing the property key</returns>        
         public override string ToString()
         {
-            return string.Format(System.Globalization.CultureInfo.InvariantCulture,
+            return string.Format(CultureInfo.InvariantCulture,
                 LocalizedMessages.PropertyKeyFormatString,
                 formatId.ToString("B"), propertyId);
         }

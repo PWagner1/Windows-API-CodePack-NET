@@ -35,9 +35,9 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// The native dialog that is hosting this control. This property is null is
         /// there is not associated dialog
         /// </summary>
-        public IDialogControlHost HostingDialog { get; set; }
+        public IDialogControlHost? HostingDialog { get; set; } = null!;
 
-        private string name;
+        private string name = null!;
         /// <summary>
         /// Gets the name for this control.
         /// </summary>
@@ -63,7 +63,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 // Note that we don't notify the hosting dialog of 
                 // the change, as the initial set of name is (must be)
                 // always legal, and renames are always illegal.
-                this.name = value;
+                name = value;
             }
         }
                 
@@ -118,10 +118,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <returns>A <see cref="System.Boolean"/> value.</returns>
         public override bool Equals(object obj)
         {
-            DialogControl control = obj as DialogControl;
+            DialogControl? control = obj as DialogControl;
 
             if (control != null)
-                return (this.Id == control.Id);
+                return (Id == control.Id);
 
             return false;
         }
@@ -134,7 +134,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             if (Name == null)
             {
-                return this.ToString().GetHashCode();
+                return ToString().GetHashCode();
             }
 
             return Name.GetHashCode();

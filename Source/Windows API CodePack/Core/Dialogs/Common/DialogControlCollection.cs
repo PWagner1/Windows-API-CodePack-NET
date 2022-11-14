@@ -8,9 +8,9 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
     /// <typeparam name="T">DialogControl</typeparam>
     public sealed class DialogControlCollection<T> : Collection<T> where T : DialogControl
     {
-        private IDialogControlHost hostingDialog;
+        private IDialogControlHost? hostingDialog;
 
-        internal DialogControlCollection(IDialogControlHost host)
+        internal DialogControlCollection(IDialogControlHost? host)
         {
             hostingDialog = host;
         }
@@ -36,7 +36,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 throw new InvalidOperationException(LocalizedMessages.DialogCollectionControlAlreadyHosted);
             }
-            if (!hostingDialog.IsCollectionChangeAllowed())
+            if (hostingDialog != null && !hostingDialog.IsCollectionChangeAllowed())
             {
                 throw new InvalidOperationException(LocalizedMessages.DialogCollectionModifyShowingDialog);
             }

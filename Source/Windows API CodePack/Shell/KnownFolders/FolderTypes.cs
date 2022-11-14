@@ -179,7 +179,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         static Dictionary<Guid, string> types;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static FolderTypes()
         {
             types = new Dictionary<Guid, string>();

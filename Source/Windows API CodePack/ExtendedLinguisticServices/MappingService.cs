@@ -175,7 +175,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// This parameter can be set to null to use the default mapping options.</param>
         /// <returns>A <see cref="MappingPropertyBag">MappingPropertyBag</see> object in which the service has stored its results. The structure is filled
         /// with information produced by the service during text recognition.</returns>
-        public MappingPropertyBag RecognizeText(string text, MappingOptions options)
+        public MappingPropertyBag? RecognizeText(string text, MappingOptions options)
         {
             if (text == null)
             {
@@ -199,7 +199,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// This parameter can be set to null to use the default mapping options.</param>
         /// <returns>A <see cref="MappingPropertyBag">MappingPropertyBag</see> object in which the service has stored its results. The structure is filled
         /// with information produced by the service during text recognition.</returns>
-        public MappingPropertyBag RecognizeText(string text, int length, int index, MappingOptions options)
+        public MappingPropertyBag? RecognizeText(string text, int length, int index, MappingOptions options)
         {
             if (text == null)
             {
@@ -215,7 +215,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
             }
 
             UInt32 hResult = LinguisticException.Fail;
-            MappingPropertyBag bag = new MappingPropertyBag(options, text);
+            MappingPropertyBag? bag = new MappingPropertyBag(options, text);
             try
             {
                 hResult = Win32NativeMethods.MappingRecognizeText(
@@ -239,10 +239,10 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         {
             MappingRecognizeAsyncResult asyncResult = (MappingRecognizeAsyncResult)threadContext;
             MappingResultState resultState = new MappingResultState();
-            MappingPropertyBag bag = null;
+            MappingPropertyBag? bag = null;
             try
             {
-                bag = this.RecognizeText(asyncResult.Text, asyncResult.Length, asyncResult.Index, asyncResult.Options);
+                bag = RecognizeText(asyncResult.Text, asyncResult.Length, asyncResult.Index, asyncResult.Options);
             }
             catch (LinguisticException linguisticException)
             {
@@ -319,7 +319,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
             MappingRecognizeAsyncResult result = new MappingRecognizeAsyncResult(callerData, asyncCallback, text, length, index, options);
             try
             {
-                ThreadPool.QueueUserWorkItem(this.RunRecognizeText, result);
+                ThreadPool.QueueUserWorkItem(RunRecognizeText, result);
                 return result;
             }
             catch
@@ -352,7 +352,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// text range. This value should be between 0 and the range count.</param>
         /// <param name="actionId">The identifier of the action to perform.
         /// This parameter cannot be set to null.</param>
-        public static void DoAction(MappingPropertyBag bag, int rangeIndex, string actionId)
+        public static void DoAction(MappingPropertyBag? bag, int rangeIndex, string actionId)
         {
             if (bag == null) { throw new ArgumentNullException("bag"); }
 
@@ -410,12 +410,12 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// by a service after the action operation is complete. The application must set this parameter to null
         /// to indicate no private application data.</param>
         /// <returns>A <see cref="MappingActionAsyncResult">MappingActionAsyncResult</see> object describing the asynchronous operation.</returns>
-        public MappingActionAsyncResult BeginDoAction(MappingPropertyBag bag, int rangeIndex, string actionId, AsyncCallback asyncCallback, object callerData)
+        public MappingActionAsyncResult BeginDoAction(MappingPropertyBag? bag, int rangeIndex, string actionId, AsyncCallback asyncCallback, object callerData)
         {
             MappingActionAsyncResult result = new MappingActionAsyncResult(callerData, asyncCallback, bag, rangeIndex, actionId);
             try
             {
-                ThreadPool.QueueUserWorkItem(this.RunDoAction, result);
+                ThreadPool.QueueUserWorkItem(RunDoAction, result);
                 return result;
             }
             catch

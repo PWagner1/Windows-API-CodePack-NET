@@ -9,17 +9,17 @@ namespace Microsoft.WindowsAPICodePack.Shell
     {
         #region Internal Constructor
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        internal ShellFile(string path)
+        [SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        internal ShellFile(string? path)
         {
             // Get the absolute path
-            string absPath = ShellHelper.GetAbsolutePath(path);
+            string? absPath = ShellHelper.GetAbsolutePath(path);
 
             // Make sure this is valid
             if (!File.Exists(absPath))
             {
                 throw new FileNotFoundException(
-                    string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                    string.Format(CultureInfo.InvariantCulture,
                     LocalizedMessages.FilePathNotExist, path));
             }
 
@@ -39,7 +39,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="path">The file or folder path</param>
         /// <returns>ShellFile object created using given file path.</returns>
-        static public ShellFile FromFilePath(string path)
+        static public ShellFile FromFilePath(string? path)
         {
             return new ShellFile(path);
         }
@@ -51,9 +51,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// The path for this file
         /// </summary>
-        virtual public string Path
+        virtual public string? Path
         {
-            get { return this.ParsingName; }
+            get { return ParsingName; }
         }
 
         #endregion

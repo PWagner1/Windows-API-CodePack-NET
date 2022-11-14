@@ -61,7 +61,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <param name="dataFields">A collection of PROPERTYKEY structures representing the data values reported by the sensor</param>
         [PreserveSig]
         HResult GetSupportedDataFields(
-            [Out, MarshalAs(UnmanagedType.Interface)] out IPortableDeviceKeyCollection dataFields);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IPortableDeviceKeyCollection? dataFields);
 
         /// <summary>
         /// Bulk Sensor metadata set for settable properties

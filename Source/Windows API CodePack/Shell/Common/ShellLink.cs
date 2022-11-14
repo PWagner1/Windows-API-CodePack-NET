@@ -10,7 +10,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Path for this file e.g. c:\Windows\file.txt,
         /// </summary>
-        private string _internalPath;
+        private string? _internalPath;
 
         #region Internal Constructors
 
@@ -26,7 +26,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// The path for this link
         /// </summary>
-        virtual public string Path
+        virtual public string? Path
         {
             get
             {
@@ -38,21 +38,21 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
             protected set
             {
-                this._internalPath = value;
+                _internalPath = value;
             }
         }
 
-        private string internalTargetLocation;
+        private string? internalTargetLocation;
         /// <summary>
         /// Gets the location to which this link points to.
         /// </summary>
-        public string TargetLocation
+        public string? TargetLocation
         {
             get
             {
                 if (string.IsNullOrEmpty(internalTargetLocation) && NativeShellItem2 != null)
                 {
-                    internalTargetLocation = this.Properties.System.Link.TargetParsingPath.Value;
+                    internalTargetLocation = Properties.System.Link.TargetParsingPath.Value;
                 }
                 return internalTargetLocation;
             }
@@ -64,7 +64,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                 if (NativeShellItem2 != null)
                 {
-                    this.Properties.System.Link.TargetParsingPath.Value = internalTargetLocation;
+                    Properties.System.Link.TargetParsingPath.Value = internalTargetLocation;
                 }
             }
         }
@@ -84,7 +84,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                if (NativeShellItem2 != null) { return this.Properties.System.Title.Value; }
+                if (NativeShellItem2 != null) { return Properties.System.Title.Value; }
                 return null;
             }
             set
@@ -96,7 +96,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                 if (NativeShellItem2 != null)
                 {
-                    this.Properties.System.Title.Value = value;
+                    Properties.System.Title.Value = value;
                 }
             }
         }
@@ -111,7 +111,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 if (string.IsNullOrEmpty(internalArguments) && NativeShellItem2 != null)
                 {
-                    internalArguments = this.Properties.System.Link.Arguments.Value;
+                    internalArguments = Properties.System.Link.Arguments.Value;
                 }
 
                 return internalArguments;
@@ -128,7 +128,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 if (string.IsNullOrEmpty(internalComments) && NativeShellItem2 != null)
                 {
-                    internalComments = this.Properties.System.Comment.Value;
+                    internalComments = Properties.System.Comment.Value;
                 }
 
                 return internalComments;

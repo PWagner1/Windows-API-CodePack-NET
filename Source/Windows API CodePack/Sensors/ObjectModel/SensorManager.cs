@@ -3,57 +3,6 @@
 namespace Microsoft.WindowsAPICodePack.Sensors
 {
     /// <summary>
-    /// Specifies the types of change in sensor availability.
-    /// </summary>
-    public enum SensorAvailabilityChange
-    {
-        /// <summary>
-        /// A sensor has been added.
-        /// </summary>
-        Addition,
-        /// <summary>
-        /// A sensor has been removed.
-        /// </summary>
-        Removal
-    }
-
-    /// <summary>
-    /// Defines the data passed to the SensorsChangedHandler.
-    /// </summary>
-    public class SensorsChangedEventArgs : EventArgs
-    {
-        /// <summary>
-        /// The type of change. 
-        /// </summary>
-        public SensorAvailabilityChange Change
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// The ID of the sensor that changed.
-        /// </summary>
-        public Guid SensorId
-        {
-            get;
-            set;
-        }
-
-        internal SensorsChangedEventArgs(Guid sensorId, SensorAvailabilityChange change)
-        {
-            SensorId = sensorId;
-            Change = change;
-        }
-    }
-
-    /// <summary>
-    /// Represents the method that will handle the system sensor list change.
-    /// </summary>
-    /// <param name="e">The event data.</param>
-    public delegate void SensorsChangedEventHandler(SensorsChangedEventArgs e);
-
-    /// <summary>
     /// Manages the sensors conected to the system.
     /// </summary>
     public static class SensorManager
@@ -63,11 +12,8 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// Retireves a collection of all sensors.
         /// </summary>
         /// <returns>A list of all sensors.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
-        public static SensorList<Sensor> GetAllSensors()
-        {
-            return GetSensorsByCategoryId(SensorCategories.All);
-        }
+        [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
+        public static SensorList<Sensor> GetAllSensors() => GetSensorsByCategoryId(SensorCategories.All);
 
         /// <summary>
         /// Retrieves a collection of sensors filtered by category ID.
@@ -76,7 +22,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <returns>A list of sensors of the specified category ID.</returns>
         public static SensorList<Sensor> GetSensorsByCategoryId(Guid category)
         {
-            ISensorCollection sensorCollection = null;
+            ISensorCollection? sensorCollection = null;
             HResult hr = sensorManager.GetSensorsByCategory(category, out sensorCollection);
             if (hr == HResult.ElementNotFound)
                 throw new SensorPlatformException(LocalizedMessages.SensorsNotFound);
@@ -91,7 +37,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <returns>A list of sensors of the spefified type ID.</returns>
         public static SensorList<Sensor> GetSensorsByTypeId(Guid typeId)
         {
-            ISensorCollection sensorCollection = null;
+            ISensorCollection? sensorCollection = null;
             HResult hr = sensorManager.GetSensorsByType(typeId, out sensorCollection);
             if (hr == HResult.ElementNotFound)
             {
@@ -112,7 +58,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
             {
                 SensorDescriptionAttribute sda = attrs[0] as SensorDescriptionAttribute;
 
-                ISensorCollection nativeSensorCollection = null;
+                ISensorCollection? nativeSensorCollection = null;
                 HResult hr = sensorManager.GetSensorsByType(sda.SensorTypeGuid, out nativeSensorCollection);
                 if (hr == HResult.ElementNotFound)
                 {
@@ -176,7 +122,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <summary>
         /// Occurs when the system's list of sensors changes.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly",
+        [SuppressMessage("Microsoft.Design", "CA1009:DeclareEventHandlersCorrectly",
             Justification = "The event is raised from a static method, and so providing the instance of the sender is not possible")]
         public static event SensorsChangedEventHandler SensorsChanged;
         #endregion
@@ -195,7 +141,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// </summary>      
         private static Dictionary<Type, Guid> sensorTypeToGuid = new Dictionary<Type, Guid>();
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
+        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static SensorManager()
         {
             CoreHelpers.ThrowIfNotWin7();
@@ -205,7 +151,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
             sensorManager.SetEventSink(sensorManagerEventSink);
         }
 
-        internal static SensorList<S> nativeSensorCollectionToSensorCollection<S>(ISensorCollection nativeCollection) where S : Sensor
+        internal static SensorList<S> nativeSensorCollectionToSensorCollection<S>(ISensorCollection? nativeCollection) where S : Sensor
         {
             SensorList<S> sensors = new SensorList<S>();
 
@@ -270,12 +216,12 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                         }
                     }
                 }
-                catch (System.NotSupportedException)
+                catch (NotSupportedException)
                 {
                     // GetExportedTypes can throw this if dynamic assemblies are loaded 
                     // via Reflection.Emit.
                 }
-                catch (System.IO.FileNotFoundException)
+                catch (FileNotFoundException)
                 {
                     // GetExportedTypes can throw this if a loaded asembly is not in the 
                     // current directory or path.
@@ -314,50 +260,6 @@ namespace Microsoft.WindowsAPICodePack.Sensors
     }
 
     #region helper classes
-    /// <summary>
-    /// Data associated with a sensor type GUID.
-    /// </summary>
-    internal struct SensorTypeData
-    {
-        private Type sensorType;
-        private SensorDescriptionAttribute sda;
 
-        public SensorTypeData(Type sensorClassType, SensorDescriptionAttribute sda)
-        {
-            this.sensorType = sensorClassType;
-            this.sda = sda;
-        }
-
-        public Type SensorType
-        {
-            get { return this.sensorType; }
-        }
-        
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public SensorDescriptionAttribute Attr
-        {
-            get { return this.sda; }
-        }
-    }
-
-    internal class nativeSensorManagerEventSink : ISensorManagerEvents
-    {
-        #region nativeISensorManagerEvents Members
-
-        public void OnSensorEnter(ISensor nativeSensor, NativeSensorState state)
-        {
-            if (state == NativeSensorState.Ready)
-            {
-                Guid sensorId;
-                HResult hr = nativeSensor.GetID(out sensorId);
-                if (hr == HResult.Ok)
-                {
-                    SensorManager.OnSensorsChanged(sensorId, SensorAvailabilityChange.Addition);
-                }
-            }
-        }
-
-        #endregion
-    }
     #endregion
 }

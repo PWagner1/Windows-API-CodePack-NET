@@ -8,9 +8,9 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
     /// <typeparam name="T">DialogControl</typeparam>
     public sealed class CommonFileDialogControlCollection<T> : Collection<T> where T : DialogControl
     {
-        private IDialogControlHost hostingDialog;
+        private IDialogControlHost? hostingDialog;
 
-        internal CommonFileDialogControlCollection(IDialogControlHost host)
+        internal CommonFileDialogControlCollection(IDialogControlHost? host)
         {
             hostingDialog = host;
         }
@@ -88,7 +88,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
                     throw new ArgumentException(LocalizedMessages.DialogControlCollectionEmptyName, "name");
                 }
 
-                foreach (T control in base.Items)
+                foreach (T control in Items)
                 {
                     CommonFileDialogGroupBox groupBox;
                     // NOTE: we don't ToLower() the strings - casing effects 

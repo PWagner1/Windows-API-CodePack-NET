@@ -7,11 +7,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
     /// </summary>
     internal static class ShellHelper
     {
-        internal static string GetParsingName(IShellItem shellItem)
+        internal static string? GetParsingName(IShellItem shellItem)
         {
             if (shellItem == null) { return null; }
 
-            string path = null;
+            string? path = null;
 
             IntPtr pszPath = IntPtr.Zero;
             HResult hr = shellItem.GetDisplayName(ShellNativeMethods.ShellItemDesignNameOptions.DesktopAbsoluteParsing, out pszPath);
@@ -32,7 +32,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         }
 
-        internal static string GetAbsolutePath(string path)
+        internal static string? GetAbsolutePath(string? path)
         {
             if (Uri.IsWellFormedUriString(path, UriKind.Absolute))
             {

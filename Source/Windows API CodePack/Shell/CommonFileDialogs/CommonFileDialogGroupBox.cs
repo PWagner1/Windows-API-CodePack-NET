@@ -59,15 +59,15 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Attach the GroupBox control to the dialog object
         /// </summary>
         /// <param name="dialog">Target dialog</param>
-        internal override void Attach(IFileDialogCustomize dialog)
+        internal override void Attach(IFileDialogCustomize? dialog)
         {
             Debug.Assert(dialog != null, "CommonFileDialogGroupBox.Attach: dialog parameter can not be null");
 
             // Start a visual group
-            dialog.StartVisualGroup(this.Id, this.Text);
+            dialog.StartVisualGroup(Id, Text);
 
             // Add child controls
-            foreach (CommonFileDialogControl item in this.items)
+            foreach (CommonFileDialogControl item in items)
             {
                 item.HostingDialog = HostingDialog;
                 item.Attach(dialog);
@@ -78,7 +78,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
 
             // Make this control prominent if needed
             if (IsProminent)
-                dialog.MakeProminent(this.Id);
+                dialog.MakeProminent(Id);
 
             // Sync unmanaged properties with managed properties
             SyncUnmanagedProperties();

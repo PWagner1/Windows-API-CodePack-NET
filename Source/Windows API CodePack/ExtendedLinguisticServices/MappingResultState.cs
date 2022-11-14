@@ -62,7 +62,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
                 return false;
             }
 
-            if (Object.ReferenceEquals(obj, this))
+            if (ReferenceEquals(obj, this))
             {
                 return true;
             }
@@ -82,7 +82,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// <returns>True if obj is equal to this instance, false otherwise.</returns>
         public bool Equals(MappingResultState obj)
         {
-            return obj._hResult == this._hResult;
+            return obj._hResult == _hResult;
         }
 
         /// <summary>

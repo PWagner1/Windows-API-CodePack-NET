@@ -32,7 +32,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void Advise(
-            [In, MarshalAs(UnmanagedType.Interface)] IFileDialogEvents pfde,
+            [In, MarshalAs(UnmanagedType.Interface)] IFileDialogEvents? pfde,
             out uint pdwCookie);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -57,13 +57,13 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         void GetCurrentSelection([MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetFileName([In, MarshalAs(UnmanagedType.LPWStr)] string pszName);
+        void SetFileName([In, MarshalAs(UnmanagedType.LPWStr)] string? pszName);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void GetFileName([MarshalAs(UnmanagedType.LPWStr)] out string pszName);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetTitle([In, MarshalAs(UnmanagedType.LPWStr)] string pszTitle);
+        void SetTitle([In, MarshalAs(UnmanagedType.LPWStr)] string? pszTitle);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void SetOkButtonLabel([In, MarshalAs(UnmanagedType.LPWStr)] string pszText);
@@ -78,7 +78,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         void AddPlace([In, MarshalAs(UnmanagedType.Interface)] IShellItem psi, ShellNativeMethods.FileDialogAddPlacement fdap);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetDefaultExtension([In, MarshalAs(UnmanagedType.LPWStr)] string pszDefaultExtension);
+        void SetDefaultExtension([In, MarshalAs(UnmanagedType.LPWStr)] string? pszDefaultExtension);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void Close([MarshalAs(UnmanagedType.Error)] int hr);

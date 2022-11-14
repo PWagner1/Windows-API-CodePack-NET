@@ -49,7 +49,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         public HResult Clone(out IEnumUnknown result)
         {
-            result = new EnumUnknownClass(this.conditionList.ToArray());
+            result = new EnumUnknownClass(conditionList.ToArray());
             return HResult.Ok;
         }
 

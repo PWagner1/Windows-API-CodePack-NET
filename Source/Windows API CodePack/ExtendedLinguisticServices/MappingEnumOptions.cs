@@ -282,7 +282,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         ///
         /// <note>For Windows 7, none of the available ELS services support flags.</note>
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
         public int ServiceFlag
         {
             get

@@ -9,7 +9,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
     public class MappingAsyncResult : IAsyncResult, IDisposable
     {
         private object _callerData;
-        private MappingPropertyBag _bag;
+        private MappingPropertyBag? _bag;
         private MappingResultState _resultState;
         private ManualResetEvent _waitHandle;
         private AsyncCallback _asyncCallback;
@@ -23,59 +23,29 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
             _waitHandle = new ManualResetEvent(false);
         }
 
-        internal AsyncCallback AsyncCallback
-        {
-            get
-            {
-                return _asyncCallback;
-            }
-        }
+        internal AsyncCallback AsyncCallback => _asyncCallback;
 
         /// <summary>
         /// Queries whether the operation completed successfully.
         /// </summary>
-        public bool Succeeded
-        {
-            get
-            {
-                return _bag != null && _resultState.HResult == 0;
-            }
-        }
+        public bool Succeeded => _bag != null && _resultState.HResult == 0;
 
         /// <summary>
         /// Gets the resulting <see cref="MappingPropertyBag">MappingPropertyBag</see> (if it exists).
         /// </summary>
-        public MappingPropertyBag PropertyBag
-        {
-            get
-            {
-                return _bag;
-            }
-        }
+        public MappingPropertyBag? PropertyBag => _bag;
 
         /// <summary>
         /// Returns the current result state associated with this operation.
         /// </summary>
-        public MappingResultState ResultState
-        {
-            get
-            {
-                return _resultState;
-            }
-        }
+        public MappingResultState ResultState => _resultState;
 
         /// <summary>
         /// Returns the caller data associated with this operation.
         /// </summary>
-        public object CallerData
-        {
-            get
-            {
-                return _callerData;
-            }
-        }
+        public object CallerData => _callerData;
 
-        internal void SetResult(MappingPropertyBag bag, MappingResultState resultState)
+        internal void SetResult(MappingPropertyBag? bag, MappingResultState resultState)
         {
             _resultState = resultState;
             _bag = bag;

@@ -58,7 +58,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     AccessModes.ReadWrite;
 
             // Get the IShellItem2
-            base.nativeShellItem = ((ShellObject)sourceKnownFolder).NativeShellItem2;
+            nativeShellItem = ((ShellObject)sourceKnownFolder).NativeShellItem2;
 
             Guid guid = sourceKnownFolder.FolderId;
 
@@ -95,7 +95,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 throw new ArgumentException(LocalizedMessages.ShellLibraryEmptyName, "libraryName");
             }
 
-            this.Name = libraryName;
+            Name = libraryName;
             Guid guid = new Guid(ShellKFIDGuid.Libraries);
 
             ShellNativeMethods.LibrarySaveOptions flags = overwrite ?
@@ -123,7 +123,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             knownFolder = sourceKnownFolder;
 
-            this.Name = libraryName;
+            Name = libraryName;
             Guid guid = knownFolder.FolderId;
 
             ShellNativeMethods.LibrarySaveOptions flags = overwrite ?
@@ -154,7 +154,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 throw new DirectoryNotFoundException(LocalizedMessages.ShellLibraryFolderNotFound);
             }
 
-            this.Name = libraryName;
+            Name = libraryName;
 
             ShellNativeMethods.LibrarySaveOptions flags = overwrite ?
                     ShellNativeMethods.LibrarySaveOptions.OverrideExisting :
@@ -184,7 +184,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 if (base.Name == null && NativeShellItem != null)
                 {
-                    base.Name = System.IO.Path.GetFileNameWithoutExtension(ShellHelper.GetParsingName(NativeShellItem));
+                    base.Name = Path.GetFileNameWithoutExtension(ShellHelper.GetParsingName(NativeShellItem));
                 }
 
                 return base.Name;
@@ -266,7 +266,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// be saved, and also where the library XML 
         /// file will be saved, if no other path is specified
         /// </summary>
-        public string DefaultSaveFolder
+        public string? DefaultSaveFolder
         {
             get
             {
@@ -351,7 +351,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public void Close()
         {
-            this.Dispose();
+            Dispose();
         }
 
         #endregion
@@ -397,11 +397,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
             CoreHelpers.ThrowIfNotWin7();
 
             IKnownFolder kf = KnownFolders.Libraries;
-            string librariesFolderPath = (kf != null) ? kf.Path : string.Empty;
+            string? librariesFolderPath = (kf != null) ? kf.Path : string.Empty;
 
             Guid guid = new Guid(ShellIIDGuid.IShellItem);
             IShellItem nativeShellItem;
-            string shellItemPath = System.IO.Path.Combine(librariesFolderPath, libraryName + FileExtension);
+            string shellItemPath = Path.Combine(librariesFolderPath, libraryName + FileExtension);
             int hr = ShellNativeMethods.SHCreateItemFromParsingName(shellItemPath, IntPtr.Zero, ref guid, out nativeShellItem);
 
             if (!CoreErrorHelper.Succeeded(hr))
@@ -440,7 +440,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             CoreHelpers.ThrowIfNotWin7();
 
             // Create the shell item path
-            string shellItemPath = System.IO.Path.Combine(folderPath, libraryName + FileExtension);
+            string? shellItemPath = Path.Combine(folderPath, libraryName + FileExtension);
             ShellFile item = ShellFile.FromFilePath(shellItemPath);
 
             IShellItem nativeShellItem = item.NativeShellItem;
@@ -540,7 +540,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             // Access Violations if called from an MTA thread so we wrap this
             // call up into a Worker thread that performs all operations in a
             // single threaded apartment
-            using (ShellLibrary shellLibrary = ShellLibrary.Load(libraryName, folderPath, true))
+            using (ShellLibrary shellLibrary = Load(libraryName, folderPath, true))
             {
                 ShowManageLibraryUI(shellLibrary, windowHandle, title, instruction, allowAllLocations);
             }
@@ -561,7 +561,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             // Access Violations if called from an MTA thread so we wrap this
             // call up into a Worker thread that performs all operations in a
             // single threaded apartment
-            using (ShellLibrary shellLibrary = ShellLibrary.Load(libraryName, true))
+            using (ShellLibrary shellLibrary = Load(libraryName, true))
             {
                 ShowManageLibraryUI(shellLibrary, windowHandle, title, instruction, allowAllLocations);
             }
@@ -582,7 +582,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             // Access Violations if called from an MTA thread so we wrap this
             // call up into a Worker thread that performs all operations in a
             // single threaded apartment
-            using (ShellLibrary shellLibrary = ShellLibrary.Load(sourceKnownFolder, true))
+            using (ShellLibrary shellLibrary = Load(sourceKnownFolder, true))
             {
                 ShowManageLibraryUI(shellLibrary, windowHandle, title, instruction, allowAllLocations);
             }
@@ -608,7 +608,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Add an existing folder to this library
         /// </summary>
         /// <param name="folderPath">The path to the folder to be added to the library.</param>
-        public void Add(string folderPath)
+        public void Add(string? folderPath)
         {
             if (!Directory.Exists(folderPath))
             {
@@ -659,7 +659,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="folderPath">The path of the item to remove.</param>
         /// <returns><B>true</B> if the item was removed.</returns>
-        public bool Remove(string folderPath)
+        public bool Remove(string? folderPath)
         {
             ShellFileSystemFolder item = ShellFileSystemFolder.FromFolderPath(folderPath);
             return Remove(item);
@@ -752,7 +752,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Retrieves the collection enumerator.
         /// </summary>
         /// <returns>The enumerator.</returns>
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        IEnumerator IEnumerable.GetEnumerator()
         {
             return ItemsList.GetEnumerator();
         }

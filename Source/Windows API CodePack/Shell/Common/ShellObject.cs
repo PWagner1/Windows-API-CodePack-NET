@@ -16,7 +16,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="parsingName">The parsing name of the object.</param>
         /// <returns>A newly constructed ShellObject object.</returns>
-        public static ShellObject FromParsingName(string parsingName)
+        public static ShellObject FromParsingName(string? parsingName)
         {
             return ShellObjectFactory.Create(parsingName);
         }
@@ -63,7 +63,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Parsing name for this Object e.g. c:\Windows\file.txt,
         /// or ::{Some Guid} 
         /// </summary>
-        private string _internalParsingName;
+        private string? _internalParsingName;
 
         /// <summary>
         /// A friendly name for this object that' suitable for display
@@ -166,7 +166,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Gets the parsing name for this ShellItem.
         /// </summary>
-        virtual public string ParsingName
+        virtual public string? ParsingName
         {
             get
             {
@@ -207,7 +207,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             protected set
             {
-                this._internalName = value;
+                _internalName = value;
             }
         }
 
@@ -228,7 +228,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
             set
             {
-                this._internalPIDL = value;
+                _internalPIDL = value;
             }
         }
 
@@ -238,7 +238,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>A string representation of the object.</returns>
         public override string ToString()
         {
-            return this.Name;
+            return Name;
         }
 
         /// <summary>
@@ -441,7 +441,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 {
                     byte[] pidlData = new byte[size];
                     Marshal.Copy(PIDL, pidlData, 0, (int)size);
-                    byte[] hashData = ShellObject.hashProvider.ComputeHash(pidlData);
+                    byte[] hashData = hashProvider.ComputeHash(pidlData);
                     hashValue = BitConverter.ToInt32(hashData, 0);
                 }
                 else
@@ -466,7 +466,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             if (other != null)
             {
-                IShellItem ifirst = this.NativeShellItem;
+                IShellItem ifirst = NativeShellItem;
                 IShellItem isecond = other.NativeShellItem;
                 if (ifirst != null && isecond != null)
                 {
@@ -488,7 +488,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>Equality result.</returns>
         public override bool Equals(object obj)
         {
-            return this.Equals(obj as ShellObject);
+            return Equals(obj as ShellObject);
         }
 
         /// <summary>
@@ -497,7 +497,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="leftShellObject">First object to compare.</param>
         /// <param name="rightShellObject">Second object to compare.</param>
         /// <returns>True if leftShellObject equals rightShellObject; false otherwise.</returns>
-        public static bool operator ==(ShellObject leftShellObject, ShellObject rightShellObject)
+        public static bool operator ==(ShellObject? leftShellObject, ShellObject rightShellObject)
         {
             if ((object)leftShellObject == null)
             {
@@ -512,7 +512,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="leftShellObject">First object to compare.</param>
         /// <param name="rightShellObject">Second object to compare.</param>
         /// <returns>True if leftShellObject does not equal leftShellObject; false otherwise.</returns>        
-        public static bool operator !=(ShellObject leftShellObject, ShellObject rightShellObject)
+        public static bool operator !=(ShellObject? leftShellObject, ShellObject rightShellObject)
         {
             return !(leftShellObject == rightShellObject);
         }

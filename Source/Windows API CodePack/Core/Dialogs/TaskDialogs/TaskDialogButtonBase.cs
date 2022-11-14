@@ -26,7 +26,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         /// <param name="name">The name for this button.</param>
         /// <param name="text">The label for this button.</param>
-        protected TaskDialogButtonBase(string name, string text) : base(name)
+        protected TaskDialogButtonBase(string name, string? text) : base(name)
         {
             this.text = text;
         }
@@ -40,7 +40,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <summary>
         /// Raised when the task dialog button is clicked.
         /// </summary>
-        public event EventHandler Click;
+        public event EventHandler? Click;
 
         internal void RaiseClickEvent()
         {
@@ -50,11 +50,11 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             if (Click != null) { Click(this, EventArgs.Empty); }
         }
 
-        private string text;
+        private string? text;
         /// <summary>
         /// Gets or sets the button text.
         /// </summary>
-        public string Text
+        public string? Text
         {
             get { return text; }
             set 

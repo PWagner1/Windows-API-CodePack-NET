@@ -61,7 +61,7 @@
         /// </summary>
         /// <param name="VarEnumType">VarEnum value</param>
         /// <returns>Associated .net equivelent.</returns>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
+        [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
         public static Type VarEnumToSystemType(VarEnum VarEnumType)
         {
             switch (VarEnumType)

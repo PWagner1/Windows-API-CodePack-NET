@@ -87,7 +87,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         protected CommonFileDialogControl(string text)
             : base()
         {
-            this.textValue = text;
+            textValue = text;
         }
 
         /// <summary>
@@ -98,14 +98,14 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         protected CommonFileDialogControl(string name, string text)
             : base(name)
         {
-            this.textValue = text;
+            textValue = text;
         }
 
         /// <summary>
         /// Attach the custom control itself to the specified dialog
         /// </summary>
         /// <param name="dialog">the target dialog</param>
-        internal abstract void Attach(IFileDialogCustomize dialog);
+        internal abstract void Attach(IFileDialogCustomize? dialog);
 
         internal virtual void SyncUnmanagedProperties()
         {

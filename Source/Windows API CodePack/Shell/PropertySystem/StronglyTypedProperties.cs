@@ -10161,7 +10161,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             /// <para>Type:     String -- VT_LPWSTR  (For variants: VT_BSTR)</para>
             /// <para>FormatID: (PSGUID_LINK) {B9B4B3FC-2B51-4A42-B5D8-324146AFCF25}, 2 (PID_LINK_TARGET)</para>
             /// </summary>
-            public ShellProperty<String> TargetParsingPath
+            public ShellProperty<string?> TargetParsingPath
             {
                 get
                 {
@@ -10172,7 +10172,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                         hashtable.Add(key, shellObjectParent.Properties.CreateTypedProperty<String>(key));
                     }
 
-                    return hashtable[key] as ShellProperty<String>;
+                    return hashtable[key] as ShellProperty<string?>;
                 }
             }
 

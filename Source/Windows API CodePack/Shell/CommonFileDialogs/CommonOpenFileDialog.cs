@@ -17,18 +17,18 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             : base()
         {
             // For Open file dialog, allow read only files.
-            base.EnsureReadOnly = true;
+            EnsureReadOnly = true;
         }
 
         /// <summary>
         /// Creates a new instance of this class with the specified name.
         /// </summary>
         /// <param name="name">The name of this dialog.</param>
-        public CommonOpenFileDialog(string name)
+        public CommonOpenFileDialog(string? name)
             : base(name)
         {
             // For Open file dialog, allow read only files.
-            base.EnsureReadOnly = true;
+            EnsureReadOnly = true;
         }
 
         #region Public API specific to Open
@@ -44,7 +44,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             get
             {
                 CheckFileNamesAvailable();
-                return base.FileNameCollection;
+                return FileNameCollection;
             }
         }
 
@@ -66,7 +66,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
                 // Loop through our existing list of filenames, and try to create a concrete type of
                 // ShellObject (e.g. ShellLibrary, FileSystemFolder, ShellFile, etc)
-                foreach (IShellItem si in items)
+                foreach (IShellItem si in Items)
                 {
                     resultItems.Add(ShellObjectFactory.Create(si));
                 }
@@ -109,7 +109,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         }
         #endregion
 
-        internal override IFileDialog GetNativeFileDialog()
+        internal override IFileDialog? GetNativeFileDialog()
         {
             Debug.Assert(openDialogCoClass != null, "Must call Initialize() before fetching dialog interface");
 

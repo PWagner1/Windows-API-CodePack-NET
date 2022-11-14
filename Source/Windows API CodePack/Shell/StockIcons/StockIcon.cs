@@ -206,7 +206,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 if (hr == HResult.InvalidArguments)
                 {
                     throw new InvalidOperationException(
-                        string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                        string.Format(CultureInfo.InvariantCulture,
                         LocalizedMessages.StockIconInvalidGuid,
                         identifier));
                 }

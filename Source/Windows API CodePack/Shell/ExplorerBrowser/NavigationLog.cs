@@ -23,7 +23,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
             bool oldCanNavigateForward = CanNavigateForward;
 
             _locations.Clear();
-            this.currentLocationIndex = -1;
+            currentLocationIndex = -1;
 
             NavigationLogEventArgs args = new NavigationLogEventArgs();
             args.LocationsChanged = true;

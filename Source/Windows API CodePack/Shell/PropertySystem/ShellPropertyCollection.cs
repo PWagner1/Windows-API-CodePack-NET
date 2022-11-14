@@ -60,7 +60,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// Creates a new <c>ShellPropertyCollection</c> object with the specified file or folder path.
         /// </summary>
         /// <param name="path">The path to the file or folder.</param>        
-        public ShellPropertyCollection(string path) : this(ShellObjectFactory.Create(path)) { }
+        public ShellPropertyCollection(string? path) : this(ShellObjectFactory.Create(path)) { }
 
         #endregion
 

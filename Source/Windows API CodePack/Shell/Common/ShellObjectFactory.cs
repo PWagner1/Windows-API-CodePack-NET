@@ -151,7 +151,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="parsingName"></param>
         /// <returns>A newly constructed ShellObject object</returns>
-        internal static ShellObject Create(string parsingName)
+        internal static ShellObject Create(string? parsingName)
         {
             if (string.IsNullOrEmpty(parsingName))
             {
@@ -167,7 +167,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 throw new ShellException(LocalizedMessages.ShellObjectFactoryUnableToCreateItem, Marshal.GetExceptionForHR(retCode));
             }
-            return ShellObjectFactory.Create(nativeShellItem);
+            return Create(nativeShellItem);
         }
 
         /// <summary>
@@ -186,7 +186,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             int retCode = ShellNativeMethods.SHCreateItemFromIDList(idListPtr, ref guid, out nativeShellItem);
 
             if (!CoreErrorHelper.Succeeded(retCode)) { return null; }
-            return ShellObjectFactory.Create(nativeShellItem);
+            return Create(nativeShellItem);
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             if (!CoreErrorHelper.Succeeded(retCode)) { return null; }
 
-            return ShellObjectFactory.Create(nativeShellItem);
+            return Create(nativeShellItem);
         }
     }
 }

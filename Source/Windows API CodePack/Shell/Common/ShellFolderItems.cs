@@ -28,7 +28,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 if (hr == HResult.Canceled)
                 {
-                    throw new System.IO.FileNotFoundException();
+                    throw new FileNotFoundException();
                 }
                 else
                 {

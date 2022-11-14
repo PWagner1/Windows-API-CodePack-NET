@@ -47,8 +47,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         public TaskDialogProgressBarState ProgressBarState { get; set; }
         public bool InvokeHelp { get; set; }
         public TaskDialogNativeMethods.TaskDialogConfiguration NativeConfiguration { get; private set; }
-        public TaskDialogNativeMethods.TaskDialogButton[] Buttons { get; set; }
-        public TaskDialogNativeMethods.TaskDialogButton[] RadioButtons { get; set; }
-        public List<int> ElevatedButtons { get; set; }
+        public TaskDialogNativeMethods.TaskDialogButton[]? Buttons { get; set; }
+        public TaskDialogNativeMethods.TaskDialogButton[]? RadioButtons { get; set; }
+        public List<int>? ElevatedButtons { get; set; }
     }
 }

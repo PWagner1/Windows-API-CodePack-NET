@@ -26,10 +26,10 @@ namespace Microsoft.WindowsAPICodePack.Net
         /// <returns>A <see cref="System.Collections.Generic.IEnumerator{T}"/> object.</returns>
         public IEnumerator<NetworkConnection> GetEnumerator()
         {
-            foreach (INetworkConnection networkConnection in networkConnectionEnumerable)
-            {
-                yield return new NetworkConnection(networkConnection);
-            }
+                foreach (INetworkConnection networkConnection in networkConnectionEnumerable)
+                {
+                    yield return new NetworkConnection(networkConnection);
+                }
         }
 
         #endregion

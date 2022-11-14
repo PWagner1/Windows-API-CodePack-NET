@@ -496,7 +496,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         [DllImport("shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern int SHCreateItemFromParsingName(
-            [MarshalAs(UnmanagedType.LPWStr)] string path,
+            [MarshalAs(UnmanagedType.LPWStr)] string? path,
             // The following parameter is not used - binding context.
             IntPtr pbc,
             ref Guid riid,

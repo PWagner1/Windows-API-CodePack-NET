@@ -24,7 +24,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         {
             get
             {
-                return new LuminousIntensity(this.DataReport);
+                return new LuminousIntensity(DataReport);
             }
         }
 

@@ -76,8 +76,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>A hash code.</returns>
         public override int GetHashCode()
         {
-            int hash = this.direction.GetHashCode();
-            hash = hash * 31 + this.propertyKey.GetHashCode();
+            int hash = direction.GetHashCode();
+            hash = hash * 31 + propertyKey.GetHashCode();
             return hash;
         }
 
