@@ -5,6 +5,7 @@ using Application = System.Windows.Forms.Application;
 using Brushes = System.Drawing.Brushes;
 using Color = System.Drawing.Color;
 using LinearGradientBrush = System.Drawing.Drawing2D.LinearGradientBrush;
+// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
 
 namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
 {
@@ -30,35 +31,35 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// </summary>
         public ExplorerBrowserContentOptions ContentOptions { get; private set; }
 
-        private IShellItemArray? shellItemsArray;
-        private ShellObjectCollection itemsCollection;
+        private IShellItemArray? _shellItemsArray;
+        private ShellObjectCollection? _itemsCollection;
         /// <summary>
         /// The set of ShellObjects in the Explorer Browser
         /// </summary>
-        public ShellObjectCollection Items
+        public ShellObjectCollection? Items
         {
             get
             {
-                if (shellItemsArray != null)
+                if (_shellItemsArray != null)
                 {
-                    Marshal.ReleaseComObject(shellItemsArray);
+                    Marshal.ReleaseComObject(_shellItemsArray);
                 }
 
-                if (itemsCollection != null)
+                if (_itemsCollection != null)
                 {
-                    itemsCollection.Dispose();
-                    itemsCollection = null;
+                    _itemsCollection.Dispose();
+                    _itemsCollection = null;
                 }
 
-                shellItemsArray = GetItemsArray();
-                itemsCollection = new ShellObjectCollection(shellItemsArray, true);
+                _shellItemsArray = GetItemsArray();
+                _itemsCollection = new ShellObjectCollection(_shellItemsArray, true);
 
-                return itemsCollection;
+                return _itemsCollection;
             }
         }
 
-        private IShellItemArray? selectedShellItemsArray;
-        private ShellObjectCollection selectedItemsCollection;
+        private IShellItemArray? _selectedShellItemsArray;
+        private ShellObjectCollection _selectedItemsCollection;
         /// <summary>
         /// The set of selected ShellObjects in the Explorer Browser
         /// </summary>
@@ -66,21 +67,21 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         {
             get
             {
-                if (selectedShellItemsArray != null)
+                if (_selectedShellItemsArray != null)
                 {
-                    Marshal.ReleaseComObject(selectedShellItemsArray);
+                    Marshal.ReleaseComObject(_selectedShellItemsArray);
                 }
 
-                if (selectedItemsCollection != null)
+                if (_selectedItemsCollection != null)
                 {
-                    selectedItemsCollection.Dispose();
-                    selectedItemsCollection = null;
+                    _selectedItemsCollection.Dispose();
+                    _selectedItemsCollection = null;
                 }
 
-                selectedShellItemsArray = GetSelectedItemsArray();
-                selectedItemsCollection = new ShellObjectCollection(selectedShellItemsArray, true);
+                _selectedShellItemsArray = GetSelectedItemsArray();
+                _selectedItemsCollection = new ShellObjectCollection(_selectedShellItemsArray, true);
 
-                return selectedItemsCollection;
+                return _selectedItemsCollection;
             }
         }
 
@@ -94,13 +95,13 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// </summary>
         public string PropertyBagName
         {
-            get { return propertyBagName; }
+            get => _propertyBagName;
             set
             {
-                propertyBagName = value;
-                if (explorerBrowserControl != null)
+                _propertyBagName = value;
+                if (ExplorerBrowserControl != null)
                 {
-                    explorerBrowserControl.SetPropertyBag(propertyBagName);
+                    ExplorerBrowserControl.SetPropertyBag(_propertyBagName);
                 }
             }
         }
@@ -121,13 +122,13 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 throw new ArgumentNullException("shellObject");
             }
 
-            if (explorerBrowserControl == null)
+            if (ExplorerBrowserControl == null)
             {
-                antecreationNavigationTarget = shellObject;
+                _antecreationNavigationTarget = shellObject;
             }
             else
             {
-                HResult hr = explorerBrowserControl.BrowseToObject(shellObject.NativeShellItem, 0);
+                HResult hr = ExplorerBrowserControl.BrowseToObject(shellObject.NativeShellItem, 0);
                 if (hr != HResult.Ok)
                 {
                     if ((hr == HResult.ResourceInUse || hr == HResult.Canceled) && NavigationFailed != null)
@@ -214,13 +215,13 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         #region implementation
 
         #region construction
-        internal ExplorerBrowserClass explorerBrowserControl;
+        internal ExplorerBrowserClass ExplorerBrowserControl;
 
         // for the IExplorerBrowserEvents Advise call
-        internal uint eventsCookie;
+        internal uint EventsCookie;
 
         // name of the property bag that contains the view state options of the browser
-        string propertyBagName = typeof(ExplorerBrowser).FullName;
+        string _propertyBagName = typeof(ExplorerBrowser).FullName;
 
         /// <summary>
         /// Initializes the ExplorerBorwser WinForms wrapper.
@@ -273,8 +274,8 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
             base.OnPaint(e);
         }
 
-        ShellObject? antecreationNavigationTarget;
-        ExplorerBrowserViewEvents viewEvents;
+        ShellObject? _antecreationNavigationTarget;
+        ExplorerBrowserViewEvents _viewEvents;
 
         /// <summary>
         /// Creates and initializes the native ExplorerBrowser control
@@ -285,18 +286,18 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
 
             if (DesignMode == false)
             {
-                explorerBrowserControl = new ExplorerBrowserClass();
+                ExplorerBrowserControl = new ExplorerBrowserClass();
 
                 // hooks up IExplorerPaneVisibility and ICommDlgBrowser event notifications
-                ExplorerBrowserNativeMethods.IUnknown_SetSite(explorerBrowserControl, this);
+                ExplorerBrowserNativeMethods.IUnknown_SetSite(ExplorerBrowserControl, this);
 
                 // hooks up IExplorerBrowserEvents event notification
-                explorerBrowserControl.Advise(
+                ExplorerBrowserControl.Advise(
                     Marshal.GetComInterfaceForObject(this, typeof(IExplorerBrowserEvents)),
-                    out eventsCookie);
+                    out EventsCookie);
 
                 // sets up ExplorerBrowser view connection point events
-                viewEvents = new ExplorerBrowserViewEvents(this);
+                _viewEvents = new ExplorerBrowserViewEvents(this);
 
                 NativeRect rect = new NativeRect();
                 rect.Top = ClientRectangle.Top;
@@ -304,22 +305,22 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 rect.Right = ClientRectangle.Right;
                 rect.Bottom = ClientRectangle.Bottom;
 
-                explorerBrowserControl.Initialize(Handle, ref rect, null);
+                ExplorerBrowserControl.Initialize(Handle, ref rect, null);
 
                 // Force an initial show frames so that IExplorerPaneVisibility works the first time it is set.
                 // This also enables the control panel to be browsed to. If it is not set, then navigating to 
                 // the control panel succeeds, but no items are visible in the view.
-                explorerBrowserControl.SetOptions(ExplorerBrowserOptions.ShowFrames);
+                ExplorerBrowserControl.SetOptions(ExplorerBrowserOptions.ShowFrames);
 
-                explorerBrowserControl.SetPropertyBag(propertyBagName);
+                ExplorerBrowserControl.SetPropertyBag(_propertyBagName);
 
-                if (antecreationNavigationTarget != null)
+                if (_antecreationNavigationTarget != null)
                 {
                     BeginInvoke(new MethodInvoker(
                     delegate
                     {
-                        Navigate(antecreationNavigationTarget);
-                        antecreationNavigationTarget = null;
+                        Navigate(_antecreationNavigationTarget);
+                        _antecreationNavigationTarget = null;
                     }));
                 }
             }
@@ -333,7 +334,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// <param name="e">Contains information about the size changed event.</param>
         protected override void OnSizeChanged(EventArgs e)
         {
-            if (explorerBrowserControl != null)
+            if (ExplorerBrowserControl != null)
             {
                 NativeRect rect = new NativeRect();
                 rect.Top = ClientRectangle.Top;
@@ -342,7 +343,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 rect.Bottom = ClientRectangle.Bottom;
 
                 IntPtr ptr = IntPtr.Zero;
-                explorerBrowserControl.SetRect(ref ptr, rect);
+                ExplorerBrowserControl.SetRect(ref ptr, rect);
             }
 
             base.OnSizeChanged(e);
@@ -354,19 +355,19 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// <param name="e">An EventArgs that contains event data.</param>
         protected override void OnHandleDestroyed(EventArgs e)
         {
-            if (explorerBrowserControl != null)
+            if (ExplorerBrowserControl != null)
             {
                 // unhook events
-                viewEvents.DisconnectFromView();
-                explorerBrowserControl.Unadvise(eventsCookie);
-                ExplorerBrowserNativeMethods.IUnknown_SetSite(explorerBrowserControl, null);
+                _viewEvents.DisconnectFromView();
+                ExplorerBrowserControl.Unadvise(EventsCookie);
+                ExplorerBrowserNativeMethods.IUnknown_SetSite(ExplorerBrowserControl, null);
 
                 // destroy the explorer browser control
-                explorerBrowserControl.Destroy();
+                ExplorerBrowserControl.Destroy();
 
                 // release com reference to it
-                Marshal.ReleaseComObject(explorerBrowserControl);
-                explorerBrowserControl = null;
+                Marshal.ReleaseComObject(ExplorerBrowserControl);
+                ExplorerBrowserControl = null;
             }
 
             base.OnHandleDestroyed(e);
@@ -531,7 +532,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
 
         HResult IExplorerBrowserEvents.OnViewCreated(object psv)
         {
-            viewEvents.ConnectToView((IShellView)psv);
+            _viewEvents.ConnectToView((IShellView)psv);
 
             return HResult.Ok;
         }
@@ -647,10 +648,10 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         bool IMessageFilter.PreFilterMessage(ref System.Windows.Forms.Message m)
         {
             HResult hr = HResult.False;
-            if (explorerBrowserControl != null)
+            if (ExplorerBrowserControl != null)
             {
                 // translate keyboard input
-                hr = ((IInputObject)explorerBrowserControl).TranslateAcceleratorIO(ref m);
+                hr = ((IInputObject)ExplorerBrowserControl).TranslateAcceleratorIO(ref m);
             }
             return (hr == HResult.Ok);
         }
@@ -667,7 +668,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// <returns></returns>
         internal FolderViewMode GetCurrentViewMode()
         {
-            IFolderView2 ifv2 = GetFolderView2();
+            IFolderView2? ifv2 = GetFolderView2();
             uint viewMode = 0;
             if (ifv2 != null)
             {
@@ -689,13 +690,13 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// Gets the IFolderView2 interface from the explorer browser.
         /// </summary>
         /// <returns></returns>
-        internal IFolderView2 GetFolderView2()
+        internal IFolderView2? GetFolderView2()
         {
             Guid iid = new Guid(ExplorerBrowserIIDGuid.IFolderView2);
             IntPtr view = IntPtr.Zero;
-            if (explorerBrowserControl != null)
+            if (ExplorerBrowserControl != null)
             {
-                HResult hr = explorerBrowserControl.GetCurrentView(ref iid, out view);
+                HResult hr = ExplorerBrowserControl.GetCurrentView(ref iid, out view);
                 switch (hr)
                 {
                     case HResult.Ok:
@@ -724,14 +725,14 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         internal IShellItemArray? GetSelectedItemsArray()
         {
             IShellItemArray? iArray = null;
-            IFolderView2 iFV2 = GetFolderView2();
-            if (iFV2 != null)
+            IFolderView2? iFv2 = GetFolderView2();
+            if (iFv2 != null)
             {
                 try
                 {
                     Guid iidShellItemArray = new Guid(ShellIIDGuid.IShellItemArray);
                     object oArray = null;
-                    HResult hr = iFV2.Items((uint)ShellViewGetItemObject.Selection, ref iidShellItemArray, out oArray);
+                    HResult hr = iFv2.Items((uint)ShellViewGetItemObject.Selection, ref iidShellItemArray, out oArray);
                     iArray = oArray as IShellItemArray;
                     if (hr != HResult.Ok &&
                         hr != HResult.ElementNotFound &&
@@ -742,8 +743,8 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 }
                 finally
                 {
-                    Marshal.ReleaseComObject(iFV2);
-                    iFV2 = null;
+                    Marshal.ReleaseComObject(iFv2);
+                    iFv2 = null;
                 }
             }
 
@@ -754,12 +755,12 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         {
             int itemsCount = 0;
 
-            IFolderView2 iFV2 = GetFolderView2();
-            if (iFV2 != null)
+            IFolderView2? iFv2 = GetFolderView2();
+            if (iFv2 != null)
             {
                 try
                 {
-                    HResult hr = iFV2.ItemCount((uint)ShellViewGetItemObject.AllView, out itemsCount);
+                    HResult hr = iFv2.ItemCount((uint)ShellViewGetItemObject.AllView, out itemsCount);
 
                     if (hr != HResult.Ok &&
                         hr != HResult.ElementNotFound &&
@@ -770,8 +771,8 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 }
                 finally
                 {
-                    Marshal.ReleaseComObject(iFV2);
-                    iFV2 = null;
+                    Marshal.ReleaseComObject(iFv2);
+                    iFv2 = null;
                 }
             }
 
@@ -782,12 +783,12 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         {
             int itemsCount = 0;
 
-            IFolderView2 iFV2 = GetFolderView2();
-            if (iFV2 != null)
+            IFolderView2? iFv2 = GetFolderView2();
+            if (iFv2 != null)
             {
                 try
                 {
-                    HResult hr = iFV2.ItemCount((uint)ShellViewGetItemObject.Selection, out itemsCount);
+                    HResult hr = iFv2.ItemCount((uint)ShellViewGetItemObject.Selection, out itemsCount);
 
                     if (hr != HResult.Ok &&
                         hr != HResult.ElementNotFound &&
@@ -798,8 +799,8 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 }
                 finally
                 {
-                    Marshal.ReleaseComObject(iFV2);
-                    iFV2 = null;
+                    Marshal.ReleaseComObject(iFv2);
+                    iFv2 = null;
                 }
             }
 
@@ -813,14 +814,14 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         internal IShellItemArray? GetItemsArray()
         {
             IShellItemArray? iArray = null;
-            IFolderView2 iFV2 = GetFolderView2();
-            if (iFV2 != null)
+            IFolderView2? iFv2 = GetFolderView2();
+            if (iFv2 != null)
             {
                 try
                 {
                     Guid iidShellItemArray = new Guid(ShellIIDGuid.IShellItemArray);
                     object oArray = null;
-                    HResult hr = iFV2.Items((uint)ShellViewGetItemObject.AllView, ref iidShellItemArray, out oArray);
+                    HResult hr = iFv2.Items((uint)ShellViewGetItemObject.AllView, ref iidShellItemArray, out oArray);
                     if (hr != HResult.Ok &&
                         hr != HResult.Fail &&
                         hr != HResult.ElementNotFound &&
@@ -833,8 +834,8 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 }
                 finally
                 {
-                    Marshal.ReleaseComObject(iFV2);
-                    iFV2 = null;
+                    Marshal.ReleaseComObject(iFv2);
+                    iFv2 = null;
                 }
             }
             return iArray;

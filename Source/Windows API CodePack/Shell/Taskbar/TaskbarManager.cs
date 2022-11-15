@@ -14,7 +14,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         }
 
         // Best practice recommends defining a private object to lock on
-        private static object _syncLock = new object();
+        private static object _syncLock = new();
 
         private static TaskbarManager _instance;
         /// <summary>
@@ -202,10 +202,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public string ApplicationId
         {
-            get
-            {
-                return GetCurrentProcessAppId();
-            }
+            get => GetCurrentProcessAppId();
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -299,13 +296,8 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <summary>
         /// Indicates whether this feature is supported on the current platform.
         /// </summary>
-        public static bool IsPlatformSupported
-        {
-            get
-            {
-                // We need Windows 7 onwards ...
-                return CoreHelpers.RunningOnWin7;
-            }
-        }
+        public static bool IsPlatformSupported =>
+            // We need Windows 7 onwards ...
+            CoreHelpers.RunningOnWin7;
     }
 }

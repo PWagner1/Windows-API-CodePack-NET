@@ -38,7 +38,7 @@ internal interface IShellLinkW
         int cchIconPath,
         out int iIcon);
     void SetIconLocation(
-        [MarshalAs(UnmanagedType.LPWStr)] string pszIconPath,
+        [MarshalAs(UnmanagedType.LPWStr)] string? pszIconPath,
         int iIcon);
     void SetRelativePath(
         [MarshalAs(UnmanagedType.LPWStr)] string pszPathRel,

@@ -1,7 +1,5 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-using Microsoft.WindowsAPICodePack.Controls.WindowsForms;
-
 namespace Microsoft.WindowsAPICodePack.Controls
 {
     /// <summary>
@@ -21,24 +19,21 @@ namespace Microsoft.WindowsAPICodePack.Controls
         #region ViewMode property
         // This is a one-way property of the explorer browser. 
         // Keeping it around for the get implementations.
-        internal FolderSettings folderSettings = new FolderSettings();
+        internal FolderSettings folderSettings = new();
 
         /// <summary>
         /// The viewing mode of the Explorer Browser
         /// </summary>
         public ExplorerBrowserViewMode ViewMode
         {
-            get
-            {
-                return (ExplorerBrowserViewMode)folderSettings.ViewMode;
-            }
+            get => (ExplorerBrowserViewMode)folderSettings.ViewMode;
             set
             {
                 folderSettings.ViewMode = (FolderViewMode)value;
 
-                if (eb.explorerBrowserControl != null)
+                if (eb.ExplorerBrowserControl != null)
                 {
-                    eb.explorerBrowserControl.SetFolderSettings(folderSettings);
+                    eb.ExplorerBrowserControl.SetFolderSettings(folderSettings);
                 }
             }
         }
@@ -50,16 +45,13 @@ namespace Microsoft.WindowsAPICodePack.Controls
         /// </summary>
         public ExplorerBrowserContentSectionOptions Flags
         {
-            get
-            {
-                return (ExplorerBrowserContentSectionOptions)folderSettings.Options;
-            }
+            get => (ExplorerBrowserContentSectionOptions)folderSettings.Options;
             set
             {
                 folderSettings.Options = (FolderOptions)value | FolderOptions.UseSearchFolders | FolderOptions.NoWebView;
-                if (eb.explorerBrowserControl != null)
+                if (eb.ExplorerBrowserControl != null)
                 {
-                    eb.explorerBrowserControl.SetFolderSettings(folderSettings);
+                    eb.ExplorerBrowserControl.SetFolderSettings(folderSettings);
                 }
             }
         }
@@ -71,182 +63,104 @@ namespace Microsoft.WindowsAPICodePack.Controls
         /// </summary>
         public bool AlignLeft
         {
-            get
-            {
-                return IsFlagSet(ExplorerBrowserContentSectionOptions.AlignLeft);
-            }
-            set
-            {
-                SetFlag(ExplorerBrowserContentSectionOptions.AlignLeft, value);
-            }
+            get => IsFlagSet(ExplorerBrowserContentSectionOptions.AlignLeft);
+            set => SetFlag(ExplorerBrowserContentSectionOptions.AlignLeft, value);
         }
         /// <summary>
         /// Automatically arrange the elements in the view. 
         /// </summary>
         public bool AutoArrange
         {
-            get
-            {
-                return IsFlagSet(ExplorerBrowserContentSectionOptions.AutoArrange);
-            }
-            set
-            {
-                SetFlag(ExplorerBrowserContentSectionOptions.AutoArrange, value);
-            }
+            get => IsFlagSet(ExplorerBrowserContentSectionOptions.AutoArrange);
+            set => SetFlag(ExplorerBrowserContentSectionOptions.AutoArrange, value);
         }
         /// <summary>
         /// Turns on check mode for the view
         /// </summary>
         public bool CheckSelect
         {
-            get
-            {
-                return IsFlagSet(ExplorerBrowserContentSectionOptions.CheckSelect);
-            }
-            set
-            {
-                SetFlag(ExplorerBrowserContentSectionOptions.CheckSelect, value);
-            }
+            get => IsFlagSet(ExplorerBrowserContentSectionOptions.CheckSelect);
+            set => SetFlag(ExplorerBrowserContentSectionOptions.CheckSelect, value);
         }
         /// <summary>
         /// When the view is in "tile view mode" the layout of a single item should be extended to the width of the view.
         /// </summary>
         public bool ExtendedTiles
         {
-            get
-            {
-                return IsFlagSet(ExplorerBrowserContentSectionOptions.ExtendedTiles);
-            }
-            set
-            {
-                SetFlag(ExplorerBrowserContentSectionOptions.ExtendedTiles, value);
-            }
+            get => IsFlagSet(ExplorerBrowserContentSectionOptions.ExtendedTiles);
+            set => SetFlag(ExplorerBrowserContentSectionOptions.ExtendedTiles, value);
         }
         /// <summary>
         /// When an item is selected, the item and all its sub-items are highlighted.
         /// </summary>
         public bool FullRowSelect
         {
-            get
-            {
-                return IsFlagSet(ExplorerBrowserContentSectionOptions.FullRowSelect);
-            }
-            set
-            {
-                SetFlag(ExplorerBrowserContentSectionOptions.FullRowSelect, value);
-            }
+            get => IsFlagSet(ExplorerBrowserContentSectionOptions.FullRowSelect);
+            set => SetFlag(ExplorerBrowserContentSectionOptions.FullRowSelect, value);
         }
         /// <summary>
         /// The view should not display file names
         /// </summary>
         public bool HideFileNames
         {
-            get
-            {
-                return IsFlagSet(ExplorerBrowserContentSectionOptions.HideFileNames);
-            }
-            set
-            {
-                SetFlag(ExplorerBrowserContentSectionOptions.HideFileNames, value);
-            }
+            get => IsFlagSet(ExplorerBrowserContentSectionOptions.HideFileNames);
+            set => SetFlag(ExplorerBrowserContentSectionOptions.HideFileNames, value);
         }
         /// <summary>
         /// The view should not save view state in the browser.
         /// </summary>
         public bool NoBrowserViewState
         {
-            get
-            {
-                return IsFlagSet(ExplorerBrowserContentSectionOptions.NoBrowserViewState);
-            }
-            set
-            {
-                SetFlag(ExplorerBrowserContentSectionOptions.NoBrowserViewState, value);
-            }
+            get => IsFlagSet(ExplorerBrowserContentSectionOptions.NoBrowserViewState);
+            set => SetFlag(ExplorerBrowserContentSectionOptions.NoBrowserViewState, value);
         }
         /// <summary>
         /// Do not display a column header in the view in any view mode.
         /// </summary>
         public bool NoColumnHeader
         {
-            get
-            {
-                return IsFlagSet(ExplorerBrowserContentSectionOptions.NoColumnHeader);
-            }
-            set
-            {
-                SetFlag(ExplorerBrowserContentSectionOptions.NoColumnHeader, value);
-            }
+            get => IsFlagSet(ExplorerBrowserContentSectionOptions.NoColumnHeader);
+            set => SetFlag(ExplorerBrowserContentSectionOptions.NoColumnHeader, value);
         }
         /// <summary>
         /// Only show the column header in details view mode.
         /// </summary>
         public bool NoHeaderInAllViews
         {
-            get
-            {
-                return IsFlagSet(ExplorerBrowserContentSectionOptions.NoHeaderInAllViews);
-            }
-            set
-            {
-                SetFlag(ExplorerBrowserContentSectionOptions.NoHeaderInAllViews, value);
-            }
+            get => IsFlagSet(ExplorerBrowserContentSectionOptions.NoHeaderInAllViews);
+            set => SetFlag(ExplorerBrowserContentSectionOptions.NoHeaderInAllViews, value);
         }
         /// <summary>
         /// The view should not display icons. 
         /// </summary>
         public bool NoIcons
         {
-            get
-            {
-                return IsFlagSet(ExplorerBrowserContentSectionOptions.NoIcons);
-            }
-            set
-            {
-                SetFlag(ExplorerBrowserContentSectionOptions.NoIcons, value);
-            }
+            get => IsFlagSet(ExplorerBrowserContentSectionOptions.NoIcons);
+            set => SetFlag(ExplorerBrowserContentSectionOptions.NoIcons, value);
         }
         /// <summary>
         /// Do not show subfolders. 
         /// </summary>
         public bool NoSubfolders
         {
-            get
-            {
-                return IsFlagSet(ExplorerBrowserContentSectionOptions.NoSubfolders);
-            }
-            set
-            {
-                SetFlag(ExplorerBrowserContentSectionOptions.NoSubfolders, value);
-            }
+            get => IsFlagSet(ExplorerBrowserContentSectionOptions.NoSubfolders);
+            set => SetFlag(ExplorerBrowserContentSectionOptions.NoSubfolders, value);
         }
         /// <summary>
         /// Navigate with a single click
         /// </summary>
         public bool SingleClickActivate
         {
-            get
-            {
-                return IsFlagSet(ExplorerBrowserContentSectionOptions.SingleClickActivate);
-            }
-            set
-            {
-                SetFlag(ExplorerBrowserContentSectionOptions.SingleClickActivate, value);
-            }
+            get => IsFlagSet(ExplorerBrowserContentSectionOptions.SingleClickActivate);
+            set => SetFlag(ExplorerBrowserContentSectionOptions.SingleClickActivate, value);
         }
         /// <summary>
         /// Do not allow more than a single item to be selected.
         /// </summary>
         public bool SingleSelection
         {
-            get
-            {
-                return IsFlagSet(ExplorerBrowserContentSectionOptions.SingleSelection);
-            }
-            set
-            {
-                SetFlag(ExplorerBrowserContentSectionOptions.SingleSelection, value);
-            }
+            get => IsFlagSet(ExplorerBrowserContentSectionOptions.SingleSelection);
+            set => SetFlag(ExplorerBrowserContentSectionOptions.SingleSelection, value);
         }
 
         private bool IsFlagSet(ExplorerBrowserContentSectionOptions flag)
@@ -261,8 +175,8 @@ namespace Microsoft.WindowsAPICodePack.Controls
             else
                 folderSettings.Options = folderSettings.Options & ~(FolderOptions)flag;
 
-            if (eb.explorerBrowserControl != null)
-                eb.explorerBrowserControl.SetFolderSettings(folderSettings);
+            if (eb.ExplorerBrowserControl != null)
+                eb.ExplorerBrowserControl.SetFolderSettings(folderSettings);
         }
 
         #endregion
@@ -276,7 +190,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
             get
             {
                 int iconSize = 0;
-                IFolderView2 iFV2 = eb.GetFolderView2();
+                IFolderView2? iFV2 = eb.GetFolderView2();
                 if (iFV2 != null)
                 {
                     try
@@ -299,7 +213,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
             }
             set
             {
-                IFolderView2 iFV2 = eb.GetFolderView2();
+                IFolderView2? iFV2 = eb.GetFolderView2();
                 if (iFV2 != null)
                 {
                     try

@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable LoopCanBeConvertedToQuery
 namespace Microsoft.WindowsAPICodePack.Net
 {
     /// <summary>
@@ -26,6 +27,9 @@ namespace Microsoft.WindowsAPICodePack.Net
         /// <returns>A <see cref="System.Collections.Generic.IEnumerator{T}"/> object.</returns>
         public IEnumerator<NetworkConnection> GetEnumerator()
         {
+            // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+            if (networkConnectionEnumerable != null)
+                // ReSharper restore ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
                 foreach (INetworkConnection networkConnection in networkConnectionEnumerable)
                 {
                     yield return new NetworkConnection(networkConnection);

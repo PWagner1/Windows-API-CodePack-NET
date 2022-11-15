@@ -17,9 +17,9 @@ namespace MS.WindowsAPICodePack.Internal
         [SuppressMessage("Microsoft.Reliability", "CA2006:UseSafeHandleToEncapsulateNativeResources")]
         private IntPtr nullPtr = IntPtr.Zero;
 
-        private Guid IID_DShellFolderViewEvents = new Guid(ExplorerBrowserIIDGuid.DShellFolderViewEvents);
-        private Guid IID_IDispatch = new Guid(ExplorerBrowserIIDGuid.IDispatch);
-        private ExplorerBrowser parent;
+        private Guid IID_DShellFolderViewEvents = new(ExplorerBrowserIIDGuid.DShellFolderViewEvents);
+        private Guid IID_IDispatch = new(ExplorerBrowserIIDGuid.IDispatch);
+        private ExplorerBrowser? parent;
         #endregion
 
         #region contstruction
@@ -28,7 +28,7 @@ namespace MS.WindowsAPICodePack.Internal
         /// </summary>
         public ExplorerBrowserViewEvents() : this(null) { }
 
-        internal ExplorerBrowserViewEvents(ExplorerBrowser parent)
+        internal ExplorerBrowserViewEvents(ExplorerBrowser? parent)
         {
             this.parent = parent;
         }

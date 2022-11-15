@@ -1,5 +1,4 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
-using Microsoft.WindowsAPICodePack.Controls.WindowsForms;
 
 namespace Microsoft.WindowsAPICodePack.Controls
 {
@@ -10,10 +9,10 @@ namespace Microsoft.WindowsAPICodePack.Controls
     public class ExplorerBrowserNavigationOptions
     {
         #region construction
-        ExplorerBrowser eb;
+        ExplorerBrowser _eb;
         internal ExplorerBrowserNavigationOptions(ExplorerBrowser eb)
         {
-            this.eb = eb;
+            this._eb = eb;
             PaneVisibility = new ExplorerBrowserPaneVisibility();
         }
         #endregion
@@ -27,9 +26,9 @@ namespace Microsoft.WindowsAPICodePack.Controls
             get
             {
                 ExplorerBrowserOptions ebo = new ExplorerBrowserOptions();
-                if (eb.explorerBrowserControl != null)
+                if (_eb.ExplorerBrowserControl != null)
                 {
-                    eb.explorerBrowserControl.GetOptions(out ebo);
+                    _eb.ExplorerBrowserControl.GetOptions(out ebo);
                     return (ExplorerBrowserNavigateOptions)ebo;
                 }
                 return (ExplorerBrowserNavigateOptions)ebo;
@@ -37,10 +36,10 @@ namespace Microsoft.WindowsAPICodePack.Controls
             set
             {
                 ExplorerBrowserOptions ebo = (ExplorerBrowserOptions)value;
-                if (eb.explorerBrowserControl != null)
+                if (_eb.ExplorerBrowserControl != null)
                 {
                     // Always forcing SHOWFRAMES because we handle IExplorerPaneVisibility
-                    eb.explorerBrowserControl.SetOptions(ebo | ExplorerBrowserOptions.ShowFrames);
+                    _eb.ExplorerBrowserControl.SetOptions(ebo | ExplorerBrowserOptions.ShowFrames);
                 }
             }
         }
@@ -52,28 +51,16 @@ namespace Microsoft.WindowsAPICodePack.Controls
         /// </summary>
         public bool NavigateOnce
         {
-            get
-            {
-                return IsFlagSet(ExplorerBrowserNavigateOptions.NavigateOnce);
-            }
-            set
-            {
-                SetFlag(ExplorerBrowserNavigateOptions.NavigateOnce, value);
-            }
+            get => IsFlagSet(ExplorerBrowserNavigateOptions.NavigateOnce);
+            set => SetFlag(ExplorerBrowserNavigateOptions.NavigateOnce, value);
         }
         /// <summary>
         /// Always navigate, even if you are attempting to navigate to the current folder.
         /// </summary>
         public bool AlwaysNavigate
         {
-            get
-            {
-                return IsFlagSet(ExplorerBrowserNavigateOptions.AlwaysNavigate);
-            }
-            set
-            {
-                SetFlag(ExplorerBrowserNavigateOptions.AlwaysNavigate, value);
-            }
+            get => IsFlagSet(ExplorerBrowserNavigateOptions.AlwaysNavigate);
+            set => SetFlag(ExplorerBrowserNavigateOptions.AlwaysNavigate, value);
         }
 
         private bool IsFlagSet(ExplorerBrowserNavigateOptions flag)

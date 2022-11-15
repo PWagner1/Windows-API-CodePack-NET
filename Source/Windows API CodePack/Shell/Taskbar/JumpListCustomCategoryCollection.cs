@@ -8,7 +8,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
     internal class JumpListCustomCategoryCollection
         : ICollection<JumpListCustomCategory>, INotifyCollectionChanged
     {
-        private List<JumpListCustomCategory> categories = new List<JumpListCustomCategory>();
+        private List<JumpListCustomCategory> _categories = new();
 
         /// <summary>
         /// Event to trigger anytime this collection is modified
@@ -23,10 +23,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <summary>
         /// The number of items in this collection
         /// </summary>
-        public int Count
-        {
-            get { return categories.Count; }
-        }
+        public int Count => _categories.Count;
 
         /// <summary>
         /// Add the specified category to this collection
@@ -38,7 +35,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 throw new ArgumentNullException("category");
             }
-            categories.Add(category);
+            _categories.Add(category);
 
             // Trigger CollectionChanged event
             CollectionChanged(
@@ -60,7 +57,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <returns>True if item was removed.</returns>
         public bool Remove(JumpListCustomCategory category)
         {
-            bool removed = categories.Remove(category);
+            bool removed = _categories.Remove(category);
 
             if (removed == true)
             {
@@ -80,7 +77,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public void Clear()
         {
-            categories.Clear();
+            _categories.Clear();
 
             CollectionChanged(
                 this,
@@ -95,7 +92,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <returns>True if category was found</returns>
         public bool Contains(JumpListCustomCategory category)
         {
-            return categories.Contains(category);
+            return _categories.Contains(category);
         }
 
         /// <summary>
@@ -106,7 +103,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="index">Index of target array to start copy</param>
         public void CopyTo(JumpListCustomCategory[] array, int index)
         {
-            categories.CopyTo(array, index);
+            _categories.CopyTo(array, index);
         }
 
         /// <summary>
@@ -115,7 +112,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <returns>Enumerator to iterate through this collection.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return categories.GetEnumerator();
+            return _categories.GetEnumerator();
         }
 
         /// <summary>
@@ -124,7 +121,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <returns>Enumerator to iterate through this collection.</returns>
         IEnumerator<JumpListCustomCategory> IEnumerable<JumpListCustomCategory>.GetEnumerator()
         {
-            return categories.GetEnumerator();
+            return _categories.GetEnumerator();
         }
     }
 }

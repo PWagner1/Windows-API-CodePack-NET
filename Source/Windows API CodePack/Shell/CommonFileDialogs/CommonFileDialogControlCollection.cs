@@ -1,5 +1,7 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable PossibleInvalidCastExceptionInForeachLoop
+// ReSharper disable UsePatternMatching
 namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
 {
     /// <summary>
@@ -79,7 +81,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         ///<exception cref="System.ArgumentException">
         /// The name cannot be null or a zero-length string.</exception>
         /// <remarks>If there is more than one control with the same name, only the <B>first control</B> will be returned.</remarks>
-        public T this[string name]
+        public T? this[string name]
         {
             get
             {
@@ -88,9 +90,9 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
                     throw new ArgumentException(LocalizedMessages.DialogControlCollectionEmptyName, "name");
                 }
 
-                foreach (T control in Items)
+                foreach (T? control in Items)
                 {
-                    CommonFileDialogGroupBox groupBox;
+                    CommonFileDialogGroupBox? groupBox;
                     // NOTE: we don't ToLower() the strings - casing effects 
                     // hash codes, so we are case-sensitive.
                     if (control.Name == name)
@@ -99,9 +101,11 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
                     }
                     else if ((groupBox = control as CommonFileDialogGroupBox) != null)
                     {
-                        foreach (T subControl in groupBox.Items)
+#pragma warning disable CS8602
+                        foreach (T? subControl in groupBox.Items)
+#pragma warning restore CS8602
                         {
-                            if (subControl.Name == name) { return subControl; }
+                            if (subControl != null && subControl.Name == name) { return subControl; }
                         }
                     }
                 }
@@ -120,7 +124,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// <returns>A DialogControl who's id matches the value of the
         /// <paramref name="id"/> parameter.</returns>
         /// 
-        internal DialogControl GetControlbyId(int id)
+        internal DialogControl? GetControlbyId(int id)
         {
             return GetSubControlbyId(Items.Cast<DialogControl>(), id);
         }
@@ -137,17 +141,17 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// <returns>A DialogControl who's Id matches the value of the
         /// <paramref name="id"/> parameter.</returns>
         /// 
-        internal DialogControl GetSubControlbyId(IEnumerable<DialogControl>? controlCollection, int id)
+        internal DialogControl? GetSubControlbyId(IEnumerable<DialogControl?>? controlCollection, int id)
         {
             // if ctrlColl is null, it will throw in the foreach.
             if (controlCollection == null) { return null; }
 
-            foreach (DialogControl control in controlCollection)
+            foreach (DialogControl? control in controlCollection)
             {
-                if (control.Id == id) { return control; }
+                if (control != null && control.Id == id) { return control; }
 
                 // Search GroupBox child items
-                CommonFileDialogGroupBox groupBox = control as CommonFileDialogGroupBox;
+                CommonFileDialogGroupBox? groupBox = control as CommonFileDialogGroupBox;
                 if (groupBox != null)
                 {
                     var temp = GetSubControlbyId(groupBox.Items, id);

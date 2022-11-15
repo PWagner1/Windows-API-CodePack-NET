@@ -12,7 +12,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         private ShellObject _shellObject;
         private bool _recursive;
 
-        private ChangeNotifyEventManager _manager = new ChangeNotifyEventManager();
+        private ChangeNotifyEventManager _manager = new();
         private IntPtr _listenerHandle;
         private uint _message;
 
@@ -52,8 +52,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public bool Running
         {
-            get { return _running; }
-            private set { _running = value; }
+            get => _running;
+            private set => _running = value;
         }
 
         /// <summary>

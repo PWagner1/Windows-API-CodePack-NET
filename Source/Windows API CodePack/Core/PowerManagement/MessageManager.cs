@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+#pragma warning disable CS8600
 namespace Microsoft.WindowsAPICodePack.ApplicationServices
 {
     /// <summary>
@@ -32,7 +33,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         internal static void UnregisterPowerEvent(Guid eventId, EventHandler eventToUnregister)
         {
             EnsureInitialized();
-            _window.UnregisterPowerEvent(eventId, eventToUnregister);
+            if (_window != null) _window.UnregisterPowerEvent(eventId, eventToUnregister);
         }
 
         #endregion
@@ -77,6 +78,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             /// </summary>
             /// <param name="eventId">Guid for the event.</param>
             /// <param name="eventToRegister">Event handler for the event.</param>
+            // ReSharper disable once MemberHidesStaticFromOuterClass
             internal void RegisterPowerEvent(Guid eventId, EventHandler eventToRegister)
             {
                 _readerWriterLock.AcquireWriterLock(Timeout.Infinite);
@@ -89,8 +91,13 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
                 }
                 else
                 {
-                    ArrayList currList = (ArrayList)_eventList[eventId];
-                    currList.Add(eventToRegister);
+                    // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+                    if (_eventList != null)
+                        // ReSharper restore ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+                    {
+                        ArrayList? currList = (ArrayList)_eventList[eventId];
+                        if (currList != null) currList.Add(eventToRegister);
+                    }
                 }
                 _readerWriterLock.ReleaseWriterLock();
             }
@@ -102,7 +109,9 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             /// <param name="eventToUnregister">Event handler to remove.</param>
             /// <exception cref="InvalidOperationException">Cannot unregister 
             /// a function that is not registered.</exception>
+            // ReSharper disable MemberHidesStaticFromOuterClass
             internal void UnregisterPowerEvent(Guid eventId, EventHandler eventToUnregister)
+                // ReSharper restore MemberHidesStaticFromOuterClass
             {
                 _readerWriterLock.AcquireWriterLock(Timeout.Infinite);
                 if (_eventList.Contains(eventId))

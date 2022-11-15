@@ -34,20 +34,14 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// Gets the command line arguments used to restart the application.
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
-        public string Command
-        {
-            get { return command; }
-        }
+        public string Command => command;
 
         /// <summary>
         /// Gets the set of conditions when the application 
         /// should not be restarted.
         /// </summary>
         /// <value>A set of <see cref="RestartRestrictions"/> values.</value>
-        public RestartRestrictions Restrictions
-        {
-            get { return restrictions; }
-        }
+        public RestartRestrictions Restrictions => restrictions;
 
         /// <summary>
         /// Returns a string representation of the current state

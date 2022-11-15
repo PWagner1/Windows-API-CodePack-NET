@@ -23,7 +23,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <summary>
         /// Get the property description object.
         /// </summary>
-        ShellPropertyDescription Description { get; }
+        ShellPropertyDescription? Description { get; }
 
         /// <summary>
         /// Gets the case-sensitive name of the property as it is known to the system, 

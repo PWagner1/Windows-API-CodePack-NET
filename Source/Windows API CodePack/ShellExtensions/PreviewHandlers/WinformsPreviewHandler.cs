@@ -75,15 +75,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
             Control.Font = Font.FromLogFont(font);
         }
 
-        protected override IntPtr Handle
-        {
-            get
-            {
-                {
-                    return Control.Handle;
-                }
-            }
-        }
+        protected override IntPtr Handle => Control.Handle;
 
         protected override void SetParentHandle(IntPtr handle)
         {

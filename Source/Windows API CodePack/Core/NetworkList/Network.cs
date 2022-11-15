@@ -32,15 +32,9 @@ namespace Microsoft.WindowsAPICodePack.Net
         /// <value>A <see cref="NetworkCategory"/> value.</value>
         public NetworkCategory Category
         {
-            get
-            {
-                return network.GetCategory();
-            }
+            get => network.GetCategory();
 
-            set
-            {
-                network.SetCategory(value);
-            }
+            set => network.SetCategory(value);
         }
 
         /// <summary>
@@ -66,13 +60,7 @@ namespace Microsoft.WindowsAPICodePack.Net
         /// Gets the network connections for the network.
         /// </summary>
         /// <value>A <see cref="NetworkConnectionCollection"/> object.</value>
-        public NetworkConnectionCollection Connections
-        {
-            get
-            {
-                return new NetworkConnectionCollection(network.GetNetworkConnections());
-            }
-        }
+        public NetworkConnectionCollection Connections => new NetworkConnectionCollection(network.GetNetworkConnections());
 
         /// <summary>
         /// Gets the connectivity state of the network.
@@ -81,13 +69,7 @@ namespace Microsoft.WindowsAPICodePack.Net
         /// <remarks>Connectivity provides information on whether
         /// the network is connected, and the protocols
         /// in use for network traffic.</remarks>
-        public ConnectivityStates Connectivity
-        {
-            get
-            {
-                return network.GetConnectivity();
-            }
-        }
+        public ConnectivityStates Connectivity => network.GetConnectivity();
 
         /// <summary>
         /// Gets the local date and time when the 
@@ -114,15 +96,9 @@ namespace Microsoft.WindowsAPICodePack.Net
         /// <value>A <see cref="System.String"/> value.</value>
         public string Description
         {
-            get
-            {
-                return network.GetDescription();
-            }
+            get => network.GetDescription();
 
-            set
-            {
-                network.SetDescription(value);
-            }
+            set => network.SetDescription(value);
         }
 
         /// <summary>
@@ -133,39 +109,21 @@ namespace Microsoft.WindowsAPICodePack.Net
         /// indictates whether the network is an Active
         /// Directory Network, and whether the machine
         /// has been authenticated by Active Directory.</remarks>
-        public DomainType DomainType
-        {
-            get
-            {
-                return network.GetDomainType();
-            }
-        }
+        public DomainType DomainType => network.GetDomainType();
 
         /// <summary>
         /// Gets a value that indicates whether there is
         /// network connectivity.
         /// </summary>
         /// <value>A <see cref="System.Boolean"/> value.</value>
-        public bool IsConnected
-        {
-            get
-            {
-                return network.IsConnected;
-            }
-        }
+        public bool IsConnected => network.IsConnected;
 
         /// <summary>
         /// Gets a value that indicates whether there is 
         /// Internet connectivity.
         /// </summary>
         /// <value>A <see cref="System.Boolean"/> value.</value>
-        public bool IsConnectedToInternet
-        {
-            get
-            {
-                return network.IsConnectedToInternet;
-            }
-        }
+        public bool IsConnectedToInternet => network.IsConnectedToInternet;
 
         /// <summary>
         /// Gets or sets the name of the network.
@@ -173,27 +131,15 @@ namespace Microsoft.WindowsAPICodePack.Net
         /// <value>A <see cref="System.String"/> value.</value>
         public string Name
         {
-            get
-            {
-                return network.GetName();
-            }
+            get => network.GetName();
 
-            set
-            {
-                network.SetName(value);
-            }
+            set => network.SetName(value);
         }
 
         /// <summary>
         /// Gets a unique identifier for the network.
         /// </summary>
         /// <value>A <see cref="System.Guid"/> value.</value>
-        public Guid NetworkId
-        {
-            get
-            {
-                return network.GetNetworkId();
-            }
-        }
+        public Guid NetworkId => network.GetNetworkId();
     }
 }

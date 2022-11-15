@@ -37,8 +37,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public string? Instruction
         {
-            get { return instruction; }
-            set { instruction = value; }
+            get => instruction;
+            set => instruction = value;
         }
 
         /// <summary>

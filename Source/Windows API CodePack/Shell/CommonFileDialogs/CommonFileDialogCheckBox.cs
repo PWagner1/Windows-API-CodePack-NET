@@ -13,7 +13,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// </summary>
         public bool IsChecked
         {
-            get { return isChecked; }
+            get => isChecked;
             set
             {
                 // Check if property has changed

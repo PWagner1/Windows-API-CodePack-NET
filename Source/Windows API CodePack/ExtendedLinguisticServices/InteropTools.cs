@@ -1,5 +1,6 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 
+#pragma warning disable CS8605
 namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
 

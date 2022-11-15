@@ -24,7 +24,7 @@ internal interface IShellItem2 : IShellItem
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     HResult GetDisplayName(
         [In] ShellNativeMethods.ShellItemDesignNameOptions sigdnName,
-        [MarshalAs(UnmanagedType.LPWStr)] out string ppszName);
+        [MarshalAs(UnmanagedType.LPWStr)] out string? ppszName);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     void GetAttributes([In] ShellNativeMethods.ShellFileGetAttributesOptions sfgaoMask, out ShellNativeMethods.ShellFileGetAttributesOptions psfgaoAttribs);
@@ -39,7 +39,7 @@ internal interface IShellItem2 : IShellItem
     int GetPropertyStore(
         [In] ShellNativeMethods.GetPropertyStoreOptions Flags,
         [In] ref Guid riid,
-        [Out, MarshalAs(UnmanagedType.Interface)] out IPropertyStore ppv);
+        [Out, MarshalAs(UnmanagedType.Interface)] out IPropertyStore? ppv);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     void GetPropertyStoreWithCreateObject([In] ShellNativeMethods.GetPropertyStoreOptions Flags, [In, MarshalAs(UnmanagedType.IUnknown)] object punkCreateObject, [In] ref Guid riid, out IntPtr ppv);

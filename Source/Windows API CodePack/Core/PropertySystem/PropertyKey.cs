@@ -19,24 +19,12 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <summary>
         /// A unique GUID for the property
         /// </summary>
-        public Guid FormatId
-        {
-            get
-            {
-                return formatId;
-            }
-        }
+        public Guid FormatId => formatId;
 
         /// <summary>
         ///  Property identifier (PID)
         /// </summary>
-        public Int32 PropertyId
-        {
-            get
-            {
-                return propertyId;
-            }
-        }
+        public Int32 PropertyId => propertyId;
 
         #endregion
 

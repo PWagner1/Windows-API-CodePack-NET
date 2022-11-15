@@ -30,68 +30,77 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             // Get some IShellItem attributes
             ShellNativeMethods.ShellFileGetAttributesOptions sfgao;
-            nativeShellItem2.GetAttributes(ShellNativeMethods.ShellFileGetAttributesOptions.FileSystem | ShellNativeMethods.ShellFileGetAttributesOptions.Folder, out sfgao);
 
-            // Is this item a FileSystem item?
-            bool isFileSystem = (sfgao & ShellNativeMethods.ShellFileGetAttributesOptions.FileSystem) != 0;
+                nativeShellItem2.GetAttributes(
+                    ShellNativeMethods.ShellFileGetAttributesOptions.FileSystem |
+                    ShellNativeMethods.ShellFileGetAttributesOptions.Folder, out sfgao);
 
-            // Is this item a Folder?
-            bool isFolder = (sfgao & ShellNativeMethods.ShellFileGetAttributesOptions.Folder) != 0;
+                // Is this item a FileSystem item?
+                bool isFileSystem = (sfgao & ShellNativeMethods.ShellFileGetAttributesOptions.FileSystem) != 0;
 
-            // Shell Library
-            ShellLibrary? shellLibrary = null;
+                // Is this item a Folder?
+                bool isFolder = (sfgao & ShellNativeMethods.ShellFileGetAttributesOptions.Folder) != 0;
 
-            // Create the right type of ShellObject based on the above information 
+                // Shell Library
+                ShellLibrary? shellLibrary = null;
 
-            // 1. First check if this is a Shell Link
-            if (itemType == ".lnk")
-            {
-                return new ShellLink(nativeShellItem2);
-            }
-            // 2. Check if this is a container or a single item (entity)
-            else if (isFolder)
-            {
-                // 3. If this is a folder, check for types: Shell Library, Shell Folder or Search Container
-                if (itemType == ".library-ms" && (shellLibrary = ShellLibrary.FromShellItem(nativeShellItem2, true)) != null)
+                // Create the right type of ShellObject based on the above information 
+
+                // 1. First check if this is a Shell Link
+                if (itemType == ".lnk")
                 {
-                    return shellLibrary; // we already created this above while checking for Library
+                    return new ShellLink(nativeShellItem2);
                 }
-                else if (itemType == ".searchconnector-ms")
+                // 2. Check if this is a container or a single item (entity)
+                else if (isFolder)
                 {
-                    return new ShellSearchConnector(nativeShellItem2);
-                }
-                else if (itemType == ".search-ms")
-                {
-                    return new ShellSavedSearchCollection(nativeShellItem2);
-                }
+                    // 3. If this is a folder, check for types: Shell Library, Shell Folder or Search Container
+                    if (itemType == ".library-ms" &&
+                        (shellLibrary = ShellLibrary.FromShellItem(nativeShellItem2, true)) != null)
+                    {
+                        return shellLibrary; // we already created this above while checking for Library
+                    }
+                    else if (itemType == ".searchconnector-ms")
+                    {
+                        return new ShellSearchConnector(nativeShellItem2);
+                    }
+                    else if (itemType == ".search-ms")
+                    {
+                        return new ShellSavedSearchCollection(nativeShellItem2);
+                    }
 
-                // 4. It's a ShellFolder
-                if (isFileSystem)
-                {
-                    // 5. Is it a (File-System / Non-Virtual) Known Folder
-                    if (!IsVirtualKnownFolder(nativeShellItem2))
-                    { //needs to check if it is a known folder and not virtual
-                        FileSystemKnownFolder? kf = new FileSystemKnownFolder(nativeShellItem2);
+                    // 4. It's a ShellFolder
+                    if (isFileSystem)
+                    {
+                        // 5. Is it a (File-System / Non-Virtual) Known Folder
+                        if (!IsVirtualKnownFolder(nativeShellItem2))
+                        {
+                            //needs to check if it is a known folder and not virtual
+                            FileSystemKnownFolder? kf = new FileSystemKnownFolder(nativeShellItem2);
+                            return kf;
+                        }
+
+                        return new ShellFileSystemFolder(nativeShellItem2);
+                    }
+
+                    // 5. Is it a (Non File-System / Virtual) Known Folder
+                    if (IsVirtualKnownFolder(nativeShellItem2))
+                    {
+                        //needs to check if known folder is virtual
+                        NonFileSystemKnownFolder? kf = new NonFileSystemKnownFolder(nativeShellItem2);
                         return kf;
                     }
 
-                    return new ShellFileSystemFolder(nativeShellItem2);
+                    return new ShellNonFileSystemFolder(nativeShellItem2);
                 }
 
-                // 5. Is it a (Non File-System / Virtual) Known Folder
-                if (IsVirtualKnownFolder(nativeShellItem2))
-                { //needs to check if known folder is virtual
-                    NonFileSystemKnownFolder? kf = new NonFileSystemKnownFolder(nativeShellItem2);
-                    return kf;
+                // 6. If this is an entity (single item), check if its filesystem or not
+                if (isFileSystem)
+                {
+                    return new ShellFile(nativeShellItem2);
                 }
 
-                return new ShellNonFileSystemFolder(nativeShellItem2);
-            }
-
-            // 6. If this is an entity (single item), check if its filesystem or not
-            if (isFileSystem) { return new ShellFile(nativeShellItem2); }
-
-            return new ShellNonFileSystemItem(nativeShellItem2);
+                return new ShellNonFileSystemItem(nativeShellItem2);
         }
 
         // This is a work around for the STA thread bug.  This will execute the call on a non-sta thread, then return the result
@@ -100,7 +109,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             IntPtr pidl = IntPtr.Zero;
             try
             {
-                IKnownFolderNative nativeFolder = null;
+                IKnownFolderNative? nativeFolder = null;
                 KnownFoldersSafeNativeMethods.NativeFolderDefinition definition = new KnownFoldersSafeNativeMethods.NativeFolderDefinition();
 
                 // We found a bug where the enumeration of shell folders was

@@ -54,7 +54,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             internal IconUnion footerIcon;  // NOTE: 32-bit union field, holds pszFooterIcon as well
             [MarshalAs(UnmanagedType.LPWStr)]
             internal string? footerText;
-            internal TaskDialogCallback callback;
+            internal TaskDialogCallback? callback;
             internal IntPtr callbackData;
             internal uint width;
         }
@@ -78,7 +78,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             /// <summary>
             /// Gets the handle to the Icon
             /// </summary>
-            public IntPtr MainIcon { get { return mainIcon; } }
+            public IntPtr MainIcon => mainIcon;
         }
 
         // NOTE: Packing must be set to 4 to make this work on 64-bit platforms.

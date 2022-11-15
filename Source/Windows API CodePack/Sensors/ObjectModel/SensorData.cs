@@ -1,5 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
+#pragma warning disable CS8613
+#pragma warning disable CS8614
+#pragma warning disable CS8603
 namespace Microsoft.WindowsAPICodePack.Sensors
 {
     /// <summary>
@@ -8,7 +11,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
     public class SensorData : IDictionary<Guid, IList<object>>
     {
         #region implementation
-        internal static SensorData? FromNativeReport(ISensor iSensor, ISensorDataReport iReport)
+        internal static SensorData? FromNativeReport(ISensor? iSensor, ISensorDataReport iReport)
         {
             SensorData? data = new SensorData();
 
@@ -35,7 +38,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                         }
                         else
                         {
-                            data.Add(key.FormatId, new List<object> { propValue.Value });
+                            data.Add(key.FormatId, new List<object?> { propValue.Value });
                         }
                     }
                 }
@@ -58,7 +61,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         }
         #endregion
 
-        private readonly Dictionary<Guid, IList<object>> _sensorDataDictionary = new();
+        private readonly Dictionary<Guid, IList<object?>> _sensorDataDictionary = new();
 
         #region IDictionary<Guid,IList<object>> Members
 
@@ -67,7 +70,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// </summary>
         /// <param name="key">The data field identifier.</param>
         /// <param name="value">The data list.</param>
-        public void Add(Guid key, IList<object> value)
+        public void Add(Guid key, IList<object?> value)
         {
             _sensorDataDictionary.Add(key, value);
         }
@@ -83,13 +86,8 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <summary>
         /// Gets the list of the data field identifiers in this collection.
         /// </summary>
-        public ICollection<Guid> Keys
-        {
-            get
-            {
-                return _sensorDataDictionary.Keys;
-            }
-        }
+        public ICollection<Guid> Keys => _sensorDataDictionary.Keys;
+
         /// <summary>
         /// Removes a particular data field identifier from the collection.
         /// </summary>
@@ -105,35 +103,24 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <param name="key">The data field identifier.</param>
         /// <param name="value">The data list.</param>
         /// <returns><b>true</b> if able to obtain the value; otherwise <b>false</b>.</returns>
-        public bool TryGetValue(Guid key, out IList<object> value)
+        public bool TryGetValue(Guid key, out IList<object?> value)
         {
             return _sensorDataDictionary.TryGetValue(key, out value);
         }
         /// <summary>
         /// Gets the list of data values in the dictionary.
         /// </summary>
-        public ICollection<IList<object>> Values
-        {
-            get
-            {
-                return _sensorDataDictionary.Values;
-            }
-        }
+        public ICollection<IList<object?>> Values => _sensorDataDictionary.Values;
+
         /// <summary>
         /// Gets or sets the index operator for the dictionary by key.
         /// </summary>
         /// <param name="key">A GUID.</param>
         /// <returns>The item at the specified index.</returns>
-        public IList<object> this[Guid key]
+        public IList<object?> this[Guid key]
         {
-            get
-            {
-                return _sensorDataDictionary[key];
-            }
-            set
-            {
-                _sensorDataDictionary[key] = value;
-            }
+            get => _sensorDataDictionary[key];
+            set => _sensorDataDictionary[key] = value;
         }
 
         #endregion
@@ -183,18 +170,12 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <summary>
         /// Returns the number of items in the collection.
         /// </summary>
-        public int Count
-        {
-            get
-            {
-                return _sensorDataDictionary.Count;
-            }
-        }
+        public int Count => _sensorDataDictionary.Count;
 
         /// <summary>
         /// Gets a value that determines if the collection is read-only.
         /// </summary>
-        public bool IsReadOnly { get { return true; } }
+        public bool IsReadOnly => true;
 
         /// <summary>
         /// Removes a particular item from the collection.
@@ -226,10 +207,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// Returns an enumerator for the collection.
         /// </summary>
         /// <returns>An enumerator.</returns>
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return _sensorDataDictionary as System.Collections.IEnumerator;
-        }
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator() => _sensorDataDictionary as System.Collections.IEnumerator;
 
         #endregion
     }

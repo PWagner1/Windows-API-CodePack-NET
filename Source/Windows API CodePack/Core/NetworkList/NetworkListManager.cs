@@ -9,7 +9,7 @@ namespace Microsoft.WindowsAPICodePack.Net
     {
         #region Private Fields
 
-        static NetworkListManagerClass manager = new NetworkListManagerClass();
+        static NetworkListManagerClass manager = new();
 
         #endregion // Private Fields
 

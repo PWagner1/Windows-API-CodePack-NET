@@ -1,5 +1,7 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+#pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Dialogs
 {
     /// <summary>
@@ -34,7 +36,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </permission>
         public bool OverwritePrompt
         {
-            get { return _overwritePrompt; }
+            get => _overwritePrompt;
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.OverwritePromptCannotBeChanged);
@@ -52,7 +54,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </permission>
         public bool CreatePrompt
         {
-            get { return _createPrompt; }
+            get => _createPrompt;
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.CreatePromptCannotBeChanged);
@@ -72,7 +74,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </permission>
         public bool IsExpandedMode
         {
-            get { return _isExpandedMode; }
+            get => _isExpandedMode;
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.IsExpandedModeCannotBeChanged);
@@ -92,7 +94,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </permission>
         public bool AlwaysAppendDefaultExtension
         {
-            get { return _alwaysAppendDefaultExtension; }
+            get => _alwaysAppendDefaultExtension;
             set
             {
                 ThrowIfDialogShowing(LocalizedMessages.AlwaysAppendDefaultExtensionCannotBeChanged);
@@ -115,7 +117,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             }
 
             InitializeNativeFileDialog();
-            IFileSaveDialog nativeDialog = GetNativeFileDialog() as IFileSaveDialog;
+            IFileSaveDialog? nativeDialog = GetNativeFileDialog() as IFileSaveDialog;
 
             // Get the native IShellItem from ShellObject
             if (nativeDialog != null)
@@ -132,6 +134,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// specified by pList.
         /// <param name="propertyList">List of properties to collect. This parameter can be null.</param>
         /// </param>
+        /// <param name="propertyList"></param>
         /// <remarks>
         /// SetCollectedPropertyKeys can be called at any time before the dialog is displayed or while it 
         /// is visible. If different properties are to be collected depending on the chosen filetype, 
@@ -149,8 +152,11 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 StringBuilder sb = new StringBuilder("prop:");
                 foreach (PropertyKey key in propertyList)
                 {
-                    string canonicalName = ShellPropertyDescriptionsCache.Cache.GetPropertyDescription(key).CanonicalName;
-                    if (!string.IsNullOrEmpty(canonicalName)) { sb.AppendFormat("{0};", canonicalName); }
+                    if (ShellPropertyDescriptionsCache.Cache != null)
+                    {
+                        string canonicalName = ShellPropertyDescriptionsCache.Cache.GetPropertyDescription(key).CanonicalName;
+                        if (!string.IsNullOrEmpty(canonicalName)) { sb.AppendFormat("{0};", canonicalName); }
+                    }
                 }
 
                 Guid guid = new Guid(ShellIIDGuid.IPropertyDescriptionList);
@@ -208,7 +214,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
                 if (nativeDialog != null)
                 {
-                    IPropertyStore propertyStore;
+                    IPropertyStore? propertyStore;
                     HResult hr = nativeDialog.GetProperties(out propertyStore);
 
                     if (propertyStore != null && CoreErrorHelper.Succeeded(hr))

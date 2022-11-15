@@ -6,31 +6,31 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
     {
         private ShellPropertyDescriptionsCache()
         {
-            propsDictionary = new Dictionary<PropertyKey, ShellPropertyDescription>();
+            _propsDictionary = new Dictionary<PropertyKey, ShellPropertyDescription?>();
         }
 
-        private IDictionary<PropertyKey, ShellPropertyDescription> propsDictionary;
-        private static ShellPropertyDescriptionsCache cacheInstance;
+        private readonly IDictionary<PropertyKey, ShellPropertyDescription?> _propsDictionary;
+        private static ShellPropertyDescriptionsCache? _cacheInstance;
 
-        public static ShellPropertyDescriptionsCache Cache
+        public static ShellPropertyDescriptionsCache? Cache
         {
             get
             {
-                if (cacheInstance == null)
+                if (_cacheInstance == null)
                 {
-                    cacheInstance = new ShellPropertyDescriptionsCache();
+                    _cacheInstance = new ShellPropertyDescriptionsCache();
                 }
-                return cacheInstance;
+                return _cacheInstance;
             }
         }
 
-        public ShellPropertyDescription GetPropertyDescription(PropertyKey key)
+        public ShellPropertyDescription? GetPropertyDescription(PropertyKey key)
         {
-            if (!propsDictionary.ContainsKey(key))
+            if (!_propsDictionary.ContainsKey(key))
             {
-                propsDictionary.Add(key, new ShellPropertyDescription(key));
+                _propsDictionary.Add(key, new ShellPropertyDescription(key));
             }
-            return propsDictionary[key];
+            return _propsDictionary[key];
         }
     }
 }

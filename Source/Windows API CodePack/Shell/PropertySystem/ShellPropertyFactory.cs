@@ -1,4 +1,6 @@
-﻿namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
+﻿#pragma warning disable CS8604
+#pragma warning disable CS8602
+namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 {
 
     /// <summary>
@@ -9,7 +11,7 @@
     {
         // Constructor cache.  It takes object as the third param so a single function will suffice for both constructors.
         private static Dictionary<int, Func<PropertyKey, ShellPropertyDescription, object, IShellProperty>> _storeCache
-            = new Dictionary<int, Func<PropertyKey, ShellPropertyDescription, object, IShellProperty>>();
+            = new();
 
         /// <summary>
         /// Creates a generic ShellProperty.
@@ -28,7 +30,7 @@
         /// <param name="propKey">PropertyKey</param>
         /// <param name="store">IPropertyStore from which to get property</param>
         /// <returns>ShellProperty matching type of value in property.</returns>
-        public static IShellProperty CreateShellProperty(PropertyKey propKey, IPropertyStore store)
+        public static IShellProperty CreateShellProperty(PropertyKey propKey, IPropertyStore? store)
         {
             return GenericCreateShellProperty(propKey, store);
         }
@@ -37,7 +39,7 @@
         {
             Type thirdType = (thirdArg is ShellObject) ? typeof(ShellObject) : typeof(T);
 
-            ShellPropertyDescription propDesc = ShellPropertyDescriptionsCache.Cache.GetPropertyDescription(propKey);
+            ShellPropertyDescription? propDesc = ShellPropertyDescriptionsCache.Cache.GetPropertyDescription(propKey);
 
             // Get the generic type
             Type type = typeof(ShellProperty<>).MakeGenericType(VarEnumToSystemType(propDesc.VarEnumType));

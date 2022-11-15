@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable NonReadonlyMemberInGetHashCode
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -24,14 +25,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Indicates whether this feature is supported on the current platform.
         /// </summary>
-        public static bool IsPlatformSupported
-        {
-            get
-            {
-                // We need Windows Vista onwards ...
-                return CoreHelpers.RunningOnVista;
-            }
-        }
+        public static bool IsPlatformSupported =>
+            // We need Windows Vista onwards ...
+            CoreHelpers.RunningOnVista;
 
         #endregion
 
@@ -74,7 +70,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// PID List (PIDL) for this object
         /// </summary>
-        private IntPtr _internalPIDL = IntPtr.Zero;
+        private IntPtr _internalPidl = IntPtr.Zero;
 
         #endregion
 
@@ -106,10 +102,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Return the native ShellFolder object
         /// </summary>
-        virtual internal IShellItem? NativeShellItem
-        {
-            get { return NativeShellItem2; }
-        }
+        virtual internal IShellItem? NativeShellItem => NativeShellItem2;
 
         /// <summary>
         /// Gets access to the native IPropertyStore (if one is already
@@ -117,7 +110,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// ShellPropertyWriter class. The reference will be set to null
         /// when the writer has been closed/commited).
         /// </summary>
-        internal IPropertyStore NativePropertyStore { get; set; }
+        internal IPropertyStore? NativePropertyStore { get; set; }
 
         #endregion
 
@@ -148,7 +141,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         #region Public Properties
 
-        private ShellProperties properties;
+        private ShellProperties _properties;
         /// <summary>
         /// Gets an object that allows the manipulation of ShellProperties for this shell item.
         /// </summary>
@@ -156,11 +149,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                if (properties == null)
+                if (_properties == null)
                 {
-                    properties = new ShellProperties(this);
+                    _properties = new ShellProperties(this);
                 }
-                return properties;
+                return _properties;
             }
         }
 
@@ -177,10 +170,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 }
                 return _internalParsingName ?? string.Empty;
             }
-            protected set
-            {
-                _internalParsingName = value;
-            }
+            protected set => _internalParsingName = value;
         }
 
         /// <summary>
@@ -206,31 +196,25 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 return _internalName;
             }
 
-            protected set
-            {
-                _internalName = value;
-            }
+            protected set => _internalName = value;
         }
 
         /// <summary>
         /// Gets the PID List (PIDL) for this ShellItem.
         /// </summary>
-        internal virtual IntPtr PIDL
+        internal virtual IntPtr Pidl
         {
             get
             {
                 // Get teh PIDL for the ShellItem
-                if (_internalPIDL == IntPtr.Zero && NativeShellItem != null)
+                if (_internalPidl == IntPtr.Zero && NativeShellItem != null)
                 {
-                    _internalPIDL = ShellHelper.PidlFromShellItem(NativeShellItem);
+                    _internalPidl = ShellHelper.PidlFromShellItem(NativeShellItem);
                 }
 
-                return _internalPIDL;
+                return _internalPidl;
             }
-            set
-            {
-                _internalPIDL = value;
-            }
+            set => _internalPidl = value;
         }
 
         /// <summary>
@@ -249,9 +233,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="displayNameType">A disaply name type.</param>
         /// <returns>A string.</returns>
-        public virtual string GetDisplayName(DisplayNameType displayNameType)
+        public virtual string? GetDisplayName(DisplayNameType displayNameType)
         {
-            string returnValue = null;
+            string? returnValue = null;
 
             HResult hr = HResult.Ok;
 
@@ -318,7 +302,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
         }
 
-        private ShellThumbnail thumbnail;
+        private ShellThumbnail _thumbnail;
         /// <summary>
         /// Gets the thumbnail of the ShellObject.
         /// </summary>
@@ -326,12 +310,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                if (thumbnail == null) { thumbnail = new ShellThumbnail(this); }
-                return thumbnail;
+                if (_thumbnail == null) { _thumbnail = new ShellThumbnail(this); }
+                return _thumbnail;
             }
         }
 
-        private ShellObject? parentShellObject;
+        private ShellObject? _parentShellObject;
         /// <summary>
         /// Gets the parent ShellObject.
         /// Returns null if the object has no parent, i.e. if this object is the Desktop folder.
@@ -340,14 +324,14 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                if (parentShellObject == null && NativeShellItem2 != null)
+                if (_parentShellObject == null && NativeShellItem2 != null)
                 {
                     IShellItem? parentShellItem;
                     HResult hr = NativeShellItem2.GetParent(out parentShellItem);
 
                     if (hr == HResult.Ok && parentShellItem != null)
                     {
-                        parentShellObject = ShellObjectFactory.Create(parentShellItem);
+                        _parentShellObject = ShellObjectFactory.Create(parentShellItem);
                     }
                     else if (hr == HResult.NoObject)
                     {
@@ -360,7 +344,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     }
                 }
 
-                return parentShellObject;
+                return _parentShellObject;
             }
         }
 
@@ -379,20 +363,20 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 _internalName = null;
                 _internalParsingName = null;
-                properties = null;
-                thumbnail = null;
-                parentShellObject = null;
+                _properties = null;
+                _thumbnail = null;
+                _parentShellObject = null;
             }
 
-            if (properties != null)
+            if (_properties != null)
             {
-                properties.Dispose();
+                _properties.Dispose();
             }
 
-            if (_internalPIDL != IntPtr.Zero)
+            if (_internalPidl != IntPtr.Zero)
             {
-                ShellNativeMethods.ILFree(_internalPIDL);
-                _internalPIDL = IntPtr.Zero;
+                ShellNativeMethods.ILFree(_internalPidl);
+                _internalPidl = IntPtr.Zero;
             }
 
             if (nativeShellItem != null)
@@ -435,33 +419,33 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns></returns>
         public override int GetHashCode()
         {
-            if (!hashValue.HasValue)
+            if (!_hashValue.HasValue)
             {
-                uint size = ShellNativeMethods.ILGetSize(PIDL);
+                uint size = ShellNativeMethods.ILGetSize(Pidl);
                 if (size != 0)
                 {
                     byte[] pidlData = new byte[size];
-                    Marshal.Copy(PIDL, pidlData, 0, (int)size);
-                    byte[] hashData = hashProvider.ComputeHash(pidlData);
-                    hashValue = BitConverter.ToInt32(hashData, 0);
+                    Marshal.Copy(Pidl, pidlData, 0, (int)size);
+                    byte[] hashData = HashProvider.ComputeHash(pidlData);
+                    _hashValue = BitConverter.ToInt32(hashData, 0);
                 }
                 else
                 {
-                    hashValue = 0;
+                    _hashValue = 0;
                 }
 
             }
-            return hashValue.Value;
+            return _hashValue.Value;
         }
-        private static MD5CryptoServiceProvider hashProvider = new MD5CryptoServiceProvider();
-        private int? hashValue;
+        private static readonly MD5CryptoServiceProvider HashProvider = new();
+        private int? _hashValue;
 
         /// <summary>
         /// Determines if two ShellObjects are identical.
         /// </summary>
         /// <param name="other">The ShellObject to comare this one to.</param>
         /// <returns>True if the ShellObjects are equal, false otherwise.</returns>
-        public bool Equals(ShellObject other)
+        public bool Equals(ShellObject? other)
         {
             bool areEqual = false;
 
@@ -498,7 +482,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="leftShellObject">First object to compare.</param>
         /// <param name="rightShellObject">Second object to compare.</param>
         /// <returns>True if leftShellObject equals rightShellObject; false otherwise.</returns>
-        public static bool operator ==(ShellObject? leftShellObject, ShellObject rightShellObject)
+        public static bool operator ==(ShellObject? leftShellObject, ShellObject? rightShellObject)
         {
             if ((object)leftShellObject == null)
             {
@@ -513,7 +497,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="leftShellObject">First object to compare.</param>
         /// <param name="rightShellObject">Second object to compare.</param>
         /// <returns>True if leftShellObject does not equal leftShellObject; false otherwise.</returns>        
-        public static bool operator !=(ShellObject? leftShellObject, ShellObject rightShellObject)
+        public static bool operator !=(ShellObject? leftShellObject, ShellObject? rightShellObject)
         {
             return !(leftShellObject == rightShellObject);
         }

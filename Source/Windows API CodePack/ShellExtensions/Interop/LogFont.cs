@@ -77,5 +77,7 @@ public class LogFont
     /// <summary>
     /// Font face name
     /// </summary>
-    public string FaceName { get { return faceName; } set { faceName = value; } }
+    public string FaceName { get => faceName;
+        set => faceName = value;
+    }
 }

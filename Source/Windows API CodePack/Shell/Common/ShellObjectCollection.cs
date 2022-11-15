@@ -7,7 +7,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
     /// </summary>
     public class ShellObjectCollection : IEnumerable, IDisposable, IList<ShellObject>
     {
-        private List<ShellObject?> content = new List<ShellObject?>();
+        private List<ShellObject?> content = new();
 
         bool readOnly;
         bool isDisposed;
@@ -109,7 +109,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Item count
         /// </summary>
-        public int Count { get { return content.Count; } }
+        public int Count => content.Count;
 
         /// <summary>
         /// Collection enumeration
@@ -154,11 +154,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     {
                         // Because the ShellObjects passed in may be from anywhere, the 
                         // parent folder reference must be the desktop.
-                        idls[index] = ((ShellObject)KnownFolders.Desktop).PIDL;
+                        idls[index] = ((ShellObject)KnownFolders.Desktop).Pidl;
                     }
                     else
                     {
-                        idls[index] = content[index - 1].PIDL;
+                        idls[index] = content[index - 1].Pidl;
                     }
                 }
 
@@ -256,10 +256,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>The ShellObject at the specified index</returns>
         public ShellObject? this[int index]
         {
-            get
-            {
-                return content[index];
-            }
+            get => content[index];
             set
             {
                 if (readOnly)
@@ -334,24 +331,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Retrieves the number of ShellObjects in the collection
         /// </summary>
-        int ICollection<ShellObject>.Count
-        {
-            get
-            {
-                return content.Count;
-            }
-        }
+        int ICollection<ShellObject>.Count => content.Count;
 
         /// <summary>
         /// If true, the contents of the collection are immutable.
         /// </summary>
-        public bool IsReadOnly
-        {
-            get
-            {
-                return readOnly;
-            }
-        }
+        public bool IsReadOnly => readOnly;
 
         /// <summary>
         /// Removes a particular ShellObject from the list.

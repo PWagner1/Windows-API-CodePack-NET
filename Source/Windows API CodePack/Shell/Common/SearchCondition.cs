@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -34,7 +35,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                         throw new ShellException(hr);
                     }
 
-                    PropertyValue = propVar.Value.ToString();
+                    if (propVar.Value != null) PropertyValue = propVar.Value.ToString();
                 }
             }
         }
@@ -48,7 +49,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         public string? PropertyCanonicalName => _canonicalName;
 
         private PropertyKey _propertyKey;
-        private PropertyKey _emptyPropertyKey = new PropertyKey();
+        private PropertyKey _emptyPropertyKey = new();
         /// <summary>
         /// The property key for the property that is to be compared.
         /// </summary>        
@@ -93,7 +94,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         public IEnumerable<SearchCondition> GetSubConditions()
         {
             // Our list that we'll return
-            List<SearchCondition> subConditionsList = new List<SearchCondition>();
+            List<SearchCondition> subConditionsList = new();
 
             // Get the sub-conditions from the native API
             object subConditionObj;
@@ -109,14 +110,14 @@ namespace Microsoft.WindowsAPICodePack.Shell
             // Convert each ICondition to SearchCondition
             if (subConditionObj != null)
             {
-                IEnumUnknown enumUnknown = subConditionObj as IEnumUnknown;
+                IEnumUnknown? enumUnknown = subConditionObj as IEnumUnknown;
 
                 IntPtr buffer = IntPtr.Zero;
                 uint fetched = 0;
 
                 while (hr == HResult.Ok)
                 {
-                    hr = enumUnknown.Next(1, ref buffer, ref fetched);
+                    if (enumUnknown != null) hr = enumUnknown.Next(1, ref buffer, ref fetched);
 
                     if (hr == HResult.Ok && fetched == 1)
                     {

@@ -9,16 +9,16 @@ namespace Microsoft.WindowsAPICodePack.Shell
     {
         #region Private Fields
 
-        private INativeShellLibrary nativeShellLibrary;
-        private IKnownFolder knownFolder;
+        private INativeShellLibrary? nativeShellLibrary;
+        private IKnownFolder? knownFolder;
 
         private static Guid[] FolderTypesGuids = 
         {
-            new Guid(ShellKFIDGuid.GenericLibrary),
-            new Guid(ShellKFIDGuid.DocumentsLibrary),
-            new Guid(ShellKFIDGuid.MusicLibrary),
-            new Guid(ShellKFIDGuid.PicturesLibrary),
-            new Guid(ShellKFIDGuid.VideosLibrary)
+            new(ShellKFIDGuid.GenericLibrary),
+            new(ShellKFIDGuid.DocumentsLibrary),
+            new(ShellKFIDGuid.MusicLibrary),
+            new(ShellKFIDGuid.PicturesLibrary),
+            new(ShellKFIDGuid.VideosLibrary)
         };
 
         #endregion
@@ -31,7 +31,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         }
 
         //Construct the ShellLibrary object from a native Shell Library
-        private ShellLibrary(INativeShellLibrary nativeShellLibrary)
+        private ShellLibrary(INativeShellLibrary? nativeShellLibrary)
             : this()
         {
             this.nativeShellLibrary = nativeShellLibrary;
@@ -43,7 +43,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="sourceKnownFolder">KnownFolder from which to create the new Shell Library</param>
         /// <param name="isReadOnly">If <B>true</B> , opens the library in read-only mode.</param>
-        private ShellLibrary(IKnownFolder sourceKnownFolder, bool isReadOnly)
+        private ShellLibrary(IKnownFolder? sourceKnownFolder, bool isReadOnly)
             : this()
         {
             Debug.Assert(sourceKnownFolder != null);
@@ -113,7 +113,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="libraryName">The name of this library</param>
         /// <param name="sourceKnownFolder">The known folder</param>
         /// <param name="overwrite">Override an existing library with the same name</param>
-        public ShellLibrary(string libraryName, IKnownFolder sourceKnownFolder, bool overwrite)
+        public ShellLibrary(string libraryName, IKnownFolder? sourceKnownFolder, bool overwrite)
             : this()
         {
             if (string.IsNullOrEmpty(libraryName))
@@ -360,15 +360,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         internal const string FileExtension = ".library-ms";
 
-        internal override IShellItem? NativeShellItem
-        {
-            get { return NativeShellItem2; }
-        }
+        internal override IShellItem? NativeShellItem => NativeShellItem2;
 
-        internal override IShellItem2? NativeShellItem2
-        {
-            get { return nativeShellItem; }
-        }
+        internal override IShellItem2? NativeShellItem2 => nativeShellItem;
 
         #endregion
 
@@ -377,7 +371,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Get a the known folder FOLDERID_Libraries 
         /// </summary>
-        public static IKnownFolder LibrariesKnownFolder
+        public static IKnownFolder? LibrariesKnownFolder
         {
             get
             {
@@ -396,7 +390,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             CoreHelpers.ThrowIfNotWin7();
 
-            IKnownFolder kf = KnownFolders.Libraries;
+            IKnownFolder? kf = KnownFolders.Libraries;
             string? librariesFolderPath = (kf != null) ? kf.Path : string.Empty;
 
             Guid guid = new Guid(ShellIIDGuid.IShellItem);
@@ -407,7 +401,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             if (!CoreErrorHelper.Succeeded(hr))
                 throw new ShellException(hr);
 
-            INativeShellLibrary nativeShellLibrary = (INativeShellLibrary)new ShellLibraryCoClass();
+            INativeShellLibrary? nativeShellLibrary = (INativeShellLibrary)new ShellLibraryCoClass();
             AccessModes flags = isReadOnly ?
                     AccessModes.Read :
                     AccessModes.ReadWrite;
@@ -444,7 +438,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             ShellFile item = ShellFile.FromFilePath(shellItemPath);
 
             IShellItem? nativeShellItem = item.NativeShellItem;
-            INativeShellLibrary nativeShellLibrary = (INativeShellLibrary)new ShellLibraryCoClass();
+            INativeShellLibrary? nativeShellLibrary = (INativeShellLibrary)new ShellLibraryCoClass();
             AccessModes flags = isReadOnly ?
                     AccessModes.Read :
                     AccessModes.ReadWrite;
@@ -475,7 +469,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             CoreHelpers.ThrowIfNotWin7();
 
-            INativeShellLibrary nativeShellLibrary = (INativeShellLibrary)new ShellLibraryCoClass();
+            INativeShellLibrary? nativeShellLibrary = (INativeShellLibrary)new ShellLibraryCoClass();
 
             AccessModes flags = isReadOnly ?
                     AccessModes.Read :
@@ -495,7 +489,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="sourceKnownFolder">A known folder.</param>
         /// <param name="isReadOnly">If <B>true</B>, opens the library in read-only mode.</param>
         /// <returns>A ShellLibrary Object</returns>
-        public static ShellLibrary Load(IKnownFolder sourceKnownFolder, bool isReadOnly)
+        public static ShellLibrary Load(IKnownFolder? sourceKnownFolder, bool isReadOnly)
         {
             CoreHelpers.ThrowIfNotWin7();
             return new ShellLibrary(sourceKnownFolder, isReadOnly);
@@ -576,7 +570,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="instruction">An optional help string to display for the library management dialog</param>
         /// <param name="allowAllLocations">If true, do not show warning dialogs about locations that cannot be indexed</param>
         /// <remarks>If the library is already open in read-write mode, the dialog will not save the changes.</remarks>
-        public static void ShowManageLibraryUI(IKnownFolder sourceKnownFolder, IntPtr windowHandle, string title, string instruction, bool allowAllLocations)
+        public static void ShowManageLibraryUI(IKnownFolder? sourceKnownFolder, IntPtr windowHandle, string title, string instruction, bool allowAllLocations)
         {
             // this method is not safe for MTA consumption and will blow
             // Access Violations if called from an MTA thread so we wrap this
@@ -696,14 +690,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         #region Private Properties
 
-        private List<ShellFileSystemFolder> ItemsList
-        {
-            get { return GetFolders(); }
-        }
+        private List<ShellFileSystemFolder> ItemsList => GetFolders();
 
         private List<ShellFileSystemFolder> GetFolders()
         {
-            List<ShellFileSystemFolder> list = new List<ShellFileSystemFolder>();
+            List<ShellFileSystemFolder> list = new();
             IShellItemArray itemArray;
 
             Guid shellItemArrayGuid = new Guid(ShellIIDGuid.IShellItemArray);
@@ -835,13 +826,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>A folder.</returns>
         public ShellFileSystemFolder this[int index]
         {
-            get { return ItemsList[index]; }
-            set
-            {
+            get => ItemsList[index];
+            set => throw
                 // Index related options are not supported by IShellLibrary
                 // doesn't support them.
-                throw new NotImplementedException();
-            }
+                new NotImplementedException();
         }
         #endregion
 
@@ -860,32 +849,21 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// The count of the items in the list.
         /// </summary>
-        public int Count
-        {
-            get { return ItemsList.Count; }
-        }
+        public int Count => ItemsList.Count;
 
         /// <summary>
         /// Indicates whether this list is read-only or not.
         /// </summary>
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+        public bool IsReadOnly => false;
 
         #endregion
 
         /// <summary>
         /// Indicates whether this feature is supported on the current platform.
         /// </summary>
-        new public static bool IsPlatformSupported
-        {
-            get
-            {
-                // We need Windows 7 onwards ...
-                return CoreHelpers.RunningOnWin7;
-            }
-        }
+        new public static bool IsPlatformSupported =>
+            // We need Windows 7 onwards ...
+            CoreHelpers.RunningOnWin7;
     }
 
 }

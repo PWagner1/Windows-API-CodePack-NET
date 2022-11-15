@@ -1,7 +1,5 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-using Microsoft.WindowsAPICodePack.Controls.WindowsForms;
-
 namespace Microsoft.WindowsAPICodePack.Controls
 {
 
@@ -41,25 +39,13 @@ namespace Microsoft.WindowsAPICodePack.Controls
         /// Indicates the presence of locations in the log that can be 
         /// reached by calling Navigate(Forward)
         /// </summary>
-        public bool CanNavigateForward
-        {
-            get
-            {
-                return (CurrentLocationIndex < (_locations.Count - 1));
-            }
-        }
+        public bool CanNavigateForward => (CurrentLocationIndex < (_locations.Count - 1));
 
         /// <summary>
         /// Indicates the presence of locations in the log that can be 
         /// reached by calling Navigate(Backward)
         /// </summary>
-        public bool CanNavigateBackward
-        {
-            get
-            {
-                return (CurrentLocationIndex > 0);
-            }
-        }
+        public bool CanNavigateBackward => (CurrentLocationIndex > 0);
 
         /// <summary>
         /// The navigation log
@@ -68,19 +54,13 @@ namespace Microsoft.WindowsAPICodePack.Controls
         {
             get { foreach (var obj in _locations) { yield return obj; } }
         }
-        private List<ShellObject?> _locations = new List<ShellObject?>();
+        private List<ShellObject?> _locations = new();
 
         /// <summary>
         /// An index into the Locations collection. The ShellObject pointed to 
         /// by this index is the current location of the ExplorerBrowser.
         /// </summary>
-        public int CurrentLocationIndex
-        {
-            get
-            {
-                return currentLocationIndex;
-            }
-        }
+        public int CurrentLocationIndex => currentLocationIndex;
 
 
         /// <summary>
@@ -239,20 +219,5 @@ namespace Microsoft.WindowsAPICodePack.Controls
         }
 
         #endregion
-    }
-
-    /// <summary>
-    /// A navigation traversal request
-    /// </summary>
-    internal class PendingNavigation
-    {
-        internal PendingNavigation(ShellObject? location, int index)
-        {
-            Location = location;
-            Index = index;
-        }
-
-        internal ShellObject? Location { get; set; }
-        internal int Index { get; set; }
     }
 }

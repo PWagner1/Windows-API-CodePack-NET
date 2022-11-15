@@ -27,7 +27,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         internal UIElement WindowsControl { get; private set; }
 
-        internal IntPtr WindowToTellTaskbarAbout { get { return Handle; } }
+        internal IntPtr WindowToTellTaskbarAbout => Handle;
 
         protected override void WndProc(ref Message m)
         {

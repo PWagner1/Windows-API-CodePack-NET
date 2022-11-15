@@ -13,7 +13,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// Creates a new Property collection given an IPropertyStore object
         /// </summary>
         /// <param name="nativePropertyStore">IPropertyStore</param>
-        internal ShellPropertyCollection(IPropertyStore nativePropertyStore)
+        internal ShellPropertyCollection(IPropertyStore? nativePropertyStore)
             : base(new List<IShellProperty>())
         {
             NativePropertyStore = nativePropertyStore;
@@ -32,7 +32,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             : base(new List<IShellProperty>())
         {
             ParentShellObject = parent;
-            IPropertyStore nativePropertyStore = null;
+            IPropertyStore? nativePropertyStore = null;
             try
             {
                 nativePropertyStore = CreateDefaultPropertyStore(ParentShellObject);
@@ -68,9 +68,9 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
         private ShellObject? ParentShellObject { get; set; }
 
-        private IPropertyStore NativePropertyStore { get; set; }
+        private IPropertyStore? NativePropertyStore { get; set; }
 
-        private void AddProperties(IPropertyStore nativePropertyStore)
+        private void AddProperties(IPropertyStore? nativePropertyStore)
         {
             uint propertyCount;
             PropertyKey propKey;
@@ -92,9 +92,9 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             }
         }
 
-        internal static IPropertyStore CreateDefaultPropertyStore(ShellObject? shellObj)
+        internal static IPropertyStore? CreateDefaultPropertyStore(ShellObject? shellObj)
         {
-            IPropertyStore nativePropertyStore = null;
+            IPropertyStore? nativePropertyStore = null;
 
             Guid guid = new Guid(ShellIIDGuid.IPropertyStore);
             int hr = shellObj.NativeShellItem2.GetPropertyStore(
@@ -195,7 +195,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         // TODO - ShellProperties.cs also has a similar class that is used for creating
         // a ShellObject specific IShellProperty. These 2 methods should be combined or moved to a 
         // common location.
-        internal static IShellProperty CreateTypedProperty(PropertyKey propKey, IPropertyStore NativePropertyStore)
+        internal static IShellProperty CreateTypedProperty(PropertyKey propKey, IPropertyStore? NativePropertyStore)
         {
             return ShellPropertyFactory.CreateShellProperty(propKey, NativePropertyStore);
         }

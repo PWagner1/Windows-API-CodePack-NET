@@ -1,5 +1,6 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 
+#pragma warning disable CA2013
 namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
 
@@ -22,24 +23,12 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// Gets a human-readable description of the HResult error code,
         /// as constructed by <see cref="System.ComponentModel.Win32Exception">Win32Exception</see>.
         /// </summary>
-        public string ErrorMessage
-        {
-            get
-            {
-                return _errorMessage;
-            }
-        }
+        public string ErrorMessage => _errorMessage;
 
         /// <summary>
         /// Gets the HResult error code associated with this structure.
         /// </summary>
-        public int HResult
-        {
-            get
-            {
-                return _hResult;
-            }
-        }
+        public int HResult => _hResult;
 
         /// <summary>
         /// Uses the HResult param as the object hashcode.
@@ -68,7 +57,11 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
                 return true;
             }
 
+            // ReSharper disable MergeCastWithTypeCheck
+            // ReSharper disable ConvertIfStatementToReturnStatement
             if (obj is MappingResultState)
+                // ReSharper restore ConvertIfStatementToReturnStatement
+                // ReSharper restore MergeCastWithTypeCheck
             {
                 return Equals((MappingResultState)obj);
             }
@@ -110,3 +103,4 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
     }
 
 }
+#pragma warning restore CA2013

@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable LoopCanBeConvertedToQuery
 namespace Microsoft.WindowsAPICodePack.Net
 {
     /// <summary>

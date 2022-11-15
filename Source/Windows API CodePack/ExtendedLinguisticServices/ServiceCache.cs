@@ -1,18 +1,19 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 
+#pragma warning disable CS8605
 namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
     // This singleton object is correctly finalized on appdomain unload.    
     internal class ServiceCache : CriticalFinalizerObject
     {
-        private static ServiceCache staticInstance = new ServiceCache();
+        private static ServiceCache staticInstance = new();
 
         // Guid -> IntPtr
-        private Dictionary<Guid, IntPtr>? _guidToService = new Dictionary<Guid, IntPtr>();
+        private Dictionary<Guid, IntPtr>? _guidToService = new();
         // IntPtr -> this (serves as a set)
-        private List<IntPtr>? _servicePointers = new List<IntPtr>();
+        private List<IntPtr>? _servicePointers = new();
         // The lock
-        private ReaderWriterLockSlim _cacheLock = new ReaderWriterLockSlim();
+        private ReaderWriterLockSlim _cacheLock = new();
         // Active resources refcount, signed 64-bit
         private long _resourceRefCount;
         // Specifies if the object has been finalized:
@@ -112,7 +113,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
             {
                 // This means that at least one of the services was stored in the cache.
                 // So we must keep the original pointer in our cleanup list.
-                _servicePointers.Add(originalPtr);
+                if (_servicePointers != null) _servicePointers.Add(originalPtr);
             }
         }
 
@@ -123,7 +124,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
             {
                 // First, remove the original pointer from the cleanup list.
                 // The caller of RegisterServices() will take care of freeing it.
-                _servicePointers.Remove(pServices);
+                if (_servicePointers != null) _servicePointers.Remove(pServices);
                 // Then, attempt to recover the state of the _guidToService Dictionary.
                 // This should not fail.
                 for (int i = 0; i < length; ++i)
@@ -131,7 +132,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
                     Guid guid = (Guid)Marshal.PtrToStructure(
                         (IntPtr)((UInt64)pServices + InteropTools.OffsetOfGuidInService), 
                         InteropTools.TypeOfGuid);
-                    _guidToService.Remove(guid);
+                    if (_guidToService != null) _guidToService.Remove(guid);
                     pServices = (IntPtr)((UInt64)pServices + InteropTools.SizeOfService);
                 }
                 succeeded = true;

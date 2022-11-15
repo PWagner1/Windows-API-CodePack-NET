@@ -512,7 +512,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         [DllImport("shlwapi.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern int PathParseIconLocation(
-            [MarshalAs(UnmanagedType.LPWStr)] ref string pszIconFile);
+            [MarshalAs(UnmanagedType.LPWStr)] ref string? pszIconFile);
 
 
         [DllImport("shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
@@ -537,13 +537,13 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         [DllImport("shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern int SHGetDesktopFolder(
-            [MarshalAs(UnmanagedType.Interface)] out IShellFolder ppshf
+            [MarshalAs(UnmanagedType.Interface)] out IShellFolder? ppshf
         );
 
         [DllImport("shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern int SHCreateShellItem(
             IntPtr pidlParent,
-            [In, MarshalAs(UnmanagedType.Interface)] IShellFolder psfParent,
+            [In, MarshalAs(UnmanagedType.Interface)] IShellFolder? psfParent,
             IntPtr pidl,
             [MarshalAs(UnmanagedType.Interface)] out IShellItem? ppsi
         );

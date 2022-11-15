@@ -1,5 +1,8 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable InlineOutVariableDeclaration
+#pragma warning disable CS8600
+#pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -17,7 +20,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Internal member to keep track of the current size
         /// </summary>
-        private System.Windows.Size currentSize = new System.Windows.Size(256, 256);
+        private System.Windows.Size currentSize = new(256, 256);
 
         #endregion
 
@@ -50,7 +53,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </remarks>
         public System.Windows.Size CurrentSize
         {
-            get { return currentSize; }
+            get => currentSize;
             set
             {
                 // Check for 0; negative number check not required as System.Windows.Size only allows positive numbers.
@@ -77,127 +80,79 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Gets the thumbnail or icon image in <see cref="System.Drawing.Bitmap"/> format.
         /// Null is returned if the ShellObject does not have a thumbnail or icon image.
         /// </summary>
-        public Bitmap Bitmap { get { return GetBitmap(CurrentSize); } }
+        public Bitmap Bitmap => GetBitmap(CurrentSize);
 
         /// <summary>
         /// Gets the thumbnail or icon image in <see cref="System.Windows.Media.Imaging.BitmapSource"/> format. 
         /// Null is returned if the ShellObject does not have a thumbnail or icon image.
         /// </summary>
-        public BitmapSource BitmapSource { get { return GetBitmapSource(CurrentSize); } }
+        public BitmapSource BitmapSource => GetBitmapSource(CurrentSize);
 
         /// <summary>
         /// Gets the thumbnail or icon image in <see cref="System.Drawing.Icon"/> format. 
         /// Null is returned if the ShellObject does not have a thumbnail or icon image.
         /// </summary>
-        public Icon Icon { get { return Icon.FromHandle(Bitmap.GetHicon()); } }
+        public Icon Icon => Icon.FromHandle(Bitmap.GetHicon());
 
         /// <summary>
         /// Gets the thumbnail or icon in small size and <see cref="System.Drawing.Bitmap"/> format.
         /// </summary>
-        public Bitmap SmallBitmap
-        {
-            get
-            {
-                return GetBitmap(DefaultIconSize.Small, DefaultThumbnailSize.Small);
-            }
-        }
+        public Bitmap SmallBitmap => GetBitmap(DefaultIconSize.Small, DefaultThumbnailSize.Small);
 
         /// <summary>
         /// Gets the thumbnail or icon in small size and <see cref="System.Windows.Media.Imaging.BitmapSource"/> format.
         /// </summary>
-        public BitmapSource SmallBitmapSource
-        {
-            get
-            {
-                return GetBitmapSource(DefaultIconSize.Small, DefaultThumbnailSize.Small);
-            }
-        }
+        public BitmapSource SmallBitmapSource => GetBitmapSource(DefaultIconSize.Small, DefaultThumbnailSize.Small);
 
         /// <summary>
         /// Gets the thumbnail or icon in small size and <see cref="System.Drawing.Icon"/> format.
         /// </summary>
-        public Icon SmallIcon { get { return Icon.FromHandle(SmallBitmap.GetHicon()); } }
+        public Icon SmallIcon => Icon.FromHandle(SmallBitmap.GetHicon());
 
         /// <summary>
         /// Gets the thumbnail or icon in Medium size and <see cref="System.Drawing.Bitmap"/> format.
         /// </summary>
-        public Bitmap MediumBitmap
-        {
-            get
-            {
-                return GetBitmap(DefaultIconSize.Medium, DefaultThumbnailSize.Medium);
-            }
-        }
+        public Bitmap MediumBitmap => GetBitmap(DefaultIconSize.Medium, DefaultThumbnailSize.Medium);
 
         /// <summary>
         /// Gets the thumbnail or icon in medium size and <see cref="System.Windows.Media.Imaging.BitmapSource"/> format.
         /// </summary>
-        public BitmapSource MediumBitmapSource
-        {
-            get
-            {
-                return GetBitmapSource(DefaultIconSize.Medium, DefaultThumbnailSize.Medium);
-            }
-        }
+        public BitmapSource MediumBitmapSource => GetBitmapSource(DefaultIconSize.Medium, DefaultThumbnailSize.Medium);
 
         /// <summary>
         /// Gets the thumbnail or icon in Medium size and <see cref="System.Drawing.Icon"/> format.
         /// </summary>
-        public Icon MediumIcon { get { return Icon.FromHandle(MediumBitmap.GetHicon()); } }
+        public Icon MediumIcon => Icon.FromHandle(MediumBitmap.GetHicon());
 
         /// <summary>
         /// Gets the thumbnail or icon in large size and <see cref="System.Drawing.Bitmap"/> format.
         /// </summary>
-        public Bitmap LargeBitmap
-        {
-            get
-            {
-                return GetBitmap(DefaultIconSize.Large, DefaultThumbnailSize.Large);
-            }
-        }
+        public Bitmap LargeBitmap => GetBitmap(DefaultIconSize.Large, DefaultThumbnailSize.Large);
 
         /// <summary>
         /// Gets the thumbnail or icon in large size and <see cref="System.Windows.Media.Imaging.BitmapSource"/> format.
         /// </summary>
-        public BitmapSource LargeBitmapSource
-        {
-            get
-            {
-                return GetBitmapSource(DefaultIconSize.Large, DefaultThumbnailSize.Large);
-            }
-        }
+        public BitmapSource LargeBitmapSource => GetBitmapSource(DefaultIconSize.Large, DefaultThumbnailSize.Large);
 
         /// <summary>
         /// Gets the thumbnail or icon in Large size and <see cref="System.Drawing.Icon"/> format.
         /// </summary>
-        public Icon LargeIcon { get { return Icon.FromHandle(LargeBitmap.GetHicon()); } }
+        public Icon LargeIcon => Icon.FromHandle(LargeBitmap.GetHicon());
 
         /// <summary>
         /// Gets the thumbnail or icon in extra large size and <see cref="System.Drawing.Bitmap"/> format.
         /// </summary>
-        public Bitmap ExtraLargeBitmap
-        {
-            get
-            {
-                return GetBitmap(DefaultIconSize.ExtraLarge, DefaultThumbnailSize.ExtraLarge);
-            }
-        }
+        public Bitmap ExtraLargeBitmap => GetBitmap(DefaultIconSize.ExtraLarge, DefaultThumbnailSize.ExtraLarge);
 
         /// <summary>
         /// Gets the thumbnail or icon in Extra Large size and <see cref="System.Windows.Media.Imaging.BitmapSource"/> format.
         /// </summary>
-        public BitmapSource ExtraLargeBitmapSource
-        {
-            get
-            {
-                return GetBitmapSource(DefaultIconSize.ExtraLarge, DefaultThumbnailSize.ExtraLarge);
-            }
-        }
+        public BitmapSource ExtraLargeBitmapSource => GetBitmapSource(DefaultIconSize.ExtraLarge, DefaultThumbnailSize.ExtraLarge);
 
         /// <summary>
         /// Gets the thumbnail or icon in Extra Large size and <see cref="System.Drawing.Icon"/> format.
         /// </summary>
-        public Icon ExtraLargeIcon { get { return Icon.FromHandle(ExtraLargeBitmap.GetHicon()); } }
+        public Icon ExtraLargeIcon => Icon.FromHandle(ExtraLargeBitmap.GetHicon());
 
         /// <summary>
         /// Gets or sets a value that determines if the current retrieval option is cache or extract, cache only, or from memory only.
@@ -212,7 +167,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public ShellThumbnailFormatOption FormatOption
         {
-            get { return formatOption; }
+            get => formatOption;
             set
             {
                 formatOption = value;
@@ -280,13 +235,13 @@ namespace Microsoft.WindowsAPICodePack.Shell
             IntPtr hbitmap = IntPtr.Zero;
 
             // Create a size structure to pass to the native method
-            CoreNativeMethods.Size nativeSIZE = new CoreNativeMethods.Size();
-            nativeSIZE.Width = Convert.ToInt32(size.Width);
-            nativeSIZE.Height = Convert.ToInt32(size.Height);
+            CoreNativeMethods.Size nativeSize = new CoreNativeMethods.Size();
+            nativeSize.Width = Convert.ToInt32(size.Width);
+            nativeSize.Height = Convert.ToInt32(size.Height);
 
             // Use IShellItemImageFactory to get an icon
             // Options passed in: Resize to fit
-            HResult hr = ((IShellItemImageFactory)shellItemNative).GetImage(nativeSIZE, CalculateFlags(), out hbitmap);
+            HResult hr = ((IShellItemImageFactory)shellItemNative).GetImage(nativeSize, CalculateFlags(), out hbitmap);
 
             if (hr == HResult.Ok) { return hbitmap; }
             else if ((uint)hr == 0x8004B200 && FormatOption == ShellThumbnailFormatOption.ThumbnailOnly)

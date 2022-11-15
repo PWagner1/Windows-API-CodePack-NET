@@ -47,18 +47,18 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         /// <summary>
         /// Gets whether the stream can be read from.
         /// </summary>
-        public override bool CanRead { get { return _stream != null; } }
+        public override bool CanRead => _stream != null;
 
         /// <summary>
         /// Gets whether seeking is supported by the stream.
         /// </summary>
-        public override bool CanSeek { get { return _stream != null; } }
+        public override bool CanSeek => _stream != null;
 
         /// <summary>
         /// Gets whether the stream can be written to.
         /// Always false.
         /// </summary>
-        public override bool CanWrite { get { return _stream != null && !_isReadOnly; } }
+        public override bool CanWrite => _stream != null && !_isReadOnly;
 
         /// <summary>
         /// Reads a buffer worth of bytes from the stream.

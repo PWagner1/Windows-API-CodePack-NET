@@ -36,10 +36,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// callback method.
         /// </summary>
         /// <value>A <see cref="RecoveryData"/> object.</value>
-        public RecoveryData RecoveryData
-        {
-            get { return recoveryData; }
-        }
+        public RecoveryData RecoveryData => recoveryData;
 
         /// <summary>
         /// Gets the time interval for notifying Windows Error Reporting.  
@@ -51,7 +48,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// By default, the interval is 5 seconds. 
         /// If you specify zero, the default interval is used. 
         /// </remarks>
-        public uint PingInterval { get { return pingInterval; } }
+        public uint PingInterval => pingInterval;
 
         /// <summary>
         /// Returns a string representation of the current state

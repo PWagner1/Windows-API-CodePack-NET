@@ -230,12 +230,16 @@ namespace MS.WindowsAPICodePack.Internal
             /// <summary>
             /// Width
             /// </summary>
-            public int Width { get { return width; } set { width = value; } }
+            public int Width { get => width;
+                set => width = value;
+            }
 
             /// <summary>
             /// Height
             /// </summary>
-            public int Height { get { return height; } set { height = value; } }
+            public int Height { get => height;
+                set => height = value;
+            }
         };
 
         // Enable/disable non-client rendering based on window style.

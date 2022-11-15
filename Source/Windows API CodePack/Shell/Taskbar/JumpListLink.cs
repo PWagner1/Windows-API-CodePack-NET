@@ -36,7 +36,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public string Title
         {
-            get { return title; }
+            get => title;
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -54,7 +54,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public string? Path
         {
-            get { return path; }
+            get => path;
             set
             {
                 if (string.IsNullOrEmpty(value))

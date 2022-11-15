@@ -3,6 +3,10 @@ using IInitializeWithItem = Microsoft.WindowsAPICodePack.ShellExtensions.Interop
 using IInitializeWithStream = Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IInitializeWithStream;
 using IThumbnailProvider = Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IThumbnailProvider;
 using ThumbnailAlphaType = Microsoft.WindowsAPICodePack.Shell.Interop.ThumbnailAlphaType;
+// ReSharper disable AssignNullToNotNullAttribute
+// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+// ReSharper disable PossibleNullReferenceException
+#pragma warning disable CS8602
 
 namespace Microsoft.WindowsAPICodePack.ShellExtensions
 {
@@ -107,14 +111,14 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
                 object[] attributes = registerType.GetCustomAttributes(typeof(ThumbnailProviderAttribute), true);
                 if (attributes != null && attributes.Length == 1)
                 {
-                    ThumbnailProviderAttribute attribute = attributes[0] as ThumbnailProviderAttribute;
+                    ThumbnailProviderAttribute? attribute = attributes[0] as ThumbnailProviderAttribute;
                     ThrowIfInvalid(registerType, attribute);
                     RegisterThumbnailHandler(registerType.GUID.ToString("B"), attribute);
                 }
             }
         }
 
-        private static void RegisterThumbnailHandler(string guid, ThumbnailProviderAttribute attribute)
+        private static void RegisterThumbnailHandler(string guid, ThumbnailProviderAttribute? attribute)
         {
             // set process isolation
             using (RegistryKey clsidKey = Registry.ClassesRoot.OpenSubKey("CLSID"))
@@ -214,7 +218,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
             }
         }
 
-        private static void ThrowIfInvalid(Type type, ThumbnailProviderAttribute attribute)
+        private static void ThrowIfInvalid(Type type, ThumbnailProviderAttribute? attribute)
         {
             var interfaces = type.GetInterfaces();
             bool interfaced = interfaces.Any(x => x == typeof(IThumbnailFromStream));

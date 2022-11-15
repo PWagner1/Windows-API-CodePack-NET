@@ -18,7 +18,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
 
             DataContext = this;
             InitializeComponent();
-            button.Click += new RoutedEventHandler(button_Click);
+            button.Click += button_Click;
         }
 
         void button_Click(object sender, RoutedEventArgs e)
@@ -33,24 +33,24 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
         /// <summary>
         /// Routed UI command to use for this button
         /// </summary>
-        public RoutedUICommand Command { get; set; }
+        public RoutedUICommand? Command { get; set; }
 
         /// <summary>
         /// Occurs when the control is clicked.
         /// </summary>
-        public event RoutedEventHandler Click;
+        public event RoutedEventHandler? Click;
 
-        private string link;
+        private string? _link;
 
         /// <summary>
         /// Specifies the main instruction text
         /// </summary>
-        public string Link
+        public string? Link
         {
-            get { return link; }
+            get => _link;
             set
             {
-                link = value;
+                _link = value;
 
                 if (PropertyChanged != null)
                 {
@@ -58,34 +58,34 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
                 }
             }
         }
-        private string note;
+        private string? _note;
 
         /// <summary>
         /// Specifies the supporting note text
         /// </summary>
-        public string Note
+        public string? Note
         {
-            get { return note; }
+            get => _note;
             set
             {
-                note = value;
+                _note = value;
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("Note"));
                 }
             }
         }
-        private ImageSource icon;
+        private ImageSource? _icon;
 
         /// <summary>
         /// Icon to set for the command link button
         /// </summary>
-        public ImageSource Icon
+        public ImageSource? Icon
         {
-            get { return icon; }
+            get => _icon;
             set
             {
-                icon = value;
+                _icon = value;
                 if (PropertyChanged != null)
                 {
                     PropertyChanged(this, new PropertyChangedEventArgs("Icon"));
@@ -98,8 +98,8 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
         /// </summary>
         public bool? IsCheck
         {
-            get { return button.IsChecked; }
-            set { button.IsChecked = value; }
+            get => button.IsChecked;
+            set => button.IsChecked = value;
         }
 
 
@@ -108,19 +108,13 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
         /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         #endregion
 
         /// <summary>
         /// Indicates whether this feature is supported on the current platform.
         /// </summary>
-        public static bool IsPlatformSupported
-        {
-            get
-            {
-                return CoreHelpers.RunningOnVista;
-            }
-        }
+        public static bool IsPlatformSupported => CoreHelpers.RunningOnVista;
     }
 }

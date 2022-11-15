@@ -27,7 +27,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HResult GetSensorByID(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid sensorID,
-            [Out, MarshalAs(UnmanagedType.Interface)] out ISensor ppSensor);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISensor? ppSensor);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern void SetEventSink(
@@ -74,7 +74,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         [PreserveSig]
         HResult GetSensorByID(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid sensorID,
-            [Out, MarshalAs(UnmanagedType.Interface)] out ISensor ppSensor);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISensor? ppSensor);
 
         /// <summary>
         /// Subscribe to ISensors events

@@ -42,7 +42,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>                
         public int Minimum
         {
-            get { return _minimum; }
+            get => _minimum;
             set
             {
                 CheckPropertyChangeAllowed("Minimum");
@@ -68,7 +68,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public int Maximum
         {
-            get { return _maximum; }
+            get => _maximum;
             set
             {
                 CheckPropertyChangeAllowed("Maximum");
@@ -87,7 +87,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public int Value
         {
-            get { return _value; }
+            get => _value;
             set
             {
                 CheckPropertyChangeAllowed("Value");
@@ -104,10 +104,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <summary>
         /// Verifies that the progress bar's value is between its minimum and maximum.
         /// </summary>
-        internal bool HasValidValues
-        {
-            get { return _minimum <= _value && _value <= _maximum; }
-        }
+        internal bool HasValidValues => _minimum <= _value && _value <= _maximum;
 
         /// <summary>
         /// Resets the control to its minimum value.

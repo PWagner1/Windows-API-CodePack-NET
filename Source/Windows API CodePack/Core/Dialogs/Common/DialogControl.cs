@@ -116,7 +116,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         /// <param name="obj">The object to compare against.</param>
         /// <returns>A <see cref="System.Boolean"/> value.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is DialogControl control)
                 return (Id == control.Id);
@@ -128,14 +128,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// Serves as a hash function for a particular type. 
         /// </summary>
         /// <returns>An <see cref="System.Int32"/> hash code for this control.</returns>
-        public override int GetHashCode()
-        {
-            if (Name == null)
-            {
-                return ToString().GetHashCode();
-            }
-
-            return Name.GetHashCode();
-        }
+#pragma warning disable CS8602
+        public override int GetHashCode() => Name == null ? ToString().GetHashCode() : Name.GetHashCode();
+#pragma warning restore CS8602
     }
 }

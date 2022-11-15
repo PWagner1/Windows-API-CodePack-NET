@@ -12,7 +12,7 @@ public interface IShellItem
         [In] IntPtr pbc,
         [In] ref Guid bhid,
         [In] ref Guid riid,
-        [Out, MarshalAs(UnmanagedType.Interface)] out IShellFolder ppv);
+        [Out, MarshalAs(UnmanagedType.Interface)] out IShellFolder? ppv);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     void GetParent([MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);

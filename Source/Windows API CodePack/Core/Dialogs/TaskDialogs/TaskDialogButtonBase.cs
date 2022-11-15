@@ -56,7 +56,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public string? Text
         {
-            get { return text; }
+            get => text;
             set 
             {
                 CheckPropertyChangeAllowed("Text");
@@ -73,7 +73,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public bool Enabled
         {
-            get { return enabled; }
+            get => enabled;
             set 
             {
                 CheckPropertyChangeAllowed("Enabled");
@@ -89,7 +89,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public bool Default
         {
-            get { return defaultControl; }
+            get => defaultControl;
             set
             {
                 CheckPropertyChangeAllowed("Default");

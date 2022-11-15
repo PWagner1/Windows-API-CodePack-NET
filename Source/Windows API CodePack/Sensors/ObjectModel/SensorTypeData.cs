@@ -14,14 +14,8 @@ internal struct SensorTypeData
         this.sda = sda;
     }
 
-    public Type SensorType
-    {
-        get { return sensorType; }
-    }
-        
+    public Type SensorType => sensorType;
+
     [SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-    public SensorDescriptionAttribute Attr
-    {
-        get { return sda; }
-    }
+    public SensorDescriptionAttribute Attr => sda;
 }

@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable InvertIf
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -26,7 +27,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// The path for this link
         /// </summary>
-        virtual public string? Path
+        public virtual string? Path
         {
             get
             {
@@ -36,13 +37,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 }
                 return _internalPath;
             }
-            protected set
-            {
-                _internalPath = value;
-            }
+            protected set => _internalPath = value;
         }
 
-        private string? internalTargetLocation;
+        private string? _internalTargetLocation;
         /// <summary>
         /// Gets the location to which this link points to.
         /// </summary>
@@ -50,21 +48,23 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                if (string.IsNullOrEmpty(internalTargetLocation) && NativeShellItem2 != null)
+                if (string.IsNullOrEmpty(_internalTargetLocation) && NativeShellItem2 != null)
                 {
-                    internalTargetLocation = Properties.System.Link.TargetParsingPath.Value;
+                    if (Properties.System != null)
+                        _internalTargetLocation = Properties.System.Link.TargetParsingPath.Value;
                 }
-                return internalTargetLocation;
+                return _internalTargetLocation;
             }
             set
             {
                 if (value == null) { return; }
 
-                internalTargetLocation = value;
+                _internalTargetLocation = value;
 
                 if (NativeShellItem2 != null)
                 {
-                    Properties.System.Link.TargetParsingPath.Value = internalTargetLocation;
+                    if (Properties.System != null)
+                        Properties.System.Link.TargetParsingPath.Value = _internalTargetLocation;
                 }
             }
         }
@@ -72,10 +72,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Gets the ShellObject to which this link points to.
         /// </summary>
-        public ShellObject? TargetShellObject
-        {
-            get { return ShellObjectFactory.Create(TargetLocation); }
-        }
+        public ShellObject? TargetShellObject => ShellObjectFactory.Create(TargetLocation);
 
         /// <summary>
         /// Gets or sets the link's title
@@ -101,7 +98,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
         }
 
-        private string? internalArguments;
+        private string? _internalArguments;
         /// <summary>
         /// Gets the arguments associated with this link.
         /// </summary>
@@ -109,16 +106,16 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                if (string.IsNullOrEmpty(internalArguments) && NativeShellItem2 != null)
+                if (string.IsNullOrEmpty(_internalArguments) && NativeShellItem2 != null)
                 {
-                    internalArguments = Properties.System.Link.Arguments.Value;
+                    _internalArguments = Properties.System.Link.Arguments.Value;
                 }
 
-                return internalArguments;
+                return _internalArguments;
             }
         }
 
-        private string? internalComments;
+        private string? _internalComments;
         /// <summary>
         /// Gets the comments associated with this link.
         /// </summary>
@@ -126,12 +123,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                if (string.IsNullOrEmpty(internalComments) && NativeShellItem2 != null)
+                if (string.IsNullOrEmpty(_internalComments) && NativeShellItem2 != null)
                 {
-                    internalComments = Properties.System.Comment.Value;
+                    _internalComments = Properties.System.Comment.Value;
                 }
 
-                return internalComments;
+                return _internalComments;
             }
         }
 

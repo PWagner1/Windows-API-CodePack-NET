@@ -1,4 +1,5 @@
-﻿namespace Microsoft.WindowsAPICodePack.Shell
+﻿// ReSharper disable AssignNullToNotNullAttribute
+namespace Microsoft.WindowsAPICodePack.Shell
 {
     internal class ChangeNotifyEventManager
     {
@@ -36,7 +37,7 @@
         };
         #endregion
 
-        private Dictionary<ShellObjectChangeTypes, Delegate> _events = new Dictionary<ShellObjectChangeTypes, Delegate>();
+        private Dictionary<ShellObjectChangeTypes, Delegate> _events = new();
 
         public void Register(ShellObjectChangeTypes changeType, Delegate handler)
         {

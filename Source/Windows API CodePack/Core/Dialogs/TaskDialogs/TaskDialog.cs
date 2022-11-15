@@ -74,7 +74,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 // Set local value, then update native dialog if showing.
                 _text = value;
-                if (NativeDialogShowing) { _nativeDialog.UpdateText(_text); }
+                if (NativeDialogShowing)
+                {
+                    if (_nativeDialog != null) _nativeDialog.UpdateText(_text);
+                }
             }
         }
 
@@ -89,7 +92,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 // Set local value, then update native dialog if showing.
                 _instructionText = value;
-                if (NativeDialogShowing) { _nativeDialog.UpdateInstruction(_instructionText); }
+                if (NativeDialogShowing)
+                {
+                    if (_nativeDialog != null) _nativeDialog.UpdateInstruction(_instructionText);
+                }
             }
         }
 
@@ -118,7 +124,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 // Set local value, then update native dialog if showing.
                 _footerText = value;
-                if (NativeDialogShowing) { _nativeDialog.UpdateFooterText(_footerText); }
+                if (NativeDialogShowing)
+                {
+                    if (_nativeDialog != null) _nativeDialog.UpdateFooterText(_footerText);
+                }
             }
         }
 
@@ -147,7 +156,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 // Set local value, then update native dialog if showing.
                 _detailsExpandedText = value;
-                if (NativeDialogShowing) { _nativeDialog.UpdateExpandedText(_detailsExpandedText); }
+                if (NativeDialogShowing)
+                {
+                    if (_nativeDialog != null) _nativeDialog.UpdateExpandedText(_detailsExpandedText);
+                }
             }
         }
 
@@ -218,7 +230,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 // Set local value, then update native dialog if showing.
                 _icon = value;
-                if (NativeDialogShowing) { _nativeDialog.UpdateMainIcon(_icon); }
+                if (NativeDialogShowing)
+                {
+                    if (_nativeDialog != null) _nativeDialog.UpdateMainIcon(_icon);
+                }
             }
         }
 
@@ -233,7 +248,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 // Set local value, then update native dialog if showing.
                 _footerIcon = value;
-                if (NativeDialogShowing) { _nativeDialog.UpdateFooterIcon(_footerIcon); }
+                if (NativeDialogShowing)
+                {
+                    if (_nativeDialog != null) _nativeDialog.UpdateFooterIcon(_footerIcon);
+                }
             }
         }
 
@@ -285,7 +303,12 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 // Set local value, then update native dialog if showing.
                 _footerCheckBoxChecked = value;
-                if (NativeDialogShowing) { _nativeDialog.UpdateCheckBoxChecked(_footerCheckBoxChecked != null && _footerCheckBoxChecked.Value); }
+                if (NativeDialogShowing)
+                {
+                    if (_nativeDialog != null)
+                        _nativeDialog.UpdateCheckBoxChecked(_footerCheckBoxChecked != null &&
+                                                            _footerCheckBoxChecked.Value);
+                }
             }
         }
 
@@ -557,18 +580,23 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         // final TaskDialogResult that will be returned from the public API
         private static TaskDialogResult ConstructDialogResult(NativeTaskDialog? native)
         {
-            Debug.Assert(native.ShowState == DialogShowState.Closed, "dialog result being constructed for unshown dialog.");
+            Debug.Assert(native != null && native.ShowState == DialogShowState.Closed, "dialog result being constructed for unshown dialog.");
 
             TaskDialogResult result = TaskDialogResult.Cancel;
 
-            TaskDialogStandardButtons standardButton = MapButtonIdToStandardButton(native.SelectedButtonId);
-
-            // If returned ID isn't a standard button, let's fetch 
-            if (standardButton == TaskDialogStandardButtons.None)
+            // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+            if (native != null)
+                // ReSharper restore ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
             {
-                result = TaskDialogResult.CustomButtonClicked;
+                TaskDialogStandardButtons standardButton = MapButtonIdToStandardButton(native.SelectedButtonId);
+
+                // If returned ID isn't a standard button, let's fetch 
+                if (standardButton == TaskDialogStandardButtons.None)
+                {
+                    result = TaskDialogResult.CustomButtonClicked;
+                }
+                else { result = (TaskDialogResult)standardButton; }
             }
-            else { result = (TaskDialogResult)standardButton; }
 
             return result;
         }

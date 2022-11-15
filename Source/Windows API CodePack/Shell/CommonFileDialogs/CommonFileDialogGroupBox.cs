@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+#pragma warning disable CS8619
 namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
 {
     /// <summary>
@@ -8,11 +9,11 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
     [ContentProperty("Items")]
     public class CommonFileDialogGroupBox : CommonFileDialogProminentControl
     {
-        private Collection<DialogControl>? _items;
+        private Collection<DialogControl?>? _items;
         /// <summary>
         /// Gets the collection of controls for this group box.
         /// </summary>
-        public Collection<DialogControl>? Items => _items;
+        public Collection<DialogControl?>? Items => _items;
 
         /// <summary>
         /// Creates a new instance of this class.
@@ -64,7 +65,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
             dialog.StartVisualGroup(Id, Text);
 
             // Add child controls
-            foreach (CommonFileDialogControl item in _items)
+            foreach (CommonFileDialogControl? item in _items)
             {
                 item.HostingDialog = HostingDialog;
                 item.Attach(dialog);

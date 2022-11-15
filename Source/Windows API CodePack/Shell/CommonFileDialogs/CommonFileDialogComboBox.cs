@@ -8,14 +8,11 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
     [ContentProperty("Items")]
     public class CommonFileDialogComboBox : CommonFileDialogProminentControl, ICommonFileDialogIndexedControls
     {
-        private readonly Collection<CommonFileDialogComboBoxItem> items = new Collection<CommonFileDialogComboBoxItem>();
+        private readonly Collection<CommonFileDialogComboBoxItem> items = new();
         /// <summary>
         /// Gets the collection of CommonFileDialogComboBoxItem objects.
         /// </summary>
-        public Collection<CommonFileDialogComboBoxItem> Items
-        {
-            get { return items; }
-        }
+        public Collection<CommonFileDialogComboBoxItem> Items => items;
 
         /// <summary>
         /// Creates a new instance of this class.
@@ -42,7 +39,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")]
         public int SelectedIndex
         {
-            get { return selectedIndex; }
+            get => selectedIndex;
             set
             {
                 // Don't update property if it hasn't changed
@@ -148,8 +145,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// </summary>
         public string? Text
         {
-            get { return text; }
-            set { text = value; }
+            get => text;
+            set => text = value;
         }
 
         /// <summary>

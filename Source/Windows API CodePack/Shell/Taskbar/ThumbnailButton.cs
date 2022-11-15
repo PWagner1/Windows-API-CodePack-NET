@@ -68,10 +68,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public Icon Icon
         {
-            get
-            {
-                return icon;
-            }
+            get => icon;
             set
             {
                 if (icon != value)
@@ -88,10 +85,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public string Tooltip
         {
-            get
-            {
-                return tooltip;
-            }
+            get => tooltip;
             set
             {
                 if (tooltip != value)
@@ -108,10 +102,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public bool Visible
         {
-            get
-            {
-                return (Flags & ThumbButtonOptions.Hidden) == 0;
-            }
+            get => (Flags & ThumbButtonOptions.Hidden) == 0;
             set
             {
                 if (visible != value)
@@ -140,10 +131,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public bool Enabled
         {
-            get
-            {
-                return (Flags & ThumbButtonOptions.Disabled) == 0;
-            }
+            get => (Flags & ThumbButtonOptions.Disabled) == 0;
             set
             {
                 if (value != enabled)
@@ -171,10 +159,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public bool DismissOnClick
         {
-            get
-            {
-                return (Flags & ThumbButtonOptions.DismissOnClick) == 0;
-            }
+            get => (Flags & ThumbButtonOptions.DismissOnClick) == 0;
             set
             {
                 if (value != dismissOnClick)
@@ -206,10 +191,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </remarks>
         public bool IsInteractive
         {
-            get
-            {
-                return (Flags & ThumbButtonOptions.NonInteractive) == 0;
-            }
+            get => (Flags & ThumbButtonOptions.NonInteractive) == 0;
             set
             {
                 if (value != isInteractive)

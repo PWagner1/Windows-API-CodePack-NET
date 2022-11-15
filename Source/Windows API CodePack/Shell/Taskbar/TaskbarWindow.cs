@@ -19,7 +19,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         private TabbedThumbnail _tabbedThumbnailPreview;
         internal TabbedThumbnail TabbedThumbnail
         {
-            get { return _tabbedThumbnailPreview; }
+            get => _tabbedThumbnailPreview;
             set
             {
                 if (_tabbedThumbnailPreview != null)
@@ -36,7 +36,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         private ThumbnailToolBarButton[] _thumbnailButtons;
         internal ThumbnailToolBarButton[] ThumbnailButtons
         {
-            get { return _thumbnailButtons; }
+            get => _thumbnailButtons;
             set
             {
                 _thumbnailButtons = value;

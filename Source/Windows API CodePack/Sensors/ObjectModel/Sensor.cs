@@ -1,5 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
+#pragma warning disable CS8605
+#pragma warning disable CS8602
+#pragma warning disable CS8600
 namespace Microsoft.WindowsAPICodePack.Sensors
 {
     /// <summary>
@@ -132,7 +135,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
             get => (uint)GetProperty(SensorPropertyKeys.SensorPropertyCurrentReportInterval);
             set
             {
-                SetProperties(new DataFieldInfo[] { new DataFieldInfo(SensorPropertyKeys.SensorPropertyCurrentReportInterval, value) });
+                SetProperties(new DataFieldInfo[] { new(SensorPropertyKeys.SensorPropertyCurrentReportInterval, value) });
             }
         }
 
@@ -323,7 +326,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// </summary>
         /// <param name="propKey">A property key.</param>
         /// <returns>A property value.</returns>        
-        public object GetProperty(PropertyKey propKey)
+        public object? GetProperty(PropertyKey propKey)
         {
             using (PropVariant pv = new PropVariant())
             {
@@ -350,7 +353,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// </summary>
         /// <param name="propIndex">A property index.</param>
         /// <returns>A property value.</returns>
-        public object GetProperty(int propIndex)
+        public object? GetProperty(int propIndex)
         {
             PropertyKey propKey = new PropertyKey(SensorPropertyKeys.SensorPropertyCommonGuid, propIndex);
             return GetProperty(propKey);
@@ -361,7 +364,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// </summary>
         /// <param name="propKeys">An array of properties to retrieve.</param>
         /// <returns>A dictionary that contains the property keys and values.</returns>
-        public IDictionary<PropertyKey, object> GetProperties(PropertyKey[] propKeys)
+        public IDictionary<PropertyKey, object?> GetProperties(PropertyKey[] propKeys)
         {
             if (propKeys == null || propKeys.Length == 0)
             {
@@ -379,7 +382,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                     keyCollection.Add(ref propKey);
                 }
 
-                Dictionary<PropertyKey, object> data = new Dictionary<PropertyKey, object>();
+                Dictionary<PropertyKey, object?> data = new();
                 HResult hr = _nativeISensor.GetProperties(keyCollection, out valuesCollection);
                 if (CoreErrorHelper.Succeeded(hr) && valuesCollection != null)
                 {
@@ -466,7 +469,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <remarks>
         /// The returned array will contain null values for some properties if the values could not be retrieved.
         /// </remarks>        
-        public object[] GetProperties(params int[] propIndexes)
+        public object?[] GetProperties(params int[] propIndexes)
         {
             if (propIndexes == null || propIndexes.Length == 0)
             {
@@ -486,7 +489,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                     propKeyToIdx.Add(propKey, i);
                 }
 
-                object[] data = new object[propIndexes.Length];
+                object?[] data = new object[propIndexes.Length];
                 HResult hr = _nativeISensor.GetProperties(keyCollection, out valuesCollection);
                 if (hr == HResult.Ok)
                 {
@@ -528,7 +531,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// </summary>
         /// <param name="data">An array that contains the property keys and values.</param>
         /// <returns>A dictionary of the new values for the properties. Actual values may not match the requested values.</returns>                
-        public IDictionary<PropertyKey, object> SetProperties(DataFieldInfo[] data)
+        public IDictionary<PropertyKey, object?> SetProperties(DataFieldInfo[] data)
         {
             if (data == null || data.Length == 0)
             {
@@ -577,7 +580,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                 }
             }
 
-            Dictionary<PropertyKey, object> results = new Dictionary<PropertyKey, object>();
+            Dictionary<PropertyKey, object?> results = new();
             IPortableDeviceValues pdv2 = null;
             HResult hr = _nativeISensor.SetProperties(pdv, out pdv2);
             if (hr == HResult.Ok)
@@ -650,8 +653,8 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         #endregion
 
         #region Implementation
-        private ISensor _nativeISensor;
-        internal ISensor InternalObject
+        private ISensor? _nativeISensor;
+        internal ISensor? InternalObject
         {
             get => _nativeISensor;
             set

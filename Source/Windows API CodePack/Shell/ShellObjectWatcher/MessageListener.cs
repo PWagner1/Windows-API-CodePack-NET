@@ -10,17 +10,17 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         private const string MessageWindowClassName = "MessageListenerClass";
 
-        private static readonly object _threadlock = new object();
+        private static readonly object _threadlock = new();
         private static uint _atom;
         private static Thread _windowThread = null;
         private static volatile bool _running = false;
 
         private static ShellObjectWatcherNativeMethods.WndProcDelegate wndProc = WndProc;
         // Dictionary relating window's hwnd to its message window
-        private static Dictionary<IntPtr, MessageListener> _listeners = new Dictionary<IntPtr, MessageListener>();
+        private static Dictionary<IntPtr, MessageListener> _listeners = new();
         private static IntPtr _firstWindowHandle = IntPtr.Zero;
 
-        private static readonly object _crossThreadWindowLock = new object();
+        private static readonly object _crossThreadWindowLock = new();
         private static IntPtr _tempHandle = IntPtr.Zero;
 
         public event EventHandler<WindowMessageEventArgs> MessageReceived;
@@ -156,7 +156,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         }
 
         public IntPtr WindowHandle { get; private set; }
-        public static bool Running { get { return _running; } }
+        public static bool Running => _running;
 
         #region IDisposable Members
 

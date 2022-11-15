@@ -21,10 +21,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <summary>
         /// Gets the <see cref="DateTime"/> representation of this object.
         /// </summary>
-        public DateTime DateTime
-        {
-            get { return new DateTime(Year, Month, Day, Hour, Minute, Second, Millisecond); }
-        }
+        public DateTime DateTime => new DateTime(Year, Month, Day, Hour, Minute, Second, Millisecond);
 
         public static implicit operator DateTime(SystemTime systemTime)
         {

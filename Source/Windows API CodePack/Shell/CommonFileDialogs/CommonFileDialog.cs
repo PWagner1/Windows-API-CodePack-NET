@@ -1,5 +1,7 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable SuggestVarOrType_BuiltInTypes
+#pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Dialogs
 {
     /// <summary>
@@ -339,17 +341,17 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 return;
             }
 
-            CommonFileDialogFilter filter = null;
+            CommonFileDialogFilter? filter = null;
 
             for (uint filtersCounter = 0; filtersCounter < _filters.Count; filtersCounter++)
             {
-                filter = (CommonFileDialogFilter)_filters[(int)filtersCounter];
+                filter = _filters[(int)filtersCounter];
 
                 if (filter.Extensions.Contains(DefaultExtension))
                 {
                     // set the docType combo to match this 
                     // extension. property is a 1-based index.
-                    dialog.SetFileTypeIndex(filtersCounter + 1);
+                    if (dialog != null) dialog.SetFileTypeIndex(filtersCounter + 1);
 
                     // we're done, exit for
                     break;
@@ -685,12 +687,12 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
             if (_initialDirectoryShellContainer != null)
             {
-                dialog.SetFolder(((ShellObject)_initialDirectoryShellContainer).NativeShellItem);
+                dialog.SetFolder(_initialDirectoryShellContainer.NativeShellItem);
             }
 
             if (_defaultDirectoryShellContainer != null)
             {
-                dialog.SetDefaultFolder(((ShellObject)_defaultDirectoryShellContainer).NativeShellItem);
+                dialog.SetDefaultFolder(_defaultDirectoryShellContainer.NativeShellItem);
             }
 
             if (!string.IsNullOrEmpty(_initialDirectory))
@@ -1152,7 +1154,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                             // Also check subcontrols
                             else if ((groupBox = control as CommonFileDialogGroupBox) != null)
                             {
-                                foreach (CommonFileDialogControl subcontrol in groupBox.Items)
+                                foreach (CommonFileDialogControl? subcontrol in groupBox.Items)
                                 {
                                     CommonFileDialogTextBox textbox = subcontrol as CommonFileDialogTextBox;
                                     if (textbox != null)
@@ -1222,7 +1224,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             public void OnItemSelected(IFileDialogCustomize pfdc, int dwIdCtl, int dwIdItem)
             {
                 // Find control
-                DialogControl control = _parent._controls.GetControlbyId(dwIdCtl);
+                DialogControl? control = _parent._controls.GetControlbyId(dwIdCtl);
 
                 ICommonFileDialogIndexedControls controlInterface;
                 CommonFileDialogMenu menu;
@@ -1252,7 +1254,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             public void OnButtonClicked(IFileDialogCustomize pfdc, int dwIdCtl)
             {
                 // Find control
-                DialogControl control = _parent._controls.GetControlbyId(dwIdCtl);
+                DialogControl? control = _parent._controls.GetControlbyId(dwIdCtl);
                 CommonFileDialogButton button = control as CommonFileDialogButton;
                 // Call corresponding event
                 if (button != null)
@@ -1264,7 +1266,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             public void OnCheckButtonToggled(IFileDialogCustomize pfdc, int dwIdCtl, bool bChecked)
             {
                 // Find control
-                DialogControl control = _parent._controls.GetControlbyId(dwIdCtl);
+                DialogControl? control = _parent._controls.GetControlbyId(dwIdCtl);
 
                 CommonFileDialogCheckBox box = control as CommonFileDialogCheckBox;
                 // Update control and call corresponding event

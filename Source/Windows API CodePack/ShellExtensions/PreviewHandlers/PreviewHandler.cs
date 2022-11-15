@@ -23,7 +23,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         /// <summary>
         /// Gets whether the preview is currently showing
         /// </summary>
-        public bool IsPreviewShowing { get { return _isPreviewShowing; } }
+        public bool IsPreviewShowing => _isPreviewShowing;
 
         /// <summary>
         /// Called immediately before the preview is to be shown.        

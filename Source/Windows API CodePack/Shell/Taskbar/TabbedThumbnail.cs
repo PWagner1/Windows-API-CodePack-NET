@@ -20,7 +20,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         private TaskbarWindow _taskbarWindow;
         internal TaskbarWindow TaskbarWindow
         {
-            get { return _taskbarWindow; }
+            get => _taskbarWindow;
             set
             {
                 _taskbarWindow = value;
@@ -36,7 +36,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         private bool _addedToTaskbar;
         internal bool AddedToTaskbar
         {
-            get { return _addedToTaskbar; }
+            get => _addedToTaskbar;
             set
             {
                 _addedToTaskbar = value;
@@ -141,10 +141,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public string Title
         {
-            get
-            {
-                return _title;
-            }
+            get => _title;
             set
             {
                 if (_title != value)
@@ -162,7 +159,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public string Tooltip
         {
-            get { return _tooltip; }
+            get => _tooltip;
             set
             {
                 if (_tooltip != value)
@@ -211,7 +208,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public Rectangle? ClippingRectangle
         {
-            get { return _clippingRectangle; }
+            get => _clippingRectangle;
             set
             {
                 _clippingRectangle = value;

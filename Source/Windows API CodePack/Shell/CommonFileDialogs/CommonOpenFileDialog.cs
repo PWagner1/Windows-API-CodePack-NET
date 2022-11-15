@@ -1,5 +1,7 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable InlineOutVariableDeclaration
+#pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Dialogs
 {
     /// <summary>
@@ -82,8 +84,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public bool Multiselect
         {
-            get { return _multiselect; }
-            set { _multiselect = value; }
+            get => _multiselect;
+            set => _multiselect = value;
         }
 
         private bool _isFolderPicker;
@@ -93,8 +95,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public bool IsFolderPicker
         {
-            get { return _isFolderPicker; }
-            set { _isFolderPicker = value; }
+            get => _isFolderPicker;
+            set => _isFolderPicker = value;
         }
 
         private bool _allowNonFileSystem;
@@ -104,8 +106,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public bool AllowNonFileSystemItems
         {
-            get { return _allowNonFileSystem; }
-            set { _allowNonFileSystem = value; }
+            get => _allowNonFileSystem;
+            set => _allowNonFileSystem = value;
         }
         #endregion
 

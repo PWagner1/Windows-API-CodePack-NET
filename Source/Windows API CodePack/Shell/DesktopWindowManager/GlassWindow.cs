@@ -18,15 +18,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public static bool AeroGlassCompositionEnabled
         {
-            set
-            {
+            set =>
                 DesktopWindowManagerNativeMethods.DwmEnableComposition(
                     value ? CompositionEnable.Enable : CompositionEnable.Disable);
-            }
-            get
-            {
-                return DesktopWindowManagerNativeMethods.DwmIsCompositionEnabled();
-            }
+            get => DesktopWindowManagerNativeMethods.DwmIsCompositionEnabled();
         }
 
         #endregion
@@ -36,7 +31,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Fires when the availability of Glass effect changes.
         /// </summary>
-        public event EventHandler<AeroGlassCompositionChangedEventArgs> AeroGlassCompositionChanged;
+        public event EventHandler<AeroGlassCompositionChangedEventArgs>? AeroGlassCompositionChanged;
 
         #endregion
 

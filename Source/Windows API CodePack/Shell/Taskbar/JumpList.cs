@@ -43,7 +43,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         }
 
         // Best practice recommends defining a private object to lock on
-        private readonly object syncLock = new Object();
+        private readonly object syncLock = new();
 
         // Native implementation of destination list
         private ICustomDestinationList customDestinationList;
@@ -164,10 +164,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public int KnownCategoryOrdinalPosition
         {
-            get
-            {
-                return knownCategoryOrdinalPosition;
-            }
+            get => knownCategoryOrdinalPosition;
             set
             {
                 if (value < 0)
@@ -358,7 +355,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         private IEnumerable<string> ProcessDeletedItems(IObjectArray removedItems)
         {
-            List<string> removedItemsArray = new List<string>();
+            List<string> removedItemsArray = new();
 
             uint count;
             removedItems.GetCount(out count);

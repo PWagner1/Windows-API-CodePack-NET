@@ -258,7 +258,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void GetImageReferenceForValue(
             [In] PropVariant propvar,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] out string ppszImageRes);
+            [Out, MarshalAs(UnmanagedType.LPWStr)] out string? ppszImageRes);
     }
 
     [ComImport,
@@ -279,7 +279,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         void GetRangeSetValue([Out] PropVariant ppropvar);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void GetDisplayText([Out, MarshalAs(UnmanagedType.LPWStr)] out string ppszDisplay);
+        void GetDisplayText([Out, MarshalAs(UnmanagedType.LPWStr)] out string? ppszDisplay);
     }
 
     [ComImport,

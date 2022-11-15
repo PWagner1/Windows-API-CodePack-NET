@@ -8,10 +8,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
     public class ShellPropertyWriter : IDisposable
     {
 
-        private ShellObject? parentShellObject;
+        private ShellObject? _parentShellObject;
 
         // Reference to our writable PropertyStore
-        internal IPropertyStore writablePropStore;
+        internal IPropertyStore? WritablePropStore;
 
         internal ShellPropertyWriter(ShellObject? parent)
         {
@@ -22,27 +22,31 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
             try
             {
-                int hr = ParentShellObject.NativeShellItem2.GetPropertyStore(
+                if (ParentShellObject != null)
+                {
+#pragma warning disable CS8602
+                    int hr = ParentShellObject.NativeShellItem2.GetPropertyStore(
+#pragma warning restore CS8602
                         ShellNativeMethods.GetPropertyStoreOptions.ReadWrite,
                         ref guid,
-                        out writablePropStore);
+                        out WritablePropStore);
 
-                if (!CoreErrorHelper.Succeeded(hr))
-                {
-                    throw new PropertySystemException(LocalizedMessages.ShellPropertyUnableToGetWritableProperty,
-                        Marshal.GetExceptionForHR(hr));
-                }
-                else
-                {
-                    // If we succeed in creating a valid property store for this ShellObject,
-                    // then set it on the parent shell object for others to use.
-                    // Once this writer is closed/commited, we will set the 
-                    if (ParentShellObject.NativePropertyStore == null)
+                    if (!CoreErrorHelper.Succeeded(hr))
                     {
-                        ParentShellObject.NativePropertyStore = writablePropStore;
+                        throw new PropertySystemException(LocalizedMessages.ShellPropertyUnableToGetWritableProperty,
+                            Marshal.GetExceptionForHR(hr));
+                    }
+                    else
+                    {
+                        // If we succeed in creating a valid property store for this ShellObject,
+                        // then set it on the parent shell object for others to use.
+                        // Once this writer is closed/commited, we will set the 
+                        if (ParentShellObject.NativePropertyStore == null)
+                        {
+                            ParentShellObject.NativePropertyStore = WritablePropStore;
+                        }
                     }
                 }
-
             }
             catch (InvalidComObjectException e)
             {
@@ -59,8 +63,8 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// </summary>
         protected ShellObject? ParentShellObject
         {
-            get { return parentShellObject; }
-            private set { parentShellObject = value; }
+            get => _parentShellObject;
+            private set => _parentShellObject = value;
         }
 
         /// <summary>
@@ -87,20 +91,20 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// a numeric value.</exception>
         public void WriteProperty(PropertyKey key, object value, bool allowTruncatedValue)
         {
-            if (writablePropStore == null)
+            if (WritablePropStore == null)
                 throw new InvalidOperationException("Writeable store has been closed.");
 
             using (PropVariant propVar = PropVariant.FromObject(value))
             {
-                HResult result = writablePropStore.SetValue(ref key, propVar);
+                HResult result = WritablePropStore.SetValue(ref key, propVar);
 
                 if (!allowTruncatedValue && ((int)result == ShellNativeMethods.InPlaceStringTruncated))
                 {
                     // At this point we can't revert back the commit
                     // so don't commit, close the property store and throw an exception
                     // to let the user know.
-                    Marshal.ReleaseComObject(writablePropStore);
-                    writablePropStore = null;
+                    Marshal.ReleaseComObject(WritablePropStore);
+                    WritablePropStore = null;
 
                     throw new ArgumentOutOfRangeException("value", LocalizedMessages.ShellPropertyValueTruncated);
                 }
@@ -230,12 +234,12 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         public void Close()
         {
             // Close the property writer (commit, etc)
-            if (writablePropStore != null)
+            if (WritablePropStore != null)
             {
-                writablePropStore.Commit();
+                WritablePropStore.Commit();
 
-                Marshal.ReleaseComObject(writablePropStore);
-                writablePropStore = null;
+                Marshal.ReleaseComObject(WritablePropStore);
+                WritablePropStore = null;
             }
 
             ParentShellObject.NativePropertyStore = null;

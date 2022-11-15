@@ -8,7 +8,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
     /// <typeparam name="TSensor">The type of sensor in the list.</typeparam>        
     public class SensorList<TSensor> : IList<TSensor> where TSensor : Sensor
     {
-        private List<TSensor> sensorList = new List<TSensor>();
+        private List<TSensor> sensorList = new();
 
         #region IList<S> Members
 
@@ -48,14 +48,8 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <returns>The sensor.</returns>
         public TSensor this[int index]
         {
-            get
-            {
-                return sensorList[index];
-            }
-            set
-            {
-                sensorList[index] = value;
-            }
+            get => sensorList[index];
+            set => sensorList[index] = value;
         }
 
         #endregion
@@ -102,24 +96,12 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <summary>
         /// Gets the number of items in the list.
         /// </summary>
-        public int Count
-        {
-            get
-            {
-                return sensorList.Count;
-            }
-        }
+        public int Count => sensorList.Count;
 
         /// <summary>
         /// Gets a value that determines if the list is read-only.
         /// </summary>
-        public bool IsReadOnly
-        {
-            get
-            {
-                return (sensorList as ICollection<TSensor>).IsReadOnly;
-            }
-        }
+        public bool IsReadOnly => (sensorList as ICollection<TSensor>).IsReadOnly;
 
         /// <summary>
         /// Removes a specific sensor from the list.

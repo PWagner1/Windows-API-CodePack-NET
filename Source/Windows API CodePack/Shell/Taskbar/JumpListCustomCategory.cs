@@ -7,7 +7,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
     /// </summary>
     public class JumpListCustomCategory
     {
-        private string name;
+        private string? _name;
 
         internal JumpListItemCollection<IJumpListItem> JumpListItems
         {
@@ -18,14 +18,14 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <summary>
         /// Category name
         /// </summary>
-        public string Name
+        public string? Name
         {
-            get { return name; }
+            get => _name;
             set
             {
-                if (value != name)
+                if (value != _name)
                 {
-                    name = value;
+                    _name = value;
                     CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
                 }
             }
@@ -36,7 +36,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// Add JumpList items for this category
         /// </summary>
         /// <param name="items">The items to add to the JumpList.</param>
-        public void AddJumpListItems(params IJumpListItem[] items)
+        public void AddJumpListItems(params IJumpListItem[]? items)
         {
             if (items != null)
             {
@@ -56,7 +56,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// Creates a new custom category instance
         /// </summary>
         /// <param name="categoryName">Category name</param>
-        public JumpListCustomCategory(string categoryName)
+        public JumpListCustomCategory(string? categoryName)
         {
             Name = categoryName;
 
@@ -72,7 +72,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         internal void RemoveJumpListItem(string path)
         {
-            List<IJumpListItem> itemsToRemove = new List<IJumpListItem>(
+            List<IJumpListItem> itemsToRemove = new(
                 from i in JumpListItems
                 where string.Equals(path, i.Path, StringComparison.OrdinalIgnoreCase)
                 select i);

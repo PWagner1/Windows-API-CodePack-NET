@@ -60,7 +60,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             // Notify that we're about to remove a control.
             // Throw if dialog showing.
-            if (!hostingDialog.IsCollectionChangeAllowed())
+            if (hostingDialog != null && !hostingDialog.IsCollectionChangeAllowed())
             {
                 throw new InvalidOperationException(LocalizedMessages.DialogCollectionModifyShowingDialog);
             }
@@ -71,7 +71,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             control.HostingDialog = null;
             base.RemoveItem(index);
 
-            hostingDialog.ApplyCollectionChanged();
+            if (hostingDialog != null) hostingDialog.ApplyCollectionChanged();
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         ///<exception cref="System.ArgumentException">
         /// The name cannot be null or a zero-length string.</exception>
         /// <remarks>If there is more than one control with the same name, only the <B>first control</B> will be returned.</remarks>
-        public T this[string name]
+        public T? this[string name]
         {
             get
             {
@@ -93,7 +93,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                     throw new ArgumentException(LocalizedMessages.DialogCollectionControlNameNull, "name");
                 }
 
-                return Items.FirstOrDefault(x => x.Name == name);
+                return Items.FirstOrDefault(x => x.Name == name) ?? null;
             }
         }
 
@@ -107,9 +107,9 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// 
         /// <returns>A DialogControl who's id matches the value of the
         /// <paramref name="id"/> parameter.</returns>        
-        internal DialogControl GetControlbyId(int id)
+        internal DialogControl? GetControlbyId(int id)
         {
-            return Items.FirstOrDefault(x => x.Id == id);
+            return Items.FirstOrDefault(x => x.Id == id) ?? null;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
     /// <typeparam name="T">The type of elements in this collection.</typeparam>
     internal class JumpListItemCollection<T> : ICollection<T>, INotifyCollectionChanged
     {
-        private List<T> items = new List<T>();
+        private List<T> items = new();
 
         /// <summary>
         /// Occurs anytime a change is made to the underlying collection.
@@ -23,10 +23,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <summary>
         /// Gets a count of the items currently in this collection.
         /// </summary>
-        public int Count
-        {
-            get { return items.Count; }
-        }
+        public int Count => items.Count;
 
         /// <summary>
         /// Adds the specified item to this collection.

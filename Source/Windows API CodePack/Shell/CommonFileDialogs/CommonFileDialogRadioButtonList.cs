@@ -8,14 +8,11 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
     [ContentProperty("Items")]
     public class CommonFileDialogRadioButtonList : CommonFileDialogControl, ICommonFileDialogIndexedControls
     {
-        private Collection<CommonFileDialogRadioButtonListItem> items = new Collection<CommonFileDialogRadioButtonListItem>();
+        private Collection<CommonFileDialogRadioButtonListItem> items = new();
         /// <summary>
         /// Gets the collection of CommonFileDialogRadioButtonListItem objects
         /// </summary>
-        public Collection<CommonFileDialogRadioButtonListItem> Items
-        {
-            get { return items; }
-        }
+        public Collection<CommonFileDialogRadioButtonListItem> Items => items;
 
         /// <summary>
         /// Creates a new instance of this class.
@@ -37,7 +34,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")]
         public int SelectedIndex
         {
-            get { return selectedIndex; }
+            get => selectedIndex;
             set
             {
                 // Don't update this property if it hasn't changed

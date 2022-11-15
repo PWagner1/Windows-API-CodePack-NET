@@ -111,6 +111,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 rawExtension = rawExtension.Replace(".", null);
                 return rawExtension;
             }
+
+            return String.Empty;
         }
 
         private static string GetDisplayExtensionList(Collection<string?> extensions)

@@ -57,7 +57,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <value>A <see cref="System.Boolean"/> value.</value>
         public bool Selected
         {
-            get { return selected; }
+            get => selected;
             set
             {
                 selected = value;
@@ -71,7 +71,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <value>A <see cref="System.Boolean"/> value.</value>
         public bool LinkOverlay
         {
-            get { return linkOverlay; }
+            get => linkOverlay;
             set
             {
                 linkOverlay = value;
@@ -85,7 +85,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <value>A <see cref="Microsoft.WindowsAPICodePack.Shell.StockIconSize"/> value.</value>
         public StockIconSize CurrentSize
         {
-            get { return currentSize; }
+            get => currentSize;
             set
             {
                 currentSize = value;
@@ -98,7 +98,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public StockIconIdentifier Identifier
         {
-            get { return identifier; }
+            get => identifier;
             set
             {
                 identifier = value;

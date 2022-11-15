@@ -87,32 +87,32 @@
         /// <summary>
         /// Gets the window handle
         /// </summary>
-        public IntPtr WindowHandle { get { return windowHandle; } }
+        public IntPtr WindowHandle => windowHandle;
 
         /// <summary>
         /// Gets the window message
         /// </summary>
-        public uint Msg { get { return msg; } }
+        public uint Msg => msg;
 
         /// <summary>
         /// Gets the WParam
         /// </summary>
-        public IntPtr WParam { get { return wparam; } }
+        public IntPtr WParam => wparam;
 
         /// <summary>
         /// Gets the LParam
         /// </summary>
-        public IntPtr LParam { get { return lparam; } }
+        public IntPtr LParam => lparam;
 
         /// <summary>
         /// Gets the time
         /// </summary>
-        public int Time { get { return time; } }
+        public int Time => time;
 
         /// <summary>
         /// Gets the point
         /// </summary>
-        public NativePoint Point { get { return point; } }
+        public NativePoint Point => point;
 
         /// <summary>
         /// Creates a new instance of the Message struct
@@ -166,7 +166,7 @@
         /// </summary>
         /// <param name="obj">Another message</param>
         /// <returns>True if this message is equal argument; false otherwise.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return (obj != null && obj is Message) ? this == (Message)obj : false;
         }

@@ -1,5 +1,8 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable SuggestVarOrType_BuiltInTypes
+// ReSharper disable SuggestVarOrType_SimpleTypes
+#pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Dialogs
 {
     /// <summary>
@@ -106,7 +109,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                                 hresult);
                             break;
                     }
-                    Exception e = Marshal.GetExceptionForHR((int)hresult);
+                    Exception? e = Marshal.GetExceptionForHR((int)hresult);
                     throw new Win32Exception(msg, e);
                 }
 

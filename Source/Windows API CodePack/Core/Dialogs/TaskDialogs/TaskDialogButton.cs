@@ -25,7 +25,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public bool UseElevationIcon
         {
-            get { return useElevationIcon; }
+            get => useElevationIcon;
             set
             {
                 CheckPropertyChangeAllowed("ShowElevationIcon");

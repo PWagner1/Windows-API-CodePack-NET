@@ -289,7 +289,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         [PreserveSig]
-        HResult GetProperties(out IPropertyStore ppStore);
+        HResult GetProperties(out IPropertyStore? ppStore);
 
         // Not currently supported: IPropertyStore, IFileOperationProgressSink.
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

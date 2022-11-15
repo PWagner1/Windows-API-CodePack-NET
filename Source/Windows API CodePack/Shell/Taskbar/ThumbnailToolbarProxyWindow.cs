@@ -11,13 +11,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         internal UIElement WindowsControl { get; set; }
 
-        internal IntPtr WindowToTellTaskbarAbout
-        {
-            get
-            {
-                return _internalWindowHandle != IntPtr.Zero ? _internalWindowHandle : Handle;
-            }
-        }
+        internal IntPtr WindowToTellTaskbarAbout => _internalWindowHandle != IntPtr.Zero ? _internalWindowHandle : Handle;
 
         internal TaskbarWindow TaskbarWindow { get; set; }
 

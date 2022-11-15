@@ -24,7 +24,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public TaskDialogProgressBarState State
         {
-            get { return state; }
+            get => state;
             set
             {
                 CheckPropertyChangeAllowed("State");

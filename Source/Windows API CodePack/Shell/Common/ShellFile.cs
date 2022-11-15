@@ -51,10 +51,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// The path for this file
         /// </summary>
-        virtual public string? Path
-        {
-            get { return ParsingName; }
-        }
+        virtual public string? Path => ParsingName;
 
         #endregion
     }

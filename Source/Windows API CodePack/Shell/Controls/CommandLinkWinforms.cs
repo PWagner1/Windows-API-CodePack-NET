@@ -42,10 +42,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// <summary>
         /// Increase default width.
         /// </summary>
-        protected override System.Drawing.Size DefaultSize
-        {
-            get { return new System.Drawing.Size(180, 60); }
-        }
+        protected override System.Drawing.Size DefaultSize => new System.Drawing.Size(180, 60);
 
         /// <summary>
         /// Specifies the supporting note text
@@ -56,11 +53,8 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         [DefaultValue("(Note Text)")]
         public string NoteText
         {
-            get { return (GetNote(this)); }
-            set
-            {
-                SetNote(this, value);
-            }
+            get => (GetNote(this));
+            set => SetNote(this, value);
         }
 
         /// <summary>
@@ -72,7 +66,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         [DefaultValue(false)]
         public bool UseElevationIcon
         {
-            get { return (useElevationIcon); }
+            get => (useElevationIcon);
             set
             {
                 useElevationIcon = value;
@@ -133,13 +127,8 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// <summary>
         /// Indicates whether this feature is supported on the current platform.
         /// </summary>
-        public static bool IsPlatformSupported
-        {
-            get
-            {
-                // We need Windows Vista onwards ...
-                return CoreHelpers.RunningOnVista;
-            }
-        }
+        public static bool IsPlatformSupported =>
+            // We need Windows Vista onwards ...
+            CoreHelpers.RunningOnVista;
     }
 }

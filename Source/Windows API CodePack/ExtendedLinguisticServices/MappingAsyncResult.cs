@@ -57,38 +57,20 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// <summary>
         /// Returns the result state.
         /// </summary>
-        public object AsyncState
-        {
-            get
-            {
-                return ResultState;
-            }
-        }
+        public object AsyncState => ResultState;
 
         /// <summary>
         /// Gets the WaitHandle which will be notified when
         /// the opration completes (successfully or not).
         /// </summary>
-        public WaitHandle AsyncWaitHandle
-        {
-            get
-            {
-                return _waitHandle;
-            }
-        }
-                
+        public WaitHandle AsyncWaitHandle => _waitHandle;
+
         /// <summary>
         /// From MSDN:
         /// Most implementers of the IAsyncResult interface
         /// will not use this property and should return false.
         /// </summary>
-        public bool CompletedSynchronously
-        {
-            get
-            {
-                return false;
-            }
-        }
+        public bool CompletedSynchronously => false;
 
         /// <summary>
         /// Queries whether the operation has completed.

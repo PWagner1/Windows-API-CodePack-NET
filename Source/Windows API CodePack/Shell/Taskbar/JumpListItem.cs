@@ -22,14 +22,8 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public new string? Path
         {
-            get
-            {
-                return base.Path;
-            }
-            set
-            {
-                base.ParsingName = value;
-            }
+            get => base.Path;
+            set => base.ParsingName = value;
         }
 
         #endregion
