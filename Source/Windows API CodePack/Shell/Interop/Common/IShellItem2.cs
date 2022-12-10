@@ -10,7 +10,7 @@ internal interface IShellItem2 : IShellItem
     // Not supported: IBindCtx.
     [PreserveSig]
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-    HResult BindToHandler(
+    new HResult BindToHandler(
         [In] IntPtr pbc,
         [In] ref Guid bhid,
         [In] ref Guid riid,
@@ -18,7 +18,7 @@ internal interface IShellItem2 : IShellItem
 
     [PreserveSig]
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-    HResult GetParent([MarshalAs(UnmanagedType.Interface)] out IShellItem? ppsi);
+    new HResult GetParent([MarshalAs(UnmanagedType.Interface)] out IShellItem? ppsi);
 
     [PreserveSig]
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -27,7 +27,7 @@ internal interface IShellItem2 : IShellItem
         [MarshalAs(UnmanagedType.LPWStr)] out string? ppszName);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-    void GetAttributes([In] ShellNativeMethods.ShellFileGetAttributesOptions sfgaoMask, out ShellNativeMethods.ShellFileGetAttributesOptions psfgaoAttribs);
+    new void GetAttributes([In] ShellNativeMethods.ShellFileGetAttributesOptions sfgaoMask, out ShellNativeMethods.ShellFileGetAttributesOptions psfgaoAttribs);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     void Compare(

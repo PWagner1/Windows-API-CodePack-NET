@@ -7,19 +7,19 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
     /// </summary>
     public class CommonFileDialogCheckBox : CommonFileDialogProminentControl
     {
-        private bool isChecked;
+        private bool _isChecked;
         /// <summary>
         /// Gets or sets the state of the check box.
         /// </summary>
         public bool IsChecked
         {
-            get => isChecked;
+            get => _isChecked;
             set
             {
                 // Check if property has changed
-                if (isChecked != value)
+                if (_isChecked != value)
                 {
-                    isChecked = value;
+                    _isChecked = value;
                     ApplyPropertyChange("IsChecked");
                 }
             }
