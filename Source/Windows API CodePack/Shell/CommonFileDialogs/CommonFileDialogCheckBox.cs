@@ -90,7 +90,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
             // Add a check button control
             if (dialog != null)
             {
-                dialog.AddCheckButton(Id, Text, isChecked);
+                dialog.AddCheckButton(Id, Text, _isChecked);
 
                 // Make this control prominent if needed
                 if (IsProminent)

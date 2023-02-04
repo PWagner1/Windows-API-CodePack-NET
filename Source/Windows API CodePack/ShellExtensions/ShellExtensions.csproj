@@ -10,12 +10,14 @@
 		<RootNamespace>Microsoft.WindowsAPICodePack.ShellExtensions</RootNamespace>
 		<AssemblyName>Microsoft.WindowsAPICodePack.ShellExtensions</AssemblyName>
 		<LangVersion>latest</LangVersion>
+		<LibraryVersion>7.0.2</LibraryVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
 		<Title>WindowsAPICodePackShellExtensions</Title>
+		<PackageVersion>7.0.2</PackageVersion>
 		<Description>
 			This package contains extensions to the shell binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
 		</Description>
@@ -42,27 +44,27 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Resources\LocalizedMessages.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>LocalizedMessages.resx</DependentUpon>
-	  </Compile>
+		<Compile Update="Resources\LocalizedMessages.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>LocalizedMessages.resx</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Update="Resources\LocalizedMessages.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>LocalizedMessages.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
+		<EmbeddedResource Update="Resources\LocalizedMessages.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>LocalizedMessages.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="../../../Assets/Documents/Licenses/License.md">
-	    <PackagePath>\</PackagePath>
-	  </None>
-	  <None Update="../../../Assets/Icon/PNG/Windows.png">
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<None Update="../../../Assets/Documents/Licenses/License.md">
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Update="../../../Assets/Icon/PNG/Windows.png">
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 </Project>

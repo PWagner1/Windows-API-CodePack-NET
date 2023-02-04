@@ -15,12 +15,13 @@
 		<Nullable>enable</Nullable>
 		<AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
 		<LangVersion>latest</LangVersion>
-		<LibraryVersion>7.0.0</LibraryVersion>
+		<LibraryVersion>7.0.2</LibraryVersion>
 	</PropertyGroup>
-	
+
 	<PropertyGroup>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>WindowsAPICodePackCore</Title>
+		<PackageVersion>7.0.2</PackageVersion>
 
 		<Description>
 			This package contains the core binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
@@ -47,27 +48,27 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Resources\LocalizedMessages.Designer.cs">
-	    <DesignTime>True</DesignTime>
-	    <AutoGen>True</AutoGen>
-	    <DependentUpon>LocalizedMessages.resx</DependentUpon>
-	  </Compile>
+		<Compile Update="Resources\LocalizedMessages.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>LocalizedMessages.resx</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <EmbeddedResource Update="Resources\LocalizedMessages.resx">
-	    <Generator>ResXFileCodeGenerator</Generator>
-	    <LastGenOutput>LocalizedMessages.Designer.cs</LastGenOutput>
-	  </EmbeddedResource>
+		<EmbeddedResource Update="Resources\LocalizedMessages.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>LocalizedMessages.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Update="../../../Assets/Documents/Licenses/License.md">
-	    <PackagePath>\</PackagePath>
-	  </None>
-	  <None Update="../../../Assets/Icon/PNG/Windows.png">
-	    <PackagePath>\</PackagePath>
-	  </None>
+		<None Update="../../../Assets/Documents/Licenses/License.md">
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Update="../../../Assets/Icon/PNG/Windows.png">
+			<PackagePath>\</PackagePath>
+		</None>
 	</ItemGroup>
 
 </Project>
