@@ -26,8 +26,8 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// <seealso cref="ApplicationRestartRecoveryManager"/>
         public RecoverySettings(RecoveryData data, uint interval)
         {
-            this.recoveryData = data;
-            this.pingInterval = interval;
+            recoveryData = data;
+            pingInterval = interval;
         }
 
         /// <summary>
@@ -36,10 +36,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// callback method.
         /// </summary>
         /// <value>A <see cref="RecoveryData"/> object.</value>
-        public RecoveryData RecoveryData
-        {
-            get { return recoveryData; }
-        }
+        public RecoveryData RecoveryData => recoveryData;
 
         /// <summary>
         /// Gets the time interval for notifying Windows Error Reporting.  
@@ -51,7 +48,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// By default, the interval is 5 seconds. 
         /// If you specify zero, the default interval is used. 
         /// </remarks>
-        public uint PingInterval { get { return pingInterval; } }
+        public uint PingInterval => pingInterval;
 
         /// <summary>
         /// Returns a string representation of the current state
@@ -60,11 +57,11 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// <returns>A <see cref="System.String"/> object.</returns>
         public override string ToString()
         {
-            return string.Format(System.Globalization.CultureInfo.InvariantCulture,
+            return string.Format(CultureInfo.InvariantCulture,
                 LocalizedMessages.RecoverySettingsFormatString,
-                this.recoveryData.Callback.Method.ToString(),
-                this.recoveryData.State.ToString(),
-                this.PingInterval);
+                recoveryData.Callback.Method.ToString(),
+                recoveryData.State.ToString(),
+                PingInterval);
         }
     }
 }

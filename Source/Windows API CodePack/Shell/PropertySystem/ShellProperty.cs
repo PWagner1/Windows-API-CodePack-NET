@@ -14,31 +14,31 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
     {
         #region Private Fields
 
-        private PropertyKey propertyKey;
-        string imageReferencePath = null;
-        int? imageReferenceIconIndex;
-        private ShellPropertyDescription description = null;
+        private PropertyKey _propertyKey;
+        string? _imageReferencePath = null;
+        int? _imageReferenceIconIndex;
+        private ShellPropertyDescription? _description = null;
 
         #endregion
 
         #region Private Methods
 
-        private ShellObject ParentShellObject { get; set; }
+        private ShellObject? ParentShellObject { get; set; }
 
         private IPropertyStore NativePropertyStore { get; set; }
 
         private void GetImageReference()
         {
-            IPropertyStore store = ShellPropertyCollection.CreateDefaultPropertyStore(ParentShellObject);
+            IPropertyStore? store = ShellPropertyCollection.CreateDefaultPropertyStore(ParentShellObject);
 
             using (PropVariant propVar = new PropVariant())
             {
-                store.GetValue(ref propertyKey, propVar);
+                store.GetValue(ref _propertyKey, propVar);
 
                 Marshal.ReleaseComObject(store);
                 store = null;
 
-                string refPath;
+                string? refPath;
                 ((IPropertyDescription2)Description.NativePropertyDescription).GetImageReferenceForValue(
                     propVar, out refPath);
 
@@ -47,8 +47,8 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 int index = ShellNativeMethods.PathParseIconLocation(ref refPath);
                 if (refPath != null)
                 {
-                    imageReferencePath = refPath;
-                    imageReferenceIconIndex = index;
+                    _imageReferencePath = refPath;
+                    _imageReferenceIconIndex = index;
                 }
             }
         }
@@ -56,7 +56,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         private void StorePropVariantValue(PropVariant propVar)
         {
             Guid guid = new Guid(ShellIIDGuid.IPropertyStore);
-            IPropertyStore writablePropStore = null;
+            IPropertyStore? writablePropStore = null;
             try
             {
                 int hr = ParentShellObject.NativeShellItem2.GetPropertyStore(
@@ -70,7 +70,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                         Marshal.GetExceptionForHR(hr));
                 }
 
-                HResult result = writablePropStore.SetValue(ref propertyKey, propVar);
+                HResult result = writablePropStore.SetValue(ref _propertyKey, propVar);
 
                 if (!AllowSetTruncatedValue && (int)result == ShellNativeMethods.InPlaceStringTruncated)
                 {
@@ -115,11 +115,11 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <param name="parent"></param>
         internal ShellProperty(
             PropertyKey propertyKey,
-            ShellPropertyDescription description,
-            ShellObject parent)
+            ShellPropertyDescription? description,
+            ShellObject? parent)
         {
-            this.propertyKey = propertyKey;
-            this.description = description;
+            this._propertyKey = propertyKey;
+            this._description = description;
             ParentShellObject = parent;
             AllowSetTruncatedValue = false;
         }
@@ -132,11 +132,11 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <param name="propertyStore"></param>
         internal ShellProperty(
             PropertyKey propertyKey,
-            ShellPropertyDescription description,
+            ShellPropertyDescription? description,
             IPropertyStore propertyStore)
         {
-            this.propertyKey = propertyKey;
-            this.description = description;
+            this._propertyKey = propertyKey;
+            this._description = description;
             NativePropertyStore = propertyStore;
             AllowSetTruncatedValue = false;
         }
@@ -166,17 +166,17 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                     if (ParentShellObject.NativePropertyStore != null)
                     {
                         // If there is a valid property store for this shell object, then use it.
-                        ParentShellObject.NativePropertyStore.GetValue(ref propertyKey, propVar);
+                        ParentShellObject.NativePropertyStore.GetValue(ref _propertyKey, propVar);
                     }
                     else if (ParentShellObject != null)
                     {
                         // Use IShellItem2.GetProperty instead of creating a new property store
                         // The file might be locked. This is probably quicker, and sufficient for what we need
-                        ParentShellObject.NativeShellItem2.GetProperty(ref propertyKey, propVar);
+                        ParentShellObject.NativeShellItem2.GetProperty(ref _propertyKey, propVar);
                     }
                     else if (NativePropertyStore != null)
                     {
-                        NativePropertyStore.GetValue(ref propertyKey, propVar);
+                        NativePropertyStore.GetValue(ref _propertyKey, propVar);
                     }
 
                     //Get the value
@@ -191,7 +191,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 if (typeof(T) != ValueType)
                 {
                     throw new NotSupportedException(
-                        string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                        string.Format(CultureInfo.InvariantCulture,
                         LocalizedMessages.ShellPropertyWrongType, ValueType.Name));
                 }
 
@@ -237,13 +237,8 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <summary>
         /// Gets the property key identifying this property.
         /// </summary>
-        public PropertyKey PropertyKey
-        {
-            get
-            {
-                return propertyKey;
-            }
-        }
+        public PropertyKey PropertyKey => _propertyKey;
+
         /// <summary>
         /// Returns a formatted, Unicode string representation of a property value.
         /// </summary>
@@ -264,11 +259,11 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 return false;
             }
 
-            IPropertyStore store = ShellPropertyCollection.CreateDefaultPropertyStore(ParentShellObject);
+            IPropertyStore? store = ShellPropertyCollection.CreateDefaultPropertyStore(ParentShellObject);
 
             using (PropVariant propVar = new PropVariant())
             {
-                store.GetValue(ref propertyKey, propVar);
+                store.GetValue(ref _propertyKey, propVar);
 
                 // Release the Propertystore
                 Marshal.ReleaseComObject(store);
@@ -304,11 +299,11 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 return null;
             }
 
-            IPropertyStore store = ShellPropertyCollection.CreateDefaultPropertyStore(ParentShellObject);
+            IPropertyStore? store = ShellPropertyCollection.CreateDefaultPropertyStore(ParentShellObject);
 
             using (PropVariant propVar = new PropVariant())
             {
-                store.GetValue(ref propertyKey, propVar);
+                store.GetValue(ref _propertyKey, propVar);
 
                 // Release the Propertystore
                 Marshal.ReleaseComObject(store);
@@ -328,25 +323,13 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <summary>
         /// Get the property description object.
         /// </summary>
-        public ShellPropertyDescription Description
-        {
-            get
-            {
-                return description;
-            }
-        }
+        public ShellPropertyDescription? Description => _description;
 
         /// <summary>
         /// Gets the case-sensitive name of a property as it is known to the system,
         /// regardless of its localized name.
         /// </summary>
-        public string CanonicalName
-        {
-            get
-            {
-                return Description.CanonicalName;
-            }
-        }
+        public string CanonicalName => Description.CanonicalName;
 
         /// <summary>
         /// Clears the value of the property.
@@ -374,16 +357,16 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                     if (ParentShellObject != null)
                     {
 
-                        IPropertyStore store = ShellPropertyCollection.CreateDefaultPropertyStore(ParentShellObject);
+                        IPropertyStore? store = ShellPropertyCollection.CreateDefaultPropertyStore(ParentShellObject);
 
-                        store.GetValue(ref propertyKey, propVar);
+                        store.GetValue(ref _propertyKey, propVar);
 
                         Marshal.ReleaseComObject(store);
                         store = null;
                     }
                     else if (NativePropertyStore != null)
                     {
-                        NativePropertyStore.GetValue(ref propertyKey, propVar);
+                        NativePropertyStore.GetValue(ref _propertyKey, propVar);
                     }
 
                     return propVar != null ? propVar.Value : null;
@@ -418,9 +401,9 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 }
 
                 GetImageReference();
-                int index = (imageReferenceIconIndex.HasValue ? imageReferenceIconIndex.Value : -1);
+                int index = (_imageReferenceIconIndex.HasValue ? _imageReferenceIconIndex.Value : -1);
 
-                return new IconReference(imageReferencePath, index);
+                return new IconReference(_imageReferencePath, index);
             }
         }
 

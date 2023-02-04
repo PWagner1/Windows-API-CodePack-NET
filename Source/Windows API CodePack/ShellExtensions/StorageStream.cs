@@ -1,4 +1,6 @@
-﻿namespace Microsoft.WindowsAPICodePack.ShellExtensions
+﻿using STATSTG = System.Runtime.InteropServices.ComTypes.STATSTG;
+
+namespace Microsoft.WindowsAPICodePack.ShellExtensions
 {
     /// <summary>
     /// A wrapper for the native IStream object.
@@ -15,7 +17,7 @@
                 throw new ArgumentNullException("stream");
             }
             _isReadOnly = readOnly;
-            this._stream = stream;
+            _stream = stream;
         }
 
         /// <summary>
@@ -45,18 +47,18 @@
         /// <summary>
         /// Gets whether the stream can be read from.
         /// </summary>
-        public override bool CanRead { get { return _stream != null; } }
+        public override bool CanRead => _stream != null;
 
         /// <summary>
         /// Gets whether seeking is supported by the stream.
         /// </summary>
-        public override bool CanSeek { get { return _stream != null; } }
+        public override bool CanSeek => _stream != null;
 
         /// <summary>
         /// Gets whether the stream can be written to.
         /// Always false.
         /// </summary>
-        public override bool CanWrite { get { return _stream != null && !_isReadOnly; } }
+        public override bool CanWrite => _stream != null && !_isReadOnly;
 
         /// <summary>
         /// Reads a buffer worth of bytes from the stream.
@@ -153,7 +155,7 @@
             {
                 ThrowIfDisposed();
                 const int STATFLAG_NONAME = 1;
-                System.Runtime.InteropServices.ComTypes.STATSTG stats;
+                STATSTG stats;
                 _stream.Stat(out stats, STATFLAG_NONAME);
                 return stats.cbSize;
             }
@@ -226,37 +228,5 @@
         }
 
         private void ThrowIfDisposed() { if (_stream == null) throw new ObjectDisposedException(GetType().Name); }
-    }
-
-    /// <summary>
-    /// Options for commiting (flushing) an IStream storage stream
-    /// </summary>
-    [Flags]
-    internal enum StorageStreamCommitOptions
-    {
-        /// <summary>
-        /// Uses default options
-        /// </summary>
-        None = 0,
-
-        /// <summary>
-        /// Overwrite option
-        /// </summary>
-        Overwrite = 1,
-
-        /// <summary>
-        /// Only if current
-        /// </summary>
-        OnlyIfCurrent = 2,
-
-        /// <summary>
-        /// Commits to disk cache dangerously
-        /// </summary>
-        DangerouslyCommitMerelyToDiskCache = 4,
-
-        /// <summary>
-        /// Consolidate
-        /// </summary>
-        Consolidate = 8
     }
 }

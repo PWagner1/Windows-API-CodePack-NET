@@ -13,7 +13,7 @@ internal interface ICondition : IPersistStream
     //     When this method returns, contains a reference to the CLSID. This parameter
     //     is passed uninitialized.
     [PreserveSig]
-    void GetClassID(out Guid pClassID);
+    new void GetClassID(out Guid pClassID);
     //
     // Summary:
     //     Checks an object for changes since it was last saved to its current file.
@@ -22,16 +22,16 @@ internal interface ICondition : IPersistStream
     //     S_OK if the file has changed since it was last saved; S_FALSE if the file
     //     has not changed since it was last saved.
     [PreserveSig]
-    HResult IsDirty();
+    new HResult IsDirty();
 
     [PreserveSig]
-    HResult Load([In, MarshalAs(UnmanagedType.Interface)] IStream stm);
+    new HResult Load([In, MarshalAs(UnmanagedType.Interface)] IStream stm);
 
     [PreserveSig]
-    HResult Save([In, MarshalAs(UnmanagedType.Interface)] IStream stm, bool fRemember);
+    new HResult Save([In, MarshalAs(UnmanagedType.Interface)] IStream stm, bool fRemember);
 
     [PreserveSig]
-    HResult GetSizeMax(out ulong cbSize);
+    new HResult GetSizeMax(out ulong cbSize);
 
     // For any node, return what kind of node it is.
     [PreserveSig]
@@ -49,7 +49,7 @@ internal interface ICondition : IPersistStream
     // Any one of ppszPropertyName, pcop and ppropvar may be NULL.
     [PreserveSig]
     HResult GetComparisonInfo(
-        [Out, MarshalAs(UnmanagedType.LPWStr)] out string ppszPropertyName,
+        [Out, MarshalAs(UnmanagedType.LPWStr)] out string? ppszPropertyName,
         [Out] out SearchConditionOperation pcop,
         [Out] PropVariant ppropvar);
 

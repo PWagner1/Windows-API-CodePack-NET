@@ -10,7 +10,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Gets the path for this known folder.
         /// </summary>
-        string Path { get; }
+        string? Path { get; }
 
         /// <summary>
         /// Gets the category designation for this known folder.
@@ -40,12 +40,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Gets this known folder's parsing name.
         /// </summary>
-        string ParsingName { get; }
+        string? ParsingName { get; }
 
         /// <summary>
         /// Gets this known folder's tool tip text.
         /// </summary>
-        string Tooltip { get; }
+        string? Tooltip { get; }
 
         /// <summary>
         /// Gets the resource identifier for this 
@@ -56,7 +56,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Gets this known folder's localized name.
         /// </summary>
-        string LocalizedName { get; }
+        string? LocalizedName { get; }
 
         /// <summary>
         /// Gets the resource identifier for this 

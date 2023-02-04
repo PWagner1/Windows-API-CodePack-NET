@@ -6,13 +6,13 @@ namespace Microsoft.WindowsAPICodePack.Shell;
 interface IQuerySolution : IConditionFactory
 {
     [PreserveSig]
-    HResult MakeNot([In] ICondition pcSub, [In] bool fSimplify, [Out] out ICondition ppcResult);
+    new HResult MakeNot([In] ICondition pcSub, [In] bool fSimplify, [Out] out ICondition ppcResult);
 
     [PreserveSig]
-    HResult MakeAndOr([In] SearchConditionType ct, [In] IEnumUnknown peuSubs, [In] bool fSimplify, [Out] out ICondition ppcResult);
+    new HResult MakeAndOr([In] SearchConditionType ct, [In] IEnumUnknown peuSubs, [In] bool fSimplify, [Out] out ICondition ppcResult);
 
     [PreserveSig]
-    HResult MakeLeaf(
+    new HResult MakeLeaf(
         [In, MarshalAs(UnmanagedType.LPWStr)] string pszPropertyName,
         [In] SearchConditionOperation cop,
         [In, MarshalAs(UnmanagedType.LPWStr)] string pszValueType,
@@ -24,7 +24,7 @@ interface IQuerySolution : IConditionFactory
         [Out] out ICondition ppcResult);
 
     [PreserveSig]
-    HResult Resolve(/*[In] ICondition pc, [In] int sqro, [In] ref SYSTEMTIME pstReferenceTime, [Out] out ICondition ppcResolved*/);
+    new HResult Resolve(/*[In] ICondition pc, [In] int sqro, [In] ref SYSTEMTIME pstReferenceTime, [Out] out ICondition ppcResolved*/);
 
     // Retrieve the condition tree and the "main type" of the solution.
     // ppQueryNode and ppMainType may be NULL.

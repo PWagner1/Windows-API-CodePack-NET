@@ -25,14 +25,8 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         public string Category
         {
-            get
-            {
-                return _win32EnumOption._category;
-            }
-            set
-            {
-                _win32EnumOption._category = value;
-            }
+            get => _win32EnumOption._category;
+            set => _win32EnumOption._category = value;
         }
 
         /// <summary>
@@ -42,14 +36,8 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         public string InputLanguage
         {
-            get
-            {
-                return _win32EnumOption._inputLanguage;
-            }
-            set
-            {
-                _win32EnumOption._inputLanguage = value;
-            }
+            get => _win32EnumOption._inputLanguage;
+            set => _win32EnumOption._inputLanguage = value;
         }
 
         /// <summary>
@@ -59,14 +47,8 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         public string OutputLanguage
         {
-            get
-            {
-                return _win32EnumOption._outputLanguage;
-            }
-            set
-            {
-                _win32EnumOption._outputLanguage = value;
-            }
+            get => _win32EnumOption._outputLanguage;
+            set => _win32EnumOption._outputLanguage = value;
         }
 
         /// <summary>
@@ -75,14 +57,8 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         public string InputScript
         {
-            get
-            {
-                return _win32EnumOption._inputScript;
-            }
-            set
-            {
-                _win32EnumOption._inputScript = value;
-            }
+            get => _win32EnumOption._inputScript;
+            set => _win32EnumOption._inputScript = value;
         }
 
         /// <summary>
@@ -91,14 +67,8 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         public string OutputScript
         {
-            get
-            {
-                return _win32EnumOption._outputScript;
-            }
-            set
-            {
-                _win32EnumOption._outputScript = value;
-            }
+            get => _win32EnumOption._outputScript;
+            set => _win32EnumOption._outputScript = value;
         }
 
         /// <summary>
@@ -112,14 +82,8 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         public string InputContentType
         {
-            get
-            {
-                return _win32EnumOption._inputContentType;
-            }
-            set
-            {
-                _win32EnumOption._inputContentType = value;
-            }
+            get => _win32EnumOption._inputContentType;
+            set => _win32EnumOption._inputContentType = value;
         }
 
         /// <summary>
@@ -129,14 +93,8 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         public string OutputContentType
         {
-            get
-            {
-                return _win32EnumOption._outputContentType;
-            }
-            set
-            {
-                _win32EnumOption._outputContentType = value;
-            }
+            get => _win32EnumOption._outputContentType;
+            set => _win32EnumOption._outputContentType = value;
         }
 
         /// <summary>
@@ -145,14 +103,8 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         public Nullable<Guid> Guid
         {
-            get
-            {
-                return _guid;
-            }
-            set
-            {
-                _guid = value;
-            }
+            get => _guid;
+            set => _guid = value;
         }
     }
 
@@ -179,14 +131,8 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         public string InputLanguage
         {
-            get
-            {
-                return _win32Options._inputLanguage;
-            }
-            set
-            {
-                _win32Options._inputLanguage = value;
-            }
+            get => _win32Options._inputLanguage;
+            set => _win32Options._inputLanguage = value;
         }
 
         /// <summary>
@@ -196,14 +142,8 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         public string OutputLanguage
         {
-            get
-            {
-                return _win32Options._outputLanguage;
-            }
-            set
-            {
-                _win32Options._outputLanguage = value;
-            }
+            get => _win32Options._outputLanguage;
+            set => _win32Options._outputLanguage = value;
         }
 
         /// <summary>
@@ -212,14 +152,8 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         public string InputScript
         {
-            get
-            {
-                return _win32Options._inputScript;
-            }
-            set
-            {
-                _win32Options._inputScript = value;
-            }
+            get => _win32Options._inputScript;
+            set => _win32Options._inputScript = value;
         }
 
         /// <summary>
@@ -228,14 +162,8 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         public string OutputScript
         {
-            get
-            {
-                return _win32Options._outputScript;
-            }
-            set
-            {
-                _win32Options._outputScript = value;
-            }
+            get => _win32Options._outputScript;
+            set => _win32Options._outputScript = value;
         }
 
         /// <summary>
@@ -249,14 +177,8 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         public string InputContentType
         {
-            get
-            {
-                return _win32Options._inputContentType;
-            }
-            set
-            {
-                _win32Options._inputContentType = value;
-            }
+            get => _win32Options._inputContentType;
+            set => _win32Options._inputContentType = value;
         }
 
         /// <summary>
@@ -266,14 +188,8 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         public string OutputContentType
         {
-            get
-            {
-                return _win32Options._outputContentType;
-            }
-            set
-            {
-                _win32Options._outputContentType = value;
-            }
+            get => _win32Options._outputContentType;
+            set => _win32Options._outputContentType = value;
         }
 
         /// <summary>
@@ -282,17 +198,11 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         ///
         /// <note>For Windows 7, none of the available ELS services support flags.</note>
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
+        [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flag")]
         public int ServiceFlag
         {
-            get
-            {
-                return (int)_win32Options._serviceFlag;
-            }
-            set
-            {
-                _win32Options._serviceFlag = (uint)value;
-            }
+            get => (int)_win32Options._serviceFlag;
+            set => _win32Options._serviceFlag = (uint)value;
         }
 
     }

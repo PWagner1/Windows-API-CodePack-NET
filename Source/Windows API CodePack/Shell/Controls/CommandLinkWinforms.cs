@@ -42,10 +42,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// <summary>
         /// Increase default width.
         /// </summary>
-        protected override System.Drawing.Size DefaultSize
-        {
-            get { return new System.Drawing.Size(180, 60); }
-        }
+        protected override System.Drawing.Size DefaultSize => new System.Drawing.Size(180, 60);
 
         /// <summary>
         /// Specifies the supporting note text
@@ -56,11 +53,8 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         [DefaultValue("(Note Text)")]
         public string NoteText
         {
-            get { return (GetNote(this)); }
-            set
-            {
-                SetNote(this, value);
-            }
+            get => (GetNote(this));
+            set => SetNote(this, value);
         }
 
         /// <summary>
@@ -72,11 +66,11 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         [DefaultValue(false)]
         public bool UseElevationIcon
         {
-            get { return (useElevationIcon); }
+            get => (useElevationIcon);
             set
             {
                 useElevationIcon = value;
-                SetShieldIcon(this, this.useElevationIcon);
+                SetShieldIcon(this, useElevationIcon);
             }
         }
         private bool useElevationIcon;
@@ -96,7 +90,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
             return style;
         }
 
-        private static string GetNote(System.Windows.Forms.Button Button)
+        private static string GetNote(Button Button)
         {
             IntPtr retVal = CoreNativeMethods.SendMessage(
                 Button.Handle,
@@ -112,13 +106,13 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
             return strBld.ToString();
         }
 
-        private static void SetNote(System.Windows.Forms.Button button, string text)
+        private static void SetNote(Button button, string text)
         {
             // This call will be ignored on versions earlier than Windows Vista.
             CoreNativeMethods.SendMessage(button.Handle, ShellNativeMethods.SetNote, 0, text);
         }
 
-        static internal void SetShieldIcon(System.Windows.Forms.Button Button, bool Show)
+        static internal void SetShieldIcon(Button Button, bool Show)
         {
             IntPtr fRequired = new IntPtr(Show ? 1 : 0);
             CoreNativeMethods.SendMessage(
@@ -133,13 +127,8 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// <summary>
         /// Indicates whether this feature is supported on the current platform.
         /// </summary>
-        public static bool IsPlatformSupported
-        {
-            get
-            {
-                // We need Windows Vista onwards ...
-                return CoreHelpers.RunningOnVista;
-            }
-        }
+        public static bool IsPlatformSupported =>
+            // We need Windows Vista onwards ...
+            CoreHelpers.RunningOnVista;
     }
 }

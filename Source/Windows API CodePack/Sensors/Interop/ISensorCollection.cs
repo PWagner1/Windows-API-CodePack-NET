@@ -13,7 +13,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// </summary>
         /// <param name="ulIndex">The index for the sensor to retrieve</param>
         /// <param name="ppSensor">The sensor retrieved</param>
-        void GetAt([In] uint ulIndex, [Out] out ISensor ppSensor);
+        void GetAt([In] uint ulIndex, [Out] out ISensor? ppSensor);
 
         /// <summary>
         /// Get the sensor count for the collection
@@ -25,7 +25,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// Add a sensor to the collection
         /// </summary>
         /// <param name="pSensor">The sensor to add</param>
-        void Add([In, MarshalAs(UnmanagedType.IUnknown)] ISensor pSensor);
+        void Add([In, MarshalAs(UnmanagedType.IUnknown)] ISensor? pSensor);
 
         /// <summary>
         /// Remove a sensor from the collection
@@ -52,13 +52,13 @@ namespace Microsoft.WindowsAPICodePack.Sensors
     internal class SensorCollection : ISensorCollection
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void GetAt([In] uint index, [MarshalAs(UnmanagedType.Interface)] out ISensor ppSensor);
+        public virtual extern void GetAt([In] uint index, [MarshalAs(UnmanagedType.Interface)] out ISensor? ppSensor);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern void GetCount(out uint pCount);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void Add([MarshalAs(UnmanagedType.Interface)] ISensor pSensor);
+        public virtual extern void Add([MarshalAs(UnmanagedType.Interface)] ISensor? pSensor);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern void Remove([MarshalAs(UnmanagedType.Interface)] ISensor pSensor);

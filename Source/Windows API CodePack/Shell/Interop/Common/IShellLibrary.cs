@@ -8,7 +8,7 @@ internal interface IShellLibrary
     [PreserveSig]
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     HResult LoadLibraryFromItem(
-        [In, MarshalAs(UnmanagedType.Interface)] IShellItem library,
+        [In, MarshalAs(UnmanagedType.Interface)] IShellItem? library,
         [In] AccessModes grfMode);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -17,10 +17,10 @@ internal interface IShellLibrary
         [In] AccessModes grfMode);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-    void AddFolder([In, MarshalAs(UnmanagedType.Interface)] IShellItem location);
+    void AddFolder([In, MarshalAs(UnmanagedType.Interface)] IShellItem? location);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-    void RemoveFolder([In, MarshalAs(UnmanagedType.Interface)] IShellItem location);
+    void RemoveFolder([In, MarshalAs(UnmanagedType.Interface)] IShellItem? location);
 
     [PreserveSig]
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
@@ -40,12 +40,12 @@ internal interface IShellLibrary
     void GetDefaultSaveFolder(
         [In] ShellNativeMethods.DefaultSaveFolderType dsft,
         [In] ref Guid riid,
-        [MarshalAs(UnmanagedType.Interface)] out IShellItem ppv);
+        [MarshalAs(UnmanagedType.Interface)] out IShellItem? ppv);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     void SetDefaultSaveFolder(
         [In] ShellNativeMethods.DefaultSaveFolderType dsft,
-        [In, MarshalAs(UnmanagedType.Interface)] IShellItem si);
+        [In, MarshalAs(UnmanagedType.Interface)] IShellItem? si);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     void GetOptions(
@@ -73,15 +73,15 @@ internal interface IShellLibrary
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     void Save(
-        [In, MarshalAs(UnmanagedType.Interface)] IShellItem folderToSaveIn,
+        [In, MarshalAs(UnmanagedType.Interface)] IShellItem? folderToSaveIn,
         [In, MarshalAs(UnmanagedType.LPWStr)] string libraryName,
         [In] ShellNativeMethods.LibrarySaveOptions lsf,
-        [MarshalAs(UnmanagedType.Interface)] out IShellItem2 savedTo);
+        [MarshalAs(UnmanagedType.Interface)] out IShellItem2? savedTo);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     void SaveInKnownFolder(
         [In] ref Guid kfidToSaveIn,
         [In, MarshalAs(UnmanagedType.LPWStr)] string libraryName,
         [In] ShellNativeMethods.LibrarySaveOptions lsf,
-        [MarshalAs(UnmanagedType.Interface)] out IShellItem2 savedTo);
+        [MarshalAs(UnmanagedType.Interface)] out IShellItem2? savedTo);
 };

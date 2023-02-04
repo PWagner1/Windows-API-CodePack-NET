@@ -40,7 +40,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
         [DllImport("propsys.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern int PSGetPropertyKeyFromName(
-            [In, MarshalAs(UnmanagedType.LPWStr)] string pszCanonicalName,
+            [In, MarshalAs(UnmanagedType.LPWStr)] string? pszCanonicalName,
             out PropertyKey propkey
         );
 

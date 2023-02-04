@@ -22,13 +22,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// index passed to the function in the index parameter. The value should be less than the entire length
         /// of the text.
         /// </summary>
-        public int StartIndex
-        {
-            get
-            {
-                return (int)_win32DataRange._startIndex;
-            }
-        }
+        public int StartIndex => (int)_win32DataRange._startIndex;
 
         /// <summary>
         /// Index of the end of the subrange in the text, where 0 indicates the first character at of the string
@@ -37,13 +31,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// index passed to the function in the index parameter. The value should be less than the entire length
         /// of the text.
         /// </summary>
-        public int EndIndex
-        {
-            get
-            {
-                return (int)_win32DataRange._endIndex;
-            }
-        }
+        public int EndIndex => (int)_win32DataRange._endIndex;
 
         /// <summary>
         /// The data retrieved as service output associated with the subrange. This data must be of the format indicated
@@ -71,13 +59,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// <note>In Windows 7, the ELS services support only the content type "text/plain". A content type specification
         /// can be found at the IANA website: http://www.iana.org/assignments/media-types/text/ </note>
         /// </summary>
-        public string ContentType
-        {
-            get
-            {
-                return _win32DataRange._contentType;
-            }
-        }
+        public string ContentType => _win32DataRange._contentType;
 
         /// <summary>
         /// Available action IDs for this data range. Usable for calling <see cref="MappingService.DoAction">MappingService.DoAction</see> or

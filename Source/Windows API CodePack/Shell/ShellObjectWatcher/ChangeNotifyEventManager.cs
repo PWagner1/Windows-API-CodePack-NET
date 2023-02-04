@@ -1,4 +1,5 @@
-﻿namespace Microsoft.WindowsAPICodePack.Shell
+﻿// ReSharper disable AssignNullToNotNullAttribute
+namespace Microsoft.WindowsAPICodePack.Shell
 {
     internal class ChangeNotifyEventManager
     {
@@ -36,7 +37,7 @@
         };
         #endregion
 
-        private Dictionary<ShellObjectChangeTypes, Delegate> _events = new Dictionary<ShellObjectChangeTypes, Delegate>();
+        private Dictionary<ShellObjectChangeTypes, Delegate> _events = new();
 
         public void Register(ShellObjectChangeTypes changeType, Delegate handler)
         {
@@ -47,7 +48,7 @@
             }
             else
             {
-                del = MulticastDelegate.Combine(del, handler);
+                del = Delegate.Combine(del, handler);
                 _events[changeType] = del;
             }
         }
@@ -57,7 +58,7 @@
             Delegate del;
             if (_events.TryGetValue(changeType, out del))
             {
-                del = MulticastDelegate.Remove(del, handler);
+                del = Delegate.Remove(del, handler);
                 if (del == null) // It's a bug in .NET if del is non-null and has an empty invocation list.
                 {
                     _events.Remove(changeType);

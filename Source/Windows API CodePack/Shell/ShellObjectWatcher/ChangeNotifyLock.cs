@@ -21,11 +21,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 if (notifyStruct.item1 != IntPtr.Zero &&
                     (((ShellObjectChangeTypes)_event) & ShellObjectChangeTypes.SystemImageUpdate) == ShellObjectChangeTypes.None)
                 {
-                    IShellItem2 nativeShellItem;
+                    IShellItem2? nativeShellItem;
                     if (CoreErrorHelper.Succeeded(ShellNativeMethods.SHCreateItemFromIDList(
                         notifyStruct.item1, ref guid, out nativeShellItem)))
                     {
-                        string name;
+                        string? name;
                         nativeShellItem.GetDisplayName(ShellNativeMethods.ShellItemDesignNameOptions.FileSystemPath,
                             out name);                        
                         ItemName = name;
@@ -40,11 +40,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                 if (notifyStruct.item2 != IntPtr.Zero)
                 {
-                    IShellItem2 nativeShellItem;
+                    IShellItem2? nativeShellItem;
                     if (CoreErrorHelper.Succeeded(ShellNativeMethods.SHCreateItemFromIDList(
                         notifyStruct.item2, ref guid, out nativeShellItem)))
                     {                        
-                        string name;
+                        string? name;
                         nativeShellItem.GetDisplayName(ShellNativeMethods.ShellItemDesignNameOptions.FileSystemPath,
                             out name);
                         ItemName2 = name;
@@ -63,21 +63,14 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         }
 
-        public bool FromSystemInterrupt
-        {
-            get
-            {
-                return ((ShellObjectChangeTypes)_event & ShellObjectChangeTypes.FromInterrupt)
-                    != ShellObjectChangeTypes.None;
-            }
-        }
+        public bool FromSystemInterrupt =>
+            ((ShellObjectChangeTypes)_event & ShellObjectChangeTypes.FromInterrupt)
+            != ShellObjectChangeTypes.None;
 
         public int ImageIndex { get; private set; }
-        public string ItemName { get; private set; }
-        public string ItemName2 { get; private set; }
+        public string? ItemName { get; private set; }
+        public string? ItemName2 { get; private set; }
 
-        public ShellObjectChangeTypes ChangeType { get { return (ShellObjectChangeTypes)_event; } }
-
-
+        public ShellObjectChangeTypes ChangeType => (ShellObjectChangeTypes)_event;
     }
 }

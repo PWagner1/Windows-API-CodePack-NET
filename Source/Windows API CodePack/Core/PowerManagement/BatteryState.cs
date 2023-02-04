@@ -94,7 +94,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// <returns>A <see cref="System.String"/> representation of this object's current state.</returns>        
         public override string ToString()
         {
-            return string.Format(System.Globalization.CultureInfo.InvariantCulture,
+            return string.Format(CultureInfo.InvariantCulture,
                 LocalizedMessages.BatteryStateStringRepresentation,
                 Environment.NewLine,
                 ACOnline,

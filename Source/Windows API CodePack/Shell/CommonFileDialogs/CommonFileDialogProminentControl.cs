@@ -1,7 +1,5 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-using System.Windows.Markup;
-
 namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
 {
     /// <summary>
@@ -10,7 +8,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
     [ContentProperty("Items")]
     public abstract class CommonFileDialogProminentControl : CommonFileDialogControl
     {
-        private bool isProminent;
+        private bool _isProminent;
 
         /// <summary>
         /// Gets or sets the prominent value of this control. 
@@ -21,8 +19,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// </remarks>
         public bool IsProminent
         {
-            get { return isProminent; }
-            set { isProminent = value; }
+            get => _isProminent;
+            set => _isProminent = value;
         }
 
 
@@ -35,13 +33,13 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Creates a new instance of this class with the specified text.
         /// </summary>
         /// <param name="text">The text to display for this control.</param>
-        protected CommonFileDialogProminentControl(string text) : base(text) { }
+        protected CommonFileDialogProminentControl(string? text) : base(text) { }
 
         /// <summary>
         /// Creates a new instance of this class with the specified name and text.
         /// </summary>
         /// <param name="name">The name of this control.</param>
         /// <param name="text">The text to display for this control.</param>
-        protected CommonFileDialogProminentControl(string name, string text) : base(name, text) { }
+        protected CommonFileDialogProminentControl(string? name, string? text) : base(name, text) { }
     }
 }

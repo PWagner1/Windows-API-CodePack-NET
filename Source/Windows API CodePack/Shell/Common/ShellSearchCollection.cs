@@ -9,6 +9,6 @@ namespace Microsoft.WindowsAPICodePack.Shell
     {
         internal ShellSearchCollection() { }
 
-        internal ShellSearchCollection(IShellItem2 shellItem) : base(shellItem) { }
+        internal ShellSearchCollection(IShellItem2? shellItem) : base(shellItem) { }
     }
 }

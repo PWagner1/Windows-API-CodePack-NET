@@ -1,5 +1,7 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+#pragma warning disable SYSLIB0003
+
 namespace Microsoft.WindowsAPICodePack.ApplicationServices
 {
     /// <summary>
@@ -8,11 +10,11 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
     /// </summary>
     public static class PowerManager
     {
-        private static bool? isMonitorOn;
-        private static bool monitorRequired;
-        private static bool requestBlockSleep;
+        private static bool? _isMonitorOn;
+        private static bool _monitorRequired;
+        private static bool _requestBlockSleep;
 
-        private static readonly object monitoronlock = new object();
+        private static readonly object Monitoronlock = new();
 
 
         #region Notifications
@@ -24,13 +26,9 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// <exception cref="System.PlatformNotSupportedException">Requires Vista/Windows Server 2008.</exception>
         public static event EventHandler PowerPersonalityChanged
         {
-            add
-            {
-
-
+            add =>
                 MessageManager.RegisterPowerEvent(
                     EventManager.PowerPersonalityChange, value);
-            }
 
             remove
             {
@@ -171,23 +169,23 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             get
             {
                 CoreHelpers.ThrowIfNotXP();
-                return monitorRequired;
+                return _monitorRequired;
             }
-            [System.Security.Permissions.PermissionSetAttribute(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
+            [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
             set
             {
                 CoreHelpers.ThrowIfNotXP();
 
                 if (value)
                 {
-                    PowerManager.SetThreadExecutionState(ExecutionStates.Continuous | ExecutionStates.DisplayRequired);
+                    SetThreadExecutionState(ExecutionStates.Continuous | ExecutionStates.DisplayRequired);
                 }
                 else
                 {
-                    PowerManager.SetThreadExecutionState(ExecutionStates.Continuous);
+                    SetThreadExecutionState(ExecutionStates.Continuous);
                 }
 
-                monitorRequired = value;
+                _monitorRequired = value;
             }
         }
 
@@ -206,19 +204,19 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             {
                 CoreHelpers.ThrowIfNotXP();
 
-                return requestBlockSleep;
+                return _requestBlockSleep;
             }
-            [System.Security.Permissions.PermissionSetAttribute(System.Security.Permissions.SecurityAction.Demand, Name = "FullTrust")]
+            [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
             set
             {
                 CoreHelpers.ThrowIfNotXP();
 
                 if (value)
-                    PowerManager.SetThreadExecutionState(ExecutionStates.Continuous | ExecutionStates.SystemRequired);
+                    SetThreadExecutionState(ExecutionStates.Continuous | ExecutionStates.SystemRequired);
                 else
-                    PowerManager.SetThreadExecutionState(ExecutionStates.Continuous);
+                    SetThreadExecutionState(ExecutionStates.Continuous);
 
-                requestBlockSleep = value;
+                _requestBlockSleep = value;
             }
         }
 
@@ -334,11 +332,11 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             {
                 CoreHelpers.ThrowIfNotVista();
 
-                lock (monitoronlock)
+                lock (Monitoronlock)
                 {
-                    if (isMonitorOn == null)
+                    if (_isMonitorOn == null)
                     {
-                        EventHandler dummy = delegate(object sender, EventArgs args) { };
+                        EventHandler dummy = delegate { };
                         IsMonitorOnChanged += dummy;
                         // Wait until Windows updates the power source 
                         // (through RegisterPowerSettingNotification)
@@ -346,9 +344,9 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
                     }
                 }
 
-                return (bool)isMonitorOn;
+                return _isMonitorOn != null && ((bool)_isMonitorOn)!;
             }
-            internal set { isMonitorOn = value; }
+            internal set => _isMonitorOn = value;
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable InlineOutVariableDeclaration
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -7,11 +8,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
     /// </summary>
     internal static class ShellHelper
     {
-        internal static string GetParsingName(IShellItem shellItem)
+        internal static string? GetParsingName(IShellItem? shellItem)
         {
             if (shellItem == null) { return null; }
 
-            string path = null;
+            string? path = null;
 
             IntPtr pszPath = IntPtr.Zero;
             HResult hr = shellItem.GetDisplayName(ShellNativeMethods.ShellItemDesignNameOptions.DesktopAbsoluteParsing, out pszPath);
@@ -32,27 +33,30 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         }
 
-        internal static string GetAbsolutePath(string path)
+        internal static string? GetAbsolutePath(string? path)
         {
             if (Uri.IsWellFormedUriString(path, UriKind.Absolute))
             {
                 return path;
             }
-            return Path.GetFullPath((path));
+
+            if (path != null) return Path.GetFullPath((path));
+
+            return string.Empty;
         }
 
-        internal static PropertyKey ItemTypePropertyKey = new PropertyKey(new Guid("28636AA6-953D-11D2-B5D6-00C04FD918D0"), 11);
+        internal static PropertyKey ItemTypePropertyKey = new(new Guid("28636AA6-953D-11D2-B5D6-00C04FD918D0"), 11);
 
-        internal static string GetItemType(IShellItem2 shellItem)
+        internal static string GetItemType(IShellItem2? shellItem)
         {
             if (shellItem != null)
             {
-                string itemType = null;                
+                string? itemType = null;                
                 HResult hr = shellItem.GetString(ref ItemTypePropertyKey, out itemType);
                 if (hr == HResult.Ok) { return itemType; }
             }
 
-            return null;
+            return string.Empty;
         }
 
         internal static IntPtr PidlFromParsingName(string name)
@@ -67,7 +71,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             return (CoreErrorHelper.Succeeded(retCode) ? pidl : IntPtr.Zero);
         }
 
-        internal static IntPtr PidlFromShellItem(IShellItem nativeShellItem)
+        internal static IntPtr PidlFromShellItem(IShellItem? nativeShellItem)
         {
             IntPtr unknown = Marshal.GetIUnknownForObject(nativeShellItem);
             return PidlFromUnknown(unknown);

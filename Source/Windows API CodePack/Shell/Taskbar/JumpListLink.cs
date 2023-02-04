@@ -14,7 +14,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         /// <param name="pathValue">The path to the item. The path is required for the JumpList Link</param>
         /// <param name="titleValue">The title for the JumpListLink item. The title is required for the JumpList link.</param>
-        public JumpListLink(string pathValue, string titleValue)
+        public JumpListLink(string? pathValue, string titleValue)
         {
             if (string.IsNullOrEmpty(pathValue))
             {
@@ -36,7 +36,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public string Title
         {
-            get { return title; }
+            get => title;
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -48,13 +48,13 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        private string path;
+        private string? path;
         /// <summary>
         /// Gets or sets the link's path
         /// </summary>
-        public string Path
+        public string? Path
         {
-            get { return path; }
+            get => path;
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -87,11 +87,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         public WindowShowCommand ShowCommand { get; set; }
 
         private IPropertyStore nativePropertyStore;
-        private IShellLinkW nativeShellLink;
+        private IShellLinkW? nativeShellLink;
         /// <summary>
         /// Gets an IShellLinkW representation of this object
         /// </summary>
-        internal override IShellLinkW NativeShellLink
+        internal override IShellLinkW? NativeShellLink
         {
             get
             {

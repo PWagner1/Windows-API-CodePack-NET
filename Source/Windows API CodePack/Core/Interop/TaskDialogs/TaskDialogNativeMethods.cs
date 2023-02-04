@@ -15,7 +15,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         [DllImport("Comctl32.dll", SetLastError = true)]
         internal static extern HResult TaskDialogIndirect(
-            [In] TaskDialogNativeMethods.TaskDialogConfiguration taskConfig,
+            [In] TaskDialogConfiguration taskConfig,
             [Out] out int button,
             [Out] out int radioButton,
             [MarshalAs(UnmanagedType.Bool), Out] out bool verificationFlagChecked);
@@ -31,12 +31,12 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             internal TaskDialogOptions taskDialogFlags;
             internal TaskDialogCommonButtons commonButtons;
             [MarshalAs(UnmanagedType.LPWStr)]
-            internal string windowTitle;
+            internal string? windowTitle;
             internal IconUnion mainIcon; // NOTE: 32-bit union field, holds pszMainIcon as well
             [MarshalAs(UnmanagedType.LPWStr)]
-            internal string mainInstruction;
+            internal string? mainInstruction;
             [MarshalAs(UnmanagedType.LPWStr)]
-            internal string content;
+            internal string? content;
             internal uint buttonCount;
             internal IntPtr buttons;           // Ptr to TASKDIALOG_BUTTON structs
             internal int defaultButtonIndex;
@@ -44,17 +44,17 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             internal IntPtr radioButtons;      // Ptr to TASKDIALOG_BUTTON structs
             internal int defaultRadioButtonIndex;
             [MarshalAs(UnmanagedType.LPWStr)]
-            internal string verificationText;
+            internal string? verificationText;
             [MarshalAs(UnmanagedType.LPWStr)]
-            internal string expandedInformation;
+            internal string? expandedInformation;
             [MarshalAs(UnmanagedType.LPWStr)]
-            internal string expandedControlText;
+            internal string? expandedControlText;
             [MarshalAs(UnmanagedType.LPWStr)]
-            internal string collapsedControlText;
+            internal string? collapsedControlText;
             internal IconUnion footerIcon;  // NOTE: 32-bit union field, holds pszFooterIcon as well
             [MarshalAs(UnmanagedType.LPWStr)]
-            internal string footerText;
-            internal TaskDialogCallback callback;
+            internal string? footerText;
+            internal TaskDialogCallback? callback;
             internal IntPtr callbackData;
             internal uint width;
         }
@@ -78,7 +78,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             /// <summary>
             /// Gets the handle to the Icon
             /// </summary>
-            public IntPtr MainIcon { get { return mainIcon; } }
+            public IntPtr MainIcon => mainIcon;
         }
 
         // NOTE: Packing must be set to 4 to make this work on 64-bit platforms.

@@ -8,17 +8,20 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
 
         internal delegate UInt32 InternalRecoveryCallback(IntPtr state);
 
-        private static InternalRecoveryCallback internalCallback = new InternalRecoveryCallback(InternalRecoveryHandler);
-        internal static InternalRecoveryCallback InternalCallback { get { return internalCallback; } }
+        private static readonly InternalRecoveryCallback _internalCallback = new(InternalRecoveryHandler);
+        internal static InternalRecoveryCallback InternalCallback => _internalCallback;
 
         private static UInt32 InternalRecoveryHandler(IntPtr parameter)
         {
-            bool cancelled = false;
-            ApplicationRecoveryInProgress(out cancelled);
+            ApplicationRecoveryInProgress(out _);
 
             GCHandle handle = GCHandle.FromIntPtr(parameter);
-            RecoveryData data = handle.Target as RecoveryData;
-            data.Invoke();
+            RecoveryData? data = handle.Target as RecoveryData;
+            if (data != null)
+            {
+                data.Invoke();
+            }
+
             handle.Free();
 
             return (0);

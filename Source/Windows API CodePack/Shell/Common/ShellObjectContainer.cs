@@ -12,14 +12,14 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         #region Private Fields
 
-        private IShellFolder desktopFolderEnumeration;
-        private IShellFolder nativeShellFolder;
+        private IShellFolder? desktopFolderEnumeration;
+        private IShellFolder? nativeShellFolder;
 
         #endregion
 
         #region Internal Properties
 
-        internal IShellFolder NativeShellFolder
+        internal IShellFolder? NativeShellFolder
         {
             get
             {
@@ -28,15 +28,18 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     Guid guid = new Guid(ShellIIDGuid.IShellFolder);
                     Guid handler = new Guid(ShellBHIDGuid.ShellFolderObject);
 
-                    HResult hr = NativeShellItem.BindToHandler(
-                        IntPtr.Zero, ref handler, ref guid, out nativeShellFolder);
-
-                    if (CoreErrorHelper.Failed(hr))
+                    if (NativeShellItem != null)
                     {
-                        string str = ShellHelper.GetParsingName(NativeShellItem);
-                        if (str != null && str != Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
+                        HResult hr = NativeShellItem.BindToHandler(
+                            IntPtr.Zero, ref handler, ref guid, out nativeShellFolder);
+
+                        if (CoreErrorHelper.Failed(hr))
                         {
-                            throw new ShellException(hr);
+                            string? str = ShellHelper.GetParsingName(NativeShellItem);
+                            if (str != null && str != Environment.GetFolderPath(Environment.SpecialFolder.Desktop))
+                            {
+                                throw new ShellException(hr);
+                            }
                         }
                     }
                 }
@@ -51,7 +54,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         internal ShellContainer() { }
 
-        internal ShellContainer(IShellItem2 shellItem) : base(shellItem) { }
+        internal ShellContainer(IShellItem2? shellItem) : base(shellItem) { }
 
         #endregion
 

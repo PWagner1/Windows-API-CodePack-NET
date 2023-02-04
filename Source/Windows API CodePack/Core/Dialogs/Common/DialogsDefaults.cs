@@ -4,9 +4,9 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 {
     public static class DialogsDefaults
     {
-        public static string Caption { get { return LocalizedMessages.DialogDefaultCaption; } }
-        public static string MainInstruction { get { return LocalizedMessages.DialogDefaultMainInstruction; } }
-        public static string Content { get { return LocalizedMessages.DialogDefaultContent; } }
+        public static string Caption => LocalizedMessages.DialogDefaultCaption;
+        public static string MainInstruction => LocalizedMessages.DialogDefaultMainInstruction;
+        public static string Content => LocalizedMessages.DialogDefaultContent;
 
         public const int ProgressBarStartingValue = 0;
         public const int ProgressBarMinimumValue = 0;

@@ -24,14 +24,11 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <summary>
         /// Gets a string representing the sensor type GUID.
         /// </summary>
-        public string SensorType { get { return _sensorType.ToString(); } }
+        public string SensorType => _sensorType.ToString();
 
         /// <summary>
         /// Gets the GUID of the sensor type.
         /// </summary>
-        public Guid SensorTypeGuid
-        {
-            get { return _sensorType; }
-        }
+        public Guid SensorTypeGuid => _sensorType;
     }
 }

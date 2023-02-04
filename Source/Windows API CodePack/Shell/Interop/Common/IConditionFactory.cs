@@ -15,7 +15,7 @@ internal interface IConditionFactory
     HResult MakeLeaf(
         [In, MarshalAs(UnmanagedType.LPWStr)] string pszPropertyName,
         [In] SearchConditionOperation cop,
-        [In, MarshalAs(UnmanagedType.LPWStr)] string pszValueType,
+        [In, MarshalAs(UnmanagedType.LPWStr)] string? pszValueType,
         [In] PropVariant ppropvar,
         IRichChunk richChunk1,
         IRichChunk richChunk2,

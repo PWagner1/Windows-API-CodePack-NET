@@ -15,19 +15,19 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HResult GetSensorsByCategory(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid sensorCategory,
-            [Out, MarshalAs(UnmanagedType.Interface)] out ISensorCollection ppSensorsFound);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISensorCollection? ppSensorsFound);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HResult GetSensorsByType(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid sensorType,
-            [Out, MarshalAs(UnmanagedType.Interface)] out ISensorCollection ppSensorsFound);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISensorCollection? ppSensorsFound);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern HResult GetSensorByID(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid sensorID,
-            [Out, MarshalAs(UnmanagedType.Interface)] out ISensor ppSensor);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISensor? ppSensor);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern void SetEventSink(
@@ -54,7 +54,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         [PreserveSig]
         HResult GetSensorsByCategory(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid sensorCategory,
-            [Out, MarshalAs(UnmanagedType.Interface)] out ISensorCollection ppSensorsFound);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISensorCollection? ppSensorsFound);
 
         /// <summary>
         /// Get sensors by type, Ex: Ambient Light
@@ -64,7 +64,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         [PreserveSig]
         HResult GetSensorsByType(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid sensorType,
-            [Out, MarshalAs(UnmanagedType.Interface)] out ISensorCollection ppSensorsFound);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISensorCollection? ppSensorsFound);
 
         /// <summary>
         /// Get a unique instance of a sensor
@@ -74,7 +74,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         [PreserveSig]
         HResult GetSensorByID(
             [In, MarshalAs(UnmanagedType.LPStruct)] Guid sensorID,
-            [Out, MarshalAs(UnmanagedType.Interface)] out ISensor ppSensor);
+            [Out, MarshalAs(UnmanagedType.Interface)] out ISensor? ppSensor);
 
         /// <summary>
         /// Subscribe to ISensors events

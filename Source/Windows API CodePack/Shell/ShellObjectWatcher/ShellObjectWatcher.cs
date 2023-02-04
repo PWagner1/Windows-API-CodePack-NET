@@ -12,7 +12,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         private ShellObject _shellObject;
         private bool _recursive;
 
-        private ChangeNotifyEventManager _manager = new ChangeNotifyEventManager();
+        private ChangeNotifyEventManager _manager = new();
         private IntPtr _listenerHandle;
         private uint _message;
 
@@ -40,7 +40,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
 
             _shellObject = shellObject;
-            this._recursive = recursive;
+            _recursive = recursive;
 
             var result = MessageListenerFilter.Register(OnWindowMessageReceived);
             _listenerHandle = result.WindowHandle;
@@ -52,8 +52,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public bool Running
         {
-            get { return _running; }
-            private set { _running = value; }
+            get => _running;
+            private set => _running = value;
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             ShellNativeMethods.SHChangeNotifyEntry entry = new ShellNativeMethods.SHChangeNotifyEntry();
             entry.recursively = _recursive;
 
-            entry.pIdl = _shellObject.PIDL;
+            entry.pIdl = _shellObject.Pidl;
 
             _registrationId = ShellNativeMethods.SHChangeNotifyRegister(
                 _listenerHandle,

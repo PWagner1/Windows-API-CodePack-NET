@@ -19,7 +19,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         private TabbedThumbnail _tabbedThumbnailPreview;
         internal TabbedThumbnail TabbedThumbnail
         {
-            get { return _tabbedThumbnailPreview; }
+            get => _tabbedThumbnailPreview;
             set
             {
                 if (_tabbedThumbnailPreview != null)
@@ -36,7 +36,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         private ThumbnailToolBarButton[] _thumbnailButtons;
         internal ThumbnailToolBarButton[] ThumbnailButtons
         {
-            get { return _thumbnailButtons; }
+            get => _thumbnailButtons;
             set
             {
                 _thumbnailButtons = value;
@@ -108,12 +108,12 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             EnableTabbedThumbnails = false;
 
             //
-            this.ThumbnailButtons = buttons;
+            ThumbnailButtons = buttons;
             UserWindowHandle = userWindowHandle;
             WindowsControl = null;
         }
 
-        internal TaskbarWindow(System.Windows.UIElement windowsControl, params ThumbnailToolBarButton[] buttons)
+        internal TaskbarWindow(UIElement windowsControl, params ThumbnailToolBarButton[] buttons)
         {
             if (windowsControl == null)
             {
@@ -133,7 +133,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             EnableThumbnailToolbars = true;
             EnableTabbedThumbnails = false;
 
-            this.ThumbnailButtons = buttons;
+            ThumbnailButtons = buttons;
             UserWindowHandle = IntPtr.Zero;
             WindowsControl = windowsControl;
         }

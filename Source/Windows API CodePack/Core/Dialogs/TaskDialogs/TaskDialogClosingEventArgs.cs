@@ -7,26 +7,14 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
     /// </summary>
     public class TaskDialogClosingEventArgs : CancelEventArgs
     {
-        private TaskDialogResult taskDialogResult;
         /// <summary>
         /// Gets or sets the standard button that was clicked.
         /// </summary>
-        public TaskDialogResult TaskDialogResult
-        {
-            get { return taskDialogResult; }
-            set { taskDialogResult = value; }
-        }
+        public TaskDialogResult TaskDialogResult { get; set; }
 
-        private string customButton;
         /// <summary>
         /// Gets or sets the text of the custom button that was clicked.
         /// </summary>
-        public string CustomButton
-        {
-            get { return customButton; }
-            set { customButton = value; }
-        }
-
-        
+        public string? CustomButton { get; set; }
     }
 }

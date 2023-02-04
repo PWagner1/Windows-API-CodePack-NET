@@ -91,8 +91,8 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
     {
         internal static class TaskbarGuids
         {
-            internal static Guid IObjectArray = new Guid("92CA9DCD-5622-4BBA-A805-5E9F541BD8C9");
-            internal static Guid IUnknown = new Guid("00000000-0000-0000-C000-000000000046");
+            internal static Guid IObjectArray = new("92CA9DCD-5622-4BBA-A805-5E9F541BD8C9");
+            internal static Guid IUnknown = new("00000000-0000-0000-C000-000000000046");
         }
 
         internal const int WmCommand = 0x0111;

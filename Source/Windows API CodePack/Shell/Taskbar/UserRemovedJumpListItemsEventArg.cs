@@ -18,9 +18,6 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <summary>
         /// The collection of removed items based on path.
         /// </summary>
-        public IEnumerable RemovedItems
-        {
-            get { return _removedItems; }
-        }
+        public IEnumerable RemovedItems => _removedItems;
     }
 }

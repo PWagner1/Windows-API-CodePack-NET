@@ -19,24 +19,12 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <summary>
         /// A unique GUID for the property
         /// </summary>
-        public Guid FormatId
-        {
-            get
-            {
-                return formatId;
-            }
-        }
+        public Guid FormatId => formatId;
 
         /// <summary>
         ///  Property identifier (PID)
         /// </summary>
-        public Int32 PropertyId
-        {
-            get
-            {
-                return propertyId;
-            }
-        }
+        public Int32 PropertyId => propertyId;
 
         #endregion
 
@@ -96,7 +84,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// </summary>
         /// <param name="obj">The object to compare against.</param>
         /// <returns>Equality result.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null)
                 return false;
@@ -136,7 +124,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <returns>String representing the property key</returns>        
         public override string ToString()
         {
-            return string.Format(System.Globalization.CultureInfo.InvariantCulture,
+            return string.Format(CultureInfo.InvariantCulture,
                 LocalizedMessages.PropertyKeyFormatString,
                 formatId.ToString("B"), propertyId);
         }

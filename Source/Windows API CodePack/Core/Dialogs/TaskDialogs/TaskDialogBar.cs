@@ -16,7 +16,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// Creates a new instance of this class with the specified name.
         /// </summary>
         /// <param name="name">The name for this control.</param>
-        protected TaskDialogBar(string name) : base(name) { }
+        protected TaskDialogBar(string? name) : base(name) { }
 
         private TaskDialogProgressBarState state;
         /// <summary>
@@ -24,7 +24,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public TaskDialogProgressBarState State
         {
-            get { return state; }
+            get => state;
             set
             {
                 CheckPropertyChangeAllowed("State");

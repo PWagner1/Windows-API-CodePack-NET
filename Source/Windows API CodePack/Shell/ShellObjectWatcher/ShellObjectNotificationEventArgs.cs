@@ -30,7 +30,7 @@
         /// <summary>
         /// The path of the shell object
         /// </summary>
-        public string Path { get; private set; }
+        public string? Path { get; private set; }
 
         internal ShellObjectChangedEventArgs(ChangeNotifyLock notifyLock)
             : base(notifyLock)
@@ -47,7 +47,7 @@
         /// <summary>
         /// The new path of the shell object
         /// </summary>
-        public string NewPath { get; private set; }
+        public string? NewPath { get; private set; }
 
         internal ShellObjectRenamedEventArgs(ChangeNotifyLock notifyLock)
             : base(notifyLock)

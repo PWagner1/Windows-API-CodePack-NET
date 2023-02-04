@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -16,7 +17,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             NativeSearchCondition = nativeSearchCondition;
 
-            HResult hr = NativeSearchCondition.GetConditionType(out conditionType);
+            HResult hr = NativeSearchCondition.GetConditionType(out _conditionType);
 
             if (!CoreErrorHelper.Succeeded(hr))
             {
@@ -27,31 +28,28 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 using (PropVariant propVar = new PropVariant())
                 {
-                    hr = NativeSearchCondition.GetComparisonInfo(out canonicalName, out conditionOperation, propVar);
+                    hr = NativeSearchCondition.GetComparisonInfo(out _canonicalName, out _conditionOperation, propVar);
 
                     if (!CoreErrorHelper.Succeeded(hr))
                     {
                         throw new ShellException(hr);
                     }
 
-                    PropertyValue = propVar.Value.ToString();
+                    if (propVar.Value != null) PropertyValue = propVar.Value.ToString();
                 }
             }
         }
 
         internal ICondition NativeSearchCondition { get; set; }
 
-        private string canonicalName;
+        private string? _canonicalName;
         /// <summary>
         /// The name of a property to be compared or NULL for an unspecified property.
         /// </summary>
-        public string PropertyCanonicalName
-        {
-            get { return canonicalName; }
-        }
+        public string? PropertyCanonicalName => _canonicalName;
 
-        private PropertyKey propertyKey;
-        private PropertyKey emptyPropertyKey = new PropertyKey();
+        private PropertyKey _propertyKey;
+        private PropertyKey _emptyPropertyKey = new();
         /// <summary>
         /// The property key for the property that is to be compared.
         /// </summary>        
@@ -59,42 +57,36 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                if (propertyKey == emptyPropertyKey)
+                if (_propertyKey == _emptyPropertyKey)
                 {
-                    int hr = PropertySystemNativeMethods.PSGetPropertyKeyFromName(PropertyCanonicalName, out propertyKey);
+                    int hr = PropertySystemNativeMethods.PSGetPropertyKeyFromName(PropertyCanonicalName, out _propertyKey);
                     if (!CoreErrorHelper.Succeeded(hr))
                     {
                         throw new ShellException(hr);
                     }
                 }
 
-                return propertyKey;
+                return _propertyKey;
             }            
         }
 
         /// <summary>
         /// A value (in <see cref="System.String"/> format) to which the property is compared. 
         /// </summary>
-        public string PropertyValue { get; internal set; }
+        public string? PropertyValue { get; internal set; }
         
-        private SearchConditionOperation conditionOperation = SearchConditionOperation.Implicit;
+        private SearchConditionOperation _conditionOperation = SearchConditionOperation.Implicit;
         /// <summary>
         /// Search condition operation to be performed on the property/value combination.
         /// See <see cref="Microsoft.WindowsAPICodePack.Shell.SearchConditionOperation"/> for more details.
         /// </summary>        
-        public SearchConditionOperation ConditionOperation
-        {
-            get { return conditionOperation; }
-        }
+        public SearchConditionOperation ConditionOperation => _conditionOperation;
 
-        private SearchConditionType conditionType = SearchConditionType.Leaf;
+        private SearchConditionType _conditionType = SearchConditionType.Leaf;
         /// <summary>
         /// Represents the condition type for the given node. 
         /// </summary>        
-        public SearchConditionType ConditionType
-        {
-            get { return conditionType; }
-        }
+        public SearchConditionType ConditionType => _conditionType;
 
         /// <summary>
         /// Retrieves an array of the sub-conditions. 
@@ -102,7 +94,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         public IEnumerable<SearchCondition> GetSubConditions()
         {
             // Our list that we'll return
-            List<SearchCondition> subConditionsList = new List<SearchCondition>();
+            List<SearchCondition> subConditionsList = new();
 
             // Get the sub-conditions from the native API
             object subConditionObj;
@@ -118,14 +110,14 @@ namespace Microsoft.WindowsAPICodePack.Shell
             // Convert each ICondition to SearchCondition
             if (subConditionObj != null)
             {
-                IEnumUnknown enumUnknown = subConditionObj as IEnumUnknown;
+                IEnumUnknown? enumUnknown = subConditionObj as IEnumUnknown;
 
                 IntPtr buffer = IntPtr.Zero;
                 uint fetched = 0;
 
                 while (hr == HResult.Ok)
                 {
-                    hr = enumUnknown.Next(1, ref buffer, ref fetched);
+                    if (enumUnknown != null) hr = enumUnknown.Next(1, ref buffer, ref fetched);
 
                     if (hr == HResult.Ok && fetched == 1)
                     {

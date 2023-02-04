@@ -13,11 +13,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         internal static PropertyKey PKEY_AppUserModel_IsDestListSeparator = SystemProperties.System.AppUserModel.IsDestinationListSeparator;
 
         private IPropertyStore nativePropertyStore;
-        private IShellLinkW nativeShellLink;
+        private IShellLinkW? nativeShellLink;
         /// <summary>
         /// Gets an IShellLinkW representation of this object
         /// </summary>
-        internal override IShellLinkW NativeShellLink
+        internal override IShellLinkW? NativeShellLink
         {
             get
             {

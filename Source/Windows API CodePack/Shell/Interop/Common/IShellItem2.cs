@@ -1,3 +1,5 @@
+using FILETIME = System.Runtime.InteropServices.ComTypes.FILETIME;
+
 namespace Microsoft.WindowsAPICodePack.Shell;
 
 [ComImport,
@@ -8,7 +10,7 @@ internal interface IShellItem2 : IShellItem
     // Not supported: IBindCtx.
     [PreserveSig]
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-    HResult BindToHandler(
+    new HResult BindToHandler(
         [In] IntPtr pbc,
         [In] ref Guid bhid,
         [In] ref Guid riid,
@@ -16,16 +18,16 @@ internal interface IShellItem2 : IShellItem
 
     [PreserveSig]
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-    HResult GetParent([MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
+    new HResult GetParent([MarshalAs(UnmanagedType.Interface)] out IShellItem? ppsi);
 
     [PreserveSig]
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     HResult GetDisplayName(
         [In] ShellNativeMethods.ShellItemDesignNameOptions sigdnName,
-        [MarshalAs(UnmanagedType.LPWStr)] out string ppszName);
+        [MarshalAs(UnmanagedType.LPWStr)] out string? ppszName);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-    void GetAttributes([In] ShellNativeMethods.ShellFileGetAttributesOptions sfgaoMask, out ShellNativeMethods.ShellFileGetAttributesOptions psfgaoAttribs);
+    new void GetAttributes([In] ShellNativeMethods.ShellFileGetAttributesOptions sfgaoMask, out ShellNativeMethods.ShellFileGetAttributesOptions psfgaoAttribs);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     void Compare(
@@ -37,7 +39,7 @@ internal interface IShellItem2 : IShellItem
     int GetPropertyStore(
         [In] ShellNativeMethods.GetPropertyStoreOptions Flags,
         [In] ref Guid riid,
-        [Out, MarshalAs(UnmanagedType.Interface)] out IPropertyStore ppv);
+        [Out, MarshalAs(UnmanagedType.Interface)] out IPropertyStore? ppv);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     void GetPropertyStoreWithCreateObject([In] ShellNativeMethods.GetPropertyStoreOptions Flags, [In, MarshalAs(UnmanagedType.IUnknown)] object punkCreateObject, [In] ref Guid riid, out IntPtr ppv);
@@ -58,7 +60,7 @@ internal interface IShellItem2 : IShellItem
     void GetCLSID([In] ref PropertyKey key, out Guid pclsid);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-    void GetFileTime([In] ref PropertyKey key, out System.Runtime.InteropServices.ComTypes.FILETIME pft);
+    void GetFileTime([In] ref PropertyKey key, out FILETIME pft);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     void GetInt32([In] ref PropertyKey key, out int pi);

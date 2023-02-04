@@ -1,5 +1,6 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 
+#pragma warning disable CA2013
 namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
 
@@ -22,24 +23,12 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// Gets a human-readable description of the HResult error code,
         /// as constructed by <see cref="System.ComponentModel.Win32Exception">Win32Exception</see>.
         /// </summary>
-        public string ErrorMessage
-        {
-            get
-            {
-                return _errorMessage;
-            }
-        }
+        public string ErrorMessage => _errorMessage;
 
         /// <summary>
         /// Gets the HResult error code associated with this structure.
         /// </summary>
-        public int HResult
-        {
-            get
-            {
-                return _hResult;
-            }
-        }
+        public int HResult => _hResult;
 
         /// <summary>
         /// Uses the HResult param as the object hashcode.
@@ -55,19 +44,24 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         /// <param name="obj">Object to compare.</param>
         /// <returns>True if obj is equal to this instance, false otherwise.</returns>
-        public override bool Equals(Object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null)
             {
                 return false;
             }
 
-            if (Object.ReferenceEquals(obj, this))
+            // ReSharper disable once ReferenceEqualsWithValueType
+            if (ReferenceEquals(obj, this))
             {
                 return true;
             }
 
+            // ReSharper disable MergeCastWithTypeCheck
+            // ReSharper disable ConvertIfStatementToReturnStatement
             if (obj is MappingResultState)
+                // ReSharper restore ConvertIfStatementToReturnStatement
+                // ReSharper restore MergeCastWithTypeCheck
             {
                 return Equals((MappingResultState)obj);
             }
@@ -82,7 +76,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// <returns>True if obj is equal to this instance, false otherwise.</returns>
         public bool Equals(MappingResultState obj)
         {
-            return obj._hResult == this._hResult;
+            return obj._hResult == _hResult;
         }
 
         /// <summary>
@@ -109,3 +103,4 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
     }
 
 }
+#pragma warning restore CA2013

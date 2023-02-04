@@ -9,9 +9,11 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
     {
         #region Private Properties
 
-        private string displayText;
-        private PropEnumType? enumType;
-        private object minValue, setValue, enumerationValue;
+        private string? _displayText;
+        private PropEnumType? _enumType;
+        private object? _minValue;
+        private object? _setValue;
+        private object? _enumerationValue;
 
         private IPropertyEnumType NativePropertyEnumType
         {
@@ -35,15 +37,15 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <summary>
         /// Gets display text from an enumeration information structure. 
         /// </summary>
-        public string DisplayText
+        public string? DisplayText
         {
             get
             {
-                if (displayText == null)
+                if (_displayText == null)
                 {
-                    NativePropertyEnumType.GetDisplayText(out displayText);
+                    NativePropertyEnumType.GetDisplayText(out _displayText);
                 }
-                return displayText;
+                return _displayText;
             }
         }
 
@@ -54,32 +56,32 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             get
             {
-                if (!enumType.HasValue)
+                if (!_enumType.HasValue)
                 {
                     PropEnumType tempEnumType;
                     NativePropertyEnumType.GetEnumType(out tempEnumType);
-                    enumType = tempEnumType;
+                    _enumType = tempEnumType;
                 }
-                return enumType.Value;
+                return _enumType.Value;
             }
         }
 
         /// <summary>
         /// Gets a minimum value from an enumeration information structure. 
         /// </summary>
-        public object RangeMinValue
+        public object? RangeMinValue
         {
             get
             {
-                if (minValue == null)
+                if (_minValue == null)
                 {
                     using (PropVariant propVar = new PropVariant())
                     {
                         NativePropertyEnumType.GetRangeMinValue(propVar);
-                        minValue = propVar.Value;
+                        _minValue = propVar.Value;
                     }
                 }
-                return minValue;
+                return _minValue;
 
             }
         }
@@ -87,19 +89,19 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <summary>
         /// Gets a set value from an enumeration information structure. 
         /// </summary>
-        public object RangeSetValue
+        public object? RangeSetValue
         {
             get
             {
-                if (setValue == null)
+                if (_setValue == null)
                 {
                     using (PropVariant propVar = new PropVariant())
                     {
                         NativePropertyEnumType.GetRangeSetValue(propVar);
-                        setValue = propVar.Value;
+                        _setValue = propVar.Value;
                     }
                 }
-                return setValue;
+                return _setValue;
 
             }
         }
@@ -107,19 +109,19 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <summary>
         /// Gets a value from an enumeration information structure. 
         /// </summary>
-        public object RangeValue
+        public object? RangeValue
         {
             get
             {
-                if (enumerationValue == null)
+                if (_enumerationValue == null)
                 {
                     using (PropVariant propVar = new PropVariant())
                     {
                         NativePropertyEnumType.GetValue(propVar);
-                        enumerationValue = propVar.Value;
+                        _enumerationValue = propVar.Value;
                     }
                 }
-                return enumerationValue;
+                return _enumerationValue;
             }
         }
 

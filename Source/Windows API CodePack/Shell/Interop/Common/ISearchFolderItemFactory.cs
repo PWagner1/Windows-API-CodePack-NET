@@ -36,7 +36,7 @@ internal interface ISearchFolderItemFactory
     HResult SetCondition([In] ICondition pCondition);
 
     [PreserveSig]
-    int GetShellItem(ref Guid riid, [Out, MarshalAs(UnmanagedType.Interface)] out IShellItem ppv);
+    int GetShellItem(ref Guid riid, [Out, MarshalAs(UnmanagedType.Interface)] out IShellItem? ppv);
 
     [PreserveSig]
     HResult GetIDList([Out] IntPtr ppidl);

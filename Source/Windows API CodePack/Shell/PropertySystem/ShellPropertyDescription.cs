@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
 namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 {
     /// <summary>
@@ -9,24 +10,24 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
     {
         #region Private Fields
 
-        private IPropertyDescription nativePropertyDescription;
-        private string canonicalName;
-        private PropertyKey propertyKey;
-        private string displayName;
-        private string editInvitation;
-        private VarEnum? varEnumType = null;
-        private PropertyDisplayType? displayType;
-        private PropertyAggregationType? aggregationTypes;
-        private uint? defaultColumWidth;
-        private PropertyTypeOptions? propertyTypeFlags;
-        private PropertyViewOptions? propertyViewFlags;
-        private Type valueType;
-        private ReadOnlyCollection<ShellPropertyEnumType> propertyEnumTypes;
-        private PropertyColumnStateOptions? columnState;
-        private PropertyConditionType? conditionType;
-        private PropertyConditionOperation? conditionOperation;
-        private PropertyGroupingRange? groupingRange;
-        private PropertySortDescription? sortDescription;
+        private IPropertyDescription _nativePropertyDescription;
+        private string _canonicalName;
+        private PropertyKey _propertyKey;
+        private string? _displayName;
+        private string? _editInvitation;
+        private VarEnum? _varEnumType = null;
+        private PropertyDisplayType? _displayType;
+        private PropertyAggregationType? _aggregationTypes;
+        private uint? _defaultColumWidth;
+        private PropertyTypeOptions? _propertyTypeFlags;
+        private PropertyViewOptions? _propertyViewFlags;
+        private Type _valueType;
+        private ReadOnlyCollection<ShellPropertyEnumType> _propertyEnumTypes;
+        private PropertyColumnStateOptions? _columnState;
+        private PropertyConditionType? _conditionType;
+        private PropertyConditionOperation? _conditionOperation;
+        private PropertyGroupingRange? _groupingRange;
+        private PropertySortDescription? _sortDescription;
 
         #endregion
 
@@ -40,34 +41,30 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             get
             {
-                if (canonicalName == null)
+                if (_canonicalName == null)
                 {
-                    PropertySystemNativeMethods.PSGetNameFromPropertyKey(ref propertyKey, out canonicalName);
+                    PropertySystemNativeMethods.PSGetNameFromPropertyKey(ref _propertyKey, out _canonicalName);
                 }
 
-                return canonicalName;
+                return _canonicalName;
             }
         }
 
         /// <summary>
         /// Gets the property key identifying the underlying property.
         /// </summary>
-        public PropertyKey PropertyKey
-        {
-            get
-            {
-                return propertyKey;
-            }
-        }
+        public PropertyKey PropertyKey => _propertyKey;
 
         /// <summary>
         /// Gets the display name of the property as it is shown in any user interface (UI).
         /// </summary>
-        public string DisplayName
+        public string? DisplayName
         {
             get
             {
-                if (NativePropertyDescription != null && displayName == null)
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+                // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+                if (NativePropertyDescription != null && _displayName == null)
                 {
                     IntPtr dispNameptr = IntPtr.Zero;
 
@@ -75,25 +72,25 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                     if (CoreErrorHelper.Succeeded(hr) && dispNameptr != IntPtr.Zero)
                     {
-                        displayName = Marshal.PtrToStringUni(dispNameptr);
+                        _displayName = Marshal.PtrToStringUni(dispNameptr) ?? string.Empty;
 
                         // Free the string
                         Marshal.FreeCoTaskMem(dispNameptr);
                     }
                 }
 
-                return displayName;
+                return _displayName;
             }
         }
 
         /// <summary>
         /// Gets the text used in edit controls hosted in various dialog boxes.
         /// </summary>
-        public string EditInvitation
+        public string? EditInvitation
         {
             get
             {
-                if (NativePropertyDescription != null && editInvitation == null)
+                if (NativePropertyDescription != null && _editInvitation == null)
                 {
                     // EditInvitation can be empty, so ignore the HR value, but don't throw an exception
                     IntPtr ptr = IntPtr.Zero;
@@ -102,13 +99,13 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                     if (CoreErrorHelper.Succeeded(hr) && ptr != IntPtr.Zero)
                     {
-                        editInvitation = Marshal.PtrToStringUni(ptr);
+                        _editInvitation = Marshal.PtrToStringUni(ptr) ?? string.Empty;
                         // Free the string
                         Marshal.FreeCoTaskMem(ptr);
                     }
                 }
 
-                return editInvitation;
+                return _editInvitation;
             }
         }
 
@@ -119,7 +116,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             get
             {
-                if (NativePropertyDescription != null && varEnumType == null)
+                if (NativePropertyDescription != null && _varEnumType == null)
                 {
                     VarEnum tempType;
 
@@ -127,11 +124,11 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                     if (CoreErrorHelper.Succeeded(hr))
                     {
-                        varEnumType = tempType;
+                        _varEnumType = tempType;
                     }
                 }
 
-                return varEnumType.HasValue ? varEnumType.Value : default(VarEnum);
+                return _varEnumType.HasValue ? _varEnumType.Value : default(VarEnum);
             }
         }
 
@@ -143,12 +140,12 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             get
             {
-                if (valueType == null)
+                if (_valueType == null)
                 {
-                    valueType = ShellPropertyFactory.VarEnumToSystemType(VarEnumType);
+                    _valueType = ShellPropertyFactory.VarEnumToSystemType(VarEnumType);
                 }
 
-                return valueType;
+                return _valueType;
             }
         }
 
@@ -159,7 +156,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             get
             {
-                if (NativePropertyDescription != null && displayType == null)
+                if (NativePropertyDescription != null && _displayType == null)
                 {
                     PropertyDisplayType tempDisplayType;
 
@@ -167,11 +164,11 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                     if (CoreErrorHelper.Succeeded(hr))
                     {
-                        displayType = tempDisplayType;
+                        _displayType = tempDisplayType;
                     }
                 }
 
-                return displayType.HasValue ? displayType.Value : default(PropertyDisplayType);
+                return _displayType.HasValue ? _displayType.Value : default(PropertyDisplayType);
             }
         }
 
@@ -182,7 +179,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             get
             {
-                if (NativePropertyDescription != null && !defaultColumWidth.HasValue)
+                if (NativePropertyDescription != null && !_defaultColumWidth.HasValue)
                 {
                     uint tempDefaultColumWidth;
 
@@ -190,11 +187,11 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                     if (CoreErrorHelper.Succeeded(hr))
                     {
-                        defaultColumWidth = tempDefaultColumWidth;
+                        _defaultColumWidth = tempDefaultColumWidth;
                     }
                 }
 
-                return defaultColumWidth.HasValue ? defaultColumWidth.Value : default(uint);
+                return _defaultColumWidth.HasValue ? _defaultColumWidth.Value : default(uint);
             }
         }
 
@@ -206,7 +203,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             get
             {
-                if (NativePropertyDescription != null && aggregationTypes == null)
+                if (NativePropertyDescription != null && _aggregationTypes == null)
                 {
                     PropertyAggregationType tempAggregationTypes;
 
@@ -214,11 +211,11 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                     if (CoreErrorHelper.Succeeded(hr))
                     {
-                        aggregationTypes = tempAggregationTypes;
+                        _aggregationTypes = tempAggregationTypes;
                     }
                 }
 
-                return aggregationTypes.HasValue ? aggregationTypes.Value : default(PropertyAggregationType);
+                return _aggregationTypes.HasValue ? _aggregationTypes.Value : default(PropertyAggregationType);
             }
         }
 
@@ -229,9 +226,9 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             get
             {
-                if (NativePropertyDescription != null && propertyEnumTypes == null)
+                if (NativePropertyDescription != null && _propertyEnumTypes == null)
                 {
-                    List<ShellPropertyEnumType> propEnumTypeList = new List<ShellPropertyEnumType>();
+                    List<ShellPropertyEnumType> propEnumTypeList = new();
 
                     Guid guid = new Guid(ShellIIDGuid.IPropertyEnumTypeList);
                     IPropertyEnumTypeList nativeList;
@@ -252,10 +249,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                         }
                     }
 
-                    propertyEnumTypes = new ReadOnlyCollection<ShellPropertyEnumType>(propEnumTypeList);
+                    _propertyEnumTypes = new ReadOnlyCollection<ShellPropertyEnumType>(propEnumTypeList);
                 }
 
-                return propertyEnumTypes;
+                return _propertyEnumTypes;
 
             }
         }
@@ -269,7 +266,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             get
             {
                 // If default/first value, try to get it again, otherwise used the cached one.
-                if (NativePropertyDescription != null && columnState == null)
+                if (NativePropertyDescription != null && _columnState == null)
                 {
                     PropertyColumnStateOptions state;
 
@@ -277,11 +274,11 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                     if (CoreErrorHelper.Succeeded(hr))
                     {
-                        columnState = state;
+                        _columnState = state;
                     }
                 }
 
-                return columnState.HasValue ? columnState.Value : default(PropertyColumnStateOptions);
+                return _columnState.HasValue ? _columnState.Value : default(PropertyColumnStateOptions);
             }
         }
 
@@ -298,7 +295,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             get
             {
                 // If default/first value, try to get it again, otherwise used the cached one.
-                if (NativePropertyDescription != null && conditionType == null)
+                if (NativePropertyDescription != null && _conditionType == null)
                 {
                     PropertyConditionType tempConditionType;
                     PropertyConditionOperation tempConditionOperation;
@@ -307,12 +304,12 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                     if (CoreErrorHelper.Succeeded(hr))
                     {
-                        conditionOperation = tempConditionOperation;
-                        conditionType = tempConditionType;
+                        _conditionOperation = tempConditionOperation;
+                        _conditionType = tempConditionType;
                     }
                 }
 
-                return conditionType.HasValue ? conditionType.Value : default(PropertyConditionType);
+                return _conditionType.HasValue ? _conditionType.Value : default(PropertyConditionType);
             }
         }
 
@@ -330,7 +327,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             get
             {
                 // If default/first value, try to get it again, otherwise used the cached one.
-                if (NativePropertyDescription != null && conditionOperation == null)
+                if (NativePropertyDescription != null && _conditionOperation == null)
                 {
                     PropertyConditionType tempConditionType;
                     PropertyConditionOperation tempConditionOperation;
@@ -339,12 +336,12 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                     if (CoreErrorHelper.Succeeded(hr))
                     {
-                        conditionOperation = tempConditionOperation;
-                        conditionType = tempConditionType;
+                        _conditionOperation = tempConditionOperation;
+                        _conditionType = tempConditionType;
                     }
                 }
 
-                return conditionOperation.HasValue ? conditionOperation.Value : default(PropertyConditionOperation);
+                return _conditionOperation.HasValue ? _conditionOperation.Value : default(PropertyConditionOperation);
             }
         }
 
@@ -359,7 +356,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             get
             {
                 // If default/first value, try to get it again, otherwise used the cached one.
-                if (NativePropertyDescription != null && groupingRange == null)
+                if (NativePropertyDescription != null && _groupingRange == null)
                 {
                     PropertyGroupingRange tempGroupingRange;
 
@@ -367,11 +364,11 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                     if (CoreErrorHelper.Succeeded(hr))
                     {
-                        groupingRange = tempGroupingRange;
+                        _groupingRange = tempGroupingRange;
                     }
                 }
 
-                return groupingRange.HasValue ? groupingRange.Value : default(PropertyGroupingRange);
+                return _groupingRange.HasValue ? _groupingRange.Value : default(PropertyGroupingRange);
             }
         }
 
@@ -387,7 +384,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             get
             {
                 // If default/first value, try to get it again, otherwise used the cached one.
-                if (NativePropertyDescription != null && sortDescription == null)
+                if (NativePropertyDescription != null && _sortDescription == null)
                 {
                     PropertySortDescription tempSortDescription;
 
@@ -395,11 +392,11 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                     if (CoreErrorHelper.Succeeded(hr))
                     {
-                        sortDescription = tempSortDescription;
+                        _sortDescription = tempSortDescription;
                     }
                 }
 
-                return sortDescription.HasValue ? sortDescription.Value : default(PropertySortDescription);
+                return _sortDescription.HasValue ? _sortDescription.Value : default(PropertySortDescription);
             }
         }
 
@@ -438,16 +435,16 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             get
             {
-                if (NativePropertyDescription != null && propertyTypeFlags == null)
+                if (NativePropertyDescription != null && _propertyTypeFlags == null)
                 {
                     PropertyTypeOptions tempFlags;
 
                     HResult hr = NativePropertyDescription.GetTypeFlags(PropertyTypeOptions.MaskAll, out tempFlags);
 
-                    propertyTypeFlags = CoreErrorHelper.Succeeded(hr) ? tempFlags : default(PropertyTypeOptions);
+                    _propertyTypeFlags = CoreErrorHelper.Succeeded(hr) ? tempFlags : default(PropertyTypeOptions);
                 }
 
-                return propertyTypeFlags.HasValue ? propertyTypeFlags.Value : default(PropertyTypeOptions);
+                return _propertyTypeFlags.HasValue ? _propertyTypeFlags.Value : default(PropertyTypeOptions);
             }
         }
 
@@ -458,25 +455,22 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             get
             {
-                if (NativePropertyDescription != null && propertyViewFlags == null)
+                if (NativePropertyDescription != null && _propertyViewFlags == null)
                 {
                     PropertyViewOptions tempFlags;
                     HResult hr = NativePropertyDescription.GetViewFlags(out tempFlags);
 
-                    propertyViewFlags = CoreErrorHelper.Succeeded(hr) ? tempFlags : default(PropertyViewOptions);
+                    _propertyViewFlags = CoreErrorHelper.Succeeded(hr) ? tempFlags : default(PropertyViewOptions);
                 }
 
-                return propertyViewFlags.HasValue ? propertyViewFlags.Value : default(PropertyViewOptions);
+                return _propertyViewFlags.HasValue ? _propertyViewFlags.Value : default(PropertyViewOptions);
             }
         }
 
         /// <summary>
         /// Gets a value that determines if the native property description is present on the system.
         /// </summary>
-        public bool HasSystemDescription
-        {
-            get { return NativePropertyDescription != null; }
-        }
+        public bool HasSystemDescription => NativePropertyDescription != null;
 
         #endregion
 
@@ -484,7 +478,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
         internal ShellPropertyDescription(PropertyKey key)
         {
-            this.propertyKey = key;
+            _propertyKey = key;
         }
 
         #endregion
@@ -498,13 +492,13 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             get
             {
-                if (nativePropertyDescription == null)
+                if (_nativePropertyDescription == null)
                 {
                     Guid guid = new Guid(ShellIIDGuid.IPropertyDescription);
-                    PropertySystemNativeMethods.PSGetPropertyDescription(ref propertyKey, ref guid, out nativePropertyDescription);
+                    PropertySystemNativeMethods.PSGetPropertyDescription(ref _propertyKey, ref guid, out _nativePropertyDescription);
                 }
 
-                return nativePropertyDescription;
+                return _nativePropertyDescription;
             }
         }
 
@@ -518,21 +512,21 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <param name="disposing">Indicates that this is being called from Dispose(), rather than the finalizer.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (nativePropertyDescription != null)
+            if (_nativePropertyDescription != null)
             {
-                Marshal.ReleaseComObject(nativePropertyDescription);
-                nativePropertyDescription = null;
+                Marshal.ReleaseComObject(_nativePropertyDescription);
+                _nativePropertyDescription = null;
             }
 
             if (disposing)
             {
                 // and the managed ones
-                canonicalName = null;
-                displayName = null;
-                editInvitation = null;
-                defaultColumWidth = null;
-                valueType = null;
-                propertyEnumTypes = null;
+                _canonicalName = null;
+                _displayName = null;
+                _editInvitation = null;
+                _defaultColumWidth = null;
+                _valueType = null;
+                _propertyEnumTypes = null;
             }
         }
 

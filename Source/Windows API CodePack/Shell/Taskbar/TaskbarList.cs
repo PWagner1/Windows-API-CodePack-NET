@@ -7,7 +7,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
     /// </summary>
     internal static class TaskbarList
     {
-        private static object _syncLock = new object();
+        private static object _syncLock = new();
                 
         private static ITaskbarList4 _taskbarList;
         internal static ITaskbarList4 Instance

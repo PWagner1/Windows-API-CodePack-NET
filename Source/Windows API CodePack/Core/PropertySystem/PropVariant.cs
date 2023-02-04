@@ -1,5 +1,7 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable SuggestVarOrType_BuiltInTypes
+#pragma warning disable CS8602
 namespace MS.WindowsAPICodePack.Internal
 {
     /// <summary>
@@ -17,11 +19,11 @@ namespace MS.WindowsAPICodePack.Internal
         #region Vector Action Cache
 
         // A static dictionary of delegates to get data from array's contained within PropVariants
-        private static Dictionary<Type, Action<PropVariant, Array, uint>> _vectorActions = null;
+        private static Dictionary<Type, Action<PropVariant, Array, uint>>? _vectorActions = null;
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-        private static Dictionary<Type, Action<PropVariant, Array, uint>> GenerateVectorActions()
+        private static Dictionary<Type, Action<PropVariant, Array, uint>>? GenerateVectorActions()
         {
-            Dictionary<Type, Action<PropVariant, Array, uint>> cache = new Dictionary<Type, Action<PropVariant, Array, uint>>();
+            Dictionary<Type, Action<PropVariant, Array, uint>>? cache = new();
 
             cache.Add(typeof(Int16), (pv, array, i) =>
             {
@@ -138,25 +140,26 @@ namespace MS.WindowsAPICodePack.Internal
         }
 
         // A dictionary and lock to contain compiled expression trees for constructors
-        private static Dictionary<Type, Func<object, PropVariant>> _cache = new Dictionary<Type, Func<object, PropVariant>>();
-        private static object _padlock = new object();
+        private static Dictionary<Type, Func<object, PropVariant>?> _cache = new();
+        private static object _padlock = new();
 
         // Retrieves a cached constructor expression.
         // If no constructor has been cached, it attempts to find/add it.  If it cannot be found
         // an exception is thrown.
         // This method looks for a public constructor with the same parameter type as the object.
-        private static Func<object, PropVariant> GetDynamicConstructor(Type type)
+        private static Func<object, PropVariant>? GetDynamicConstructor(Type type)
         {
             lock (_padlock)
             {
                 // initial check, if action is found, return it
-                Func<object, PropVariant> action;
+                Func<object, PropVariant>? action;
                 if (!_cache.TryGetValue(type, out action))
                 {
                     // iterates through all constructors
                     ConstructorInfo constructor = typeof(PropVariant)
-                        .GetConstructor(new Type[] { type });
+                        .GetConstructor(new Type[] { type })!;
 
+                    // ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
                     if (constructor == null)
                     { // if the method was not found, throw.
                         throw new ArgumentException(LocalizedMessages.PropVariantTypeNotSupported);
@@ -580,26 +583,20 @@ namespace MS.WindowsAPICodePack.Internal
         /// </summary>
         public VarEnum VarType
         {
-            get { return (VarEnum)_valueType; }
-            set { _valueType = (ushort)value; }
+            get => (VarEnum)_valueType;
+            set => _valueType = (ushort)value;
         }
 
         /// <summary>
         /// Checks if this has an empty or null value
         /// </summary>
         /// <returns></returns>
-        public bool IsNullOrEmpty
-        {
-            get
-            {
-                return (_valueType == (ushort)VarEnum.VT_EMPTY || _valueType == (ushort)VarEnum.VT_NULL);
-            }
-        }
+        public bool IsNullOrEmpty => (_valueType == (ushort)VarEnum.VT_EMPTY || _valueType == (ushort)VarEnum.VT_NULL);
 
         /// <summary>
         /// Gets the variant value.
         /// </summary>
-        public object Value
+        public object? Value
         {
             get
             {
@@ -703,7 +700,7 @@ namespace MS.WindowsAPICodePack.Internal
             return ft;
         }
 
-        private object GetBlobData()
+        private object? GetBlobData()
         {
             byte[] blobData = new byte[_int32];
 
@@ -713,7 +710,7 @@ namespace MS.WindowsAPICodePack.Internal
             return blobData;
         }
 
-        private Array GetVector<T>()
+        private Array? GetVector<T>()
         {
             int count = PropVariantNativeMethods.PropVariantGetElementCount(this);
             if (count <= 0) { return null; }
@@ -732,7 +729,7 @@ namespace MS.WindowsAPICodePack.Internal
                 throw new InvalidCastException(LocalizedMessages.PropVariantUnsupportedType);
             }
 
-            Array array = new T[count];
+            Array? array = new T[count];
             for (uint i = 0; i < count; i++)
             {
                 action(this, array, i);
@@ -741,7 +738,7 @@ namespace MS.WindowsAPICodePack.Internal
             return array;
         }
 
-        private static Array CrackSingleDimSafeArray(IntPtr psa)
+        private static Array? CrackSingleDimSafeArray(IntPtr psa)
         {
             uint cDims = PropVariantNativeMethods.SafeArrayGetDim(psa);
             if (cDims != 1)

@@ -10,8 +10,8 @@ namespace Microsoft.WindowsAPICodePack.Shell.Interop
         [DllImport("user32.dll", CharSet = CharSet.Auto)]
         internal static extern IntPtr GetFocus();
 
-        internal static readonly Guid PreviewHandlerGuid = new Guid("{8895b1c6-b41f-4c1c-a562-0d564250836f}");
-        internal static readonly Guid ThumbnailProviderGuid = new Guid("{e357fccd-a995-4576-b01f-234630154e96}");
+        internal static readonly Guid PreviewHandlerGuid = new("{8895b1c6-b41f-4c1c-a562-0d564250836f}");
+        internal static readonly Guid ThumbnailProviderGuid = new("{e357fccd-a995-4576-b01f-234630154e96}");
     }
 
     #region Interfaces
@@ -30,7 +30,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.Interop
         /// <param name="squareLength"></param>
         /// <param name="bitmapHandle"></param>
         /// <param name="bitmapType"></param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#"), System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#")]
+        [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#"), SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#")]
         void GetThumbnail(uint squareLength, out IntPtr bitmapHandle, out UInt32 bitmapType);
     }
 
@@ -53,7 +53,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.Interop
     /// <summary>
     /// Provides means by which to initialize with a stream.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
+    [SuppressMessage("Microsoft.Naming", "CA1711:IdentifiersShouldNotHaveIncorrectSuffix")]
     [ComVisible(true)]
     [Guid("b824b49d-22ac-4161-ac8a-9916e8fa3f7f")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
@@ -163,16 +163,11 @@ namespace Microsoft.WindowsAPICodePack.Shell.Interop
     internal struct COLORREF
     {
         public uint Dword;
-        public Color Color
-        {
-            get
-            {
-                return Color.FromArgb(
-                    (int)(0x000000FFU & Dword),
-                    (int)(0x0000FF00U & Dword) >> 8,
-                    (int)(0x00FF0000U & Dword) >> 16);
-            }
-        }
+        public Color Color =>
+            Color.FromArgb(
+                (int)(0x000000FFU & Dword),
+                (int)(0x0000FF00U & Dword) >> 8,
+                (int)(0x00FF0000U & Dword) >> 16);
     }
 
     [StructLayout(LayoutKind.Sequential)]

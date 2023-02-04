@@ -26,13 +26,17 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// For example, for the "Name" column, the property key is PKEY_ItemNameDisplay or
         /// <see cref="Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties.System.ItemName"/>.
         /// </summary>                
-        public PropertyKey PropertyKey { get { return propertyKey; } set { propertyKey = value; } }
+        public PropertyKey PropertyKey { get => propertyKey;
+            set => propertyKey = value;
+        }
         private PropertyKey propertyKey;
 
         /// <summary>
         /// The direction in which the items are sorted.
         /// </summary>                        
-        public SortDirection Direction { get { return direction; } set { direction = value; } }
+        public SortDirection Direction { get => direction;
+            set => direction = value;
+        }
         private SortDirection direction;
 
 
@@ -64,7 +68,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="obj">The object to compare</param>
         /// <returns>Returns true if the objects are equal; false otherwise.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null || obj.GetType() != typeof(SortColumn)) { return false; }
             return (this == (SortColumn)obj);
@@ -76,8 +80,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>A hash code.</returns>
         public override int GetHashCode()
         {
-            int hash = this.direction.GetHashCode();
-            hash = hash * 31 + this.propertyKey.GetHashCode();
+            int hash = direction.GetHashCode();
+            hash = hash * 31 + propertyKey.GetHashCode();
             return hash;
         }
 

@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -13,17 +14,17 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="searchCondition">Specific condition on which to perform the search (property and expected value)</param>
         /// <param name="searchScopePath">List of folders/paths to perform the search on. These locations need to be indexed by the system.</param>
-        public ShellSearchFolder(SearchCondition searchCondition, params ShellContainer[] searchScopePath)
+        public ShellSearchFolder(SearchCondition? searchCondition, params ShellContainer[]? searchScopePath)
         {
             CoreHelpers.ThrowIfNotVista();
 
             NativeSearchFolderItemFactory = (ISearchFolderItemFactory)new SearchFolderItemFactoryCoClass();
 
-            this.SearchCondition = searchCondition;
+            SearchCondition = searchCondition;
 
             if (searchScopePath != null && searchScopePath.Length > 0 && searchScopePath[0] != null)
             {
-                this.SearchScopePaths = searchScopePath.Select(cont => cont.ParsingName);
+                SearchScopePaths = searchScopePath.Select(cont => cont.ParsingName);
             }
         }
 
@@ -33,7 +34,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="searchCondition">Specific condition on which to perform the search (property and expected value)</param>
         /// <param name="searchScopePath">List of folders/paths to perform the search on. These locations need to be indexed by the system.</param>
-        public ShellSearchFolder(SearchCondition searchCondition, params string[] searchScopePath)
+        public ShellSearchFolder(SearchCondition? searchCondition, params string[]? searchScopePath)
         {
             CoreHelpers.ThrowIfNotVista();
 
@@ -41,56 +42,58 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             if (searchScopePath != null && searchScopePath.Length > 0 && searchScopePath[0] != null)
             {
-                this.SearchScopePaths = searchScopePath;
+                SearchScopePaths = searchScopePath;
             }
 
-            this.SearchCondition = searchCondition;
+            SearchCondition = searchCondition;
         }
 
         internal ISearchFolderItemFactory NativeSearchFolderItemFactory { get; set; }
 
-        private SearchCondition searchCondition;
+        private SearchCondition? _searchCondition;
         /// <summary>
         /// Gets the <see cref="Microsoft.WindowsAPICodePack.Shell.SearchCondition"/> of the search. 
         /// When this property is not set, the resulting search will have no filters applied.
         /// </summary>
-        public SearchCondition SearchCondition
+        public SearchCondition? SearchCondition
         {
-            get { return searchCondition; }
+            get => _searchCondition;
             private set
             {
-                searchCondition = value;
+                _searchCondition = value;
 
-                NativeSearchFolderItemFactory.SetCondition(searchCondition.NativeSearchCondition);
+                if (_searchCondition != null)
+                    NativeSearchFolderItemFactory.SetCondition(_searchCondition.NativeSearchCondition);
             }
         }
 
-        private string[] searchScopePaths;
+        private string?[] _searchScopePaths;
         /// <summary>
         /// Gets the search scope, as specified using an array of locations to search. 
         /// The search will include this location and all its subcontainers. The default is FOLDERID_Profile
         /// </summary>
-        public IEnumerable<string> SearchScopePaths
+        public IEnumerable<string?> SearchScopePaths
         {
             get
             {
-                foreach (var scopePath in searchScopePaths)
-                {
-                    yield return scopePath;
-                }
+                if (_searchScopePaths != null)
+                    foreach (var scopePath in _searchScopePaths)
+                    {
+                        yield return scopePath;
+                    }
             }
             private set
             {
-                searchScopePaths = value.ToArray();
-                List<IShellItem> shellItems = new List<IShellItem>(searchScopePaths.Length);
+                _searchScopePaths = value.ToArray();
+                List<IShellItem?> shellItems = new(_searchScopePaths.Length);
 
                 Guid shellItemGuid = new Guid(ShellIIDGuid.IShellItem);
                 Guid shellItemArrayGuid = new Guid(ShellIIDGuid.IShellItemArray);
 
                 // Create IShellItem for all the scopes we were given
-                foreach (string path in searchScopePaths)
+                foreach (string path in _searchScopePaths)
                 {
-                    IShellItem scopeShellItem;
+                    IShellItem? scopeShellItem;
 
                     int hr = ShellNativeMethods.SHCreateItemFromParsingName(path, IntPtr.Zero, ref shellItemGuid, out scopeShellItem);
 
@@ -107,7 +110,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
         }
 
-        internal override IShellItem NativeShellItem
+        internal override IShellItem? NativeShellItem
         {
             get
             {
@@ -115,7 +118,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                 if (NativeSearchFolderItemFactory == null) { return null; }
 
-                IShellItem shellItem;
+                IShellItem? shellItem;
                 int hr = NativeSearchFolderItemFactory.GetShellItem(ref guid, out shellItem);
 
                 if (!CoreErrorHelper.Succeeded(hr)) { throw new ShellException(hr); }
@@ -131,12 +134,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="canonicalNames">Array of canonical names for properties on which the folder is stacked.</param>
         /// <exception cref="System.ArgumentException">If one of the given canonical names is invalid.</exception>
-        public void SetStacks(params string[] canonicalNames)
+        public void SetStacks(params string?[] canonicalNames)
         {
             if (canonicalNames == null) { throw new ArgumentNullException("canonicalNames"); }
             List<PropertyKey> propertyKeyList = new List<PropertyKey>();
 
-            foreach (string prop in canonicalNames)
+            foreach (string? prop in canonicalNames)
             {
                 // Get the PropertyKey using the canonicalName passed in
                 PropertyKey propKey;
@@ -161,7 +164,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// by default the folder will not be stacked.
         /// </summary>
         /// <param name="propertyKeys">Array of property keys on which the folder is stacked.</param>
-        public void SetStacks(params PropertyKey[] propertyKeys)
+        public void SetStacks(params PropertyKey[]? propertyKeys)
         {
             if (propertyKeys != null && propertyKeys.Length > 0)
             {
@@ -196,7 +199,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Sets a search folder type ID, as specified. 
         /// </summary>
-        public void SetFolderTypeID(Guid value)
+        public void SetFolderTypeId(Guid value)
         {
             HResult hr = NativeSearchFolderItemFactory.SetFolderTypeID(value);
 
@@ -220,7 +223,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// given an array of PropertyKey structures. The default is based on FolderTypeID.
         /// </summary>
         /// <remarks>This property may not work correctly with the ExplorerBrowser control.</remarks>
-        public void SetVisibleColumns(PropertyKey[] value)
+        public void SetVisibleColumns(PropertyKey[]? value)
         {
             HResult hr = NativeSearchFolderItemFactory.SetVisibleColumns(value == null ? 0 : (uint)value.Length, value);
 
@@ -234,7 +237,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Creates a list of sort column directions, as specified.
         /// </summary>
         /// <remarks>This property may not work correctly with the ExplorerBrowser control.</remarks>
-        public void SortColumns(SortColumn[] value)
+        public void SortColumns(SortColumn[]? value)
         {
             HResult hr = NativeSearchFolderItemFactory.SetSortColumns(value == null ? 0 : (uint)value.Length, value);
 

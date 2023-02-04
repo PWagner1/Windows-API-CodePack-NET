@@ -32,7 +32,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         /// Called when an exception is thrown during itialization of the preview control.
         /// </summary>
         /// <param name="caughtException"></param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", 
+        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", 
             Justification="The object remains reachable through the Controls collection which can be disposed at a later time.")]
         protected override void HandleInitializeException(Exception caughtException)
         {
@@ -70,20 +70,12 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
             Control.ForeColor = Color.FromArgb(argb);
         }
 
-        protected override void SetFont(Interop.LogFont font)
+        protected override void SetFont(LogFont font)
         {
             Control.Font = Font.FromLogFont(font);
         }
 
-        protected override IntPtr Handle
-        {
-            get
-            {
-                {
-                    return Control.Handle;
-                }
-            }
-        }
+        protected override IntPtr Handle => Control.Handle;
 
         protected override void SetParentHandle(IntPtr handle)
         {

@@ -4,7 +4,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 {
     internal class EnumUnknownClass : IEnumUnknown
     {
-        List<ICondition> conditionList = new List<ICondition>();
+        List<ICondition> conditionList = new();
         int current = -1;
 
         internal EnumUnknownClass(ICondition[] conditions)
@@ -49,7 +49,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         public HResult Clone(out IEnumUnknown result)
         {
-            result = new EnumUnknownClass(this.conditionList.ToArray());
+            result = new EnumUnknownClass(conditionList.ToArray());
             return HResult.Ok;
         }
 

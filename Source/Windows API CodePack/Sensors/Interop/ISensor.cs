@@ -35,7 +35,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// </summary>
         /// <param name="friendlyName">The friendly name for the sensor</param>
         [PreserveSig]
-        HResult GetFriendlyName([Out, MarshalAs(UnmanagedType.BStr)] out string friendlyName);
+        HResult GetFriendlyName([Out, MarshalAs(UnmanagedType.BStr)] out string? friendlyName);
 
         /// <summary>
         /// Sensor metadata: make, model, serial number, etc
@@ -61,7 +61,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <param name="dataFields">A collection of PROPERTYKEY structures representing the data values reported by the sensor</param>
         [PreserveSig]
         HResult GetSupportedDataFields(
-            [Out, MarshalAs(UnmanagedType.Interface)] out IPortableDeviceKeyCollection dataFields);
+            [Out, MarshalAs(UnmanagedType.Interface)] out IPortableDeviceKeyCollection? dataFields);
 
         /// <summary>
         /// Bulk Sensor metadata set for settable properties

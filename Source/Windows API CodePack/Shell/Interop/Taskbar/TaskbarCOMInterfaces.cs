@@ -16,7 +16,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             [Out(), MarshalAs(UnmanagedType.Interface)] out object ppvObject);
         [PreserveSig]
         HResult AppendCategory(
-            [MarshalAs(UnmanagedType.LPWStr)] string pszCategory,
+            [MarshalAs(UnmanagedType.LPWStr)] string? pszCategory,
             [MarshalAs(UnmanagedType.Interface)] IObjectArray poa);
         void AppendKnownCategory(
             [MarshalAs(UnmanagedType.I4)] KnownDestinationCategory category);
@@ -65,7 +65,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         // IObjectCollection
         void AddObject(
-            [MarshalAs(UnmanagedType.Interface)] object pvObject);
+            [MarshalAs(UnmanagedType.Interface)] object? pvObject);
         void AddFromArray(
             [MarshalAs(UnmanagedType.Interface)] IObjectArray poaSource);
         void RemoveObject(uint uiIndex);

@@ -16,15 +16,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public static bool AeroGlassCompositionEnabled
         {
-            set
-            {
+            set =>
                 DesktopWindowManagerNativeMethods.DwmEnableComposition(
                     value ? CompositionEnable.Enable : CompositionEnable.Disable);
-            }
-            get
-            {
-                return DesktopWindowManagerNativeMethods.DwmIsCompositionEnabled();
-            }
+            get => DesktopWindowManagerNativeMethods.DwmIsCompositionEnabled();
         }
 
         #endregion
@@ -34,7 +29,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Fires when the availability of Glass effect changes.
         /// </summary>
-        public event EventHandler<AeroGlassCompositionChangedEventArgs> AeroGlassCompositionChanged;
+        public event EventHandler<AeroGlassCompositionChangedEventArgs>? AeroGlassCompositionChanged;
 
         #endregion
 
@@ -45,7 +40,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public void SetAeroGlassTransparency()
         {
-            this.BackColor = Color.Transparent;
+            BackColor = Color.Transparent;
         }
 
         /// <summary>
@@ -60,7 +55,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             if (AeroGlassCompositionEnabled)
             {
-                Rectangle clientScreen = this.RectangleToScreen(this.ClientRectangle);
+                Rectangle clientScreen = RectangleToScreen(ClientRectangle);
                 Rectangle controlScreen = control.RectangleToScreen(control.ClientRectangle);
 
                 Margins margins = new Margins();
@@ -79,10 +74,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public void ResetAeroGlass()
         {
-            if (this.Handle != IntPtr.Zero)
+            if (Handle != IntPtr.Zero)
             {
                 Margins margins = new Margins(true);
-                DesktopWindowManagerNativeMethods.DwmExtendFrameIntoClientArea(this.Handle, ref margins);
+                DesktopWindowManagerNativeMethods.DwmExtendFrameIntoClientArea(Handle, ref margins);
             }
         }
         #endregion
@@ -131,7 +126,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 if (AeroGlassCompositionEnabled && e != null)
                 {
                     // Paint the all the regions black to enable glass
-                    e.Graphics.FillRectangle(Brushes.Black, this.ClientRectangle);
+                    e.Graphics.FillRectangle(Brushes.Black, ClientRectangle);
                 }
             }
         }

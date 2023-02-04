@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable AssignNullToNotNullAttribute
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -9,9 +10,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
     {
         #region Private members
 
-        private string moduleName;
-        private string referencePath;
-        static private char[] commaSeparator = new char[] { ',' };
+        private string? _moduleName;
+        private string _referencePath;
+        static private char[] _commaSeparator = new char[] { ',' };
 
         #endregion
 
@@ -20,7 +21,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="moduleName">String specifying the name of an executable file, DLL, or icon file</param>
         /// <param name="resourceId">Zero-based index of the icon</param>
-        public IconReference(string moduleName, int resourceId)
+        public IconReference(string? moduleName, int resourceId)
             : this()
         {
             if (string.IsNullOrEmpty(moduleName))
@@ -28,9 +29,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 throw new ArgumentNullException("moduleName");
             }
 
-            this.moduleName = moduleName;
+            this._moduleName = moduleName;
             ResourceId = resourceId;
-            referencePath = string.Format(CultureInfo.InvariantCulture,
+            _referencePath = string.Format(CultureInfo.InvariantCulture,
                 "{0},{1}", moduleName, resourceId);
         }
 
@@ -46,35 +47,32 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 throw new ArgumentNullException("refPath");
             }
 
-            string[] refParams = refPath.Split(commaSeparator);
+            string?[] refParams = refPath.Split(_commaSeparator);
 
             if (refParams.Length != 2 || string.IsNullOrEmpty(refParams[0]) || string.IsNullOrEmpty(refParams[1]))
             {
                 throw new ArgumentException(LocalizedMessages.InvalidReferencePath, "refPath");
             }
 
-            moduleName = refParams[0];
+            _moduleName = refParams[0];
             ResourceId = int.Parse(refParams[1], CultureInfo.InvariantCulture);
 
-            referencePath = refPath;
+            _referencePath = refPath;
         }
 
         /// <summary>
         /// String specifying the name of an executable file, DLL, or icon file
         /// </summary>
-        public string ModuleName
+        public string? ModuleName
         {
-            get
-            {
-                return moduleName;
-            }
+            get => _moduleName;
             set
             {
                 if (string.IsNullOrEmpty(value))
                 {
                     throw new ArgumentNullException("value");
                 }
-                moduleName = value;
+                _moduleName = value;
             }
         }
 
@@ -88,10 +86,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public string ReferencePath
         {
-            get
-            {
-                return referencePath;
-            }
+            get => _referencePath;
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -99,7 +94,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     throw new ArgumentNullException("value");
                 }
 
-                string[] refParams = value.Split(commaSeparator);
+                string?[] refParams = value.Split(_commaSeparator);
 
                 if (refParams.Length != 2 || string.IsNullOrEmpty(refParams[0]) || string.IsNullOrEmpty(refParams[1]))
                 {
@@ -109,7 +104,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 ModuleName = refParams[0];
                 ResourceId = int.Parse(refParams[1], CultureInfo.InvariantCulture);
 
-                referencePath = value;
+                _referencePath = value;
             }
         }
 
@@ -121,8 +116,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>True if icon1 equals icon1; false otherwise.</returns>
         public static bool operator ==(IconReference icon1, IconReference icon2)
         {
-            return (icon1.moduleName == icon2.moduleName) &&
-                (icon1.referencePath == icon2.referencePath) &&
+            return (icon1._moduleName == icon2._moduleName) &&
+                (icon1._referencePath == icon2._referencePath) &&
                 (icon1.ResourceId == icon2.ResourceId);
         }
 
@@ -142,7 +137,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="obj">The object to compare</param>
         /// <returns>Returns true if the objects are equal; false otherwise.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj == null || !(obj is IconReference)) { return false; }
             return (this == (IconReference)obj);
@@ -154,10 +149,17 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>A hash code.</returns>
         public override int GetHashCode()
         {
-            int hash = moduleName.GetHashCode();
-            hash = hash * 31 + referencePath.GetHashCode();
-            hash = hash * 31 + ResourceId.GetHashCode();
-            return hash;
+            if (_moduleName != null)
+            {
+                int hash = _moduleName.GetHashCode();
+                hash = hash * 31 + _referencePath.GetHashCode();
+                hash = hash * 31 + ResourceId.GetHashCode();
+                return hash;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
     }

@@ -5,7 +5,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
     /// <summary>
     /// Enumeration of execution states.
     /// </summary>
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2217:DoNotMarkEnumsWithFlags")]
+    [SuppressMessage("Microsoft.Usage", "CA2217:DoNotMarkEnumsWithFlags")]
     [Flags]
     public enum ExecutionStates
     {

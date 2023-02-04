@@ -7,7 +7,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         #region Private Fields
 
         private IEnumIDList nativeEnumIdList;
-        private ShellObject currentItem;
+        private ShellObject? currentItem;
         ShellContainer nativeShellFolder;
 
         #endregion
@@ -28,7 +28,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 if (hr == HResult.Canceled)
                 {
-                    throw new System.IO.FileNotFoundException();
+                    throw new FileNotFoundException();
                 }
                 else
                 {
@@ -43,13 +43,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         #region IEnumerator<ShellObject> Members
 
-        public ShellObject Current
-        {
-            get
-            {
-                return currentItem;
-            }
-        }
+#pragma warning disable CS8766
+        public ShellObject? Current => currentItem;
+#pragma warning restore CS8766
 
         #endregion
 
@@ -68,11 +64,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         #region IEnumerator Members
 
-        object IEnumerator.Current
-        {
-            get { return currentItem; }
-
-        }
+        object? IEnumerator.Current => currentItem;
 
         /// <summary>
         /// 

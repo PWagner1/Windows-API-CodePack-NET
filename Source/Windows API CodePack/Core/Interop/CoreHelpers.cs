@@ -10,21 +10,16 @@ namespace MS.WindowsAPICodePack.Internal
         /// <summary>
         /// Determines if the application is running on XP
         /// </summary>
-        public static bool RunningOnXP
-        {
-            get
-            {
-                return Environment.OSVersion.Platform == PlatformID.Win32NT &&
-                    Environment.OSVersion.Version.Major >= 5;
-            }
-        }
+        public static bool RunningOnXP =>
+            Environment.OSVersion.Platform == PlatformID.Win32NT &&
+            Environment.OSVersion.Version.Major >= 5;
 
         /// <summary>
         /// Throws PlatformNotSupportedException if the application is not running on Windows XP
         /// </summary>
         public static void ThrowIfNotXP()
         {
-            if (!CoreHelpers.RunningOnXP)
+            if (!RunningOnXP)
             {
                 throw new PlatformNotSupportedException(LocalizedMessages.CoreHelpersRunningOnXp);
             }
@@ -33,20 +28,14 @@ namespace MS.WindowsAPICodePack.Internal
         /// <summary>
         /// Determines if the application is running on Vista
         /// </summary>
-        public static bool RunningOnVista
-        {
-            get
-            {
-                return Environment.OSVersion.Version.Major >= 6;
-            }
-        }
+        public static bool RunningOnVista => Environment.OSVersion.Version.Major >= 6;
 
         /// <summary>
         /// Throws PlatformNotSupportedException if the application is not running on Windows Vista
         /// </summary>
         public static void ThrowIfNotVista()
         {
-            if (!CoreHelpers.RunningOnVista)
+            if (!RunningOnVista)
             {
                 throw new PlatformNotSupportedException(LocalizedMessages.CoreHelpersRunningOnVista);
             }
@@ -55,22 +44,17 @@ namespace MS.WindowsAPICodePack.Internal
         /// <summary>
         /// Determines if the application is running on Windows 7
         /// </summary>
-        public static bool RunningOnWin7
-        {
-            get
-            {
-                // Verifies that OS version is 6.1 or greater, and the Platform is WinNT.
-                return Environment.OSVersion.Platform == PlatformID.Win32NT &&
-                    Environment.OSVersion.Version.CompareTo(new Version(6, 1)) >= 0;
-            }
-        }
+        public static bool RunningOnWin7 =>
+            // Verifies that OS version is 6.1 or greater, and the Platform is WinNT.
+            Environment.OSVersion.Platform == PlatformID.Win32NT &&
+            Environment.OSVersion.Version.CompareTo(new Version(6, 1)) >= 0;
 
         /// <summary>
         /// Throws PlatformNotSupportedException if the application is not running on Windows 7
         /// </summary>
         public static void ThrowIfNotWin7()
         {
-            if (!CoreHelpers.RunningOnWin7)
+            if (!RunningOnWin7)
             {
                 throw new PlatformNotSupportedException(LocalizedMessages.CoreHelpersRunningOn7);
             }
@@ -82,7 +66,7 @@ namespace MS.WindowsAPICodePack.Internal
         /// <param name="resourceId">The resource Id</param>
         /// <returns>The string resource corresponding to the given resource Id. Returns null if the resource id
         /// is invalid or the string cannot be retrieved for any other reason.</returns>
-        public static string GetStringResource(string resourceId)
+        public static string? GetStringResource(string resourceId)
         {
             string[] parts;
             string library;

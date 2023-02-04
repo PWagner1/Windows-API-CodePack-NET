@@ -21,10 +21,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <summary>
         /// Gets the <see cref="DateTime"/> representation of this object.
         /// </summary>
-        public DateTime DateTime
-        {
-            get { return new DateTime(Year, Month, Day, Hour, Minute, Second, Millisecond); }
-        }
+        public DateTime DateTime => new DateTime(Year, Month, Day, Hour, Minute, Second, Millisecond);
 
         public static implicit operator DateTime(SystemTime systemTime)
         {
@@ -66,7 +63,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <param name="keys">The collection of keys for values to obtain data for</param>
         /// <param name="values">The values returned by the query</param>
         void GetSensorValues(
-            [In, MarshalAs(UnmanagedType.Interface)] IPortableDeviceKeyCollection keys,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IPortableDeviceValues values);
+            [In, MarshalAs(UnmanagedType.Interface)] IPortableDeviceKeyCollection? keys,
+            [Out, MarshalAs(UnmanagedType.Interface)] out IPortableDeviceValues? values);
     }
 }

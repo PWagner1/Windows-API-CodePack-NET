@@ -8,14 +8,11 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
     [ContentProperty("Items")]
     public class CommonFileDialogComboBox : CommonFileDialogProminentControl, ICommonFileDialogIndexedControls
     {
-        private readonly Collection<CommonFileDialogComboBoxItem> items = new Collection<CommonFileDialogComboBoxItem>();
+        private readonly Collection<CommonFileDialogComboBoxItem> items = new();
         /// <summary>
         /// Gets the collection of CommonFileDialogComboBoxItem objects.
         /// </summary>
-        public Collection<CommonFileDialogComboBoxItem> Items
-        {
-            get { return items; }
-        }
+        public Collection<CommonFileDialogComboBoxItem> Items => items;
 
         /// <summary>
         /// Creates a new instance of this class.
@@ -28,7 +25,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Creates a new instance of this class with the specified name.
         /// </summary>
         /// <param name="name">Text to display for this control</param>
-        public CommonFileDialogComboBox(string name)
+        public CommonFileDialogComboBox(string? name)
             : base(name, string.Empty)
         {
         }
@@ -39,10 +36,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// <summary>
         /// Gets or sets the current index of the selected item.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")]
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")]
         public int SelectedIndex
         {
-            get { return selectedIndex; }
+            get => selectedIndex;
             set
             {
                 // Don't update property if it hasn't changed
@@ -102,31 +99,34 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Attach the ComboBox control to the dialog object
         /// </summary>
         /// <param name="dialog">The target dialog</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")]
-        internal override void Attach(IFileDialogCustomize dialog)
+        [SuppressMessage("Microsoft.Usage", "CA2201:DoNotRaiseReservedExceptionTypes")]
+        internal override void Attach(IFileDialogCustomize? dialog)
         {
             Debug.Assert(dialog != null, "CommonFileDialogComboBox.Attach: dialog parameter can not be null");
 
             // Add the combo box control
-            dialog.AddComboBox(this.Id);
-
-            // Add the combo box items
-            for (int index = 0; index < items.Count; index++)
-                dialog.AddControlItem(this.Id, index, items[index].Text);
-
-            // Set the currently selected item
-            if (selectedIndex >= 0 && selectedIndex < items.Count)
+            if (dialog != null)
             {
-                dialog.SetSelectedControlItem(this.Id, this.selectedIndex);
-            }
-            else if (selectedIndex != -1)
-            {
-                throw new IndexOutOfRangeException(LocalizedMessages.ComboBoxIndexOutsideBounds);
-            }
+                dialog.AddComboBox(Id);
 
-            // Make this control prominent if needed
-            if (IsProminent)
-                dialog.MakeProminent(this.Id);
+                // Add the combo box items
+                for (int index = 0; index < items.Count; index++)
+                    dialog.AddControlItem(Id, index, items[index].Text);
+
+                // Set the currently selected item
+                if (selectedIndex >= 0 && selectedIndex < items.Count)
+                {
+                    dialog.SetSelectedControlItem(Id, selectedIndex);
+                }
+                else if (selectedIndex != -1)
+                {
+                    throw new IndexOutOfRangeException(LocalizedMessages.ComboBoxIndexOutsideBounds);
+                }
+
+                // Make this control prominent if needed
+                if (IsProminent)
+                    dialog.MakeProminent(Id);
+            }
 
             // Sync additional properties
             SyncUnmanagedProperties();
@@ -139,14 +139,14 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
     /// </summary>
     public class CommonFileDialogComboBoxItem
     {
-        private string text = string.Empty;
+        private string? text = string.Empty;
         /// <summary>
         /// Gets or sets the string that is displayed for this item.
         /// </summary>
-        public string Text
+        public string? Text
         {
-            get { return text; }
-            set { text = value; }
+            get => text;
+            set => text = value;
         }
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Creates a new instance of this class with the specified text.
         /// </summary>
         /// <param name="text">The text to use for the combo box item.</param>
-        public CommonFileDialogComboBoxItem(string text)
+        public CommonFileDialogComboBoxItem(string? text)
         {
             this.text = text;
         }

@@ -9,10 +9,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
     /// </summary>
     public partial class ShellProperties : IDisposable
     {
-        private ShellObject ParentShellObject { get; set; }
-        private ShellPropertyCollection defaultPropertyCollection;
+        private ShellObject? ParentShellObject { get; set; }
+        private ShellPropertyCollection? _defaultPropertyCollection;
 
-        internal ShellProperties(ShellObject parent)
+        internal ShellProperties(ShellObject? parent)
         {
             ParentShellObject = parent;
         }
@@ -34,7 +34,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// </summary>
         /// <param name="canonicalName">The canonical name.</param>
         /// <returns>An IShellProperty.</returns>
-        public IShellProperty GetProperty(string canonicalName)
+        public IShellProperty GetProperty(string? canonicalName)
         {
             return CreateTypedProperty(canonicalName);
         }
@@ -58,41 +58,41 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <typeparam name="T">The type of property to retrieve.</typeparam>
         /// <param name="canonicalName">The canonical name.</param>
         /// <returns>A strongly-typed ShellProperty for the given canonical name.</returns>
-        public ShellProperty<T> GetProperty<T>(string canonicalName)
+        public ShellProperty<T>? GetProperty<T>(string? canonicalName)
         {
             return CreateTypedProperty(canonicalName) as ShellProperty<T>;
         }
 
-        private PropertySystem propertySystem;
+        private PropertySystem? _propertySystem;
         /// <summary>
         /// Gets all the properties for the system through an accessor.
         /// </summary>
-        public PropertySystem System
+        public PropertySystem? System
         {
             get
             {
-                if (propertySystem == null)
+                if (_propertySystem == null)
                 {
-                    propertySystem = new PropertySystem(ParentShellObject);
+                    _propertySystem = new PropertySystem(ParentShellObject);
                 }
 
-                return propertySystem;
+                return _propertySystem;
             }
         }
 
         /// <summary>
         /// Gets the collection of all the default properties for this item.
         /// </summary>
-        public ShellPropertyCollection DefaultPropertyCollection
+        public ShellPropertyCollection? DefaultPropertyCollection
         {
             get
             {
-                if (defaultPropertyCollection == null)
+                if (_defaultPropertyCollection == null)
                 {
-                    defaultPropertyCollection = new ShellPropertyCollection(ParentShellObject);
+                    _defaultPropertyCollection = new ShellPropertyCollection(ParentShellObject);
                 }
 
-                return defaultPropertyCollection;
+                return _defaultPropertyCollection;
             }
         }
 
@@ -110,7 +110,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
         internal IShellProperty CreateTypedProperty<T>(PropertyKey propKey)
         {
-            ShellPropertyDescription desc = ShellPropertyDescriptionsCache.Cache.GetPropertyDescription(propKey);
+            ShellPropertyDescription? desc = ShellPropertyDescriptionsCache.Cache.GetPropertyDescription(propKey);
             return new ShellProperty<T>(propKey, desc, ParentShellObject);
         }
 
@@ -119,7 +119,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             return ShellPropertyFactory.CreateShellProperty(propKey, ParentShellObject);
         }
 
-        internal IShellProperty CreateTypedProperty(string canonicalName)
+        internal IShellProperty CreateTypedProperty(string? canonicalName)
         {
             // Otherwise, call the native PropertyStore method
             PropertyKey propKey;
@@ -151,9 +151,9 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// </summary>
         protected virtual void Dispose(bool disposed)
         {
-            if (disposed && defaultPropertyCollection != null)
+            if (disposed && _defaultPropertyCollection != null)
             {
-                defaultPropertyCollection.Dispose();
+                _defaultPropertyCollection.Dispose();
             }
         }
 

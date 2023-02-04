@@ -7,19 +7,19 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
     /// </summary>
     public class CommonFileDialogCheckBox : CommonFileDialogProminentControl
     {
-        private bool isChecked;
+        private bool _isChecked;
         /// <summary>
         /// Gets or sets the state of the check box.
         /// </summary>
         public bool IsChecked
         {
-            get { return isChecked; }
+            get => _isChecked;
             set
             {
                 // Check if property has changed
-                if (isChecked != value)
+                if (_isChecked != value)
                 {
-                    isChecked = value;
+                    _isChecked = value;
                     ApplyPropertyChange("IsChecked");
                 }
             }
@@ -34,24 +34,24 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Creates a new instance of this class with the specified text.
         /// </summary>
         /// <param name="text">The text to display for this control.</param>
-        public CommonFileDialogCheckBox(string text) : base(text) { }
+        public CommonFileDialogCheckBox(string? text) : base(text) { }
 
         /// <summary>
         /// Creates a new instance of this class with the specified name and text.
         /// </summary>
         /// <param name="name">The name of this control.</param>
         /// <param name="text">The text to display for this control.</param>
-        public CommonFileDialogCheckBox(string name, string text) : base(name, text) { }
+        public CommonFileDialogCheckBox(string? name, string? text) : base(name, text) { }
 
         /// <summary>
         /// Creates a new instance of this class with the specified text and check state.
         /// </summary>
         /// <param name="text">The text to display for this control.</param>
         /// <param name="isChecked">The check state of this control.</param>
-        public CommonFileDialogCheckBox(string text, bool isChecked)
+        public CommonFileDialogCheckBox(string? text, bool isChecked)
             : base(text)
         {
-            this.isChecked = isChecked;
+            this._isChecked = isChecked;
         }
 
         /// <summary>
@@ -60,10 +60,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// <param name="name">The name of this control.</param>
         /// <param name="text">The text to display for this control.</param>
         /// <param name="isChecked">The check state of this control.</param>
-        public CommonFileDialogCheckBox(string name, string text, bool isChecked)
+        public CommonFileDialogCheckBox(string? name, string? text, bool isChecked)
             : base(name, text)
         {
-            this.isChecked = isChecked;
+            this._isChecked = isChecked;
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
             // Make sure that this control is enabled and has a specified delegate
             if (Enabled)
             {
-                this.CheckedChanged(this, EventArgs.Empty);
+                CheckedChanged(this, EventArgs.Empty);
             }
         }
 
@@ -83,15 +83,21 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// Attach the CheckButton control to the dialog object.
         /// </summary>
         /// <param name="dialog">the target dialog</param>
-        internal override void Attach(IFileDialogCustomize dialog)
+        internal override void Attach(IFileDialogCustomize? dialog)
         {
             Debug.Assert(dialog != null, "CommonFileDialogCheckBox.Attach: dialog parameter can not be null");
 
             // Add a check button control
-            dialog.AddCheckButton(this.Id, this.Text, this.isChecked);
+            if (dialog != null)
+            {
+                dialog.AddCheckButton(Id, Text, isChecked);
 
-            // Make this control prominent if needed
-            if (IsProminent) { dialog.MakeProminent(this.Id); }
+                // Make this control prominent if needed
+                if (IsProminent)
+                {
+                    dialog.MakeProminent(Id);
+                }
+            }
 
             // Make sure this property is set
             ApplyPropertyChange("IsChecked");

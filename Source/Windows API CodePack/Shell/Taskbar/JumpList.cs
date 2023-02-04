@@ -37,13 +37,13 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="appId">Application Id for the individual window. This must be unique for each top-level window in order to have a individual JumpList.</param>
         /// <param name="window">WPF Window associated with the new JumpList</param>
         /// <returns>A new JumpList that is associated with the specific WPF window</returns>
-        public static JumpList CreateJumpListForIndividualWindow(string appId, System.Windows.Window window)
+        public static JumpList CreateJumpListForIndividualWindow(string appId, Window window)
         {
             return new JumpList(appId, window);
         }
 
         // Best practice recommends defining a private object to lock on
-        private readonly object syncLock = new Object();
+        private readonly object syncLock = new();
 
         // Native implementation of destination list
         private ICustomDestinationList customDestinationList;
@@ -164,10 +164,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public int KnownCategoryOrdinalPosition
         {
-            get
-            {
-                return knownCategoryOrdinalPosition;
-            }
+            get => knownCategoryOrdinalPosition;
             set
             {
                 if (value < 0)
@@ -203,8 +200,8 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         /// <param name="appID">Application Id to use for this instace.</param>
         /// <param name="window">WPF Window that is associated with this JumpList</param>
-        internal JumpList(string appID, System.Windows.Window window)
-            : this(appID, (new System.Windows.Interop.WindowInteropHelper(window)).Handle)
+        internal JumpList(string appID, Window window)
+            : this(appID, (new WindowInteropHelper(window)).Handle)
         {
         }
 
@@ -358,7 +355,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         private IEnumerable<string> ProcessDeletedItems(IObjectArray removedItems)
         {
-            List<string> removedItemsArray = new List<string>();
+            List<string> removedItemsArray = new();
 
             uint count;
             removedItems.GetCount(out count);

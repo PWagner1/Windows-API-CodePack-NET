@@ -142,7 +142,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <returns></returns>
         internal static Bitmap ResizeImageWithAspect(IntPtr originalHBitmap, int newWidth, int maxHeight, bool resizeIfWider)
         {
-            Bitmap originalBitmap = Bitmap.FromHbitmap(originalHBitmap);
+            Bitmap originalBitmap = Image.FromHbitmap(originalHBitmap);
 
             try
             {

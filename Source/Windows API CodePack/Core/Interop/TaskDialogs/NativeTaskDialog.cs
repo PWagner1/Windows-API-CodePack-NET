@@ -1,5 +1,8 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable SuggestVarOrType_BuiltInTypes
+// ReSharper disable SuggestVarOrType_SimpleTypes
+#pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Dialogs
 {
     /// <summary>
@@ -101,12 +104,12 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                             msg = LocalizedMessages.NativeTaskDialogInternalErrorComplex;
                             break;
                         default:
-                            msg = string.Format(System.Globalization.CultureInfo.InvariantCulture,
+                            msg = string.Format(CultureInfo.InvariantCulture,
                                 LocalizedMessages.NativeTaskDialogInternalErrorUnexpected,
                                 hresult);
                             break;
                     }
-                    Exception e = Marshal.GetExceptionForHR((int)hresult);
+                    Exception? e = Marshal.GetExceptionForHR((int)hresult);
                     throw new Win32Exception(msg, e);
                 }
 
@@ -296,7 +299,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         private int HandleHyperlinkClick(IntPtr href)
         {
-            string link = Marshal.PtrToStringUni(href);
+            string link = Marshal.PtrToStringUni(href) ?? string.Empty;
             outerDialog.RaiseHyperlinkClickEvent(link);
 
             return CoreErrorHelper.Ignored;
@@ -343,7 +346,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             if (max.HasValue) settings.ProgressBarMaximum = max.Value;
 
             // Build range LPARAM - note it is in REVERSE intuitive order.
-            long range = NativeTaskDialog.MakeLongLParam(
+            long range = MakeLongLParam(
                 settings.ProgressBarMaximum,
                 settings.ProgressBarMinimum);
 
@@ -356,27 +359,27 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             SendMessageHelper(TaskDialogNativeMethods.TaskDialogMessages.SetProgressBarState, (int)state, 0);
         }
 
-        internal void UpdateText(string text)
+        internal void UpdateText(string? text)
         {
             UpdateTextCore(text, TaskDialogNativeMethods.TaskDialogElements.Content);
         }
 
-        internal void UpdateInstruction(string instruction)
+        internal void UpdateInstruction(string? instruction)
         {
             UpdateTextCore(instruction, TaskDialogNativeMethods.TaskDialogElements.MainInstruction);
         }
 
-        internal void UpdateFooterText(string footerText)
+        internal void UpdateFooterText(string? footerText)
         {
             UpdateTextCore(footerText, TaskDialogNativeMethods.TaskDialogElements.Footer);
         }
 
-        internal void UpdateExpandedText(string expandedText)
+        internal void UpdateExpandedText(string? expandedText)
         {
             UpdateTextCore(expandedText, TaskDialogNativeMethods.TaskDialogElements.ExpandedInformation);
         }
 
-        private void UpdateTextCore(string s, TaskDialogNativeMethods.TaskDialogElements element)
+        private void UpdateTextCore(string? s, TaskDialogNativeMethods.TaskDialogElements element)
         {
             AssertCurrentlyShowing();
 
@@ -469,7 +472,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         // Allocates a new string on the unmanaged heap, 
         // and stores the pointer so we can free it later.
 
-        private IntPtr MakeNewString(string text, TaskDialogNativeMethods.TaskDialogElements element)
+        private IntPtr MakeNewString(string? text, TaskDialogNativeMethods.TaskDialogElements element)
         {
             IntPtr newStringPtr = Marshal.StringToHGlobalUni(text);
             updatedStrings[(int)element] = newStringPtr;
@@ -521,7 +524,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             }
         }
 
-        private static IntPtr AllocateAndMarshalButtons(TaskDialogNativeMethods.TaskDialogButton[] buttons)
+        private static IntPtr AllocateAndMarshalButtons(TaskDialogNativeMethods.TaskDialogButton[]? buttons)
         {
             int sizeOfButton = Marshal.SizeOf(typeof(TaskDialogNativeMethods.TaskDialogButton));
             IntPtr initialPtr = Marshal.AllocHGlobal(sizeOfButton * buttons.Length);

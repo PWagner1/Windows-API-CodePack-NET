@@ -4,9 +4,9 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 {
     internal static class TaskDialogDefaults
     {
-        public static string Caption { get { return LocalizedMessages.TaskDialogDefaultCaption; } }
-        public static string MainInstruction { get { return LocalizedMessages.TaskDialogDefaultMainInstruction; } }
-        public static string Content { get { return LocalizedMessages.TaskDialogDefaultContent; } }
+        public static string? Caption => LocalizedMessages.TaskDialogDefaultCaption;
+        public static string? MainInstruction => LocalizedMessages.TaskDialogDefaultMainInstruction;
+        public static string? Content => LocalizedMessages.TaskDialogDefaultContent;
 
         public const int ProgressBarMinimumValue = 0;
         public const int ProgressBarMaximumValue = 100;

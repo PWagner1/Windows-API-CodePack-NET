@@ -21,7 +21,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// the properties that are indexed, look for the specific property's property description and 
         /// <see cref="P:Microsoft.WindowsAPICodePack.Shell.PropertySystem.ShellPropertyDescription.TypeFlags"/> property for IsQueryable flag.
         /// </remarks>
-        public static SearchCondition CreateLeafCondition(string propertyName, string value, SearchConditionOperation operation)
+        public static SearchCondition? CreateLeafCondition(string propertyName, string value, SearchConditionOperation operation)
         {
             using (PropVariant propVar = new PropVariant(value))
             {
@@ -43,7 +43,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// the properties that are indexed, look for the specific property's property description and 
         /// <see cref="P:Microsoft.WindowsAPICodePack.Shell.PropertySystem.ShellPropertyDescription.TypeFlags"/> property for IsQueryable flag.
         /// </remarks>
-        public static SearchCondition CreateLeafCondition(string propertyName, DateTime value, SearchConditionOperation operation)
+        public static SearchCondition? CreateLeafCondition(string propertyName, DateTime value, SearchConditionOperation operation)
         {
             using (PropVariant propVar = new PropVariant(value))
             {
@@ -64,7 +64,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// the properties that are indexed, look for the specific property's property description and 
         /// <see cref="P:Microsoft.WindowsAPICodePack.Shell.PropertySystem.ShellPropertyDescription.TypeFlags"/> property for IsQueryable flag.
         /// </remarks>
-        public static SearchCondition CreateLeafCondition(string propertyName, int value, SearchConditionOperation operation)
+        public static SearchCondition? CreateLeafCondition(string propertyName, int value, SearchConditionOperation operation)
         {
             using (PropVariant propVar = new PropVariant(value))
             {
@@ -85,7 +85,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// the properties that are indexed, look for the specific property's property description and 
         /// <see cref="P:Microsoft.WindowsAPICodePack.Shell.PropertySystem.ShellPropertyDescription.TypeFlags"/> property for IsQueryable flag.
         /// </remarks>
-        public static SearchCondition CreateLeafCondition(string propertyName, bool value, SearchConditionOperation operation)
+        public static SearchCondition? CreateLeafCondition(string propertyName, bool value, SearchConditionOperation operation)
         {
             using (PropVariant propVar = new PropVariant(value))
             {
@@ -106,7 +106,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// the properties that are indexed, look for the specific property's property description and 
         /// <see cref="P:Microsoft.WindowsAPICodePack.Shell.PropertySystem.ShellPropertyDescription.TypeFlags"/> property for IsQueryable flag.
         /// </remarks>
-        public static SearchCondition CreateLeafCondition(string propertyName, double value, SearchConditionOperation operation)
+        public static SearchCondition? CreateLeafCondition(string propertyName, double value, SearchConditionOperation operation)
         {
             using (PropVariant propVar = new PropVariant(value))
             {
@@ -114,11 +114,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
-        private static SearchCondition CreateLeafCondition(string propertyName, PropVariant propVar, string valueType, SearchConditionOperation operation)
+        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]
+        private static SearchCondition? CreateLeafCondition(string propertyName, PropVariant propVar, string? valueType, SearchConditionOperation operation)
         {
-            IConditionFactory nativeConditionFactory = null;
-            SearchCondition condition = null;
+            IConditionFactory? nativeConditionFactory = null;
+            SearchCondition? condition = null;
 
             try
             {
@@ -168,7 +168,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// the properties that are indexed, look for the specific property's property description and 
         /// <see cref="P:Microsoft.WindowsAPICodePack.Shell.PropertySystem.ShellPropertyDescription.TypeFlags"/> property for IsQueryable flag.
         /// </remarks>
-        public static SearchCondition CreateLeafCondition(PropertyKey propertyKey, string value, SearchConditionOperation operation)
+        public static SearchCondition? CreateLeafCondition(PropertyKey propertyKey, string value, SearchConditionOperation operation)
         {
             string canonicalName;
             PropertySystemNativeMethods.PSGetNameFromPropertyKey(ref propertyKey, out canonicalName);
@@ -194,7 +194,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// the properties that are indexed, look for the specific property's property description and 
         /// <see cref="P:Microsoft.WindowsAPICodePack.Shell.PropertySystem.ShellPropertyDescription.TypeFlags"/> property for IsQueryable flag.
         /// </remarks>
-        public static SearchCondition CreateLeafCondition(PropertyKey propertyKey, DateTime value, SearchConditionOperation operation)
+        public static SearchCondition? CreateLeafCondition(PropertyKey propertyKey, DateTime value, SearchConditionOperation operation)
         {
             string canonicalName;
             PropertySystemNativeMethods.PSGetNameFromPropertyKey(ref propertyKey, out canonicalName);
@@ -219,7 +219,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// the properties that are indexed, look for the specific property's property description and 
         /// <see cref="P:Microsoft.WindowsAPICodePack.Shell.PropertySystem.ShellPropertyDescription.TypeFlags"/> property for IsQueryable flag.
         /// </remarks>
-        public static SearchCondition CreateLeafCondition(PropertyKey propertyKey, bool value, SearchConditionOperation operation)
+        public static SearchCondition? CreateLeafCondition(PropertyKey propertyKey, bool value, SearchConditionOperation operation)
         {
             string canonicalName;
             PropertySystemNativeMethods.PSGetNameFromPropertyKey(ref propertyKey, out canonicalName);
@@ -244,7 +244,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// the properties that are indexed, look for the specific property's property description and 
         /// <see cref="P:Microsoft.WindowsAPICodePack.Shell.PropertySystem.ShellPropertyDescription.TypeFlags"/> property for IsQueryable flag.
         /// </remarks>
-        public static SearchCondition CreateLeafCondition(PropertyKey propertyKey, double value, SearchConditionOperation operation)
+        public static SearchCondition? CreateLeafCondition(PropertyKey propertyKey, double value, SearchConditionOperation operation)
         {
             string canonicalName;
             PropertySystemNativeMethods.PSGetNameFromPropertyKey(ref propertyKey, out canonicalName);
@@ -269,7 +269,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// the properties that are indexed, look for the specific property's property description and 
         /// <see cref="P:Microsoft.WindowsAPICodePack.Shell.PropertySystem.ShellPropertyDescription.TypeFlags"/> property for IsQueryable flag.
         /// </remarks>
-        public static SearchCondition CreateLeafCondition(PropertyKey propertyKey, int value, SearchConditionOperation operation)
+        public static SearchCondition? CreateLeafCondition(PropertyKey propertyKey, int value, SearchConditionOperation operation)
         {
             string canonicalName;
             PropertySystemNativeMethods.PSGetNameFromPropertyKey(ref propertyKey, out canonicalName);
@@ -302,7 +302,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             try
             {
                 // 
-                List<ICondition> conditionList = new List<ICondition>();
+                List<ICondition> conditionList = new();
                 if (conditionNodes != null)
                 {
                     foreach (SearchCondition c in conditionNodes)
