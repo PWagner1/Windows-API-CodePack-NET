@@ -1,3 +1,10 @@
+17/02/2023
+
+Version 7.0.3
+- Add strong naming
+
+=========
+
 13/11/2022
 
 Version 7.0.0

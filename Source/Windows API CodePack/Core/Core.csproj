@@ -15,17 +15,15 @@
 		<Nullable>enable</Nullable>
 		<AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
 		<LangVersion>latest</LangVersion>
-		<LibraryVersion>7.0.2</LibraryVersion>
+		<LibraryVersion>7.0.3</LibraryVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>WindowsAPICodePackCore</Title>
-		<PackageVersion>7.0.2</PackageVersion>
+		<PackageVersion>7.0.3</PackageVersion>
 
-		<Description>
-			This package contains the core binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
-		</Description>
+		<Description>This package contains the core binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.</Description>
 
 		<PackageLicenseFile>License.md</PackageLicenseFile>
 
@@ -40,6 +38,10 @@
 		<Authors>$(Title)</Authors>
 
 		<PackageId>$(Title)</PackageId>
+
+		<SignAssembly>True</SignAssembly>
+
+		<AssemblyOriginatorKeyFile>WindowsAPICodePack.snk</AssemblyOriginatorKeyFile>
 	</PropertyGroup>
 
 	<ItemGroup>
