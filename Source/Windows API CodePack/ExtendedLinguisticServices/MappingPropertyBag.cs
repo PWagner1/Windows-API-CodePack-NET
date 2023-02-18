@@ -48,7 +48,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
             MappingDataRange[] result = new MappingDataRange[_win32PropertyBag._rangesCount];
             for (int i = 0; i < result.Length; ++i)
             {
-                MappingDataRange range = new MappingDataRange();
+                MappingDataRange range = new();
                 range._win32DataRange = InteropTools.Unpack<Win32DataRange>(
                     (IntPtr)((UInt64)_win32PropertyBag._ranges + ((UInt64)i * InteropTools.SizeOfWin32DataRange)));
                 result[i] = range;

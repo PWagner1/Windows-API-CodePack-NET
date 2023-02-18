@@ -23,7 +23,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </remarks>
         public static SearchCondition? CreateLeafCondition(string propertyName, string value, SearchConditionOperation operation)
         {
-            using (PropVariant propVar = new PropVariant(value))
+            using (PropVariant propVar = new(value))
             {
                 return CreateLeafCondition(propertyName, propVar, null, operation);
             }
@@ -45,7 +45,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </remarks>
         public static SearchCondition? CreateLeafCondition(string propertyName, DateTime value, SearchConditionOperation operation)
         {
-            using (PropVariant propVar = new PropVariant(value))
+            using (PropVariant propVar = new(value))
             {
                 return CreateLeafCondition(propertyName, propVar, "System.StructuredQuery.CustomProperty.DateTime", operation);
             }
@@ -66,7 +66,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </remarks>
         public static SearchCondition? CreateLeafCondition(string propertyName, int value, SearchConditionOperation operation)
         {
-            using (PropVariant propVar = new PropVariant(value))
+            using (PropVariant propVar = new(value))
             {
                 return CreateLeafCondition(propertyName, propVar, "System.StructuredQuery.CustomProperty.Integer", operation);
             }
@@ -87,7 +87,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </remarks>
         public static SearchCondition? CreateLeafCondition(string propertyName, bool value, SearchConditionOperation operation)
         {
-            using (PropVariant propVar = new PropVariant(value))
+            using (PropVariant propVar = new(value))
             {
                 return CreateLeafCondition(propertyName, propVar, "System.StructuredQuery.CustomProperty.Boolean", operation);
             }
@@ -108,7 +108,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </remarks>
         public static SearchCondition? CreateLeafCondition(string propertyName, double value, SearchConditionOperation operation)
         {
-            using (PropVariant propVar = new PropVariant(value))
+            using (PropVariant propVar = new(value))
             {
                 return CreateLeafCondition(propertyName, propVar, "System.StructuredQuery.CustomProperty.FloatingPoint", operation);
             }
@@ -143,7 +143,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 }
 
                 // Create our search condition and set the various properties.
-                condition = new SearchCondition(nativeCondition);
+                condition = new(nativeCondition);
             }
             finally
             {
@@ -325,7 +325,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 }
             }
 
-            return new SearchCondition(result);
+            return new(result);
         }
 
         /// <summary>
@@ -361,7 +361,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 }
             }
 
-            return new SearchCondition(result);
+            return new(result);
         }
 
         /// <summary>
@@ -403,7 +403,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             try
             {
                 // First, try to create a new IQueryParser using IQueryParserManager
-                Guid guid = new Guid(ShellIIDGuid.IQueryParser);
+                Guid guid = new(ShellIIDGuid.IQueryParser);
                 HResult hr = nativeQueryParserManager.CreateLoadedParser(
                     "SystemIndex",
                     cultureInfo == null ? (ushort)0 : (ushort)cultureInfo.LCID,
@@ -415,7 +415,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 if (queryParser != null)
                 {
                     // If user specified natural query, set the option on the query parser
-                    using (PropVariant optionValue = new PropVariant(true))
+                    using (PropVariant optionValue = new(true))
                     {
                         hr = queryParser.SetOption(StructuredQuerySingleOption.NaturalSyntax, optionValue);
                     }
@@ -438,7 +438,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     }
                 }
 
-                searchCondition = new SearchCondition(result);
+                searchCondition = new(result);
                 return searchCondition;
             }
             catch

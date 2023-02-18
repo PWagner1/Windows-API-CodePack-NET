@@ -65,19 +65,19 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 NativeRect clientRect;
                 DesktopWindowManagerNativeMethods.GetWindowRect(hwndSource.Handle, out windowRect);
                 DesktopWindowManagerNativeMethods.GetClientRect(hwndSource.Handle, out clientRect);
-                Size nonClientSize = new Size(
+                Size nonClientSize = new(
                         (double)(windowRect.Right - windowRect.Left) - (double)(clientRect.Right - clientRect.Left),
                         (double)(windowRect.Bottom - windowRect.Top) - (double)(clientRect.Bottom - clientRect.Top));
 
                 // calculate size of element relative to nonclient area
                 GeneralTransform transform = element.TransformToAncestor(this);
-                Point topLeftFrame = transform.Transform(new Point(0, 0));
-                Point bottomRightFrame = transform.Transform(new Point(
+                Point topLeftFrame = transform.Transform(new(0, 0));
+                Point bottomRightFrame = transform.Transform(new(
                             element.ActualWidth + nonClientSize.Width,
                             element.ActualHeight + nonClientSize.Height));
 
                 // Create a margin structure
-                Margins margins = new Margins();
+                Margins margins = new();
                 margins.LeftWidth = (int)topLeftFrame.X;
                 margins.RightWidth = (int)(ActualWidth - bottomRightFrame.X);
                 margins.TopHeight = (int)(topLeftFrame.Y);
@@ -93,7 +93,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public void ResetAeroGlass()
         {
-            Margins margins = new Margins(true);
+            Margins margins = new(true);
             DesktopWindowManagerNativeMethods.DwmExtendFrameIntoClientArea(windowHandle, ref margins);
         }
 
@@ -110,7 +110,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 if (AeroGlassCompositionChanged != null)
                 {
                     AeroGlassCompositionChanged.Invoke(this,
-                        new AeroGlassCompositionChangedEventArgs(AeroGlassCompositionEnabled));
+                        new(AeroGlassCompositionEnabled));
                 }
 
                 handled = true;
@@ -127,12 +127,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
         protected override void OnSourceInitialized(EventArgs e)
         {
             base.OnSourceInitialized(e);
-            WindowInteropHelper interopHelper = new WindowInteropHelper(this);
+            WindowInteropHelper interopHelper = new(this);
             windowHandle = interopHelper.Handle;
 
             // add Window Proc hook to capture DWM messages
             HwndSource source = HwndSource.FromHwnd(windowHandle);
-            source.AddHook(new HwndSourceHook(WndProc));
+            source.AddHook(new(WndProc));
 
             ResetAeroGlass();
         }

@@ -52,7 +52,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 }
 
                 _shellItemsArray = GetItemsArray();
-                _itemsCollection = new ShellObjectCollection(_shellItemsArray, true);
+                _itemsCollection = new(_shellItemsArray, true);
 
                 return _itemsCollection;
             }
@@ -79,7 +79,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 }
 
                 _selectedShellItemsArray = GetSelectedItemsArray();
-                _selectedItemsCollection = new ShellObjectCollection(_selectedShellItemsArray, true);
+                _selectedItemsCollection = new(_selectedShellItemsArray, true);
 
                 return _selectedItemsCollection;
             }
@@ -133,7 +133,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 {
                     if ((hr == HResult.ResourceInUse || hr == HResult.Canceled) && NavigationFailed != null)
                     {
-                        NavigationFailedEventArgs args = new NavigationFailedEventArgs();
+                        NavigationFailedEventArgs args = new();
                         args.FailedLocation = shellObject;
                         NavigationFailed(this, args);
                     }
@@ -229,9 +229,9 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         public ExplorerBrowser()
             : base()
         {
-            NavigationOptions = new ExplorerBrowserNavigationOptions(this);
-            ContentOptions = new ExplorerBrowserContentOptions(this);
-            NavigationLog = new ExplorerBrowserNavigationLog(this);
+            NavigationOptions = new(this);
+            ContentOptions = new(this);
+            NavigationLog = new(this);
         }
 
         #endregion
@@ -246,7 +246,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         {
             if (DesignMode && e != null)
             {
-                using (LinearGradientBrush linGrBrush = new LinearGradientBrush(
+                using (LinearGradientBrush linGrBrush = new(
                     ClientRectangle,
                     Color.Aqua,
                     Color.CadetBlue,
@@ -255,9 +255,9 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                     e.Graphics.FillRectangle(linGrBrush, ClientRectangle);
                 }
 
-                using (Font font = new Font("Garamond", 30))
+                using (Font font = new("Garamond", 30))
                 {
-                    using (StringFormat sf = new StringFormat())
+                    using (StringFormat sf = new())
                     {
                         sf.Alignment = StringAlignment.Center;
                         sf.LineAlignment = StringAlignment.Center;
@@ -286,7 +286,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
 
             if (DesignMode == false)
             {
-                ExplorerBrowserControl = new ExplorerBrowserClass();
+                ExplorerBrowserControl = new();
 
                 // hooks up IExplorerPaneVisibility and ICommDlgBrowser event notifications
                 ExplorerBrowserNativeMethods.IUnknown_SetSite(ExplorerBrowserControl, this);
@@ -297,9 +297,9 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                     out EventsCookie);
 
                 // sets up ExplorerBrowser view connection point events
-                _viewEvents = new ExplorerBrowserViewEvents(this);
+                _viewEvents = new(this);
 
-                NativeRect rect = new NativeRect();
+                NativeRect rect = new();
                 rect.Top = ClientRectangle.Top;
                 rect.Left = ClientRectangle.Left;
                 rect.Right = ClientRectangle.Right;
@@ -336,7 +336,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         {
             if (ExplorerBrowserControl != null)
             {
-                NativeRect rect = new NativeRect();
+                NativeRect rect = new();
                 rect.Top = ClientRectangle.Top;
                 rect.Left = ClientRectangle.Left;
                 rect.Right = ClientRectangle.Right;
@@ -389,7 +389,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         {
             HResult hr = HResult.Ok;
 
-            if (guidService.CompareTo(new Guid(ExplorerBrowserIIDGuid.IExplorerPaneVisibility)) == 0)
+            if (guidService.CompareTo(new(ExplorerBrowserIIDGuid.IExplorerPaneVisibility)) == 0)
             {
                 // Responding to this SID allows us to control the visibility of the 
                 // explorer browser panes
@@ -397,9 +397,9 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                     Marshal.GetComInterfaceForObject(this, typeof(IExplorerPaneVisibility));
                 hr = HResult.Ok;
             }
-            else if (guidService.CompareTo(new Guid(ExplorerBrowserIIDGuid.ICommDlgBrowser)) == 0)
+            else if (guidService.CompareTo(new(ExplorerBrowserIIDGuid.ICommDlgBrowser)) == 0)
             {
-                if (riid.CompareTo(new Guid(ExplorerBrowserIIDGuid.ICommDlgBrowser)) == 0)
+                if (riid.CompareTo(new(ExplorerBrowserIIDGuid.ICommDlgBrowser)) == 0)
                 {
                     ppvObject = Marshal.GetComInterfaceForObject(this, typeof(ICommDlgBrowser3));
                     hr = HResult.Ok;
@@ -413,7 +413,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 //    ppvObject = Marshal.GetComInterfaceForObject(this, typeof(ICommDlgBrowser3));
                 //    hr = HResult.Ok;                    
                 //}
-                else if (riid.CompareTo(new Guid(ExplorerBrowserIIDGuid.ICommDlgBrowser3)) == 0)
+                else if (riid.CompareTo(new(ExplorerBrowserIIDGuid.ICommDlgBrowser3)) == 0)
                 {
                     ppvObject = Marshal.GetComInterfaceForObject(this, typeof(ICommDlgBrowser3));
                     hr = HResult.Ok;
@@ -508,7 +508,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
 
             if (NavigationPending != null)
             {
-                NavigationPendingEventArgs args = new NavigationPendingEventArgs();
+                NavigationPendingEventArgs args = new();
 
                 // For some special items (like network machines), ShellObject.FromIDList
                 // might return null
@@ -544,7 +544,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
 
             if (NavigationComplete != null)
             {
-                NavigationCompleteEventArgs args = new NavigationCompleteEventArgs();
+                NavigationCompleteEventArgs args = new();
                 args.NewLocation = ShellObjectFactory.Create(pidlFolder);
                 NavigationComplete(this, args);
             }
@@ -555,7 +555,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         {
             if (NavigationFailed != null)
             {
-                NavigationFailedEventArgs args = new NavigationFailedEventArgs();
+                NavigationFailedEventArgs args = new();
                 args.FailedLocation = ShellObjectFactory.Create(pidlFolder);
                 NavigationFailed(this, args);
             }
@@ -692,7 +692,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// <returns></returns>
         internal IFolderView2? GetFolderView2()
         {
-            Guid iid = new Guid(ExplorerBrowserIIDGuid.IFolderView2);
+            Guid iid = new(ExplorerBrowserIIDGuid.IFolderView2);
             IntPtr view = IntPtr.Zero;
             if (ExplorerBrowserControl != null)
             {
@@ -730,7 +730,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
             {
                 try
                 {
-                    Guid iidShellItemArray = new Guid(ShellIIDGuid.IShellItemArray);
+                    Guid iidShellItemArray = new(ShellIIDGuid.IShellItemArray);
                     object oArray = null;
                     HResult hr = iFv2.Items((uint)ShellViewGetItemObject.Selection, ref iidShellItemArray, out oArray);
                     iArray = oArray as IShellItemArray;
@@ -819,7 +819,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
             {
                 try
                 {
-                    Guid iidShellItemArray = new Guid(ShellIIDGuid.IShellItemArray);
+                    Guid iidShellItemArray = new(ShellIIDGuid.IShellItemArray);
                     object oArray = null;
                     HResult hr = iFv2.Items((uint)ShellViewGetItemObject.AllView, ref iidShellItemArray, out oArray);
                     if (hr != HResult.Ok &&

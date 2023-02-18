@@ -359,7 +359,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
                 instance.ExplorerBrowserControl.ContentOptions.CheckSelect = (bool)e.NewValue;
             }
         }
-    
+
         /// <summary>
         /// When the view is in "tile view mode" the layout of a single item should be extended to the width of the view.
         /// </summary>
@@ -747,7 +747,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
             ExplorerBrowser instance = d as ExplorerBrowser;
             if (instance.ExplorerBrowserControl != null)
             {
-                instance.ExplorerBrowserControl.NavigationOptions.PaneVisibility.Commands = 
+                instance.ExplorerBrowserControl.NavigationOptions.PaneVisibility.Commands =
                     (PaneVisibilityState)e.NewValue;
             }
         }
@@ -772,7 +772,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
             ExplorerBrowser instance = d as ExplorerBrowser;
             if (instance.ExplorerBrowserControl != null)
             {
-                instance.ExplorerBrowserControl.NavigationOptions.PaneVisibility.CommandsOrganize = 
+                instance.ExplorerBrowserControl.NavigationOptions.PaneVisibility.CommandsOrganize =
                     (PaneVisibilityState)e.NewValue;
             }
         }

@@ -32,7 +32,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                     {
                         if (_instance == null)
                         {
-                            _instance = new TaskbarManager();
+                            _instance = new();
                         }
                     }
                 }
@@ -171,7 +171,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 if (_tabbedThumbnail == null)
                 {
-                    _tabbedThumbnail = new TabbedThumbnailManager();
+                    _tabbedThumbnail = new();
                 }
                 return _tabbedThumbnail;
             }
@@ -188,7 +188,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 if (_thumbnailToolBarManager == null)
                 {
-                    _thumbnailToolBarManager = new ThumbnailToolBarManager();
+                    _thumbnailToolBarManager = new();
                 }
 
                 return _thumbnailToolBarManager;

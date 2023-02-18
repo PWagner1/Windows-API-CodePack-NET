@@ -50,7 +50,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             Enabled = true;
 
             // Create a native 
-            _win32ThumbButton = new ThumbButton();
+            _win32ThumbButton = new();
 
             // End our internal update
             _internalUpdate = false;
@@ -259,11 +259,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 if (taskbarWindow.UserWindowHandle != IntPtr.Zero)
                 {
-                    Click(this, new ThumbnailButtonClickedEventArgs(taskbarWindow.UserWindowHandle, this));
+                    Click(this, new(taskbarWindow.UserWindowHandle, this));
                 }
                 else if (taskbarWindow.WindowsControl != null)
                 {
-                    Click(this, new ThumbnailButtonClickedEventArgs(taskbarWindow.WindowsControl, this));
+                    Click(this, new(taskbarWindow.WindowsControl, this));
                 }
             }
         }

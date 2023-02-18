@@ -13,9 +13,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="pidl"></param>
         /// <returns></returns>
         internal static IKnownFolderNative? FromPIDL(IntPtr pidl)
-        {            
+        {
             KnownFolderManagerClass knownFolderManager = new KnownFolderManagerClass();
-            
+
             IKnownFolderNative? knownFolder;
             HResult hr = knownFolderManager.FindFolderFromIDList(pidl, out knownFolder);
 

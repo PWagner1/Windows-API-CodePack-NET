@@ -254,7 +254,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
 
         void IInitializeWithStream.Initialize(IStream stream, AccessModes fileMode)
         {
-            _stream = new StorageStream(stream, fileMode != AccessModes.ReadWrite);
+            _stream = new(stream, fileMode != AccessModes.ReadWrite);
         }
 
         #endregion
@@ -272,7 +272,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
 
         void IInitializeWithFile.Initialize(string filePath, AccessModes fileMode)
         {
-            _info = new FileInfo(filePath);
+            _info = new(filePath);
         }
 
         #endregion

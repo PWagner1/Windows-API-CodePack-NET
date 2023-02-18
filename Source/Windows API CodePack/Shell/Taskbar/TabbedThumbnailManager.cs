@@ -21,8 +21,8 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         internal TabbedThumbnailManager()
         {
-            _tabbedThumbnailCache = new Dictionary<IntPtr, TabbedThumbnail>();
-            _tabbedThumbnailCacheWPF = new Dictionary<UIElement, TabbedThumbnail>();
+            _tabbedThumbnailCache = new();
+            _tabbedThumbnailCacheWPF = new();
         }
 
         /// <summary>
@@ -403,7 +403,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 return;
             }
 
-            NativeRect rect = new NativeRect();
+            NativeRect rect = new();
             rect.Left = clippingRectangle.Value.Left;
             rect.Top = clippingRectangle.Value.Top;
             rect.Right = clippingRectangle.Value.Right;

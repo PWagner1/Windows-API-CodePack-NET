@@ -130,7 +130,7 @@ namespace MS.WindowsAPICodePack.Internal
         {
             if (value == null)
             {
-                return new PropVariant();
+                return new();
             }
             else
             {
@@ -693,8 +693,7 @@ namespace MS.WindowsAPICodePack.Internal
         private static System.Runtime.InteropServices.ComTypes.FILETIME DateTimeToFileTime(DateTime value)
         {
             long hFT = value.ToFileTime();
-            System.Runtime.InteropServices.ComTypes.FILETIME ft =
-                new System.Runtime.InteropServices.ComTypes.FILETIME();
+            System.Runtime.InteropServices.ComTypes.FILETIME ft = new();
             ft.dwLowDateTime = (int)(hFT & 0xFFFFFFFF);
             ft.dwHighDateTime = (int)(hFT >> 32);
             return ft;

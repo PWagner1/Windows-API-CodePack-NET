@@ -172,7 +172,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 flags |= ShellNativeMethods.FileOpenOptions.PickFolders;
             }
-            
+
             if (!_allowNonFileSystem)
             {
                 flags |= ShellNativeMethods.FileOpenOptions.ForceFilesystem;

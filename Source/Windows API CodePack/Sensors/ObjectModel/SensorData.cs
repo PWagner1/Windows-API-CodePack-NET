@@ -184,7 +184,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <returns><b>true</b> if successful; otherwise <b>false</b></returns>
         public bool Remove(KeyValuePair<Guid, IList<object>> item)
         {
-            ICollection<KeyValuePair<Guid, IList<object>>> c = _sensorDataDictionary as ICollection<KeyValuePair<Guid, IList<object>>>;            
+            ICollection<KeyValuePair<Guid, IList<object>>> c = _sensorDataDictionary as ICollection<KeyValuePair<Guid, IList<object>>>;
             return c.Remove(item);
         }
 

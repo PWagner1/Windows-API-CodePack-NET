@@ -12,7 +12,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         private INativeShellLibrary? nativeShellLibrary;
         private IKnownFolder? knownFolder;
 
-        private static Guid[] FolderTypesGuids = 
+        private static Guid[] FolderTypesGuids =
         {
             new(ShellKFIDGuid.GenericLibrary),
             new(ShellKFIDGuid.DocumentsLibrary),

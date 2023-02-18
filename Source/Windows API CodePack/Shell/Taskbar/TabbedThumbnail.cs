@@ -268,15 +268,15 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 return;
             }
 
-            BmpBitmapEncoder encoder = new BmpBitmapEncoder();
+            BmpBitmapEncoder encoder = new();
             encoder.Frames.Add(BitmapFrame.Create(bitmapSource));
 
-            using (MemoryStream memoryStream = new MemoryStream())
+            using (MemoryStream memoryStream = new())
             {
                 encoder.Save(memoryStream);
                 memoryStream.Position = 0;
 
-                using (Bitmap bmp = new Bitmap(memoryStream))
+                using (Bitmap bmp = new(memoryStream))
                 {
                     SetImage(bmp.GetHbitmap());
                 }
@@ -390,7 +390,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 // No one is listening to these events.
                 // Forward the message to the main window
-                CoreNativeMethods.SendMessage(ParentWindowHandle, WindowMessage.SystemCommand, new IntPtr(TabbedThumbnailNativeMethods.ScMaximize), IntPtr.Zero);
+                CoreNativeMethods.SendMessage(ParentWindowHandle, WindowMessage.SystemCommand, new(TabbedThumbnailNativeMethods.ScMaximize), IntPtr.Zero);
             }
         }
 
@@ -404,7 +404,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 // No one is listening to these events.
                 // Forward the message to the main window
-                CoreNativeMethods.SendMessage(ParentWindowHandle, WindowMessage.SystemCommand, new IntPtr(TabbedThumbnailNativeMethods.ScMinimize), IntPtr.Zero);
+                CoreNativeMethods.SendMessage(ParentWindowHandle, WindowMessage.SystemCommand, new(TabbedThumbnailNativeMethods.ScMinimize), IntPtr.Zero);
             }
 
         }
@@ -445,7 +445,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 // No one is listening to these events.
                 // Forward the message to the main window
-                CoreNativeMethods.SendMessage(ParentWindowHandle, WindowMessage.ActivateApplication, new IntPtr(1), new IntPtr(Thread.CurrentThread.GetHashCode()));
+                CoreNativeMethods.SendMessage(ParentWindowHandle, WindowMessage.ActivateApplication, new(1), new(Thread.CurrentThread.GetHashCode()));
             }
         }
 
@@ -457,11 +457,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
                 if (WindowHandle != IntPtr.Zero)
                 {
-                    eventArgs = new TabbedThumbnailBitmapRequestedEventArgs(WindowHandle);
+                    eventArgs = new(WindowHandle);
                 }
                 else if (WindowsControl != null)
                 {
-                    eventArgs = new TabbedThumbnailBitmapRequestedEventArgs(WindowsControl);
+                    eventArgs = new(WindowsControl);
                 }
 
                 TabbedThumbnailBitmapRequested(this, eventArgs);
@@ -474,11 +474,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
             if (WindowHandle != IntPtr.Zero)
             {
-                eventArgs = new TabbedThumbnailClosedEventArgs(WindowHandle);
+                eventArgs = new(WindowHandle);
             }
             else if (WindowsControl != null)
             {
-                eventArgs = new TabbedThumbnailClosedEventArgs(WindowsControl);
+                eventArgs = new(WindowsControl);
             }
 
             return eventArgs;
@@ -490,11 +490,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
             if (WindowHandle != IntPtr.Zero)
             {
-                eventArgs = new TabbedThumbnailEventArgs(WindowHandle);
+                eventArgs = new(WindowHandle);
             }
             else if (WindowsControl != null)
             {
-                eventArgs = new TabbedThumbnailEventArgs(WindowsControl);
+                eventArgs = new(WindowsControl);
             }
 
             return eventArgs;

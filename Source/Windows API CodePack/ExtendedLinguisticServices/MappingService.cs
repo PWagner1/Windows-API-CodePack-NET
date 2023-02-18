@@ -223,7 +223,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
                     _service, bag._text.AddrOfPinnedObject(), (uint)length, (uint)index,
                     bag._options, ref bag._win32PropertyBag);
                 if (hResult != 0)
-                {                    
+                {
                     throw new LinguisticException(hResult);
                 }
                 return bag;

@@ -45,7 +45,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
             {
                 HandlerNativeMethods.SetParent(_source.Handle, _parentHandle);
 
-                HandlerNativeMethods.SetWindowPos(_source.Handle, new IntPtr((int)SetWindowPositionInsertAfter.Top),
+                HandlerNativeMethods.SetWindowPos(_source.Handle, new((int)SetWindowPositionInsertAfter.Top),
                 0, 0, Math.Abs(_bounds.Left - _bounds.Right), Math.Abs(_bounds.Top - _bounds.Bottom), SetWindowPositionOptions.ShowWindow);
             }
         }
@@ -62,13 +62,13 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
             {
                 ThrowIfNoControl();
 
-                HwndSourceParameters p = new HwndSourceParameters();
+                HwndSourceParameters p = new();
                 p.WindowStyle = (int)(WindowStyles.Child | WindowStyles.Visible | WindowStyles.ClipSiblings);
                 p.ParentWindow = _parentHandle;
                 p.Width = Math.Abs(_bounds.Left - _bounds.Right);
                 p.Height = Math.Abs(_bounds.Top - _bounds.Bottom);
 
-                _source = new HwndSource(p);
+                _source = new(p);
                 _source.CompositionTarget.BackgroundColor = Brushes.WhiteSmoke.Color;
                 _source.RootVisual = (Visual)Control.Content;
             }
@@ -99,13 +99,13 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         {
             if (caughtException == null) { return; }
 
-            TextBox text = new TextBox
+            TextBox text = new()
             {
                 IsReadOnly = true,
                 MaxLines = 20,
                 Text = caughtException.ToString()
             };
-            Control = new UserControl() { Content = text };
+            Control = new() { Content = text };
         }
 
         protected override void SetFocus()

@@ -69,7 +69,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 {
                     return string.Format(CultureInfo.InvariantCulture,
                         "{0} ({1})",
-                        _rawDisplayName, 
+                        _rawDisplayName,
                         GetDisplayExtensionList(_extensions));
                 }
 

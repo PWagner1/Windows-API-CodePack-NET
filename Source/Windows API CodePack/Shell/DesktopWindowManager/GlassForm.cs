@@ -58,7 +58,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 Rectangle clientScreen = RectangleToScreen(ClientRectangle);
                 Rectangle controlScreen = control.RectangleToScreen(control.ClientRectangle);
 
-                Margins margins = new Margins();
+                Margins margins = new();
                 margins.LeftWidth = controlScreen.Left - clientScreen.Left;
                 margins.RightWidth = clientScreen.Right - controlScreen.Right;
                 margins.TopHeight = controlScreen.Top - clientScreen.Top;
@@ -76,7 +76,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             if (Handle != IntPtr.Zero)
             {
-                Margins margins = new Margins(true);
+                Margins margins = new(true);
                 DesktopWindowManagerNativeMethods.DwmExtendFrameIntoClientArea(Handle, ref margins);
             }
         }
@@ -96,7 +96,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 if (AeroGlassCompositionChanged != null)
                 {
                     AeroGlassCompositionChanged.Invoke(this,
-                        new AeroGlassCompositionChangedEventArgs(AeroGlassCompositionEnabled));
+                        new(AeroGlassCompositionEnabled));
                 }
             }
 

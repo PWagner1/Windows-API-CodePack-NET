@@ -150,7 +150,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             // property that is to collected.
             if (propertyList != null && propertyList.Length > 0 && propertyList[0] != null)
             {
-                StringBuilder sb = new StringBuilder("prop:");
+                StringBuilder sb = new("prop:");
                 foreach (PropertyKey key in propertyList)
                 {
                     if (ShellPropertyDescriptionsCache.Cache != null)
@@ -160,7 +160,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                     }
                 }
 
-                Guid guid = new Guid(ShellIIDGuid.IPropertyDescriptionList);
+                Guid guid = new(ShellIIDGuid.IPropertyDescriptionList);
                 IPropertyDescriptionList propertyDescriptionList = null;
 
                 try
@@ -220,7 +220,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
                     if (propertyStore != null && CoreErrorHelper.Succeeded(hr))
                     {
-                        return new ShellPropertyCollection(propertyStore);
+                        return new(propertyStore);
                     }
                 }
 
@@ -234,7 +234,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             if (_saveDialogCoClass == null)
             {
-                _saveDialogCoClass = new NativeFileSaveDialog();
+                _saveDialogCoClass = new();
             }
         }
 

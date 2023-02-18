@@ -17,7 +17,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// In order to have a individual JumpList for a top-level window, use the overloaded method CreateJumpListForIndividualWindow.</remarks>
         public static JumpList CreateJumpList()
         {
-            return new JumpList(TaskbarManager.Instance.ApplicationId);
+            return new(TaskbarManager.Instance.ApplicationId);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <returns>A new JumpList that is associated with the specific window handle</returns>
         public static JumpList CreateJumpListForIndividualWindow(string appId, IntPtr windowHandle)
         {
-            return new JumpList(appId, windowHandle);
+            return new(appId, windowHandle);
         }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <returns>A new JumpList that is associated with the specific WPF window</returns>
         public static JumpList CreateJumpListForIndividualWindow(string appId, Window window)
         {
-            return new JumpList(appId, window);
+            return new(appId, window);
         }
 
         // Best practice recommends defining a private object to lock on
@@ -61,7 +61,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 if (customCategoriesCollection == null)
                 {
-                    customCategoriesCollection = new JumpListCustomCategoryCollection();
+                    customCategoriesCollection = new();
                 }
             }
 
@@ -90,7 +90,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 {
                     if (userTasks == null)
                     {
-                        userTasks = new JumpListItemCollection<JumpListTask>();
+                        userTasks = new();
                     }
                 }
             }
@@ -320,7 +320,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             // Raise the event if items were removed
             if (JumpListItemsRemoved != null && removedItemsArray != null && removedItemsArray.GetEnumerator().MoveNext())
             {
-                JumpListItemsRemoved(this, new UserRemovedJumpListItemsEventArgs(removedItemsArray));
+                JumpListItemsRemoved(this, new(removedItemsArray));
             }
         }
 
@@ -417,7 +417,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
             if (customCategoriesCollection != null)
             {
-                StringBuilder sb = new StringBuilder(256);
+                StringBuilder sb = new(256);
                 link.GetPath(sb, sb.Capacity, IntPtr.Zero, 2);
 
                 path = sb.ToString();

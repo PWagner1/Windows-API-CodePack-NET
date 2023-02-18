@@ -36,7 +36,7 @@
                 {
                     throw new ArgumentException(LocalizedMessages.MessageListenerFilterUnknownListenerHandle);
                 }
-                
+
                 if (package.Callbacks.Count == 0)
                 {
                     package.Listener.Dispose();

@@ -225,7 +225,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
                     LocalizedMessages.PreviewHandlerUnsupportedInterfaceCalled,
                     "IPreviewFromFile"));
             }
-            preview.Load(new FileInfo(filePath));
+            preview.Load(new(filePath));
         }
 
         #endregion

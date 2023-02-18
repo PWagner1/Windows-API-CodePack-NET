@@ -132,7 +132,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
                 using (PropVariant propVariant = new PropVariant(Title))
                 {
-                    HResult result =  nativePropertyStore.SetValue(ref PKEY_Title, propVariant);
+                    HResult result = nativePropertyStore.SetValue(ref PKEY_Title, propVariant);
                     if (!CoreErrorHelper.Succeeded(result))
                     {
                         throw new ShellException(result);
@@ -144,7 +144,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 return nativeShellLink;
             }
         }
-        
+
         #region IDisposable Members
 
         /// <summary>

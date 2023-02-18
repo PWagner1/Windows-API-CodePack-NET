@@ -20,7 +20,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             try
             {
                 AddThumbnailButtons(
-                    taskbarWindow ?? (temp = new TaskbarWindow(userWindowHandle, buttons)),
+                    taskbarWindow ?? (temp = new(userWindowHandle, buttons)),
                     taskbarWindow == null,
                     buttons);
             }
@@ -39,7 +39,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             try
             {
                 AddThumbnailButtons(
-                    taskbarWindow ?? (temp = new TaskbarWindow(control, buttons)),
+                    taskbarWindow ?? (temp = new(control, buttons)),
                     taskbarWindow == null,
                     buttons);
             }
@@ -85,7 +85,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             //create taskbar, or set its TabbedThumbnail
             if (taskbarWindow == null)
             {
-                taskbarWindow = new TaskbarWindow(preview);
+                taskbarWindow = new(preview);
                 _taskbarWindowList.Add(taskbarWindow);
             }
             else if (taskbarWindow.TabbedThumbnail == null)
@@ -94,8 +94,8 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
 
             // Listen for Title changes
-            preview.TitleChanged += new EventHandler(thumbnailPreview_TitleChanged);
-            preview.TooltipChanged += new EventHandler(thumbnailPreview_TooltipChanged);
+            preview.TitleChanged += new(thumbnailPreview_TitleChanged);
+            preview.TooltipChanged += new(thumbnailPreview_TooltipChanged);
 
             // Get/Set properties for proxy window
             IntPtr windowHandle = taskbarWindow.WindowToTellTaskbarAbout;
@@ -228,7 +228,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 int width = (int)((long)m.LParam >> 16);
                 int height = (int)(((long)m.LParam) & (0xFFFF));
-                Size requestedSize = new Size(width, height);
+                Size requestedSize = new(width, height);
 
                 // Fire an event to let the user update their bitmap
                 taskbarWindow.TabbedThumbnail.OnTabbedThumbnailBitmapRequested();
@@ -236,7 +236,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 IntPtr hBitmap = IntPtr.Zero;
 
                 // Default size for the thumbnail
-                Size realWindowSize = new Size(200, 200);
+                Size realWindowSize = new(200, 200);
 
                 // Get the size of teh control or UIElement
                 if (taskbarWindow.TabbedThumbnail.WindowHandle != IntPtr.Zero)
@@ -245,7 +245,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 }
                 else if (taskbarWindow.TabbedThumbnail.WindowsControl != null)
                 {
-                    realWindowSize = new Size(
+                    realWindowSize = new(
                         Convert.ToInt32(taskbarWindow.TabbedThumbnail.WindowsControl.RenderSize.Width),
                         Convert.ToInt32(taskbarWindow.TabbedThumbnail.WindowsControl.RenderSize.Height));
                 }
@@ -348,7 +348,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 int height = (int)(((long)m.LParam) & (0xFFFF));
 
                 // Default size for the thumbnail
-                Size realWindowSize = new Size(200, 200);
+                Size realWindowSize = new(200, 200);
 
                 if (taskbarWindow.TabbedThumbnail.WindowHandle != IntPtr.Zero)
                 {
@@ -356,7 +356,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 }
                 else if (taskbarWindow.TabbedThumbnail.WindowsControl != null)
                 {
-                    realWindowSize = new Size(
+                    realWindowSize = new(
                         Convert.ToInt32(taskbarWindow.TabbedThumbnail.WindowsControl.RenderSize.Width),
                         Convert.ToInt32(taskbarWindow.TabbedThumbnail.WindowsControl.RenderSize.Height));
                 }
@@ -384,7 +384,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 // correctly on the app window
                 if (taskbarWindow.TabbedThumbnail.ParentWindowHandle != IntPtr.Zero && taskbarWindow.TabbedThumbnail.WindowHandle != IntPtr.Zero)
                 {
-                    System.Drawing.Point offset = new System.Drawing.Point();
+                    System.Drawing.Point offset = new();
 
                     // if we don't have a offset specified already by the user...
                     if (!taskbarWindow.TabbedThumbnail.PeekOffset.HasValue)
@@ -393,7 +393,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                     }
                     else
                     {
-                        offset = new System.Drawing.Point(Convert.ToInt32(taskbarWindow.TabbedThumbnail.PeekOffset.Value.X),
+                        offset = new(Convert.ToInt32(taskbarWindow.TabbedThumbnail.PeekOffset.Value.X),
                             Convert.ToInt32(taskbarWindow.TabbedThumbnail.PeekOffset.Value.Y));
                     }
 
@@ -433,11 +433,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                         // Calculate the offset for a WPF UIElement control
                         // For hidden controls, we can't seem to perform the transform.
                         GeneralTransform objGeneralTransform = taskbarWindow.TabbedThumbnail.WindowsControl.TransformToVisual(taskbarWindow.TabbedThumbnail.WindowsControlParentWindow);
-                        offset = objGeneralTransform.Transform(new System.Windows.Point(0, 0));
+                        offset = objGeneralTransform.Transform(new(0, 0));
                     }
                     else
                     {
-                        offset = new System.Windows.Point(taskbarWindow.TabbedThumbnail.PeekOffset.Value.X, taskbarWindow.TabbedThumbnail.PeekOffset.Value.Y);
+                        offset = new(taskbarWindow.TabbedThumbnail.PeekOffset.Value.X, taskbarWindow.TabbedThumbnail.PeekOffset.Value.Y);
                     }
 
                     // Only set the peek bitmap if it's not null. 
@@ -449,7 +449,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                         {
                             TabbedThumbnailNativeMethods.SetPeekBitmap(
                                 taskbarWindow.WindowToTellTaskbarAbout,
-                                hBitmap, new System.Drawing.Point((int)offset.X, (int)offset.Y),
+                                hBitmap, new((int)offset.X, (int)offset.Y),
                                 taskbarWindow.TabbedThumbnail.DisplayFrameAroundBitmap);
                         }
                         else
@@ -650,7 +650,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 {
                     using (Image img = Image.FromHbitmap(taskbarWindow.TabbedThumbnail.CurrentHBitmap))
                     {
-                        using (Bitmap bmp = new Bitmap(img, requestedSize))
+                        using (Bitmap bmp = new(img, requestedSize))
                         {
                             hBitmap = bmp != null ? bmp.GetHbitmap() : IntPtr.Zero;
                         }
@@ -675,7 +675,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 {
                     using (Image img = Image.FromHbitmap(taskbarWindow.TabbedThumbnail.CurrentHBitmap))
                     {
-                        using (Bitmap bmp = new Bitmap(img, requestedSize))
+                        using (Bitmap bmp = new(img, requestedSize))
                         {
 
                             hBitmap = bmp != null ? bmp.GetHbitmap() : IntPtr.Zero;

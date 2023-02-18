@@ -21,7 +21,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             if (bitmapSize.Height <= 0 || bitmapSize.Width <= 0) { return null; }
 
             IntPtr windowDC = IntPtr.Zero;
-             
+
             try
             {
                 windowDC = TabbedThumbnailNativeMethods.GetWindowDC(windowHandle);
@@ -33,14 +33,14 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 {
                     realWindowSize = new System.Drawing.Size(200, 200);
                 }
-                
+
                 System.Drawing.Size size = (bitmapSize == System.Drawing.Size.Empty) ?
                         realWindowSize : bitmapSize;
-                
+
                 Bitmap targetBitmap = null;
                 try
                 {
-                    
+
 
                     targetBitmap = new Bitmap(size.Width, size.Height);
 
@@ -74,7 +74,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 if (windowDC != IntPtr.Zero)
                 {
                     TabbedThumbnailNativeMethods.ReleaseDC(windowHandle, windowDC);
-                }                
+                }
             }
         }
 
