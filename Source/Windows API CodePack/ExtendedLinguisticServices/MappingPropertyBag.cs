@@ -15,7 +15,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         private ServiceCache _serviceCache;
         private int _isFinalized;
 
-        internal MappingPropertyBag(MappingOptions options, string text)
+        internal MappingPropertyBag(MappingOptions? options, string text)
         {
             _serviceCache = ServiceCache.Instance;
             if (!_serviceCache.RegisterResource())

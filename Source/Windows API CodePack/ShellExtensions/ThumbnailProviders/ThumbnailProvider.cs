@@ -104,7 +104,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         /// </summary>
         /// <param name="registerType">Type to be registered.</param>
         [ComRegisterFunction]
-        private static void Register(Type registerType)
+        private static void Register(Type? registerType)
         {
             if (registerType != null && registerType.IsSubclassOf(typeof(ThumbnailProvider)))
             {
@@ -182,7 +182,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         /// </summary>
         /// <param name="registerType">Type to register.</param>
         [ComUnregisterFunction]
-        private static void Unregister(Type registerType)
+        private static void Unregister(Type? registerType)
         {
             if (registerType != null && registerType.IsSubclassOf(typeof(ThumbnailProvider)))
             {

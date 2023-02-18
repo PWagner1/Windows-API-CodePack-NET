@@ -95,7 +95,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
             UpdatePlacement();
         }
 
-        protected override void HandleInitializeException(Exception caughtException)
+        protected override void HandleInitializeException(Exception? caughtException)
         {
             if (caughtException == null) { return; }
 

@@ -1,6 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
 using Size = System.Drawing.Size;
+using Message = System.Windows.Forms.Message;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
@@ -177,7 +179,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         }
 
         #region Message dispatch methods
-        private static void DispatchTaskbarButtonMessages(ref System.Windows.Forms.Message m, TaskbarWindow taskbarWindow)
+        private static void DispatchTaskbarButtonMessages(ref Message m, TaskbarWindow taskbarWindow)
         {
             if (m.Msg == (int)TaskbarNativeMethods.WmTaskbarButtonCreated)
             {
@@ -208,7 +210,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        private static bool DispatchActivateMessage(ref System.Windows.Forms.Message m, TaskbarWindow taskbarWindow)
+        private static bool DispatchActivateMessage(ref Message m, TaskbarWindow taskbarWindow)
         {
             if (m.Msg == (int)WindowMessage.Activate)
             {
@@ -220,7 +222,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             return false;
         }
 
-        private static bool DispatchSendIconThumbnailMessage(ref System.Windows.Forms.Message m, TaskbarWindow taskbarWindow)
+        private static bool DispatchSendIconThumbnailMessage(ref Message m, TaskbarWindow taskbarWindow)
         {
             if (m.Msg == (int)TaskbarNativeMethods.WmDwmSendIconThumbnail)
             {
@@ -337,7 +339,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             return false;
         }
 
-        private static bool DispatchLivePreviewBitmapMessage(ref System.Windows.Forms.Message m, TaskbarWindow taskbarWindow)
+        private static bool DispatchLivePreviewBitmapMessage(ref Message m, TaskbarWindow taskbarWindow)
         {
             if (m.Msg == (int)TaskbarNativeMethods.WmDwmSendIconicLivePreviewBitmap)
             {
@@ -494,7 +496,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             return false;
         }
 
-        private static bool DispatchDestroyMessage(ref System.Windows.Forms.Message m, TaskbarWindow taskbarWindow)
+        private static bool DispatchDestroyMessage(ref Message m, TaskbarWindow taskbarWindow)
         {
             if (m.Msg == (int)WindowMessage.Destroy)
             {
@@ -507,13 +509,13 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             return false;
         }
 
-        private static bool DispatchNCDestroyMessage(ref System.Windows.Forms.Message m, TaskbarWindow taskbarWindow)
+        private static bool DispatchNCDestroyMessage(ref Message m, TaskbarWindow taskbarWindow)
         {
             if (m.Msg == (int)WindowMessage.NCDestroy)
             {
                 // Raise the event
                 taskbarWindow.TabbedThumbnail.OnTabbedThumbnailClosed();
-                
+
                 // Remove the taskbar window from our internal list
                 if (_taskbarWindowList.Contains(taskbarWindow))
                 {
@@ -527,7 +529,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             return false;
         }
 
-        private static bool DispatchSystemCommandMessage(ref System.Windows.Forms.Message m, TaskbarWindow taskbarWindow)
+        private static bool DispatchSystemCommandMessage(ref Message m, TaskbarWindow taskbarWindow)
         {
             if (m.Msg == (int)WindowMessage.SystemCommand)
             {
@@ -572,7 +574,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// from a Windows Forms or WPF window procedure.</param>
         /// <param name="taskbarWindow">Taskbar window for which we are intercepting the messages</param>
         /// <returns>Returns true if this method handles the window message</returns>           
-        internal static bool DispatchMessage(ref System.Windows.Forms.Message m, TaskbarWindow taskbarWindow)
+        internal static bool DispatchMessage(ref Message m, TaskbarWindow taskbarWindow)
         {
             if (taskbarWindow.EnableThumbnailToolbars)
             {
@@ -685,7 +687,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             return hBitmap;
         }
 
-        internal static void SetActiveTab(TaskbarWindow taskbarWindow)
+        internal static void SetActiveTab(TaskbarWindow? taskbarWindow)
         {
             if (taskbarWindow != null)
             {
@@ -695,7 +697,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        internal static void UnregisterTab(TaskbarWindow taskbarWindow)
+        internal static void UnregisterTab(TaskbarWindow? taskbarWindow)
         {
             if (taskbarWindow != null)
             {
@@ -703,7 +705,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        internal static void InvalidatePreview(TaskbarWindow taskbarWindow)
+        internal static void InvalidatePreview(TaskbarWindow? taskbarWindow)
         {
             if (taskbarWindow != null)
             {
@@ -734,7 +736,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 button.AddedToTaskbar = _buttonsAdded;
             }
         }
-        
+
         #region Event handlers
 
         private static void thumbnailPreview_TooltipChanged(object sender, EventArgs e)

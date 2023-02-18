@@ -236,7 +236,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         /// </summary>
         /// <param name="registerType">Type to register.</param>
         [ComRegisterFunction]
-        private static void Register(Type registerType)
+        private static void Register(Type? registerType)
         {
             if (registerType != null && registerType.IsSubclassOf(typeof(PreviewHandler)))
             {
@@ -261,7 +261,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         /// </summary>
         /// <param name="registerType">Type to unregister</param>
         [ComUnregisterFunction]
-        private static void Unregister(Type registerType)
+        private static void Unregister(Type? registerType)
         {
             if (registerType != null && registerType.IsSubclassOf(typeof(PreviewHandler)))
             {

@@ -55,7 +55,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// Adds a collection of custom categories to the Taskbar jump list.
         /// </summary>
         /// <param name="customCategories">The catagories to add to the jump list.</param>
-        public void AddCustomCategories(params JumpListCustomCategory[] customCategories)
+        public void AddCustomCategories(params JumpListCustomCategory[]? customCategories)
         {
             lock (syncLock)
             {
@@ -80,7 +80,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// JumpListSeparator objects.
         /// </summary>
         /// <param name="tasks">The user tasks to add to the JumpList.</param>
-        public void AddUserTasks(params JumpListTask[] tasks)
+        public void AddUserTasks(params JumpListTask[]? tasks)
         {
             if (userTasks == null)
             {

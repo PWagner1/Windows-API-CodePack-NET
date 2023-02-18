@@ -235,7 +235,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// render certain areas as appropriate - it is the user's responsibility
         /// to render a bitmap with the proper dimensions.
         /// </remarks>
-        public void SetImage(Bitmap bitmap)
+        public void SetImage(Bitmap? bitmap)
         {
             if (bitmap != null)
             {
@@ -260,7 +260,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// render certain areas as appropriate - it is the user's responsibility
         /// to render a bitmap with the proper dimensions.
         /// </remarks>
-        public void SetImage(BitmapSource bitmapSource)
+        public void SetImage(BitmapSource? bitmapSource)
         {
             if (bitmapSource == null)
             {

@@ -293,7 +293,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// condition tree would typically benefit from setting this parameter to TRUE. </param>
         /// <param name="conditionNodes">Array of subconditions</param>
         /// <returns>New SearchCondition based on the operation</returns>
-        public static SearchCondition CreateAndOrCondition(SearchConditionType conditionType, bool simplify, params SearchCondition[] conditionNodes)
+        public static SearchCondition CreateAndOrCondition(SearchConditionType conditionType, bool simplify, params SearchCondition[]? conditionNodes)
         {
             // Same as the native "IConditionFactory:MakeAndOr" method
             IConditionFactory nativeConditionFactory = (IConditionFactory)new ConditionFactoryCoClass();
@@ -386,7 +386,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>Search condition resulting from the query</returns>
         /// <remarks>For more information on structured query syntax, visit http://msdn.microsoft.com/en-us/library/bb233500.aspx and
         /// http://www.microsoft.com/windows/products/winfamily/desktopsearch/technicalresources/advquery.mspx</remarks>
-        public static SearchCondition ParseStructuredQuery(string query, CultureInfo cultureInfo)
+        public static SearchCondition ParseStructuredQuery(string query, CultureInfo? cultureInfo)
         {
             if (string.IsNullOrEmpty(query))
             {

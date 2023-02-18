@@ -1,6 +1,7 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
+#pragma warning disable CS8600
 #pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Dialogs
 {
@@ -141,7 +142,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// then SetCollectedProperties can be called in response to CommonFileDialog::FileTypeChanged event.
         /// Note: By default, no properties are collected in the save dialog.
         /// </remarks>
-        public void SetCollectedPropertyKeys(bool appendDefault, params PropertyKey[] propertyList)
+        public void SetCollectedPropertyKeys(bool appendDefault, params PropertyKey[]? propertyList)
         {
             // Loop through all our property keys and create a semicolon-delimited property list string.
             // The string we pass to PSGetPropertyDescriptionListFromString must

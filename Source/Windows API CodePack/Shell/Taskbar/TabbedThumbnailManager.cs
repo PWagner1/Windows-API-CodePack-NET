@@ -429,7 +429,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="insertBeforePreview">The preview of the tab window whose thumbnail that previewToChange is inserted to the left of. 
         /// This preview must already be added via AddThumbnailPreview. If this value is null, the previewToChange tab is added to the end of the list.
         /// </param>
-        public static void SetTabOrder(TabbedThumbnail previewToChange, TabbedThumbnail insertBeforePreview)
+        public static void SetTabOrder(TabbedThumbnail previewToChange, TabbedThumbnail? insertBeforePreview)
         {
             if (previewToChange == null)
             {

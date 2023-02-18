@@ -117,7 +117,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Overide OnPaint to paint the background as black.
         /// </summary>
         /// <param name="e">PaintEventArgs</param>
-        protected override void OnPaint(PaintEventArgs e)
+        protected override void OnPaint(PaintEventArgs? e)
         {
             base.OnPaint(e);
 

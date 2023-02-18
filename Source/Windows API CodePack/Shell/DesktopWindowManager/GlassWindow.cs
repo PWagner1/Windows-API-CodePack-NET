@@ -55,7 +55,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="element">The element to exclude.</param>
         /// <remarks>Many non-WPF rendered controls (i.e., the ExplorerBrowser control) will not 
         /// render properly on top of an AeroGlass frame. </remarks>
-        public void ExcludeElementFromAeroGlass(FrameworkElement element)
+        public void ExcludeElementFromAeroGlass(FrameworkElement? element)
         {
             if (AeroGlassCompositionEnabled && element != null)
             {

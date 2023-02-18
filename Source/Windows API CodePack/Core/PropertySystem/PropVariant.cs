@@ -126,7 +126,7 @@ namespace MS.WindowsAPICodePack.Internal
         /// Attempts to create a PropVariant by finding an appropriate constructor.
         /// </summary>
         /// <param name="value">Object from which PropVariant should be created.</param>
-        public static PropVariant FromObject(object value)
+        public static PropVariant FromObject(object? value)
         {
             if (value == null)
             {

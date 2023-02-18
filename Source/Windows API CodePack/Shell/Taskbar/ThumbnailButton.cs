@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+#pragma warning disable CS8618
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
     /// <summary>
@@ -7,8 +8,8 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
     /// </summary>
     public sealed class ThumbnailToolBarButton : IDisposable
     {
-        private static uint nextId = 101;
-        private ThumbButton win32ThumbButton;
+        private static uint _nextId = 101;
+        private ThumbButton _win32ThumbButton;
 
         /// <summary>
         /// The event that occurs when the taskbar thumbnail button
@@ -19,7 +20,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         // Internal bool to track whether we should be updating the taskbar 
         // if any of our properties change or if it's just an internal update
         // on the properties (via the constructor)
-        private bool internalUpdate = false;
+        private bool _internalUpdate = false;
 
         /// <summary>
         /// Initializes an instance of this class
@@ -30,16 +31,16 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             // Start internal update (so we don't accidently update the taskbar
             // via the native API)
-            internalUpdate = true;
+            _internalUpdate = true;
 
             // Set our id
-            Id = nextId;
+            Id = _nextId;
 
             // increment the ID
-            if (nextId == Int32.MaxValue)
-                nextId = 101; // our starting point
+            if (_nextId == Int32.MaxValue)
+                _nextId = 101; // our starting point
             else
-                nextId++;
+                _nextId++;
 
             // Set user settings
             Icon = icon;
@@ -49,10 +50,10 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             Enabled = true;
 
             // Create a native 
-            win32ThumbButton = new ThumbButton();
+            _win32ThumbButton = new ThumbButton();
 
             // End our internal update
-            internalUpdate = false;
+            _internalUpdate = false;
         }
 
         #region Public properties
@@ -62,41 +63,41 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         internal uint Id { get; set; }
 
-        private Icon icon;
+        private Icon _icon;
         /// <summary>
         /// Gets or sets the thumbnail button's icon.
         /// </summary>
         public Icon Icon
         {
-            get => icon;
+            get => _icon;
             set
             {
-                if (icon != value)
+                if (_icon != value)
                 {
-                    icon = value;
+                    _icon = value;
                     UpdateThumbnailButton();
                 }
             }
         }
 
-        private string tooltip;
+        private string _tooltip;
         /// <summary>
         /// Gets or sets the thumbnail button's tooltip.
         /// </summary>
         public string Tooltip
         {
-            get => tooltip;
+            get => _tooltip;
             set
             {
-                if (tooltip != value)
+                if (_tooltip != value)
                 {
-                    tooltip = value;
+                    _tooltip = value;
                     UpdateThumbnailButton();
                 }
             }
         }
 
-        private bool visible = true;
+        private bool _visible = true;
         /// <summary>
         /// Gets or sets the thumbnail button's visibility. Default is true.
         /// </summary>
@@ -105,9 +106,9 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             get => (Flags & ThumbButtonOptions.Hidden) == 0;
             set
             {
-                if (visible != value)
+                if (_visible != value)
                 {
-                    visible = value;
+                    _visible = value;
 
                     if (value)
                     {
@@ -124,7 +125,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        private bool enabled = true;
+        private bool _enabled = true;
         /// <summary>
         /// Gets or sets the thumbnail button's enabled state. If the button is disabled, it is present, 
         /// but has a visual state that indicates that it will not respond to user action. Default is true.
@@ -134,9 +135,9 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             get => (Flags & ThumbButtonOptions.Disabled) == 0;
             set
             {
-                if (value != enabled)
+                if (value != _enabled)
                 {
-                    enabled = value;
+                    _enabled = value;
 
                     if (value)
                     {
@@ -152,7 +153,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        private bool dismissOnClick;
+        private bool _dismissOnClick;
         /// <summary>
         /// Gets or sets the property that describes the behavior when the button is clicked. 
         /// If set to true, the taskbar button's flyout will close immediately. Default is false.
@@ -162,9 +163,9 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             get => (Flags & ThumbButtonOptions.DismissOnClick) == 0;
             set
             {
-                if (value != dismissOnClick)
+                if (value != _dismissOnClick)
                 {
-                    dismissOnClick = value;
+                    _dismissOnClick = value;
 
                     if (value)
                     {
@@ -180,7 +181,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        private bool isInteractive = true;
+        private bool _isInteractive = true;
         /// <summary>
         /// Gets or sets the property that describes whether the button is interactive with the user. Default is true.
         /// </summary>
@@ -194,9 +195,9 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             get => (Flags & ThumbButtonOptions.NonInteractive) == 0;
             set
             {
-                if (value != isInteractive)
+                if (value != _isInteractive)
                 {
-                    isInteractive = value;
+                    _isInteractive = value;
 
                     if (value)
                     {
@@ -228,22 +229,22 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             get
             {
-                win32ThumbButton.Id = Id;
-                win32ThumbButton.Tip = Tooltip;
-                win32ThumbButton.Icon = Icon != null ? Icon.Handle : IntPtr.Zero;
-                win32ThumbButton.Flags = Flags;
+                _win32ThumbButton.Id = Id;
+                _win32ThumbButton.Tip = Tooltip;
+                _win32ThumbButton.Icon = Icon != null ? Icon.Handle : IntPtr.Zero;
+                _win32ThumbButton.Flags = Flags;
 
-                win32ThumbButton.Mask = ThumbButtonMask.THB_FLAGS;
+                _win32ThumbButton.Mask = ThumbButtonMask.THB_FLAGS;
                 if (Tooltip != null)
                 {
-                    win32ThumbButton.Mask |= ThumbButtonMask.Tooltip;
+                    _win32ThumbButton.Mask |= ThumbButtonMask.Tooltip;
                 }
                 if (Icon != null)
                 {
-                    win32ThumbButton.Mask |= ThumbButtonMask.Icon;
+                    _win32ThumbButton.Mask |= ThumbButtonMask.Icon;
                 }
 
-                return win32ThumbButton;
+                return _win32ThumbButton;
             }
         }
 
@@ -252,7 +253,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// the subscribers.
         /// </summary>
         /// <param name="taskbarWindow">Taskbar Window associated with this button</param>
-        internal void FireClick(TaskbarWindow taskbarWindow)
+        internal void FireClick(TaskbarWindow? taskbarWindow)
         {
             if (Click != null && taskbarWindow != null)
             {
@@ -288,7 +289,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         internal void UpdateThumbnailButton()
         {
-            if (internalUpdate || !AddedToTaskbar) { return; }
+            if (_internalUpdate || !AddedToTaskbar) { return; }
 
             // Get the array of thumbnail buttons in native format
             ThumbButton[] nativeButtons = { Win32ThumbButton };
@@ -329,7 +330,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 // Dispose managed resources
                 Icon.Dispose();
-                tooltip = null;
+                _tooltip = null;
             }
         }
 

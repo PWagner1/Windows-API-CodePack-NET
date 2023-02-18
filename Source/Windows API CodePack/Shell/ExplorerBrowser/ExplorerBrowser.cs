@@ -242,7 +242,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// Displays a placeholder for the explorer browser in design mode
         /// </summary>
         /// <param name="e">Contains information about the paint event.</param>
-        protected override void OnPaint(PaintEventArgs e)
+        protected override void OnPaint(PaintEventArgs? e)
         {
             if (DesignMode && e != null)
             {
