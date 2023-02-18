@@ -148,14 +148,14 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             // The string we pass to PSGetPropertyDescriptionListFromString must
             // start with "prop:", followed a list of canonical names for each 
             // property that is to collected.
-            if (propertyList != null && propertyList.Length > 0 && propertyList[0] != null)
+            if (propertyList != null && propertyList != null && propertyList.Length > 0 && propertyList[0] != null)
             {
                 StringBuilder sb = new("prop:");
                 foreach (PropertyKey key in propertyList)
                 {
                     if (ShellPropertyDescriptionsCache.Cache != null)
                     {
-                        string canonicalName = ShellPropertyDescriptionsCache.Cache.GetPropertyDescription(key).CanonicalName;
+                        string? canonicalName = ShellPropertyDescriptionsCache.Cache.GetPropertyDescription(key).CanonicalName;
                         if (!string.IsNullOrEmpty(canonicalName)) { sb.AppendFormat("{0};", canonicalName); }
                     }
                 }
@@ -245,7 +245,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         }
 
         internal override void PopulateWithFileNames(
-            Collection<string> names)
+            Collection<string?> names)
         {
             IShellItem? item;
             _saveDialogCoClass.GetResult(out item);

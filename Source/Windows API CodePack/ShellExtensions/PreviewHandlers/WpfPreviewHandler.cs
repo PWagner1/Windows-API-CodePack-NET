@@ -2,6 +2,9 @@
 using Color = System.Windows.Media.Color;
 using TextBox = System.Windows.Controls.TextBox;
 using UserControl = System.Windows.Controls.UserControl;
+// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+// ReSharper disable PossibleNullReferenceException
+#pragma warning disable CS8602
 
 namespace Microsoft.WindowsAPICodePack.ShellExtensions
 {
@@ -16,14 +19,14 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
     /// </summary>
     public abstract class WpfPreviewHandler : PreviewHandler, IDisposable
     {
-        HwndSource _source = null;
+        HwndSource? _source = null;
         private IntPtr _parentHandle = IntPtr.Zero;
         private NativeRect _bounds;
 
         /// <summary>
         /// This control must be populated by the deriving class before the preview is shown.
         /// </summary>
-        public UserControl Control { get; protected set; }
+        public UserControl? Control { get; protected set; }
 
         /// <summary>
         /// Throws an exception if the Control property has not been populated.
@@ -49,7 +52,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
                 0, 0, Math.Abs(_bounds.Left - _bounds.Right), Math.Abs(_bounds.Top - _bounds.Bottom), SetWindowPositionOptions.ShowWindow);
             }
         }
-                
+
         protected override void SetParentHandle(IntPtr handle)
         {
             _parentHandle = handle;
@@ -99,7 +102,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         {
             if (caughtException == null) { return; }
 
-            TextBox text = new()
+            TextBox? text = new()
             {
                 IsReadOnly = true,
                 MaxLines = 20,
@@ -134,7 +137,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         protected override void SetFont(LogFont font)
         {
             if (font == null) { throw new ArgumentNullException("font"); }
-            
+
             Control.FontFamily = new(font.FaceName);
             Control.FontSize = font.Height;
             Control.FontWeight = font.Weight > 0 && font.Weight < 1000 ?

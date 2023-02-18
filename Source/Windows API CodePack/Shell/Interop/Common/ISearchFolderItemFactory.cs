@@ -18,7 +18,7 @@ internal interface ISearchFolderItemFactory
     HResult SetIconSize([In] int iIconSize);
 
     [PreserveSig]
-    HResult SetVisibleColumns([In] uint cVisibleColumns, [In, MarshalAs(UnmanagedType.LPArray)] PropertyKey[] rgKey);
+    HResult SetVisibleColumns([In] uint cVisibleColumns, [In, MarshalAs(UnmanagedType.LPArray)] PropertyKey[]? rgKey);
 
     [PreserveSig]
     HResult SetSortColumns([In] uint cSortColumns, [In, MarshalAs(UnmanagedType.LPArray)] SortColumn[] rgSortColumns);
@@ -33,7 +33,7 @@ internal interface ISearchFolderItemFactory
     HResult SetScope([In, MarshalAs(UnmanagedType.Interface)] IShellItemArray ppv);
 
     [PreserveSig]
-    HResult SetCondition([In] ICondition pCondition);
+    HResult SetCondition([In] ICondition? pCondition);
 
     [PreserveSig]
     int GetShellItem(ref Guid riid, [Out, MarshalAs(UnmanagedType.Interface)] out IShellItem? ppv);

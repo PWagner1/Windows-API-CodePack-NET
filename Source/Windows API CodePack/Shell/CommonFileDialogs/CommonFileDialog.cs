@@ -1,6 +1,9 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable SuggestVarOrType_BuiltInTypes
+// ReSharper disable RedundantAssignment
+// ReSharper disable SuspiciousTypeConversion.Global
+#pragma warning disable CS8600
 #pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Dialogs
 {
@@ -13,17 +16,17 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <summary>
         /// The collection of names selected by the user.
         /// </summary>
-        protected IEnumerable<string> FileNameCollection
+        protected IEnumerable<string?> FileNameCollection
         {
             get
             {
-                foreach (string name in _filenames)
+                foreach (string? name in _filenames)
                 {
                     yield return name;
                 }
             }
         }
-        private Collection<string> _filenames;
+        private Collection<string?> _filenames;
         internal readonly Collection<IShellItem?> Items;
         internal DialogShowState ShowState = DialogShowState.PreShow;
 
@@ -70,7 +73,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         // specific COM coclass (e.g. FileOpenDialog or FileSaveDialog).
         internal abstract void InitializeNativeFileDialog();
         internal abstract IFileDialog? GetNativeFileDialog();
-        internal abstract void PopulateWithFileNames(Collection<string> names);
+        internal abstract void PopulateWithFileNames(Collection<string?> names);
         internal abstract void PopulateWithIShellItems(Collection<IShellItem?> shellItems);
         internal abstract void CleanUpNativeFileDialog();
         internal abstract ShellNativeMethods.FileOpenOptions GetDerivedOptionFlags(ShellNativeMethods.FileOpenOptions flags);
@@ -365,7 +368,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
         /// <exception cref="System.InvalidOperationException">This property cannot be used when multiple files are selected.</exception>
-        public string FileName
+        public string? FileName
         {
             get
             {
@@ -376,7 +379,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                     throw new InvalidOperationException(LocalizedMessages.CommonFileDialogMultipleFiles);
                 }
 
-                string returnFilename = _filenames[0];
+                string? returnFilename = _filenames[0];
 
                 // "If extension is a null reference (Nothing in Visual 
                 // Basic), the returned string contains the specified 
@@ -866,10 +869,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 throw new ArgumentNullException("control");
             }
 
-            CommonFileDialogControl dialogControl = null;
+            CommonFileDialogControl? dialogControl = null;
             if (propertyName == "Text")
             {
-                CommonFileDialogTextBox textBox = control as CommonFileDialogTextBox;
+                CommonFileDialogTextBox? textBox = control as CommonFileDialogTextBox;
 
                 if (textBox != null)
                 {
@@ -914,8 +917,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             }
             else if (propertyName == "SelectedIndex")
             {
-                CommonFileDialogRadioButtonList list;
-                CommonFileDialogComboBox box;
+                CommonFileDialogRadioButtonList? list;
+                CommonFileDialogComboBox? box;
 
                 if ((list = control as CommonFileDialogRadioButtonList) != null)
                 {
@@ -928,7 +931,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             }
             else if (propertyName == "IsChecked")
             {
-                CommonFileDialogCheckBox checkBox = control as CommonFileDialogCheckBox;
+                CommonFileDialogCheckBox? checkBox = control as CommonFileDialogCheckBox;
                 if (checkBox != null)
                 {
                     _customize.SetCheckButtonState(checkBox.Id, checkBox.IsChecked);
@@ -988,9 +991,9 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             (_nativeDialog != null)
             && (ShowState == DialogShowState.Showing || ShowState == DialogShowState.Closing);
 
-        internal static string GetFileNameFromShellItem(IShellItem? item)
+        internal static string? GetFileNameFromShellItem(IShellItem? item)
         {
-            string filename = null;
+            string? filename = null;
             IntPtr pszString = IntPtr.Zero;
             HResult hr = item.GetDisplayName(ShellNativeMethods.ShellItemDesignNameOptions.DesktopAbsoluteParsing, out pszString);
             if (hr == HResult.Ok && pszString != IntPtr.Zero)

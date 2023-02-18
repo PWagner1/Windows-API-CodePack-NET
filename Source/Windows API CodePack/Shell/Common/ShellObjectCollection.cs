@@ -1,5 +1,9 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+#pragma warning disable CS8600
+#pragma warning disable CS8602
+#pragma warning disable CS8616
+#pragma warning disable CS8766
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -163,7 +167,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 }
 
                 // calculate offset array (folder IDL + item IDLs)
-                uint[] offsets  = new uint[itemCount + 1];
+                uint[] offsets = new uint[itemCount + 1];
                 for (int index = 0; index < itemCount; index++)
                 {
                     if (index == 0)

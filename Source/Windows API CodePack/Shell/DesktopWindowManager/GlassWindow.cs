@@ -2,6 +2,8 @@
 using Point = System.Windows.Point;
 using Size = System.Windows.Size;
 
+// ReSharper disable PossibleNullReferenceException
+
 namespace Microsoft.WindowsAPICodePack.Shell
 {
 
@@ -60,31 +62,36 @@ namespace Microsoft.WindowsAPICodePack.Shell
             if (AeroGlassCompositionEnabled && element != null)
             {
                 // calculate total size of window nonclient area
-                HwndSource hwndSource = PresentationSource.FromVisual(this) as HwndSource;
+                HwndSource? hwndSource = PresentationSource.FromVisual(this) as HwndSource;
                 NativeRect windowRect;
                 NativeRect clientRect;
-                DesktopWindowManagerNativeMethods.GetWindowRect(hwndSource.Handle, out windowRect);
-                DesktopWindowManagerNativeMethods.GetClientRect(hwndSource.Handle, out clientRect);
-                Size nonClientSize = new(
-                        (double)(windowRect.Right - windowRect.Left) - (double)(clientRect.Right - clientRect.Left),
-                        (double)(windowRect.Bottom - windowRect.Top) - (double)(clientRect.Bottom - clientRect.Top));
+                if (hwndSource != null)
+                {
+                    DesktopWindowManagerNativeMethods.GetWindowRect(hwndSource.Handle, out windowRect);
+                    DesktopWindowManagerNativeMethods.GetClientRect(hwndSource.Handle, out clientRect);
 
-                // calculate size of element relative to nonclient area
-                GeneralTransform transform = element.TransformToAncestor(this);
-                Point topLeftFrame = transform.Transform(new(0, 0));
-                Point bottomRightFrame = transform.Transform(new(
-                            element.ActualWidth + nonClientSize.Width,
-                            element.ActualHeight + nonClientSize.Height));
 
-                // Create a margin structure
-                Margins margins = new();
-                margins.LeftWidth = (int)topLeftFrame.X;
-                margins.RightWidth = (int)(ActualWidth - bottomRightFrame.X);
-                margins.TopHeight = (int)(topLeftFrame.Y);
-                margins.BottomHeight = (int)(ActualHeight - bottomRightFrame.Y);
+                    Size nonClientSize = new(
+                        windowRect.Right - windowRect.Left - (double)(clientRect.Right - clientRect.Left),
+                        windowRect.Bottom - windowRect.Top - (double)(clientRect.Bottom - clientRect.Top));
 
-                // Extend the Frame into client area
-                DesktopWindowManagerNativeMethods.DwmExtendFrameIntoClientArea(windowHandle, ref margins);
+                    // calculate size of element relative to nonclient area
+                    GeneralTransform transform = element.TransformToAncestor(this);
+                    Point topLeftFrame = transform.Transform(new(0, 0));
+                    Point bottomRightFrame = transform.Transform(new(
+                        element.ActualWidth + nonClientSize.Width,
+                        element.ActualHeight + nonClientSize.Height));
+
+                    // Create a margin structure
+                    Margins margins = new();
+                    margins.LeftWidth = (int)topLeftFrame.X;
+                    margins.RightWidth = (int)(ActualWidth - bottomRightFrame.X);
+                    margins.TopHeight = (int)(topLeftFrame.Y);
+                    margins.BottomHeight = (int)(ActualHeight - bottomRightFrame.Y);
+
+                    // Extend the Frame into client area
+                    DesktopWindowManagerNativeMethods.DwmExtendFrameIntoClientArea(windowHandle, ref margins);
+                }
             }
         }
 
@@ -132,7 +139,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             // add Window Proc hook to capture DWM messages
             HwndSource source = HwndSource.FromHwnd(windowHandle);
-            source.AddHook(new(WndProc));
+            source.AddHook(WndProc);
 
             ResetAeroGlass();
         }

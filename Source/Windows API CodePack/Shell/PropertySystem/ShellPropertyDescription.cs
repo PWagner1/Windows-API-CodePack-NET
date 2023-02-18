@@ -11,7 +11,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         #region Private Fields
 
         private IPropertyDescription _nativePropertyDescription;
-        private string _canonicalName;
+        private string? _canonicalName;
         private PropertyKey _propertyKey;
         private string? _displayName;
         private string? _editInvitation;
@@ -37,7 +37,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// Gets the case-sensitive name of a property as it is known to the system, 
         /// regardless of its localized name.
         /// </summary>
-        public string CanonicalName
+        public string? CanonicalName
         {
             get
             {

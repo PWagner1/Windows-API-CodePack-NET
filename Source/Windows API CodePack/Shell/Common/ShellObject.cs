@@ -65,7 +65,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// A friendly name for this object that' suitable for display
         /// </summary>
-        private string _internalName;
+        private string? _internalName;
 
         /// <summary>
         /// PID List (PIDL) for this object
@@ -176,7 +176,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Gets the normal display for this ShellItem.
         /// </summary>
-        virtual public string Name
+        virtual public string? Name
         {
             get
             {
@@ -221,7 +221,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Overrides object.ToString()
         /// </summary>
         /// <returns>A string representation of the object.</returns>
-        public override string ToString()
+        public override string? ToString()
         {
             return Name;
         }

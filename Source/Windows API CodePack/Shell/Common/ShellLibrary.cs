@@ -1,5 +1,9 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable SuspiciousTypeConversion.Global
+// ReSharper disable AssignNullToNotNullAttribute
+#pragma warning disable CS8600
+#pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -12,7 +16,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         private INativeShellLibrary? nativeShellLibrary;
         private IKnownFolder? knownFolder;
 
-        private static Guid[] FolderTypesGuids = 
+        private static Guid[] FolderTypesGuids =
         {
             new(ShellKFIDGuid.GenericLibrary),
             new(ShellKFIDGuid.DocumentsLibrary),
@@ -87,7 +91,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="libraryName">The name of this library</param>
         /// <param name="overwrite">Allow overwriting an existing library; if one exists with the same name</param>
-        public ShellLibrary(string libraryName, bool overwrite)
+        public ShellLibrary(string? libraryName, bool overwrite)
             : this()
         {
             if (string.IsNullOrEmpty(libraryName))
@@ -113,7 +117,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="libraryName">The name of this library</param>
         /// <param name="sourceKnownFolder">The known folder</param>
         /// <param name="overwrite">Override an existing library with the same name</param>
-        public ShellLibrary(string libraryName, IKnownFolder? sourceKnownFolder, bool overwrite)
+        public ShellLibrary(string? libraryName, IKnownFolder? sourceKnownFolder, bool overwrite)
             : this()
         {
             if (string.IsNullOrEmpty(libraryName))
@@ -141,7 +145,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="libraryName">The name of this library</param>
         /// <param name="folderPath">The path to the local folder</param>
         /// <param name="overwrite">Override an existing library with the same name</param>
-        public ShellLibrary(string libraryName, string folderPath, bool overwrite)
+        public ShellLibrary(string? libraryName, string folderPath, bool overwrite)
             : this()
         {
             if (string.IsNullOrEmpty(libraryName))
@@ -178,7 +182,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// have a name
         /// </summary>
         /// <exception cref="COMException">Will throw if no Icon is set</exception>
-        public override string Name
+        public override string? Name
         {
             get
             {
@@ -386,7 +390,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="libraryName">The name of the library</param>
         /// <param name="isReadOnly">If <B>true</B>, loads the library in read-only mode.</param>
         /// <returns>A ShellLibrary Object</returns>
-        public static ShellLibrary Load(string libraryName, bool isReadOnly)
+        public static ShellLibrary Load(string? libraryName, bool isReadOnly)
         {
             CoreHelpers.ThrowIfNotWin7();
 
@@ -395,31 +399,35 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             Guid guid = new(ShellIIDGuid.IShellItem);
             IShellItem? nativeShellItem;
-            string shellItemPath = Path.Combine(librariesFolderPath, libraryName + FileExtension);
-            int hr = ShellNativeMethods.SHCreateItemFromParsingName(shellItemPath, IntPtr.Zero, ref guid, out nativeShellItem);
-
-            if (!CoreErrorHelper.Succeeded(hr))
-                throw new ShellException(hr);
-
-            INativeShellLibrary? nativeShellLibrary = (INativeShellLibrary)new ShellLibraryCoClass();
-            AccessModes flags = isReadOnly ?
-                    AccessModes.Read :
-                    AccessModes.ReadWrite;
-            nativeShellLibrary.LoadLibraryFromItem(nativeShellItem, flags);
-
-            ShellLibrary library = new(nativeShellLibrary);
-            try
+            if (librariesFolderPath != null)
             {
-                library.nativeShellItem = (IShellItem2)nativeShellItem;
-                library.Name = libraryName;
+                string shellItemPath = Path.Combine(librariesFolderPath, libraryName + FileExtension);
+                int hr = ShellNativeMethods.SHCreateItemFromParsingName(shellItemPath, IntPtr.Zero, ref guid,
+                    out nativeShellItem);
 
-                return library;
+                if (!CoreErrorHelper.Succeeded(hr))
+                    throw new ShellException(hr);
+
+                INativeShellLibrary? nativeShellLibrary = (INativeShellLibrary)new ShellLibraryCoClass();
+                AccessModes flags = isReadOnly ? AccessModes.Read : AccessModes.ReadWrite;
+                nativeShellLibrary.LoadLibraryFromItem(nativeShellItem, flags);
+
+                ShellLibrary library = new(nativeShellLibrary);
+                try
+                {
+                    library.nativeShellItem = (IShellItem2)nativeShellItem;
+                    library.Name = libraryName;
+
+                    return library;
+                }
+                catch
+                {
+                    library.Dispose();
+                    throw;
+                }
             }
-            catch
-            {
-                library.Dispose();
-                throw;
-            }
+
+            throw new NullReferenceException();
         }
 
         /// <summary>
@@ -429,7 +437,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="folderPath">The path to the library.</param>
         /// <param name="isReadOnly">If <B>true</B>, opens the library in read-only mode.</param>
         /// <returns>A ShellLibrary Object</returns>
-        public static ShellLibrary Load(string libraryName, string folderPath, bool isReadOnly)
+        public static ShellLibrary Load(string? libraryName, string folderPath, bool isReadOnly)
         {
             CoreHelpers.ThrowIfNotWin7();
 
@@ -528,7 +536,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="instruction">An optional help string to display for the library management dialog</param>
         /// <param name="allowAllLocations">If true, do not show warning dialogs about locations that cannot be indexed</param>
         /// <remarks>If the library is already open in read-write mode, the dialog will not save the changes.</remarks>
-        public static void ShowManageLibraryUI(string libraryName, string folderPath, IntPtr windowHandle, string title, string instruction, bool allowAllLocations)
+        public static void ShowManageLibraryUI(string? libraryName, string folderPath, IntPtr windowHandle, string title, string instruction, bool allowAllLocations)
         {
             // this method is not safe for MTA consumption and will blow
             // Access Violations if called from an MTA thread so we wrap this
@@ -549,7 +557,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="instruction">An optional help string to display for the library management dialog</param>
         /// <param name="allowAllLocations">If true, do not show warning dialogs about locations that cannot be indexed</param>
         /// <remarks>If the library is already open in read-write mode, the dialog will not save the changes.</remarks>
-        public static void ShowManageLibraryUI(string libraryName, IntPtr windowHandle, string title, string instruction, bool allowAllLocations)
+        public static void ShowManageLibraryUI(string? libraryName, IntPtr windowHandle, string title, string instruction, bool allowAllLocations)
         {
             // this method is not safe for MTA consumption and will blow
             // Access Violations if called from an MTA thread so we wrap this

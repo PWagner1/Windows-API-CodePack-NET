@@ -586,7 +586,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
             // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
             if (native != null)
-                // ReSharper restore ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+            // ReSharper restore ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
             {
                 TaskDialogStandardButtons standardButton = MapButtonIdToStandardButton(native.SelectedButtonId);
 
@@ -612,7 +612,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 throw new InvalidOperationException(LocalizedMessages.TaskDialogCloseNonShowing);
             }
 
-            _nativeDialog.NativeClose(TaskDialogResult.Cancel);
+            if (_nativeDialog != null)
+            {
+                _nativeDialog.NativeClose(TaskDialogResult.Cancel);
+            }
             // TaskDialog's own cleanup code - 
             // which runs post show - will handle disposal of native dialog.
         }
@@ -629,7 +632,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 throw new InvalidOperationException(LocalizedMessages.TaskDialogCloseNonShowing);
             }
 
-            _nativeDialog.NativeClose(closingResult);
+            if (_nativeDialog != null)
+            {
+                _nativeDialog.NativeClose(closingResult);
+            }
             // TaskDialog's own cleanup code - 
             // which runs post show - will handle disposal of native dialog.
         }
@@ -1035,11 +1041,11 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             // native dialog when it actually exists.
             if (NativeDialogShowing)
             {
-                TaskDialogButton button;
-                TaskDialogRadioButton radioButton;
+                TaskDialogButton? button;
+                TaskDialogRadioButton? radioButton;
                 if (control is TaskDialogProgressBar)
                 {
-                    if (!_progressBar.HasValidValues)
+                    if (_progressBar != null && !_progressBar.HasValidValues)
                     {
                         throw new ArgumentException(LocalizedMessages.TaskDialogProgressBarValueInRange);
                     }
@@ -1047,14 +1053,32 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                     switch (propertyName)
                     {
                         case "State":
-                            _nativeDialog.UpdateProgressBarState(_progressBar.State);
+                            if (_progressBar != null)
+                            {
+                                if (_nativeDialog != null)
+                                {
+                                    _nativeDialog.UpdateProgressBarState(_progressBar.State);
+                                }
+                            }
                             break;
                         case "Value":
-                            _nativeDialog.UpdateProgressBarValue(_progressBar.Value);
+                            if (_progressBar != null)
+                            {
+                                if (_nativeDialog != null)
+                                {
+                                    _nativeDialog.UpdateProgressBarValue(_progressBar.Value);
+                                }
+                            }
                             break;
                         case "Minimum":
                         case "Maximum":
-                            _nativeDialog.UpdateProgressBarRange(_progressBar.Minimum, _progressBar.Maximum);
+                            if (_progressBar != null)
+                            {
+                                if (_nativeDialog != null)
+                                {
+                                    _nativeDialog.UpdateProgressBarRange(_progressBar.Minimum, _progressBar.Maximum);
+                                }
+                            }
                             break;
                         default:
                             Debug.Assert(true, "Unknown property being set");
@@ -1066,10 +1090,16 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                     switch (propertyName)
                     {
                         case "ShowElevationIcon":
-                            _nativeDialog.UpdateElevationIcon(button.Id, button.UseElevationIcon);
+                            if (_nativeDialog != null)
+                            {
+                                _nativeDialog.UpdateElevationIcon(button.Id, button.UseElevationIcon);
+                            }
                             break;
                         case "Enabled":
-                            _nativeDialog.UpdateButtonEnabled(button.Id, button.Enabled);
+                            if (_nativeDialog != null)
+                            {
+                                _nativeDialog.UpdateButtonEnabled(button.Id, button.Enabled);
+                            }
                             break;
                         default:
                             Debug.Assert(true, "Unknown property being set");
@@ -1081,7 +1111,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                     switch (propertyName)
                     {
                         case "Enabled":
-                            _nativeDialog.UpdateRadioButtonEnabled(radioButton.Id, radioButton.Enabled);
+                            _nativeDialog?.UpdateRadioButtonEnabled(radioButton.Id, radioButton.Enabled);
                             break;
                         default:
                             Debug.Assert(true, "Unknown property being set");

@@ -93,7 +93,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
                 {
                     // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
                     if (_eventList != null)
-                        // ReSharper restore ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+                    // ReSharper restore ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
                     {
                         ArrayList? currList = (ArrayList)_eventList[eventId];
                         if (currList != null) currList.Add(eventToRegister);
@@ -111,7 +111,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             /// a function that is not registered.</exception>
             // ReSharper disable MemberHidesStaticFromOuterClass
             internal void UnregisterPowerEvent(Guid eventId, EventHandler eventToUnregister)
-                // ReSharper restore MemberHidesStaticFromOuterClass
+            // ReSharper restore MemberHidesStaticFromOuterClass
             {
                 _readerWriterLock.AcquireWriterLock(Timeout.Infinite);
                 if (_eventList.Contains(eventId))
@@ -148,7 +148,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             protected override void WndProc(ref Message m)
             {
                 // Make sure it is a Power Management message.
-                if (m.Msg == PowerManagementNativeMethods.PowerBroadcastMessage && 
+                if (m.Msg == PowerManagementNativeMethods.PowerBroadcastMessage &&
                     (int)m.WParam == PowerManagementNativeMethods.PowerSettingChangeMessage)
                 {
                     PowerManagementNativeMethods.PowerBroadcastSetting ps =
@@ -157,12 +157,12 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
 
                     IntPtr pData = new(m.LParam.ToInt64() + Marshal.SizeOf(ps));
                     Guid currentEvent = ps.PowerSetting;
-                                        
+
                     // IsMonitorOn
                     if (ps.PowerSetting == EventManager.MonitorPowerStatus &&
-                        ps.DataLength == Marshal.SizeOf(typeof(Int32)))
+                        ps.DataLength == Marshal.SizeOf(typeof(int)))
                     {
-                        Int32 monitorStatus = (Int32)Marshal.PtrToStructure(pData, typeof(Int32));
+                        int monitorStatus = (int)Marshal.PtrToStructure(pData, typeof(int));
                         PowerManager.IsMonitorOn = monitorStatus != 0;
                         EventManager.monitorOnReset.Set();
                     }

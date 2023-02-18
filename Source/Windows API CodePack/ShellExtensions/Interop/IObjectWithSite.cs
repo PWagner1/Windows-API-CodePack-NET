@@ -6,5 +6,5 @@
 interface IObjectWithSite
 {
     void SetSite([In, MarshalAs(UnmanagedType.IUnknown)] object pUnkSite);
-    void GetSite(ref Guid riid, [MarshalAs(UnmanagedType.IUnknown)] out object ppvSite);
+    void GetSite(ref Guid riid, [MarshalAs(UnmanagedType.IUnknown)] out object? ppvSite);
 }

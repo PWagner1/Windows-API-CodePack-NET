@@ -29,7 +29,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// Gets the case-sensitive name of the property as it is known to the system, 
         /// regardless of its localized name.
         /// </summary>
-        string CanonicalName { get; }
+        string? CanonicalName { get; }
 
         /// <summary>
         /// Gets the value for this property using the generic Object type.

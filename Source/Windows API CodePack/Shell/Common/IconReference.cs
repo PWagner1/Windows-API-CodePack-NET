@@ -1,6 +1,7 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable AssignNullToNotNullAttribute
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -55,7 +56,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
 
             _moduleName = refParams[0];
-            ResourceId = int.Parse(refParams[1], CultureInfo.InvariantCulture);
+            if (refParams != null)
+            {
+                ResourceId = int.Parse(refParams[1], CultureInfo.InvariantCulture);
+            }
 
             _referencePath = refPath;
         }

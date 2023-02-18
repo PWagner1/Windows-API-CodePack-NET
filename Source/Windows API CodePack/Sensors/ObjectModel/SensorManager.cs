@@ -2,6 +2,7 @@
 
 // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
 // ReSharper disable InlineOutVariableDeclaration
+#pragma warning disable CS8631
 namespace Microsoft.WindowsAPICodePack.Sensors
 {
     /// <summary>
@@ -15,14 +16,14 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// </summary>
         /// <returns>A list of all sensors.</returns>
         [SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
-        public static SensorList<Sensor> GetAllSensors() => GetSensorsByCategoryId(SensorCategories.All);
+        public static SensorList<Sensor?> GetAllSensors() => GetSensorsByCategoryId(SensorCategories.All);
 
         /// <summary>
         /// Retrieves a collection of sensors filtered by category ID.
         /// </summary>
         /// <param name="category">The category ID of the requested sensors.</param>
         /// <returns>A list of sensors of the specified category ID.</returns>
-        public static SensorList<Sensor> GetSensorsByCategoryId(Guid category)
+        public static SensorList<Sensor?> GetSensorsByCategoryId(Guid category)
         {
             ISensorCollection? sensorCollection = null;
             HResult hr = _sensorManager.GetSensorsByCategory(category, out sensorCollection);
@@ -37,7 +38,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// </summary>
         /// <param name="typeId">The type ID of the sensors requested.</param>
         /// <returns>A list of sensors of the spefified type ID.</returns>
-        public static SensorList<Sensor> GetSensorsByTypeId(Guid typeId)
+        public static SensorList<Sensor?> GetSensorsByTypeId(Guid typeId)
         {
             ISensorCollection? sensorCollection = null;
             HResult hr = _sensorManager.GetSensorsByType(typeId, out sensorCollection);
@@ -53,7 +54,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// </summary>
         /// <typeparam name="T">The type of the sensors to retrieve.</typeparam>
         /// <returns>A strongly types list of sensors.</returns>        
-        public static SensorList<T> GetSensorsByTypeId<T>() where T : Sensor
+        public static SensorList<T?> GetSensorsByTypeId<T>() where T : Sensor
         {
             object?[] attrs = typeof(T).GetCustomAttributes(typeof(SensorDescriptionAttribute), true);
             if (attrs != null && attrs.Length > 0)
@@ -157,9 +158,9 @@ namespace Microsoft.WindowsAPICodePack.Sensors
             _sensorManager.SetEventSink(_sensorManagerEventSink);
         }
 
-        internal static SensorList<TS> NativeSensorCollectionToSensorCollection<TS>(ISensorCollection? nativeCollection) where TS : Sensor
+        internal static SensorList<TS?> NativeSensorCollectionToSensorCollection<TS>(ISensorCollection? nativeCollection) where TS : Sensor
         {
-            SensorList<TS> sensors = new();
+            SensorList<TS?> sensors = new();
 
             if (nativeCollection != null)
             {
@@ -170,7 +171,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                 {
                     ISensor? iSensor = null;
                     nativeCollection.GetAt(i, out iSensor);
-                    TS sensor = GetSensorWrapperInstance<TS>(iSensor);
+                    TS? sensor = GetSensorWrapperInstance<TS>(iSensor);
                     if (sensor != null)
                     {
                         sensor.InternalObject = iSensor;
@@ -241,25 +242,33 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// </summary>
         /// <param name="nativeISensor">The underlying sensor COM interface.</param>
         /// <returns>A wrapper instance.</returns>
-        private static TS GetSensorWrapperInstance<TS>(ISensor? nativeISensor) where TS : Sensor
+        private static TS? GetSensorWrapperInstance<TS>(ISensor? nativeISensor) where TS : Sensor
         {
             Guid sensorTypeGuid;
-            nativeISensor.GetType(out sensorTypeGuid);
-
-            SensorTypeData stm;
-            Type sensorClassType =
-                _guidToSensorDescr.TryGetValue(sensorTypeGuid, out stm) ? stm.SensorType : typeof(UnknownSensor);
-
-            try
+            if (nativeISensor != null)
             {
-                TS sensor = (TS)Activator.CreateInstance(sensorClassType);
-                sensor.InternalObject = nativeISensor;
-                return sensor;
+                nativeISensor.GetType(out sensorTypeGuid);
+
+                SensorTypeData stm;
+                Type sensorClassType =
+                    _guidToSensorDescr.TryGetValue(sensorTypeGuid, out stm) ? stm.SensorType : typeof(UnknownSensor);
+
+                try
+                {
+                    TS? sensor = (TS)Activator.CreateInstance(sensorClassType);
+                    if (sensor != null)
+                    {
+                        sensor.InternalObject = nativeISensor;
+                        return sensor;
+                    }
+                }
+                catch (InvalidCastException)
+                {
+                    return null;
+                }
             }
-            catch (InvalidCastException)
-            {
-                return null;
-            }
+
+            throw new NullReferenceException();
         }
 
         #endregion

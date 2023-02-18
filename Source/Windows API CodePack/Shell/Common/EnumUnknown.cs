@@ -4,10 +4,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
 {
     internal class EnumUnknownClass : IEnumUnknown
     {
-        List<ICondition> conditionList = new();
+        List<ICondition?> conditionList = new();
         int current = -1;
 
-        internal EnumUnknownClass(ICondition[] conditions)
+        internal EnumUnknownClass(ICondition?[] conditions)
         {
             conditionList.AddRange(conditions);
         }

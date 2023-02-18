@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable PossibleInvalidCastExceptionInForeachLoop
 #pragma warning disable CS8619
 namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
 {
@@ -48,10 +49,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// <summary>
         /// Initializes the item collection for this class.
         /// </summary>
-        private void Initialize()
-        {
-            _items = new();
-        }
+        private void Initialize() => _items = new();
 
         /// <summary>
         /// Attach the GroupBox control to the dialog object
@@ -62,21 +60,25 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
             Debug.Assert(dialog != null, "CommonFileDialogGroupBox.Attach: dialog parameter can not be null");
 
             // Start a visual group
-            dialog.StartVisualGroup(Id, Text);
-
-            // Add child controls
-            foreach (CommonFileDialogControl? item in _items)
+            if (dialog != null)
             {
-                item.HostingDialog = HostingDialog;
-                item.Attach(dialog);
+                dialog.StartVisualGroup(Id, Text);
+
+                // Add child controls
+                if (_items != null)
+                    foreach (CommonFileDialogControl? item in _items)
+                    {
+                        item.HostingDialog = HostingDialog;
+                        item.Attach(dialog);
+                    }
+
+                // End visual group
+                dialog.EndVisualGroup();
+
+                // Make this control prominent if needed
+                if (IsProminent)
+                    dialog.MakeProminent(Id);
             }
-
-            // End visual group
-            dialog.EndVisualGroup();
-
-            // Make this control prominent if needed
-            if (IsProminent)
-                dialog.MakeProminent(Id);
 
             // Sync unmanaged properties with managed properties
             SyncUnmanagedProperties();

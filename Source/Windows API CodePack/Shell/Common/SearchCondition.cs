@@ -8,7 +8,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
     /// </summary>
     public class SearchCondition : IDisposable
     {
-        internal SearchCondition(ICondition nativeSearchCondition)
+        internal SearchCondition(ICondition? nativeSearchCondition)
         {
             if (nativeSearchCondition == null)
             {
@@ -40,7 +40,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
         }
 
-        internal ICondition NativeSearchCondition { get; set; }
+        internal ICondition? NativeSearchCondition { get; set; }
 
         private string? _canonicalName;
         /// <summary>

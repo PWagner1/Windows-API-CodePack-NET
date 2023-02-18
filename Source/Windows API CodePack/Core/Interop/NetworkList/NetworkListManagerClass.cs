@@ -3,7 +3,9 @@
 namespace Microsoft.WindowsAPICodePack.Net
 {
     [ComImport, ClassInterface((short)0), Guid("DCB00C01-570F-4A9B-8D69-199FDBA5723B")]
+#if !NETFRAMEWORK
     [ComSourceInterfaces("Microsoft.Windows.NetworkList.Internal.INetworkEvents\0Microsoft.Windows.NetworkList.Internal.INetworkConnectionEvents\0Microsoft.Windows.NetworkList.Internal.INetworkListManagerEvents\0"), TypeLibType((short)2)]
+#endif
     internal class NetworkListManagerClass : INetworkListManager
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime), DispId(7)]

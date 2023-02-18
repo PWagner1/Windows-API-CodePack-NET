@@ -29,7 +29,7 @@ interface IQuerySolution : IConditionFactory
     // Retrieve the condition tree and the "main type" of the solution.
     // ppQueryNode and ppMainType may be NULL.
     [PreserveSig]
-    HResult GetQuery([Out, MarshalAs(UnmanagedType.Interface)] out ICondition ppQueryNode, [Out, MarshalAs(UnmanagedType.Interface)] out IEntity ppMainType);
+    HResult GetQuery([Out, MarshalAs(UnmanagedType.Interface)] out ICondition? ppQueryNode, [Out, MarshalAs(UnmanagedType.Interface)] out IEntity ppMainType);
 
     // Identify parts of the input string not accounted for.
     // Each parse error is represented by an IRichChunk where the position information

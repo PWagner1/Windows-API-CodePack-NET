@@ -74,14 +74,14 @@ internal interface IShellLibrary
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     void Save(
         [In, MarshalAs(UnmanagedType.Interface)] IShellItem? folderToSaveIn,
-        [In, MarshalAs(UnmanagedType.LPWStr)] string libraryName,
+        [In, MarshalAs(UnmanagedType.LPWStr)] string? libraryName,
         [In] ShellNativeMethods.LibrarySaveOptions lsf,
         [MarshalAs(UnmanagedType.Interface)] out IShellItem2? savedTo);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     void SaveInKnownFolder(
         [In] ref Guid kfidToSaveIn,
-        [In, MarshalAs(UnmanagedType.LPWStr)] string libraryName,
+        [In, MarshalAs(UnmanagedType.LPWStr)] string? libraryName,
         [In] ShellNativeMethods.LibrarySaveOptions lsf,
         [MarshalAs(UnmanagedType.Interface)] out IShellItem2? savedTo);
 };

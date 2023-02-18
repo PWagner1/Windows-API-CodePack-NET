@@ -28,7 +28,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         [DllImport("propsys.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern int PSGetNameFromPropertyKey(
             ref PropertyKey propkey,
-            [Out, MarshalAs(UnmanagedType.LPWStr)] out string ppszCanonicalName
+            [Out, MarshalAs(UnmanagedType.LPWStr)] out string? ppszCanonicalName
         );
 
         [DllImport("propsys.dll", CharSet = CharSet.Unicode, SetLastError = true)]

@@ -22,6 +22,6 @@
         /// <param name="stream">Stream to initialize the thumbnail</param>
         /// <param name="sideSize">Square side dimension in which the thumbnail should fit; the thumbnail will be scaled otherwise.</param>
         /// <returns></returns>
-        Bitmap ConstructBitmap(Stream stream, int sideSize);
+        Bitmap ConstructBitmap(Stream? stream, int sideSize);
     }
 }

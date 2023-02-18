@@ -1,6 +1,7 @@
 ﻿using Color = System.Drawing.Color;
 using TextBox = System.Windows.Forms.TextBox;
 using UserControl = System.Windows.Forms.UserControl;
+#pragma warning disable CS8602
 
 namespace Microsoft.WindowsAPICodePack.ShellExtensions
 {
@@ -18,7 +19,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         /// <summary>
         /// This control must be populated by the deriving class before the preview is shown.
         /// </summary>
-        public UserControl Control { get; protected set; }
+        public UserControl? Control { get; protected set; }
 
         protected void ThrowIfNoControl()
         {
@@ -32,32 +33,35 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         /// Called when an exception is thrown during itialization of the preview control.
         /// </summary>
         /// <param name="caughtException"></param>
-        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", 
-            Justification="The object remains reachable through the Controls collection which can be disposed at a later time.")]
+        [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope",
+            Justification = "The object remains reachable through the Controls collection which can be disposed at a later time.")]
         protected override void HandleInitializeException(Exception caughtException)
         {
             if (caughtException == null) { throw new ArgumentNullException("caughtException"); }
 
             Control = new();
             Control.Controls.Add(new TextBox
-                {
-                    ReadOnly = true,
-                    Multiline = true,
-                    Dock = DockStyle.Fill,
-                    Text = caughtException.ToString(),
-                    BackColor = Color.OrangeRed
-                });
+            {
+                ReadOnly = true,
+                Multiline = true,
+                Dock = DockStyle.Fill,
+                Text = caughtException.ToString(),
+                BackColor = Color.OrangeRed
+            });
         }
 
         protected override void UpdateBounds(NativeRect bounds)
         {
-            Control.Bounds = Rectangle.FromLTRB(bounds.Left, bounds.Top, bounds.Right, bounds.Bottom);
-            Control.Visible = true;
+            if (Control != null)
+            {
+                Control.Bounds = Rectangle.FromLTRB(bounds.Left, bounds.Top, bounds.Right, bounds.Bottom);
+                Control.Visible = true;
+            }
         }
 
         protected override void SetFocus()
         {
-            Control.Focus();
+            Control?.Focus();
         }
 
         protected override void SetBackground(int argb)

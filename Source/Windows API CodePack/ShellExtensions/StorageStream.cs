@@ -1,4 +1,6 @@
 ﻿using STATSTG = System.Runtime.InteropServices.ComTypes.STATSTG;
+// ReSharper disable IdentifierTypo
+#pragma warning disable CS8602
 
 namespace Microsoft.WindowsAPICodePack.ShellExtensions
 {
@@ -7,10 +9,10 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
     /// </summary>
     public class StorageStream : Stream, IDisposable
     {
-        IStream _stream;
+        IStream? _stream;
         private bool _isReadOnly = false;
 
-        internal StorageStream(IStream stream, bool readOnly)
+        internal StorageStream(IStream? stream, bool readOnly)
         {
             if (stream == null)
             {
@@ -190,7 +192,10 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
             IntPtr ptr = Marshal.AllocCoTaskMem(sizeof(long));
             try
             {
-                _stream.Seek(offset, (int)origin, ptr);
+                if (_stream != null)
+                {
+                    _stream.Seek(offset, (int)origin, ptr);
+                }
                 return Marshal.ReadInt64(ptr);
             }
             finally
@@ -206,7 +211,10 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         public override void SetLength(long value)
         {
             ThrowIfDisposed();
-            _stream.SetSize(value);
+            if (_stream != null)
+            {
+                _stream.SetSize(value);
+            }
         }
 
         /// <summary>
@@ -214,7 +222,10 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         /// </summary>
         public override void Flush()
         {
-            _stream.Commit((int)StorageStreamCommitOptions.None);
+            if (_stream != null)
+            {
+                _stream.Commit((int)StorageStreamCommitOptions.None);
+            }
         }
 
         /// <summary>

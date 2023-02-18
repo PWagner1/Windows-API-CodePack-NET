@@ -1,5 +1,6 @@
 ﻿using Brushes = System.Drawing.Brushes;
 using Color = System.Drawing.Color;
+// ReSharper disable AssignNullToNotNullAttribute
 
 namespace Microsoft.WindowsAPICodePack.Shell
 {

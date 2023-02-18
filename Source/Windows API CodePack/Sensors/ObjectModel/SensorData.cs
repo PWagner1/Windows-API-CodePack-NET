@@ -103,10 +103,8 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <param name="key">The data field identifier.</param>
         /// <param name="value">The data list.</param>
         /// <returns><b>true</b> if able to obtain the value; otherwise <b>false</b>.</returns>
-        public bool TryGetValue(Guid key, out IList<object?> value)
-        {
-            return _sensorDataDictionary.TryGetValue(key, out value);
-        }
+        public bool TryGetValue(Guid key, out IList<object?> value) => _sensorDataDictionary.TryGetValue(key, out value);
+
         /// <summary>
         /// Gets the list of data values in the dictionary.
         /// </summary>
@@ -184,7 +182,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <returns><b>true</b> if successful; otherwise <b>false</b></returns>
         public bool Remove(KeyValuePair<Guid, IList<object>> item)
         {
-            ICollection<KeyValuePair<Guid, IList<object>>> c = _sensorDataDictionary as ICollection<KeyValuePair<Guid, IList<object>>>;            
+            ICollection<KeyValuePair<Guid, IList<object>>> c = _sensorDataDictionary as ICollection<KeyValuePair<Guid, IList<object>>>;
             return c.Remove(item);
         }
 

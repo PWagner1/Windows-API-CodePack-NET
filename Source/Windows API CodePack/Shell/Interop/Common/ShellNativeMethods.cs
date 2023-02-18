@@ -32,6 +32,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
             ForceShowHidden = 0x10000000,
             DefaultNoMiniMode = 0x20000000
         }
+
+        [Flags]
         internal enum ControlState
         {
             Inactive = 0x00000000,
@@ -597,7 +599,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             NonIndexableLocationWarning = 1
         };
 
-        
+
         #endregion
 
         #region Shell Library Helper Methods

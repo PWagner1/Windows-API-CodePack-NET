@@ -2,6 +2,12 @@
 using IInitializeWithItem = Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IInitializeWithItem;
 using IInitializeWithStream = Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IInitializeWithStream;
 using Message = Microsoft.WindowsAPICodePack.Shell.Interop.Message;
+// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+// ReSharper disable AssignNullToNotNullAttribute
+// ReSharper disable PossibleNullReferenceException
+// ReSharper disable SuspiciousTypeConversion.Global
+#pragma warning disable CS8600
+#pragma warning disable CS8602
 
 namespace Microsoft.WindowsAPICodePack.ShellExtensions
 {
@@ -18,7 +24,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
     {
         private bool _isPreviewShowing;
         private IntPtr _parentHwnd;
-        private IPreviewHandlerFrame _frame;
+        private IPreviewHandlerFrame? _frame;
 
         /// <summary>
         /// Gets whether the preview is currently showing
@@ -162,20 +168,15 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         #endregion
 
         #region IObjectWithSite
-        void IObjectWithSite.SetSite(object pUnkSite)
-        {
-            _frame = pUnkSite as IPreviewHandlerFrame;
-        }
+        void IObjectWithSite.SetSite(object pUnkSite) => _frame = pUnkSite as IPreviewHandlerFrame;
 
-        void IObjectWithSite.GetSite(ref Guid riid, out object ppvSite)
-        {
-            ppvSite = (object)_frame;
-        }
+        void IObjectWithSite.GetSite(ref Guid riid, out object? ppvSite) => ppvSite = _frame;
+
         #endregion
 
         #region IInitializeWithStream Members
 
-        void IInitializeWithStream.Initialize(IStream stream, AccessModes fileMode)
+        void IInitializeWithStream.Initialize(IStream? stream, AccessModes fileMode)
         {
             IPreviewFromStream preview = this as IPreviewFromStream;
             if (preview == null)
@@ -217,7 +218,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
 
         void IInitializeWithFile.Initialize(string filePath, AccessModes fileMode)
         {
-            IPreviewFromFile preview = this as IPreviewFromFile;
+            IPreviewFromFile? preview = this as IPreviewFromFile;
             if (preview == null)
             {
                 throw new InvalidOperationException(
@@ -243,7 +244,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
                 object[] attrs = (object[])registerType.GetCustomAttributes(typeof(PreviewHandlerAttribute), true);
                 if (attrs != null && attrs.Length == 1)
                 {
-                    PreviewHandlerAttribute attr = attrs[0] as PreviewHandlerAttribute;
+                    PreviewHandlerAttribute? attr = attrs[0] as PreviewHandlerAttribute;
                     ThrowIfNotValid(registerType);
                     RegisterPreviewHandler(registerType.GUID, attr);
                 }
@@ -268,13 +269,13 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
                 object[] attrs = (object[])registerType.GetCustomAttributes(typeof(PreviewHandlerAttribute), true);
                 if (attrs != null && attrs.Length == 1)
                 {
-                    PreviewHandlerAttribute attr = attrs[0] as PreviewHandlerAttribute;
+                    PreviewHandlerAttribute? attr = attrs[0] as PreviewHandlerAttribute;
                     UnregisterPreviewHandler(registerType.GUID, attr);
                 }
             }
         }
 
-        private static void RegisterPreviewHandler(Guid previewerGuid, PreviewHandlerAttribute attribute)
+        private static void RegisterPreviewHandler(Guid previewerGuid, PreviewHandlerAttribute? attribute)
         {
             string guid = previewerGuid.ToString("B");
             // Create a new prevhost AppID so that this always runs in its own isolated process
@@ -318,7 +319,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
             }
         }
 
-        private static void UnregisterPreviewHandler(Guid previewerGuid, PreviewHandlerAttribute attribute)
+        private static void UnregisterPreviewHandler(Guid previewerGuid, PreviewHandlerAttribute? attribute)
         {
             string guid = previewerGuid.ToString("B");
             foreach (string extension in attribute.Extensions.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries))

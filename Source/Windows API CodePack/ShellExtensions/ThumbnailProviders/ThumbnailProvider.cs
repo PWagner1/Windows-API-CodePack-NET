@@ -6,6 +6,8 @@ using ThumbnailAlphaType = Microsoft.WindowsAPICodePack.Shell.Interop.ThumbnailA
 // ReSharper disable AssignNullToNotNullAttribute
 // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
 // ReSharper disable PossibleNullReferenceException
+// ReSharper disable SuspiciousTypeConversion.Global
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 #pragma warning disable CS8602
 
 namespace Microsoft.WindowsAPICodePack.ShellExtensions
@@ -22,9 +24,9 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         // Determines which interface should be called to return a bitmap
         private Bitmap GetBitmap(int sideLength)
         {
-            IThumbnailFromStream stream;
-            IThumbnailFromShellObject shellObject;
-            IThumbnailFromFile file;
+            IThumbnailFromStream? stream;
+            IThumbnailFromShellObject? shellObject;
+            IThumbnailFromFile? file;
 
             if (_stream != null && (stream = this as IThumbnailFromStream) != null)
             {
@@ -54,10 +56,10 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         public virtual ThumbnailAlphaType GetThumbnailAlphaType()
         {
             return ThumbnailAlphaType.Unknown;
-        }        
+        }
 
-        private StorageStream _stream = null;
-        private FileInfo _info = null;
+        private StorageStream? _stream = null;
+        private FileInfo? _info = null;
         private ShellObject? _shellObject = null;
 
         #region IThumbnailProvider Members
@@ -126,10 +128,11 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
             {
                 guidKey.SetValue("DisableProcessIsolation", attribute.DisableProcessIsolation ? 1 : 0, RegistryValueKind.DWord);
 
-                using (RegistryKey inproc = guidKey.OpenSubKey("InprocServer32", true))
-                {
-                    inproc.SetValue("ThreadingModel", "Apartment", RegistryValueKind.String);
-                }
+                if (guidKey != null)
+                    using (RegistryKey inproc = guidKey.OpenSubKey("InprocServer32", true))
+                    {
+                        inproc.SetValue("ThreadingModel", "Apartment", RegistryValueKind.String);
+                    }
             }
 
             // register file as an approved extension
@@ -189,13 +192,13 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
                 object[] attributes = registerType.GetCustomAttributes(typeof(ThumbnailProviderAttribute), true);
                 if (attributes != null && attributes.Length == 1)
                 {
-                    ThumbnailProviderAttribute attribute = attributes[0] as ThumbnailProviderAttribute;
+                    ThumbnailProviderAttribute? attribute = attributes[0] as ThumbnailProviderAttribute;
                     UnregisterThumbnailHandler(registerType.GUID.ToString("B"), attribute);
                 }
             }
         }
 
-        private static void UnregisterThumbnailHandler(string guid, ThumbnailProviderAttribute attribute)
+        private static void UnregisterThumbnailHandler(string guid, ThumbnailProviderAttribute? attribute)
         {
             string[] extensions = attribute.Extensions.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string extension in extensions)
@@ -252,7 +255,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
 
         #region IInitializeWithStream Members
 
-        void IInitializeWithStream.Initialize(IStream stream, AccessModes fileMode)
+        void IInitializeWithStream.Initialize(IStream? stream, AccessModes fileMode)
         {
             _stream = new(stream, fileMode != AccessModes.ReadWrite);
         }

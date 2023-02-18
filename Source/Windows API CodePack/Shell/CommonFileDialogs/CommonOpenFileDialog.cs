@@ -1,6 +1,7 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable InlineOutVariableDeclaration
+#pragma warning disable CS8600
 #pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Dialogs
 {
@@ -41,7 +42,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <remarks>This property should only be used when the
         /// <see cref="CommonOpenFileDialog.Multiselect"/>
         /// property is <b>true</b>.</remarks>
-        public IEnumerable<string> FileNames
+        public IEnumerable<string?> FileNames
         {
             get
             {
@@ -115,7 +116,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             Debug.Assert(_openDialogCoClass != null, "Must call Initialize() before fetching dialog interface");
 
-            return (IFileDialog)_openDialogCoClass;
+            return _openDialogCoClass;
         }
 
         internal override void InitializeNativeFileDialog()
@@ -134,7 +135,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             }
         }
 
-        internal override void PopulateWithFileNames(Collection<string> names)
+        internal override void PopulateWithFileNames(Collection<string?> names)
         {
             IShellItemArray resultsArray;
             uint count;
@@ -172,7 +173,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 flags |= ShellNativeMethods.FileOpenOptions.PickFolders;
             }
-            
+
             if (!_allowNonFileSystem)
             {
                 flags |= ShellNativeMethods.FileOpenOptions.ForceFilesystem;

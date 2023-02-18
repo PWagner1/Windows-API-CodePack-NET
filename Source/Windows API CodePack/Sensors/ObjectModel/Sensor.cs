@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable RedundantAssignment
 #pragma warning disable CS8605
 #pragma warning disable CS8602
 #pragma warning disable CS8600
@@ -422,14 +423,14 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// Returns a list of supported properties for the sensor.
         /// </summary>
         /// <returns>A strongly typed list of supported properties.</returns>        
-        public IList<PropertyKey> GetSupportedProperties()
+        public IList<PropertyKey>? GetSupportedProperties()
         {
             if (_nativeISensor == null)
             {
                 throw new SensorPlatformException(LocalizedMessages.SensorNotInitialized);
             }
 
-            List<PropertyKey> list = new();
+            List<PropertyKey>? list = new();
             IPortableDeviceKeyCollection? collection;
             HResult hr = _nativeISensor.GetSupportedDataFields(out collection);
             if (hr == HResult.Ok)
@@ -452,7 +453,10 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                 }
                 finally
                 {
-                    Marshal.ReleaseComObject(collection);
+                    if (collection != null)
+                    {
+                        Marshal.ReleaseComObject(collection);
+                    }
                     collection = null;
                 }
             }

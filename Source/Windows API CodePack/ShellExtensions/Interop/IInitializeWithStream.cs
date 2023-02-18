@@ -14,5 +14,5 @@ interface IInitializeWithStream
     /// </summary>
     /// <param name="stream"></param>
     /// <param name="fileMode"></param>
-    void Initialize(IStream stream, AccessModes fileMode);
+    void Initialize(IStream? stream, AccessModes fileMode);
 }
