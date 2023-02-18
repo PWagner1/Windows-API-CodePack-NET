@@ -50,7 +50,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
                 {
                     // Create a new hidden window to listen
                     // for power management related window messages.
-                    _window = new PowerRegWindow();
+                    _window = new();
                 }
             }
         }
@@ -85,7 +85,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
                 if (!_eventList.Contains(eventId))
                 {
                     Power.RegisterPowerSettingNotification(Handle, eventId);
-                    ArrayList newList = new ArrayList();
+                    ArrayList newList = new();
                     newList.Add(eventToRegister);
                     _eventList.Add(eventId, newList);
                 }
@@ -136,7 +136,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             {
                 foreach (EventHandler handler in eventHandlerList)
                 {
-                    handler.Invoke(null, new EventArgs());
+                    handler.Invoke(null, new());
                 }
             }
 
@@ -155,7 +155,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
                          (PowerManagementNativeMethods.PowerBroadcastSetting)Marshal.PtrToStructure(
                              m.LParam, typeof(PowerManagementNativeMethods.PowerBroadcastSetting));
 
-                    IntPtr pData = new IntPtr(m.LParam.ToInt64() + Marshal.SizeOf(ps));
+                    IntPtr pData = new(m.LParam.ToInt64() + Marshal.SizeOf(ps));
                     Guid currentEvent = ps.PowerSetting;
                                         
                     // IsMonitorOn

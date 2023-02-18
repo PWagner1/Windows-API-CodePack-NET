@@ -31,7 +31,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 if (_windowThread == null)
                 {
-                    _windowThread = new Thread(ThreadMethod);
+                    _windowThread = new(ThreadMethod);
                     _windowThread.SetApartmentState(ApartmentState.STA);
                     _windowThread.Name = "ShellObjectWatcherMessageListenerHelperThread";
 
@@ -76,7 +76,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         private static void RegisterWindowClass()
         {
-            WindowClassEx classEx = new WindowClassEx();
+            WindowClassEx classEx = new();
             classEx.ClassName = MessageWindowClassName;
             classEx.WndProc = wndProc;
 
@@ -99,7 +99,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 "MessageListenerWindow", //title
                 0, //style
                 0, 0, 0, 0, // x,y,width,height
-                new IntPtr(-3), // -3 = Message-Only window
+                new(-3), // -3 = Message-Only window
                 IntPtr.Zero, IntPtr.Zero, IntPtr.Zero);
 
             return handle;
@@ -146,8 +146,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     MessageListener listener;
                     if (_listeners.TryGetValue(hwnd, out listener))
                     {
-                        Message message = new Message(hwnd, msg, wparam, lparam, 0, new NativePoint());
-                        listener.MessageReceived.SafeRaise(listener, new WindowMessageEventArgs(message));
+                        Message message = new(hwnd, msg, wparam, lparam, 0, new());
+                        listener.MessageReceived.SafeRaise(listener, new(message));
                     }
                     break;
             }

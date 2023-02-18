@@ -130,9 +130,9 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
                 nativeShellLink.SetShowCmd((uint)ShowCommand);
 
-                using (PropVariant propVariant = new PropVariant(Title))
+                using (PropVariant propVariant = new(Title))
                 {
-                    HResult result = nativePropertyStore.SetValue(ref PKEY_Title, propVariant);
+                    HResult result =  nativePropertyStore.SetValue(ref PKEY_Title, propVariant);
                     if (!CoreErrorHelper.Succeeded(result))
                     {
                         throw new ShellException(result);
@@ -144,7 +144,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 return nativeShellLink;
             }
         }
-
+        
         #region IDisposable Members
 
         /// <summary>

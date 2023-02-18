@@ -235,7 +235,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             IntPtr hbitmap = IntPtr.Zero;
 
             // Create a size structure to pass to the native method
-            CoreNativeMethods.Size nativeSize = new CoreNativeMethods.Size();
+            CoreNativeMethods.Size nativeSize = new();
             nativeSize.Width = Convert.ToInt32(size.Width);
             nativeSize.Height = Convert.ToInt32(size.Height);
 

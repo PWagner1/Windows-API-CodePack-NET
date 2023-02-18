@@ -26,7 +26,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             if (ConditionType == SearchConditionType.Leaf)
             {
-                using (PropVariant propVar = new PropVariant())
+                using (PropVariant propVar = new())
                 {
                     hr = NativeSearchCondition.GetComparisonInfo(out _canonicalName, out _conditionOperation, propVar);
 
@@ -67,14 +67,14 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 }
 
                 return _propertyKey;
-            }
+            }            
         }
 
         /// <summary>
         /// A value (in <see cref="System.String"/> format) to which the property is compared. 
         /// </summary>
         public string? PropertyValue { get; internal set; }
-
+        
         private SearchConditionOperation _conditionOperation = SearchConditionOperation.Implicit;
         /// <summary>
         /// Search condition operation to be performed on the property/value combination.
@@ -98,7 +98,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             // Get the sub-conditions from the native API
             object subConditionObj;
-            Guid guid = new Guid(ShellIIDGuid.IEnumUnknown);
+            Guid guid = new(ShellIIDGuid.IEnumUnknown);
 
             HResult hr = NativeSearchCondition.GetSubConditions(ref guid, out subConditionObj);
 
@@ -121,7 +121,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                     if (hr == HResult.Ok && fetched == 1)
                     {
-                        subConditionsList.Add(new SearchCondition((ICondition)Marshal.GetObjectForIUnknown(buffer)));
+                        subConditionsList.Add(new((ICondition)Marshal.GetObjectForIUnknown(buffer)));
                     }
                 }
             }

@@ -11,7 +11,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         static FolderIdentifiers()
         {
-            folders = new Dictionary<Guid, string>();
+            folders = new();
             Type folderIDs = typeof(FolderIdentifiers);
 
             FieldInfo[] fields = folderIDs.GetFields(BindingFlags.NonPublic | BindingFlags.Static);

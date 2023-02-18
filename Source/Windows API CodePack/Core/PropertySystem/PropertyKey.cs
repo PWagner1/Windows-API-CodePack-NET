@@ -48,7 +48,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <param name="propertyId">Property identifier (PID)</param>
         public PropertyKey(string formatId, Int32 propertyId)
         {
-            this.formatId = new Guid(formatId);
+            this.formatId = new(formatId);
             this.propertyId = propertyId;
         }
 

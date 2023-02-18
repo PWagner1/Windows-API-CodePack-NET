@@ -13,7 +13,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         #region implementation
         internal static SensorData? FromNativeReport(ISensor? iSensor, ISensorDataReport iReport)
         {
-            SensorData? data = new SensorData();
+            SensorData? data = new();
 
             IPortableDeviceKeyCollection? keyCollection;
             IPortableDeviceValues? valuesCollection;
@@ -27,7 +27,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                 for (uint index = 0; index < items; index++)
                 {
                     PropertyKey key;
-                    using (PropVariant propValue = new PropVariant())
+                    using (PropVariant propValue = new())
                     {
                         keyCollection.GetAt(index, out key);
                         if (valuesCollection != null) valuesCollection.GetValue(ref key, propValue);
@@ -184,7 +184,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <returns><b>true</b> if successful; otherwise <b>false</b></returns>
         public bool Remove(KeyValuePair<Guid, IList<object>> item)
         {
-            ICollection<KeyValuePair<Guid, IList<object>>> c = _sensorDataDictionary as ICollection<KeyValuePair<Guid, IList<object>>>;
+            ICollection<KeyValuePair<Guid, IList<object>>> c = _sensorDataDictionary as ICollection<KeyValuePair<Guid, IList<object>>>;            
             return c.Remove(item);
         }
 

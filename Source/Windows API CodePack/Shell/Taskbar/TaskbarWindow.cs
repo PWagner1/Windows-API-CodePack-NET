@@ -27,7 +27,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                     throw new InvalidOperationException(LocalizedMessages.TaskbarWindowValueSet);
                 }
 
-                TabbedThumbnailProxyWindow = new TabbedThumbnailProxyWindow(value);
+                TabbedThumbnailProxyWindow = new(value);
                 _tabbedThumbnailPreview = value;
                 _tabbedThumbnailPreview.TaskbarWindow = this;
             }
@@ -100,7 +100,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
 
             // Create our proxy window
-            ThumbnailToolbarProxyWindow = new ThumbnailToolbarProxyWindow(userWindowHandle, buttons);
+            ThumbnailToolbarProxyWindow = new(userWindowHandle, buttons);
             ThumbnailToolbarProxyWindow.TaskbarWindow = this;
 
             // Set our current state
@@ -126,7 +126,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
 
             // Create our proxy window
-            ThumbnailToolbarProxyWindow = new ThumbnailToolbarProxyWindow(windowsControl, buttons);
+            ThumbnailToolbarProxyWindow = new(windowsControl, buttons);
             ThumbnailToolbarProxyWindow.TaskbarWindow = this;
 
             // Set our current state
@@ -145,7 +145,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             // Create our proxy window
             // Bug: This is only called in this constructor.  Which will cause the property 
             // to fail if TaskbarWindow is initialized from a different constructor.
-            TabbedThumbnailProxyWindow = new TabbedThumbnailProxyWindow(preview);
+            TabbedThumbnailProxyWindow = new(preview);
 
             // set our current state
             EnableThumbnailToolbars = false;

@@ -48,10 +48,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 throw new PlatformNotSupportedException(LocalizedMessages.CommonFileDialogRequiresVista);
             }
 
-            _filenames = new Collection<string>();
-            _filters = new CommonFileDialogFilterCollection();
-            Items = new Collection<IShellItem?>();
-            _controls = new CommonFileDialogControlCollection<CommonFileDialogControl>(this);
+            _filenames = new();
+            _filters = new();
+            Items = new();
+            _controls = new(this);
         }
 
         /// <summary>
@@ -466,7 +466,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
             // Create a native shellitem from our path
             IShellItem2? nativeShellItem;
-            Guid guid = new Guid(ShellIIDGuid.IShellItem2);
+            Guid guid = new(ShellIIDGuid.IShellItem2);
             int retCode = ShellNativeMethods.SHCreateItemFromParsingName(path, IntPtr.Zero, ref guid, out nativeShellItem);
 
             if (!CoreErrorHelper.Succeeded(retCode))
@@ -655,7 +655,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 || (_controls != null && _controls.Count > 0))
             {
                 uint cookie;
-                _nativeEventSink = new NativeDialogEventSink(this);
+                _nativeEventSink = new(this);
                 nativeDlg.Advise(_nativeEventSink, out cookie);
                 _nativeEventSink.Cookie = cookie;
             }
@@ -677,7 +677,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 }
             }
 
-            Guid guid = new Guid(ShellIIDGuid.IShellItem2);
+            Guid guid = new(ShellIIDGuid.IShellItem2);
 
             // Apply option bitflags.
             dialog.SetOptions(CalculateNativeDialogOptionFlags());
@@ -1133,7 +1133,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
             public HResult OnFileOk(IFileDialog pfd)
             {
-                CancelEventArgs args = new CancelEventArgs();
+                CancelEventArgs args = new();
                 _parent.OnFileOk(args);
 
                 if (!args.Cancel)
@@ -1173,7 +1173,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
             public HResult OnFolderChanging(IFileDialog pfd, IShellItem? psiFolder)
             {
-                CommonFileDialogFolderChangeEventArgs args = new CommonFileDialogFolderChangeEventArgs(
+                CommonFileDialogFolderChangeEventArgs args = new(
                     GetFileNameFromShellItem(psiFolder));
 
                 if (!_firstFolderChanged) { _parent.OnFolderChanging(args); }

@@ -182,7 +182,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static FolderTypes()
         {
-            types = new Dictionary<Guid, string>();
+            types = new();
             // Review: These Localized messages could probably be a reflected value of the field's name.
             types.Add(NotSpecified, LocalizedMessages.FolderTypeNotSpecified);
             types.Add(Invalid, LocalizedMessages.FolderTypeInvalid);

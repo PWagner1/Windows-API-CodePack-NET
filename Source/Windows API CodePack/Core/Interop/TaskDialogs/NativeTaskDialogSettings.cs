@@ -10,7 +10,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
     {
         internal NativeTaskDialogSettings()
         {
-            NativeConfiguration = new TaskDialogNativeMethods.TaskDialogConfiguration();
+            NativeConfiguration = new();
 
             // Apply standard settings.
             NativeConfiguration.size = (uint)Marshal.SizeOf(NativeConfiguration);
@@ -18,8 +18,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             NativeConfiguration.instance = IntPtr.Zero;
             NativeConfiguration.taskDialogFlags = TaskDialogNativeMethods.TaskDialogOptions.AllowCancel;
             NativeConfiguration.commonButtons = TaskDialogNativeMethods.TaskDialogCommonButtons.Ok;
-            NativeConfiguration.mainIcon = new TaskDialogNativeMethods.IconUnion();
-            NativeConfiguration.footerIcon = new TaskDialogNativeMethods.IconUnion();
+            NativeConfiguration.mainIcon = new();
+            NativeConfiguration.footerIcon = new();
             NativeConfiguration.width = TaskDialogDefaults.IdealWidth;
 
             // Zero out all the custom button fields.

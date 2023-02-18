@@ -376,7 +376,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             CoreHelpers.ThrowIfNotVista();
 
             // Initialize various data structs.
-            _controls = new DialogControlCollection<TaskDialogControl>(this);
+            _controls = new(this);
         }
 
         #endregion
@@ -482,7 +482,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 // New TaskDialog will automatically pick up defaults when 
                 // a new config structure is created as part of ShowCore().
-                _staticDialog = new TaskDialog();
+                _staticDialog = new();
             }
 
             // Set the few relevant properties, 
@@ -513,7 +513,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
                 // Create settings object for new dialog, 
                 // based on current state.
-                NativeTaskDialogSettings settings = new NativeTaskDialogSettings();
+                NativeTaskDialogSettings settings = new();
                 ApplyCoreSettings(settings);
                 ApplySupplementalSettings(settings);
 
@@ -522,7 +522,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 // will be executed by the same thread as the 
                 // Show() call before the thread of execution 
                 // contines to the end of this method.
-                _nativeDialog = new NativeTaskDialog(settings, this);
+                _nativeDialog = new(settings, this);
                 _nativeDialog.NativeShow();
 
                 // Build and return dialog result to public API - leaving it
@@ -656,8 +656,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             }
 
             // Other miscellaneous sets.
-            dialogConfig.mainIcon = new TaskDialogNativeMethods.IconUnion((IntPtr)_icon);
-            dialogConfig.footerIcon = new TaskDialogNativeMethods.IconUnion((IntPtr)_footerIcon);
+            dialogConfig.mainIcon = new((IntPtr)_icon);
+            dialogConfig.footerIcon = new((IntPtr)_footerIcon);
             dialogConfig.commonButtons = (TaskDialogNativeMethods.TaskDialogCommonButtons)_standardButtons;
         }
 
@@ -792,7 +792,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             for (int i = 0; i < totalButtons; i++)
             {
                 button = controls[i];
-                buttonStructs[i] = new TaskDialogNativeMethods.TaskDialogButton(button.Id, button.ToString());
+                buttonStructs[i] = new(button.Id, button.ToString());
             }
             return buttonStructs;
         }
@@ -818,7 +818,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 if (control.UseElevationIcon)
                 {
-                    if (settings.ElevatedButtons == null) { settings.ElevatedButtons = new List<int>(); }
+                    if (settings.ElevatedButtons == null) { settings.ElevatedButtons = new(); }
                     settings.ElevatedButtons.Add(control.Id);
                 }
             }
@@ -866,12 +866,12 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 }
                 else if ((radButton = control as TaskDialogRadioButton) != null)
                 {
-                    if (_radioButtons == null) { _radioButtons = new List<TaskDialogButtonBase>(); }
+                    if (_radioButtons == null) { _radioButtons = new(); }
                     _radioButtons.Add(radButton);
                 }
                 else if (buttonBase != null)
                 {
-                    if (_buttons == null) { _buttons = new List<TaskDialogButtonBase>(); }
+                    if (_buttons == null) { _buttons = new(); }
                     _buttons.Add(buttonBase);
                 }
                 else if ((progBar = control as TaskDialogProgressBar) != null)
@@ -1121,7 +1121,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             EventHandler<TaskDialogHyperlinkClickedEventArgs>? handler = HyperlinkClick;
             if (handler != null)
             {
-                handler(this, new TaskDialogHyperlinkClickedEventArgs(link));
+                handler(this, new(link));
             }
         }
 
@@ -1137,7 +1137,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             if (handler != null)
             {
                 TaskDialogButtonBase customButton = null;
-                TaskDialogClosingEventArgs e = new TaskDialogClosingEventArgs();
+                TaskDialogClosingEventArgs e = new();
 
                 // Try to identify the button - is it a standard one?
                 TaskDialogStandardButtons buttonClicked = MapButtonIdToStandardButton(id);
@@ -1182,7 +1182,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         internal void RaiseTickEvent(int ticks)
         {
-            if (Tick != null) { Tick(this, new TaskDialogTickEventArgs(ticks)); }
+            if (Tick != null) { Tick(this, new(ticks)); }
         }
 
         #endregion

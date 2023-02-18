@@ -58,13 +58,13 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         internal static bool GetClientSize(IntPtr hwnd, out System.Drawing.Size size)
         {
-            NativeRect rect = new NativeRect();
+            NativeRect rect = new();
             if (!GetClientRect(hwnd, ref rect))
             {
-                size = new System.Drawing.Size(-1, -1);
+                size = new(-1, -1);
                 return false;
             }
-            size = new System.Drawing.Size(rect.Right, rect.Bottom);
+            size = new(rect.Right, rect.Bottom);
             return true;
         }
 

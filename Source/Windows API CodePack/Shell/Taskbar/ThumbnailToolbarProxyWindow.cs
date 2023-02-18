@@ -30,7 +30,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             _thumbnailButtons = buttons;
 
             // Set the window handle on the buttons (for future updates)
-            Array.ForEach(_thumbnailButtons, new Action<ThumbnailToolBarButton>(UpdateHandle));
+            Array.ForEach(_thumbnailButtons, new(UpdateHandle));
 
             // Assign the window handle (coming from the user) to this native window
             // so we can intercept the window messages sent from the taskbar to this window.
@@ -50,7 +50,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             _thumbnailButtons = buttons;
 
             // Set the window handle on the buttons (for future updates)
-            Array.ForEach(_thumbnailButtons, new Action<ThumbnailToolBarButton>(UpdateHandle));
+            Array.ForEach(_thumbnailButtons, new(UpdateHandle));
         }
 
         private void UpdateHandle(ThumbnailToolBarButton button)

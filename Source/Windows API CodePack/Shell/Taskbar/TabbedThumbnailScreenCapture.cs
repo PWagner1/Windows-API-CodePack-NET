@@ -21,7 +21,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             if (bitmapSize.Height <= 0 || bitmapSize.Width <= 0) { return null; }
 
             IntPtr windowDC = IntPtr.Zero;
-
+             
             try
             {
                 windowDC = TabbedThumbnailNativeMethods.GetWindowDC(windowHandle);
@@ -31,18 +31,18 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
                 if (realWindowSize == System.Drawing.Size.Empty)
                 {
-                    realWindowSize = new System.Drawing.Size(200, 200);
+                    realWindowSize = new(200, 200);
                 }
-
+                
                 System.Drawing.Size size = (bitmapSize == System.Drawing.Size.Empty) ?
                         realWindowSize : bitmapSize;
-
+                
                 Bitmap targetBitmap = null;
                 try
                 {
+                    
 
-
-                    targetBitmap = new Bitmap(size.Width, size.Height);
+                    targetBitmap = new(size.Width, size.Height);
 
                     using (Graphics targetGr = Graphics.FromImage(targetBitmap))
                     {
@@ -74,7 +74,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 if (windowDC != IntPtr.Zero)
                 {
                     TabbedThumbnailNativeMethods.ReleaseDC(windowHandle, windowDC);
-                }
+                }                
             }
         }
 
@@ -94,7 +94,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             if (host != null)
             {
                 IntPtr handle = host.Handle;
-                return GrabWindowBitmap(handle, new System.Drawing.Size(width, height));
+                return GrabWindowBitmap(handle, new(width, height));
             }
 
             Rect bounds = VisualTreeHelper.GetDescendantBounds(element);
@@ -105,14 +105,14 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 return null;    // 0 sized element. Probably hidden
             }
 
-            RenderTargetBitmap rendertarget = new RenderTargetBitmap((int)(bounds.Width * dpiX / 96.0),
+            RenderTargetBitmap rendertarget = new((int)(bounds.Width * dpiX / 96.0),
              (int)(bounds.Height * dpiY / 96.0), dpiX, dpiY, PixelFormats.Default);
 
-            DrawingVisual dv = new DrawingVisual();
+            DrawingVisual dv = new();
             using (DrawingContext ctx = dv.RenderOpen())
             {
-                VisualBrush vb = new VisualBrush(element);
-                ctx.DrawRectangle(vb, null, new Rect(new System.Windows.Point(), bounds.Size));
+                VisualBrush vb = new(element);
+                ctx.DrawRectangle(vb, null, new(new(), bounds.Size));
             }
 
             rendertarget.Render(dv);
@@ -122,11 +122,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
             Bitmap bmp;
             // Create a MemoryStream with the image.            
-            using (MemoryStream fl = new MemoryStream())
+            using (MemoryStream fl = new())
             {
                 bmpe.Save(fl);
                 fl.Position = 0;
-                bmp = new Bitmap(fl);
+                bmp = new(fl);
             }
 
             return (Bitmap)bmp.GetThumbnailImage(width, height, null, IntPtr.Zero);

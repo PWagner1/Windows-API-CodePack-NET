@@ -572,7 +572,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             else
             {
                 // Create a new icon based on our default settings
-                StockIcon icon = new StockIcon(stockIconIdentifier, defaultSize, isLinkOverlay, isSelected);
+                StockIcon icon = new(stockIconIdentifier, defaultSize, isLinkOverlay, isSelected);
 
                 try
                 {

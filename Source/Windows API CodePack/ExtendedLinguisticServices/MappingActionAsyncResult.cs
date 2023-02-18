@@ -18,7 +18,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
             string actionId)
             : base(callerData, asyncCallback)
         {
-            SetResult(bag, new MappingResultState());
+            SetResult(bag, new());
             RangeIndex = rangeIndex;
             ActionId = actionId;
         }

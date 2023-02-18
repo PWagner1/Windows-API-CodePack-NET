@@ -15,7 +15,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             TabbedThumbnailNativeMethods.ClientToScreen(hwndParent, ref parentScreenCoord);
 
-            System.Drawing.Point offset = new System.Drawing.Point(
+            System.Drawing.Point offset = new(
                 childScreenCoord.X - parentScreenCoord.X,
                 childScreenCoord.Y - parentScreenCoord.Y);
 
@@ -32,7 +32,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             TabbedThumbnailNativeMethods.GetWindowRect(hwnd, ref r);
 
-            return new System.Drawing.Size(c.X - r.Left, c.Y - r.Top);
+            return new(c.X - r.Left, c.Y - r.Top);
         }
     }
 }

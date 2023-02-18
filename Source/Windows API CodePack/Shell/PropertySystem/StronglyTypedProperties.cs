@@ -2871,7 +2871,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemAppUserModel == null)
                     {
-                        internalPropertySystemAppUserModel = new PropertySystemAppUserModel(shellObjectParent);
+                        internalPropertySystemAppUserModel = new(shellObjectParent);
                     }
 
                     return internalPropertySystemAppUserModel;
@@ -2887,7 +2887,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemAudio == null)
                     {
-                        internalPropertySystemAudio = new PropertySystemAudio(shellObjectParent);
+                        internalPropertySystemAudio = new(shellObjectParent);
                     }
 
                     return internalPropertySystemAudio;
@@ -2903,7 +2903,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemCalendar == null)
                     {
-                        internalPropertySystemCalendar = new PropertySystemCalendar(shellObjectParent);
+                        internalPropertySystemCalendar = new(shellObjectParent);
                     }
 
                     return internalPropertySystemCalendar;
@@ -2919,7 +2919,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemCommunication == null)
                     {
-                        internalPropertySystemCommunication = new PropertySystemCommunication(shellObjectParent);
+                        internalPropertySystemCommunication = new(shellObjectParent);
                     }
 
                     return internalPropertySystemCommunication;
@@ -2935,7 +2935,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemComputer == null)
                     {
-                        internalPropertySystemComputer = new PropertySystemComputer(shellObjectParent);
+                        internalPropertySystemComputer = new(shellObjectParent);
                     }
 
                     return internalPropertySystemComputer;
@@ -2951,7 +2951,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemContact == null)
                     {
-                        internalPropertySystemContact = new PropertySystemContact(shellObjectParent);
+                        internalPropertySystemContact = new(shellObjectParent);
                     }
 
                     return internalPropertySystemContact;
@@ -2967,7 +2967,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemDevice == null)
                     {
-                        internalPropertySystemDevice = new PropertySystemDevice(shellObjectParent);
+                        internalPropertySystemDevice = new(shellObjectParent);
                     }
 
                     return internalPropertySystemDevice;
@@ -2983,7 +2983,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemDeviceInterface == null)
                     {
-                        internalPropertySystemDeviceInterface = new PropertySystemDeviceInterface(shellObjectParent);
+                        internalPropertySystemDeviceInterface = new(shellObjectParent);
                     }
 
                     return internalPropertySystemDeviceInterface;
@@ -2999,7 +2999,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemDevices == null)
                     {
-                        internalPropertySystemDevices = new PropertySystemDevices(shellObjectParent);
+                        internalPropertySystemDevices = new(shellObjectParent);
                     }
 
                     return internalPropertySystemDevices;
@@ -3015,7 +3015,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemDocument == null)
                     {
-                        internalPropertySystemDocument = new PropertySystemDocument(shellObjectParent);
+                        internalPropertySystemDocument = new(shellObjectParent);
                     }
 
                     return internalPropertySystemDocument;
@@ -3031,7 +3031,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemDRM == null)
                     {
-                        internalPropertySystemDRM = new PropertySystemDRM(shellObjectParent);
+                        internalPropertySystemDRM = new(shellObjectParent);
                     }
 
                     return internalPropertySystemDRM;
@@ -3047,7 +3047,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemGPS == null)
                     {
-                        internalPropertySystemGPS = new PropertySystemGPS(shellObjectParent);
+                        internalPropertySystemGPS = new(shellObjectParent);
                     }
 
                     return internalPropertySystemGPS;
@@ -3063,7 +3063,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemIdentity == null)
                     {
-                        internalPropertySystemIdentity = new PropertySystemIdentity(shellObjectParent);
+                        internalPropertySystemIdentity = new(shellObjectParent);
                     }
 
                     return internalPropertySystemIdentity;
@@ -3079,7 +3079,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemIdentityProvider == null)
                     {
-                        internalPropertySystemIdentityProvider = new PropertySystemIdentityProvider(shellObjectParent);
+                        internalPropertySystemIdentityProvider = new(shellObjectParent);
                     }
 
                     return internalPropertySystemIdentityProvider;
@@ -3095,7 +3095,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemImage == null)
                     {
-                        internalPropertySystemImage = new PropertySystemImage(shellObjectParent);
+                        internalPropertySystemImage = new(shellObjectParent);
                     }
 
                     return internalPropertySystemImage;
@@ -3111,7 +3111,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemJournal == null)
                     {
-                        internalPropertySystemJournal = new PropertySystemJournal(shellObjectParent);
+                        internalPropertySystemJournal = new(shellObjectParent);
                     }
 
                     return internalPropertySystemJournal;
@@ -3127,7 +3127,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemLayoutPattern == null)
                     {
-                        internalPropertySystemLayoutPattern = new PropertySystemLayoutPattern(shellObjectParent);
+                        internalPropertySystemLayoutPattern = new(shellObjectParent);
                     }
 
                     return internalPropertySystemLayoutPattern;
@@ -3143,7 +3143,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemLink == null)
                     {
-                        internalPropertySystemLink = new PropertySystemLink(shellObjectParent);
+                        internalPropertySystemLink = new(shellObjectParent);
                     }
 
                     return internalPropertySystemLink;
@@ -3159,7 +3159,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemMedia == null)
                     {
-                        internalPropertySystemMedia = new PropertySystemMedia(shellObjectParent);
+                        internalPropertySystemMedia = new(shellObjectParent);
                     }
 
                     return internalPropertySystemMedia;
@@ -3175,7 +3175,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemMessage == null)
                     {
-                        internalPropertySystemMessage = new PropertySystemMessage(shellObjectParent);
+                        internalPropertySystemMessage = new(shellObjectParent);
                     }
 
                     return internalPropertySystemMessage;
@@ -3191,7 +3191,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemMusic == null)
                     {
-                        internalPropertySystemMusic = new PropertySystemMusic(shellObjectParent);
+                        internalPropertySystemMusic = new(shellObjectParent);
                     }
 
                     return internalPropertySystemMusic;
@@ -3207,7 +3207,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemNote == null)
                     {
-                        internalPropertySystemNote = new PropertySystemNote(shellObjectParent);
+                        internalPropertySystemNote = new(shellObjectParent);
                     }
 
                     return internalPropertySystemNote;
@@ -3223,7 +3223,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemPhoto == null)
                     {
-                        internalPropertySystemPhoto = new PropertySystemPhoto(shellObjectParent);
+                        internalPropertySystemPhoto = new(shellObjectParent);
                     }
 
                     return internalPropertySystemPhoto;
@@ -3239,7 +3239,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemPropGroup == null)
                     {
-                        internalPropertySystemPropGroup = new PropertySystemPropGroup(shellObjectParent);
+                        internalPropertySystemPropGroup = new(shellObjectParent);
                     }
 
                     return internalPropertySystemPropGroup;
@@ -3255,7 +3255,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemPropList == null)
                     {
-                        internalPropertySystemPropList = new PropertySystemPropList(shellObjectParent);
+                        internalPropertySystemPropList = new(shellObjectParent);
                     }
 
                     return internalPropertySystemPropList;
@@ -3271,7 +3271,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemRecordedTV == null)
                     {
-                        internalPropertySystemRecordedTV = new PropertySystemRecordedTV(shellObjectParent);
+                        internalPropertySystemRecordedTV = new(shellObjectParent);
                     }
 
                     return internalPropertySystemRecordedTV;
@@ -3287,7 +3287,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemSearch == null)
                     {
-                        internalPropertySystemSearch = new PropertySystemSearch(shellObjectParent);
+                        internalPropertySystemSearch = new(shellObjectParent);
                     }
 
                     return internalPropertySystemSearch;
@@ -3303,7 +3303,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemShell == null)
                     {
-                        internalPropertySystemShell = new PropertySystemShell(shellObjectParent);
+                        internalPropertySystemShell = new(shellObjectParent);
                     }
 
                     return internalPropertySystemShell;
@@ -3319,7 +3319,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemSoftware == null)
                     {
-                        internalPropertySystemSoftware = new PropertySystemSoftware(shellObjectParent);
+                        internalPropertySystemSoftware = new(shellObjectParent);
                     }
 
                     return internalPropertySystemSoftware;
@@ -3335,7 +3335,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemSync == null)
                     {
-                        internalPropertySystemSync = new PropertySystemSync(shellObjectParent);
+                        internalPropertySystemSync = new(shellObjectParent);
                     }
 
                     return internalPropertySystemSync;
@@ -3351,7 +3351,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemTask == null)
                     {
-                        internalPropertySystemTask = new PropertySystemTask(shellObjectParent);
+                        internalPropertySystemTask = new(shellObjectParent);
                     }
 
                     return internalPropertySystemTask;
@@ -3367,7 +3367,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemVideo == null)
                     {
-                        internalPropertySystemVideo = new PropertySystemVideo(shellObjectParent);
+                        internalPropertySystemVideo = new(shellObjectParent);
                     }
 
                     return internalPropertySystemVideo;
@@ -3383,7 +3383,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertySystemVolume == null)
                     {
-                        internalPropertySystemVolume = new PropertySystemVolume(shellObjectParent);
+                        internalPropertySystemVolume = new(shellObjectParent);
                     }
 
                     return internalPropertySystemVolume;
@@ -5954,7 +5954,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertyContactJA == null)
                     {
-                        internalPropertyContactJA = new PropertyContactJA(shellObjectParent);
+                        internalPropertyContactJA = new(shellObjectParent);
                     }
 
                     return internalPropertyContactJA;
@@ -7250,7 +7250,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     if (internalPropertyDevicesNotifications == null)
                     {
-                        internalPropertyDevicesNotifications = new PropertyDevicesNotifications(shellObjectParent);
+                        internalPropertyDevicesNotifications = new(shellObjectParent);
                     }
 
                     return internalPropertyDevicesNotifications;

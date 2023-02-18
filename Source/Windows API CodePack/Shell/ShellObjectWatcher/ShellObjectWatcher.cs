@@ -35,7 +35,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             if (_context == null)
             {
-                _context = new SynchronizationContext();
+                _context = new();
                 SynchronizationContext.SetSynchronizationContext(_context);
             }
 
@@ -68,7 +68,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             if (Running) { return; }
 
             #region Registration
-            ShellNativeMethods.SHChangeNotifyEntry entry = new ShellNativeMethods.SHChangeNotifyEntry();
+            ShellNativeMethods.SHChangeNotifyEntry entry = new();
             entry.recursively = _recursive;
 
             entry.pIdl = _shellObject.Pidl;
@@ -130,7 +130,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             if (!Running) { return; }
             if (e == null) { throw new ArgumentNullException("e"); }
 
-            ChangeNotifyLock notifyLock = new ChangeNotifyLock(e.Message);
+            ChangeNotifyLock notifyLock = new(e.Message);
 
             ShellObjectNotificationEventArgs args = null;
             switch (notifyLock.ChangeType)

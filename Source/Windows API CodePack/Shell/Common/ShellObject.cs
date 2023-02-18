@@ -87,7 +87,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 if (nativeShellItem == null && ParsingName != null)
                 {
-                    Guid guid = new Guid(ShellIIDGuid.IShellItem2);
+                    Guid guid = new(ShellIIDGuid.IShellItem2);
                     int retCode = ShellNativeMethods.SHCreateItemFromParsingName(ParsingName, IntPtr.Zero, ref guid, out nativeShellItem);
 
                     if (nativeShellItem == null || !CoreErrorHelper.Succeeded(retCode))
@@ -151,7 +151,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 if (_properties == null)
                 {
-                    _properties = new ShellProperties(this);
+                    _properties = new(this);
                 }
                 return _properties;
             }
@@ -310,7 +310,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                if (_thumbnail == null) { _thumbnail = new ShellThumbnail(this); }
+                if (_thumbnail == null) { _thumbnail = new(this); }
                 return _thumbnail;
             }
         }

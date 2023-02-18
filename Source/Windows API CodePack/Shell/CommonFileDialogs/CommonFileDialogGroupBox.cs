@@ -50,7 +50,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// </summary>
         private void Initialize()
         {
-            _items = new Collection<DialogControl>();
+            _items = new();
         }
 
         /// <summary>

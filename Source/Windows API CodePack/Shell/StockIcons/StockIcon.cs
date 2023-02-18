@@ -193,7 +193,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
 
             // Create a StockIconInfo structure to pass to the native method.
-            StockIconsNativeMethods.StockIconInfo info = new StockIconsNativeMethods.StockIconInfo();
+            StockIconsNativeMethods.StockIconInfo info = new();
             info.StuctureSize = (UInt32)Marshal.SizeOf(typeof(StockIconsNativeMethods.StockIconInfo));
 
             // Pass the struct to the native method

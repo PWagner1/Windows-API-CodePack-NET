@@ -29,7 +29,7 @@ namespace Microsoft.WindowsAPICodePack.Net
         {
             foreach (INetwork network in networkEnumerable)
             {
-                yield return new Network(network);
+                yield return new(network);
             }
         }
 

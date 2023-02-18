@@ -37,7 +37,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
                 nativePropertyStore = (IPropertyStore)nativeShellLink;
 
-                using (PropVariant propVariant = new PropVariant(true))
+                using(PropVariant propVariant = new(true))
                 {
                     HResult result = nativePropertyStore.SetValue(ref PKEY_AppUserModel_IsDestListSeparator, propVariant);
                     if (!CoreErrorHelper.Succeeded(result))
@@ -46,7 +46,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                     }
                     nativePropertyStore.Commit();
                 }
-
+                
                 return nativeShellLink; ;
             }
         }

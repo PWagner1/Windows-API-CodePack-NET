@@ -73,7 +73,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                 return NativeSensorCollectionToSensorCollection<T>(nativeSensorCollection);
             }
 
-            return new SensorList<T>();
+            return new();
         }
 
         /// <summary>
@@ -189,7 +189,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         {
             if (SensorsChanged != null)
             {
-                SensorsChanged.Invoke(new SensorsChangedEventArgs(sensorId, change));
+                SensorsChanged.Invoke(new(sensorId, change));
             }
         }
 
@@ -214,7 +214,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                             if (attrs != null && attrs.Length > 0)
                             {
                                 SensorDescriptionAttribute sda = (SensorDescriptionAttribute)attrs[0];
-                                SensorTypeData stm = new SensorTypeData(t, sda);
+                                SensorTypeData stm = new(t, sda);
 
                                 _guidToSensorDescr.Add(sda.SensorTypeGuid, stm);
                                 _sensorTypeToGuid.Add(t, sda.SensorTypeGuid);

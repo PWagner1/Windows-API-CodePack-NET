@@ -10,7 +10,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         internal TabbedThumbnailProxyWindow(TabbedThumbnail preview)
         {
             TabbedThumbnail = preview;
-            Size = new System.Drawing.Size(1, 1);
+            Size = new(1, 1);
 
             if (!string.IsNullOrEmpty(preview.Title))
             {

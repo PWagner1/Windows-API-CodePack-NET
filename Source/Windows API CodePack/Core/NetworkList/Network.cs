@@ -60,7 +60,7 @@ namespace Microsoft.WindowsAPICodePack.Net
         /// Gets the network connections for the network.
         /// </summary>
         /// <value>A <see cref="NetworkConnectionCollection"/> object.</value>
-        public NetworkConnectionCollection Connections => new NetworkConnectionCollection(network.GetNetworkConnections());
+        public NetworkConnectionCollection Connections => new(network.GetNetworkConnections());
 
         /// <summary>
         /// Gets the connectivity state of the network.

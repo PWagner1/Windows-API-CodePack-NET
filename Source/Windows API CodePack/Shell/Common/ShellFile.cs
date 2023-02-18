@@ -41,7 +41,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>ShellFile object created using given file path.</returns>
         static public ShellFile FromFilePath(string? path)
         {
-            return new ShellFile(path);
+            return new(path);
         }
 
         #endregion

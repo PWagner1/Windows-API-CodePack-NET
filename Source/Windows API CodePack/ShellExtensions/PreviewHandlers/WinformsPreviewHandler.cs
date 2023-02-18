@@ -38,7 +38,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
         {
             if (caughtException == null) { throw new ArgumentNullException("caughtException"); }
 
-            Control = new UserControl();
+            Control = new();
             Control.Controls.Add(new TextBox
                 {
                     ReadOnly = true,

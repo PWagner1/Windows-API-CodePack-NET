@@ -36,7 +36,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             // Trigger CollectionChanged event
             CollectionChanged(
                 this,
-                new NotifyCollectionChangedEventArgs(
+                new(
                     NotifyCollectionChangedAction.Add,
                     item));
         }
@@ -55,7 +55,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 // Trigger CollectionChanged event
                 CollectionChanged(
                     this,
-                    new NotifyCollectionChangedEventArgs(
+                    new(
                         NotifyCollectionChangedAction.Remove,
                         0));
             }
@@ -73,7 +73,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             // Trigger CollectionChanged event
             CollectionChanged(
                 this,
-                new NotifyCollectionChangedEventArgs(
+                new(
                     NotifyCollectionChangedAction.Reset));
         }
 

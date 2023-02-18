@@ -27,7 +27,7 @@ namespace Microsoft.WindowsAPICodePack.Net
             // Throw PlatformNotSupportedException if the user is not running Vista or beyond
             CoreHelpers.ThrowIfNotVista();
 
-            return new NetworkCollection(manager.GetNetworks(level));
+            return new(manager.GetNetworks(level));
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Microsoft.WindowsAPICodePack.Net
             // Throw PlatformNotSupportedException if the user is not running Vista or beyond
             CoreHelpers.ThrowIfNotVista();
 
-            return new Network(manager.GetNetwork(networkId));
+            return new(manager.GetNetwork(networkId));
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Microsoft.WindowsAPICodePack.Net
             // Throw PlatformNotSupportedException if the user is not running Vista or beyond
             CoreHelpers.ThrowIfNotVista();
 
-            return new NetworkConnectionCollection(manager.GetNetworkConnections());
+            return new(manager.GetNetworkConnections());
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Microsoft.WindowsAPICodePack.Net
             // Throw PlatformNotSupportedException if the user is not running Vista or beyond
             CoreHelpers.ThrowIfNotVista();
 
-            return new NetworkConnection(manager.GetNetworkConnection(networkConnectionId));
+            return new(manager.GetNetworkConnection(networkConnectionId));
         }
 
         /// <summary>

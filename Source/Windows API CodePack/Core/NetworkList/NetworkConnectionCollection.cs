@@ -32,7 +32,7 @@ namespace Microsoft.WindowsAPICodePack.Net
                 // ReSharper restore ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
                 foreach (INetworkConnection networkConnection in networkConnectionEnumerable)
                 {
-                    yield return new NetworkConnection(networkConnection);
+                    yield return new(networkConnection);
                 }
         }
 

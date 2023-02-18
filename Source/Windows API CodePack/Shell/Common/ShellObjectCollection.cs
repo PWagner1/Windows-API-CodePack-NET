@@ -51,9 +51,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
         public static ShellObjectCollection FromDataObject(System.Runtime.InteropServices.ComTypes.IDataObject dataObject)
         {
             IShellItemArray? shellItemArray;
-            Guid iid = new Guid(ShellIIDGuid.IShellItemArray);
+            Guid iid = new(ShellIIDGuid.IShellItemArray);
             ShellNativeMethods.SHCreateShellItemArrayFromDataObject(dataObject, ref iid, out shellItemArray);
-            return new ShellObjectCollection(shellItemArray, true);
+            return new(shellItemArray, true);
         }
 
         /// <summary>
@@ -136,10 +136,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
 
 
-            MemoryStream mstream = new MemoryStream();
+            MemoryStream mstream = new();
             try
             {
-                BinaryWriter bwriter = new BinaryWriter(mstream);
+                BinaryWriter bwriter = new(mstream);
 
 
                 // number of IDLs to be written (shell objects + parent folder)

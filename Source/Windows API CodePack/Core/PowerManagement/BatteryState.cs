@@ -24,7 +24,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             uint estimatedTime = state.EstimatedTime;
             if (estimatedTime != uint.MaxValue) // uint.MaxValue signifies indefinite estimated time (plugged in)
             {
-                EstimatedTimeRemaining = new TimeSpan(0, 0, (int)estimatedTime);
+                EstimatedTimeRemaining = new(0, 0, (int)estimatedTime);
             }
             else
             {

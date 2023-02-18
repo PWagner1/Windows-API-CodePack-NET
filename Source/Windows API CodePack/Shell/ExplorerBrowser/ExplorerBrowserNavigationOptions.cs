@@ -13,7 +13,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
         internal ExplorerBrowserNavigationOptions(ExplorerBrowser eb)
         {
             this._eb = eb;
-            PaneVisibility = new ExplorerBrowserPaneVisibility();
+            PaneVisibility = new();
         }
         #endregion
 
@@ -25,7 +25,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
         {
             get
             {
-                ExplorerBrowserOptions ebo = new ExplorerBrowserOptions();
+                ExplorerBrowserOptions ebo = new();
                 if (_eb.ExplorerBrowserControl != null)
                 {
                     _eb.ExplorerBrowserControl.GetOptions(out ebo);

@@ -25,7 +25,7 @@ namespace Microsoft.WindowsAPICodePack.Net
         /// associated with this connection.
         /// </summary>
         /// <returns>A <see cref="Network"/> object.</returns>
-        public Network Network => new Network(networkConnection.GetNetwork());
+        public Network Network => new(networkConnection.GetNetwork());
 
         /// <summary>
         /// Gets the adapter identifier for this connection.

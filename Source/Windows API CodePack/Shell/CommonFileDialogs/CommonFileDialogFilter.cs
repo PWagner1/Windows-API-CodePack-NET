@@ -18,7 +18,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public CommonFileDialogFilter()
         {
-            _extensions = new Collection<string?>();
+            _extensions = new();
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 {
                     return string.Format(CultureInfo.InvariantCulture,
                         "{0} ({1})",
-                        _rawDisplayName,
+                        _rawDisplayName, 
                         GetDisplayExtensionList(_extensions));
                 }
 
@@ -117,7 +117,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         private static string GetDisplayExtensionList(Collection<string?> extensions)
         {
-            StringBuilder extensionList = new StringBuilder();
+            StringBuilder extensionList = new();
             foreach (string? extension in extensions)
             {
                 if (extensionList.Length > 0) { extensionList.Append(", "); }
@@ -136,7 +136,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// 
         internal ShellNativeMethods.FilterSpec GetFilterSpec()
         {
-            StringBuilder filterList = new StringBuilder();
+            StringBuilder filterList = new();
             foreach (string? extension in _extensions)
             {
                 if (filterList.Length > 0) { filterList.Append(";"); }
@@ -145,7 +145,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 filterList.Append(extension);
 
             }
-            return new ShellNativeMethods.FilterSpec(DisplayName, filterList.ToString());
+            return new(DisplayName, filterList.ToString());
         }
 
         /// <summary>

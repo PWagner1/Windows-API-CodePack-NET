@@ -13,7 +13,7 @@
                 var package = _packages.FirstOrDefault(x => x.TryRegister(callback, out message));
                 if (package == null)
                 {
-                    package = new RegisteredListener();
+                    package = new();
                     if (!package.TryRegister(callback, out message))
                     {   // this should never happen
                         throw new ShellException(LocalizedMessages.MessageListenerFilterUnableToRegister);
@@ -21,7 +21,7 @@
                     _packages.Add(package);
                 }
 
-                return new MessageListenerFilterRegistrationResult(
+                return new(
                     package.Listener.WindowHandle,
                     message);
             }
@@ -36,7 +36,7 @@
                 {
                     throw new ArgumentException(LocalizedMessages.MessageListenerFilterUnknownListenerHandle);
                 }
-
+                
                 if (package.Callbacks.Count == 0)
                 {
                     package.Listener.Dispose();
@@ -53,8 +53,8 @@
 
             public RegisteredListener()
             {
-                Callbacks = new Dictionary<uint, Action<WindowMessageEventArgs>>();
-                Listener = new MessageListener();
+                Callbacks = new();
+                Listener = new();
                 Listener.MessageReceived += MessageReceived;
             }
 

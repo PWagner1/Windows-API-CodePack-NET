@@ -13,9 +13,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="pidl"></param>
         /// <returns></returns>
         internal static IKnownFolderNative? FromPIDL(IntPtr pidl)
-        {
-            KnownFolderManagerClass knownFolderManager = new KnownFolderManagerClass();
-
+        {            
+            KnownFolderManagerClass knownFolderManager = new();
+            
             IKnownFolderNative? knownFolder;
             HResult hr = knownFolderManager.FindFolderFromIDList(pidl, out knownFolder);
 
@@ -31,7 +31,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         public static IKnownFolder? FromKnownFolderId(Guid knownFolderId)
         {
             IKnownFolderNative? knownFolderNative;
-            KnownFolderManagerClass knownFolderManager = new KnownFolderManagerClass();
+            KnownFolderManagerClass knownFolderManager = new();
 
             HResult hr = knownFolderManager.GetFolder(knownFolderId, out knownFolderNative);
             if (hr != HResult.Ok) { throw new ShellException(hr); }
@@ -71,7 +71,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             // Get the native IShellItem2 from the native IKnownFolder
             IShellItem2? shellItem;
-            Guid guid = new Guid(ShellIIDGuid.IShellItem2);
+            Guid guid = new(ShellIIDGuid.IShellItem2);
             HResult hr = knownFolderNative.GetShellItem(0, ref guid, out shellItem);
 
             if (!CoreErrorHelper.Succeeded(hr)) { return null; }
@@ -91,11 +91,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
             // If it's FileSystem, create a FileSystemKnownFolder, else NonFileSystemKnownFolder
             if (isFileSystem)
             {
-                FileSystemKnownFolder? kf = new FileSystemKnownFolder(knownFolderNative);
+                FileSystemKnownFolder? kf = new(knownFolderNative);
                 return kf;
             }
 
-            NonFileSystemKnownFolder? knownFsFolder = new NonFileSystemKnownFolder(knownFolderNative);
+            NonFileSystemKnownFolder? knownFsFolder = new(knownFolderNative);
             return knownFsFolder;
         }
 

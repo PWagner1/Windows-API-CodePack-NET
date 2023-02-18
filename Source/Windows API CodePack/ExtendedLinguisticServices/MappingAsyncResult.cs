@@ -20,7 +20,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         {
             _callerData = callerData;
             _asyncCallback = asyncCallback;
-            _waitHandle = new ManualResetEvent(false);
+            _waitHandle = new(false);
         }
 
         internal AsyncCallback AsyncCallback => _asyncCallback;

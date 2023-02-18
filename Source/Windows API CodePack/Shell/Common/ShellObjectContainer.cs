@@ -25,8 +25,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 if (nativeShellFolder == null)
                 {
-                    Guid guid = new Guid(ShellIIDGuid.IShellFolder);
-                    Guid handler = new Guid(ShellBHIDGuid.ShellFolderObject);
+                    Guid guid = new(ShellIIDGuid.IShellFolder);
+                    Guid handler = new(ShellBHIDGuid.ShellFolderObject);
 
                     if (NativeShellItem != null)
                     {

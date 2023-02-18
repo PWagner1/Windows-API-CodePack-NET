@@ -25,7 +25,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             // Set the native shell item
             // and set it on the base class (ShellObject)
-            Guid guid = new Guid(ShellIIDGuid.IShellItem2);
+            Guid guid = new(ShellIIDGuid.IShellItem2);
             if (knownFolderNative != null) knownFolderNative.GetShellItem(0, ref guid, out nativeShellItem);
         }
 
@@ -62,7 +62,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 // get the native Folder Defination (KnownFolder properties)
                 if (knownFolderSettings == null)
                 {
-                    knownFolderSettings = new KnownFolderSettings(knownFolderNative);
+                    knownFolderSettings = new(knownFolderNative);
                 }
 
                 return knownFolderSettings;

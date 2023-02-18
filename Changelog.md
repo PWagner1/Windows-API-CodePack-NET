@@ -1,3 +1,12 @@
+20/02/2023
+
+Version 7.0.4
+- Support for `nullable`
+- Usage of `new()`
+- New symbol packages
+
+=========
+
 17/02/2023
 
 Version 7.0.3

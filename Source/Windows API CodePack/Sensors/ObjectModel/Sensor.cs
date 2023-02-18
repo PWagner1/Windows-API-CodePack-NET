@@ -328,7 +328,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <returns>A property value.</returns>        
         public object? GetProperty(PropertyKey propKey)
         {
-            using (PropVariant pv = new PropVariant())
+            using (PropVariant pv = new())
             {
                 HResult hr = _nativeISensor.GetProperty(ref propKey, pv);
                 if (hr != HResult.Ok)
@@ -355,7 +355,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <returns>A property value.</returns>
         public object? GetProperty(int propIndex)
         {
-            PropertyKey propKey = new PropertyKey(SensorPropertyKeys.SensorPropertyCommonGuid, propIndex);
+            PropertyKey propKey = new(SensorPropertyKeys.SensorPropertyCommonGuid, propIndex);
             return GetProperty(propKey);
         }
 
@@ -394,8 +394,8 @@ namespace Microsoft.WindowsAPICodePack.Sensors
 
                         for (uint i = 0; i < count; i++)
                         {
-                            PropertyKey propKey = new PropertyKey();
-                            using (PropVariant propVal = new PropVariant())
+                            PropertyKey propKey = new();
+                            using (PropVariant propVal = new())
                             {
                                 valuesCollection.GetAt(i, ref propKey, propVal);
                                 data.Add(propKey, propVal.Value);
@@ -429,7 +429,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                 throw new SensorPlatformException(LocalizedMessages.SensorNotInitialized);
             }
 
-            List<PropertyKey> list = new List<PropertyKey>();
+            List<PropertyKey> list = new();
             IPortableDeviceKeyCollection? collection;
             HResult hr = _nativeISensor.GetSupportedDataFields(out collection);
             if (hr == HResult.Ok)
@@ -480,11 +480,11 @@ namespace Microsoft.WindowsAPICodePack.Sensors
             try
             {
                 IPortableDeviceValues valuesCollection;
-                Dictionary<PropertyKey, int> propKeyToIdx = new Dictionary<PropertyKey, int>();
+                Dictionary<PropertyKey, int> propKeyToIdx = new();
 
                 for (int i = 0; i < propIndexes.Length; i++)
                 {
-                    PropertyKey propKey = new PropertyKey(TypeId.Value, propIndexes[i]);
+                    PropertyKey propKey = new(TypeId.Value, propIndexes[i]);
                     keyCollection.Add(ref propKey);
                     propKeyToIdx.Add(propKey, i);
                 }
@@ -502,8 +502,8 @@ namespace Microsoft.WindowsAPICodePack.Sensors
 
                         for (uint i = 0; i < count; i++)
                         {
-                            PropertyKey propKey = new PropertyKey();
-                            using (PropVariant propVal = new PropVariant())
+                            PropertyKey propKey = new();
+                            using (PropVariant propVal = new())
                             {
                                 valuesCollection.GetAt(i, ref propKey, propVal);
 
@@ -592,8 +592,8 @@ namespace Microsoft.WindowsAPICodePack.Sensors
 
                     for (uint i = 0; i < count; i++)
                     {
-                        PropertyKey propKey = new PropertyKey();
-                        using (PropVariant propVal = new PropVariant())
+                        PropertyKey propKey = new();
+                        using (PropVariant propVal = new())
                         {
                             pdv2.GetAt(i, ref propKey, propVal);
                             results.Add(propKey, propVal.Value);
@@ -763,13 +763,13 @@ namespace Microsoft.WindowsAPICodePack.Sensors
             {
                 Int64 p = source.ToInt64();
                 p += increment;
-                return new IntPtr(p);
+                return new(p);
             }
             else if (IntPtr.Size == 4)
             {
                 Int32 p = source.ToInt32();
                 p += increment;
-                return new IntPtr(p);
+                return new(p);
             }
             else
             {

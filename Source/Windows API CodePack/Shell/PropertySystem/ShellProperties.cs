@@ -73,7 +73,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             {
                 if (_propertySystem == null)
                 {
-                    _propertySystem = new PropertySystem(ParentShellObject);
+                    _propertySystem = new(ParentShellObject);
                 }
 
                 return _propertySystem;
@@ -89,7 +89,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             {
                 if (_defaultPropertyCollection == null)
                 {
-                    _defaultPropertyCollection = new ShellPropertyCollection(ParentShellObject);
+                    _defaultPropertyCollection = new(ParentShellObject);
                 }
 
                 return _defaultPropertyCollection;
@@ -105,7 +105,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// and dispose the writer</remarks>
         public ShellPropertyWriter GetPropertyWriter()
         {
-            return new ShellPropertyWriter(ParentShellObject);
+            return new(ParentShellObject);
         }
 
         internal IShellProperty CreateTypedProperty<T>(PropertyKey propKey)

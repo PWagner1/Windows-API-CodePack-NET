@@ -65,7 +65,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// <summary>
         /// Gets the MappingResultState describing the error condition for this exception.
         /// </summary>
-        public MappingResultState ResultState => new MappingResultState(HResult, Message);
+        public MappingResultState ResultState => new(HResult, Message);
     }
 
 }

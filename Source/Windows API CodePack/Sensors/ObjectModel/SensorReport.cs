@@ -33,14 +33,14 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         internal static SensorReport FromNativeReport(Sensor? originator, ISensorDataReport iReport)
         {
 
-            SystemTime systemTimeStamp = new SystemTime();
+            SystemTime systemTimeStamp = new();
             iReport.GetTimestamp(out systemTimeStamp);
-            FILETIME ftTimeStamp = new FILETIME();
+            FILETIME ftTimeStamp = new();
             SensorNativeMethods.SystemTimeToFileTime(ref systemTimeStamp, out ftTimeStamp);
             long lTimeStamp = (((long)ftTimeStamp.dwHighDateTime) << 32) + (long)ftTimeStamp.dwLowDateTime;
             DateTime timeStamp = DateTime.FromFileTime(lTimeStamp);
 
-            SensorReport sensorReport = new SensorReport();
+            SensorReport sensorReport = new();
             sensorReport._originator = originator;
             sensorReport._timeStamp = timeStamp;
             if (originator != null)

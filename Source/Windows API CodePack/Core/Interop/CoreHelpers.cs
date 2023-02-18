@@ -47,7 +47,7 @@ namespace MS.WindowsAPICodePack.Internal
         public static bool RunningOnWin7 =>
             // Verifies that OS version is 6.1 or greater, and the Platform is WinNT.
             Environment.OSVersion.Platform == PlatformID.Win32NT &&
-            Environment.OSVersion.Version.CompareTo(new Version(6, 1)) >= 0;
+            Environment.OSVersion.Version.CompareTo(new(6, 1)) >= 0;
 
         /// <summary>
         /// Throws PlatformNotSupportedException if the application is not running on Windows 7
@@ -88,7 +88,7 @@ namespace MS.WindowsAPICodePack.Internal
             parts[1] = parts[1].Replace("-", string.Empty);
             index = int.Parse(parts[1], CultureInfo.InvariantCulture);
 
-            StringBuilder stringValue = new StringBuilder(255);
+            StringBuilder stringValue = new(255);
             int retval = CoreNativeMethods.LoadString(handle, index, stringValue, 255);
 
             return retval != 0 ? stringValue.ToString() : null;

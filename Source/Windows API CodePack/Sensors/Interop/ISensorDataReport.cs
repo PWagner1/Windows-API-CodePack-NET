@@ -21,7 +21,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <summary>
         /// Gets the <see cref="DateTime"/> representation of this object.
         /// </summary>
-        public DateTime DateTime => new DateTime(Year, Month, Day, Hour, Minute, Second, Millisecond);
+        public DateTime DateTime => new(Year, Month, Day, Hour, Minute, Second, Millisecond);
 
         public static implicit operator DateTime(SystemTime systemTime)
         {
@@ -30,8 +30,8 @@ namespace Microsoft.WindowsAPICodePack.Sensors
 
         public override string ToString()
         {
-            return string.Format(CultureInfo.InvariantCulture.NumberFormat,
-                "{0:D2}/{1:D2}/{2:D4}, {3:D2}:{4:D2}:{5:D2}.{6}",
+            return string.Format(CultureInfo.InvariantCulture.NumberFormat, 
+                "{0:D2}/{1:D2}/{2:D4}, {3:D2}:{4:D2}:{5:D2}.{6}", 
                 Month, Day, Year, Hour, Minute, Second, Millisecond);
         }
     }

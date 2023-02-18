@@ -42,7 +42,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         /// <summary>
         /// Increase default width.
         /// </summary>
-        protected override System.Drawing.Size DefaultSize => new System.Drawing.Size(180, 60);
+        protected override System.Drawing.Size DefaultSize => new(180, 60);
 
         /// <summary>
         /// Specifies the supporting note text
@@ -100,7 +100,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
 
             // Add 1 for null terminator, to get the entire string back.
             int len = ((int)retVal) + 1;
-            StringBuilder strBld = new StringBuilder(len);
+            StringBuilder strBld = new(len);
 
             retVal = CoreNativeMethods.SendMessage(Button.Handle, ShellNativeMethods.GetNote, ref len, strBld);
             return strBld.ToString();
@@ -114,7 +114,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
 
         static internal void SetShieldIcon(Button Button, bool Show)
         {
-            IntPtr fRequired = new IntPtr(Show ? 1 : 0);
+            IntPtr fRequired = new(Show ? 1 : 0);
             CoreNativeMethods.SendMessage(
                Button.Handle,
                 ShellNativeMethods.SetShield,

@@ -18,7 +18,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             {
                 if (_cacheInstance == null)
                 {
-                    _cacheInstance = new ShellPropertyDescriptionsCache();
+                    _cacheInstance = new();
                 }
                 return _cacheInstance;
             }
@@ -28,7 +28,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             if (!_propsDictionary.ContainsKey(key))
             {
-                _propsDictionary.Add(key, new ShellPropertyDescription(key));
+                _propsDictionary.Add(key, new(key));
             }
             return _propsDictionary[key];
         }

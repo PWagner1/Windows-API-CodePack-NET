@@ -17,7 +17,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                 var notifyStruct = pidl.MarshalAs<ShellNativeMethods.ShellNotifyStruct>();
 
-                Guid guid = new Guid(ShellIIDGuid.IShellItem2);
+                Guid guid = new(ShellIIDGuid.IShellItem2);
                 if (notifyStruct.item1 != IntPtr.Zero &&
                     (((ShellObjectChangeTypes)_event) & ShellObjectChangeTypes.SystemImageUpdate) == ShellObjectChangeTypes.None)
                 {
@@ -27,7 +27,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     {
                         string? name;
                         nativeShellItem.GetDisplayName(ShellNativeMethods.ShellItemDesignNameOptions.FileSystemPath,
-                            out name);
+                            out name);                        
                         ItemName = name;
 
                         Trace.TraceInformation("Item1: {0}", ItemName);
@@ -43,7 +43,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     IShellItem2? nativeShellItem;
                     if (CoreErrorHelper.Succeeded(ShellNativeMethods.SHCreateItemFromIDList(
                         notifyStruct.item2, ref guid, out nativeShellItem)))
-                    {
+                    {                        
                         string? name;
                         nativeShellItem.GetDisplayName(ShellNativeMethods.ShellItemDesignNameOptions.FileSystemPath,
                             out name);

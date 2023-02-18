@@ -38,7 +38,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             this.settings = settings;
 
             // Wireup dialog proc message loop for this instance.
-            nativeDialogConfig.callback = new TaskDialogNativeMethods.TaskDialogCallback(DialogProc);
+            nativeDialogConfig.callback = new(DialogProc);
 
             ShowState = DialogShowState.PreShow;
 
@@ -533,7 +533,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             foreach (TaskDialogNativeMethods.TaskDialogButton button in buttons)
             {
                 Marshal.StructureToPtr(button, currentPtr, false);
-                currentPtr = new IntPtr(currentPtr.ToInt64() + sizeOfButton);
+                currentPtr = new(currentPtr.ToInt64() + sizeOfButton);
             }
 
             return initialPtr;

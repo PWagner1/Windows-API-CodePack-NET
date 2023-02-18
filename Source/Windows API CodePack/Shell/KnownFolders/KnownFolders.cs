@@ -6,7 +6,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
     /// Defines properties for known folders that identify the path of standard known folders.
     /// </summary>
     public static class KnownFolders
-    {
+    {        
         /// <summary>
         /// Gets a strongly-typed read-only collection of all the registered known folders.
         /// </summary>
@@ -25,7 +25,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             try
             {
 
-                KnownFolderManagerClass knownFolderManager = new KnownFolderManagerClass();
+                KnownFolderManagerClass knownFolderManager = new();
                 knownFolderManager.GetFolderIds(out folders, out count);
 
                 if (count > 0 && folders != IntPtr.Zero)
@@ -34,7 +34,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     for (int i = 0; i < count; i++)
                     {
                         // Read the current pointer
-                        IntPtr current = new IntPtr(folders.ToInt64() + (Marshal.SizeOf(typeof(Guid)) * i));
+                        IntPtr current = new(folders.ToInt64() + (Marshal.SizeOf(typeof(Guid)) * i));
 
                         // Convert to Guid
                         Guid knownFolderId = (Guid)Marshal.PtrToStructure(current, typeof(Guid));
@@ -52,7 +52,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 if (folders != IntPtr.Zero) { Marshal.FreeCoTaskMem(folders); }
             }
 
-            return new ReadOnlyCollection<IKnownFolder?>(foldersList);
+            return new(foldersList);
         }
 
         private static IKnownFolder? GetKnownFolder(Guid guid)

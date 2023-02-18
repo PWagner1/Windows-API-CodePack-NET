@@ -18,7 +18,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         public SensorDescriptionAttribute(string sensorType)
         {
             // will throw if invalid format
-            _sensorType = new Guid(sensorType);
+            _sensorType = new(sensorType);
         }
 
         /// <summary>

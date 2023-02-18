@@ -230,7 +230,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 {
                     List<ShellPropertyEnumType> propEnumTypeList = new();
 
-                    Guid guid = new Guid(ShellIIDGuid.IPropertyEnumTypeList);
+                    Guid guid = new(ShellIIDGuid.IPropertyEnumTypeList);
                     IPropertyEnumTypeList nativeList;
                     HResult hr = NativePropertyDescription.GetEnumTypeList(ref guid, out nativeList);
 
@@ -239,17 +239,17 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                         uint count;
                         nativeList.GetCount(out count);
-                        guid = new Guid(ShellIIDGuid.IPropertyEnumType);
+                        guid = new(ShellIIDGuid.IPropertyEnumType);
 
                         for (uint i = 0; i < count; i++)
                         {
                             IPropertyEnumType nativeEnumType;
                             nativeList.GetAt(i, ref guid, out nativeEnumType);
-                            propEnumTypeList.Add(new ShellPropertyEnumType(nativeEnumType));
+                            propEnumTypeList.Add(new(nativeEnumType));
                         }
                     }
 
-                    _propertyEnumTypes = new ReadOnlyCollection<ShellPropertyEnumType>(propEnumTypeList);
+                    _propertyEnumTypes = new(propEnumTypeList);
                 }
 
                 return _propertyEnumTypes;
@@ -494,7 +494,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             {
                 if (_nativePropertyDescription == null)
                 {
-                    Guid guid = new Guid(ShellIIDGuid.IPropertyDescription);
+                    Guid guid = new(ShellIIDGuid.IPropertyDescription);
                     PropertySystemNativeMethods.PSGetPropertyDescription(ref _propertyKey, ref guid, out _nativePropertyDescription);
                 }
 

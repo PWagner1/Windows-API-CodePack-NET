@@ -30,6 +30,8 @@
 		<Authors>$(Authors)</Authors>
 		<SignAssembly>True</SignAssembly>
 		<AssemblyOriginatorKeyFile>WindowsAPICodePack.snk</AssemblyOriginatorKeyFile>
+		<IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>

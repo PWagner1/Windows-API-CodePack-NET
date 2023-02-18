@@ -23,7 +23,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
             _locations.Clear();
             currentLocationIndex = -1;
 
-            NavigationLogEventArgs args = new NavigationLogEventArgs();
+            NavigationLogEventArgs args = new();
             args.LocationsChanged = true;
             args.CanNavigateBackwardChanged = (oldCanNavigateBackward != CanNavigateBackward);
             args.CanNavigateForwardChanged = (oldCanNavigateForward != CanNavigateForward);
@@ -112,8 +112,8 @@ namespace Microsoft.WindowsAPICodePack.Controls
             // Hook navigation events from the parent to distinguish between
             // navigation log induced navigation, and other navigations.
             this.parent = parent;
-            this.parent.NavigationComplete += new EventHandler<NavigationCompleteEventArgs>(OnNavigationComplete);
-            this.parent.NavigationFailed += new EventHandler<NavigationFailedEventArgs>(OnNavigationFailed);
+            this.parent.NavigationComplete += new(OnNavigationComplete);
+            this.parent.NavigationFailed += new(OnNavigationFailed);
         }
 
         private void OnNavigationFailed(object sender, NavigationFailedEventArgs args)
@@ -123,7 +123,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
 
         private void OnNavigationComplete(object sender, NavigationCompleteEventArgs args)
         {
-            NavigationLogEventArgs eventArgs = new NavigationLogEventArgs();
+            NavigationLogEventArgs eventArgs = new();
             bool oldCanNavigateBackward = CanNavigateBackward;
             bool oldCanNavigateForward = CanNavigateForward;
 
@@ -198,7 +198,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
 
             // initiate traversal request
             ShellObject? location = _locations[(int)locationIndex];
-            pendingNavigation = new PendingNavigation(location, locationIndex);
+            pendingNavigation = new(location, locationIndex);
             parent.Navigate(location);
             return true;
         }
@@ -213,7 +213,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
 
             // initiate traversal request
             ShellObject? location = _locations[(int)index];
-            pendingNavigation = new PendingNavigation(location, index);
+            pendingNavigation = new(location, index);
             parent.Navigate(location);
             return true;
         }

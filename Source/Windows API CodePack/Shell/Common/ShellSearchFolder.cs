@@ -87,8 +87,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 _searchScopePaths = value.ToArray();
                 List<IShellItem?> shellItems = new(_searchScopePaths.Length);
 
-                Guid shellItemGuid = new Guid(ShellIIDGuid.IShellItem);
-                Guid shellItemArrayGuid = new Guid(ShellIIDGuid.IShellItemArray);
+                Guid shellItemGuid = new(ShellIIDGuid.IShellItem);
+                Guid shellItemArrayGuid = new(ShellIIDGuid.IShellItemArray);
 
                 // Create IShellItem for all the scopes we were given
                 foreach (string path in _searchScopePaths)
@@ -114,7 +114,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                Guid guid = new Guid(ShellIIDGuid.IShellItem);
+                Guid guid = new(ShellIIDGuid.IShellItem);
 
                 if (NativeSearchFolderItemFactory == null) { return null; }
 
@@ -137,7 +137,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         public void SetStacks(params string?[] canonicalNames)
         {
             if (canonicalNames == null) { throw new ArgumentNullException("canonicalNames"); }
-            List<PropertyKey> propertyKeyList = new List<PropertyKey>();
+            List<PropertyKey> propertyKeyList = new();
 
             foreach (string? prop in canonicalNames)
             {

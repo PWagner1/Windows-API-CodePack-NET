@@ -75,7 +75,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             {
                 if (_minValue == null)
                 {
-                    using (PropVariant propVar = new PropVariant())
+                    using (PropVariant propVar = new())
                     {
                         NativePropertyEnumType.GetRangeMinValue(propVar);
                         _minValue = propVar.Value;
@@ -95,7 +95,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             {
                 if (_setValue == null)
                 {
-                    using (PropVariant propVar = new PropVariant())
+                    using (PropVariant propVar = new())
                     {
                         NativePropertyEnumType.GetRangeSetValue(propVar);
                         _setValue = propVar.Value;
@@ -115,7 +115,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             {
                 if (_enumerationValue == null)
                 {
-                    using (PropVariant propVar = new PropVariant())
+                    using (PropVariant propVar = new())
                     {
                         NativePropertyEnumType.GetValue(propVar);
                         _enumerationValue = propVar.Value;

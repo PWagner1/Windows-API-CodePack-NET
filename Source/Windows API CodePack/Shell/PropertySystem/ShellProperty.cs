@@ -31,7 +31,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             IPropertyStore? store = ShellPropertyCollection.CreateDefaultPropertyStore(ParentShellObject);
 
-            using (PropVariant propVar = new PropVariant())
+            using (PropVariant propVar = new())
             {
                 store.GetValue(ref _propertyKey, propVar);
 
@@ -55,7 +55,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
         private void StorePropVariantValue(PropVariant propVar)
         {
-            Guid guid = new Guid(ShellIIDGuid.IPropertyStore);
+            Guid guid = new(ShellIIDGuid.IPropertyStore);
             IPropertyStore? writablePropStore = null;
             try
             {
@@ -161,7 +161,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 // Make sure we load the correct type
                 Debug.Assert(ValueType == ShellPropertyFactory.VarEnumToSystemType(Description.VarEnumType));
 
-                using (PropVariant propVar = new PropVariant())
+                using (PropVariant propVar = new())
                 {
                     if (ParentShellObject.NativePropertyStore != null)
                     {
@@ -261,7 +261,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
             IPropertyStore? store = ShellPropertyCollection.CreateDefaultPropertyStore(ParentShellObject);
 
-            using (PropVariant propVar = new PropVariant())
+            using (PropVariant propVar = new())
             {
                 store.GetValue(ref _propertyKey, propVar);
 
@@ -301,7 +301,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
             IPropertyStore? store = ShellPropertyCollection.CreateDefaultPropertyStore(ParentShellObject);
 
-            using (PropVariant propVar = new PropVariant())
+            using (PropVariant propVar = new())
             {
                 store.GetValue(ref _propertyKey, propVar);
 
@@ -336,7 +336,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// </summary>
         public void ClearValue()
         {
-            using (PropVariant propVar = new PropVariant())
+            using (PropVariant propVar = new())
             {
                 StorePropVariantValue(propVar);
             }
@@ -352,7 +352,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             get
             {
-                using (PropVariant propVar = new PropVariant())
+                using (PropVariant propVar = new())
                 {
                     if (ParentShellObject != null)
                     {
@@ -403,7 +403,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 GetImageReference();
                 int index = (_imageReferenceIconIndex.HasValue ? _imageReferenceIconIndex.Value : -1);
 
-                return new IconReference(_imageReferencePath, index);
+                return new(_imageReferencePath, index);
             }
         }
 

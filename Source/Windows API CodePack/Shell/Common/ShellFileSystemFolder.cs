@@ -40,7 +40,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     LocalizedMessages.FilePathNotExist, path));
             }
 
-            ShellFileSystemFolder folder = new ShellFileSystemFolder();
+            ShellFileSystemFolder folder = new();
             try
             {
                 folder.ParsingName = absPath;

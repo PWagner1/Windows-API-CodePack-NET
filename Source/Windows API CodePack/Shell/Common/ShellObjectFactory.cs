@@ -76,7 +76,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                         if (!IsVirtualKnownFolder(nativeShellItem2))
                         {
                             //needs to check if it is a known folder and not virtual
-                            FileSystemKnownFolder? kf = new FileSystemKnownFolder(nativeShellItem2);
+                            FileSystemKnownFolder? kf = new(nativeShellItem2);
                             return kf;
                         }
 
@@ -87,7 +87,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     if (IsVirtualKnownFolder(nativeShellItem2))
                     {
                         //needs to check if known folder is virtual
-                        NonFileSystemKnownFolder? kf = new NonFileSystemKnownFolder(nativeShellItem2);
+                        NonFileSystemKnownFolder? kf = new(nativeShellItem2);
                         return kf;
                     }
 
@@ -110,7 +110,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             try
             {
                 IKnownFolderNative? nativeFolder = null;
-                KnownFoldersSafeNativeMethods.NativeFolderDefinition definition = new KnownFoldersSafeNativeMethods.NativeFolderDefinition();
+                KnownFoldersSafeNativeMethods.NativeFolderDefinition definition = new();
 
                 // We found a bug where the enumeration of shell folders was
                 // not reliable when called from a STA thread - it would return
@@ -122,7 +122,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 // Ultimately, it would be a very good idea to replace the 'getting shell object' logic
                 // to get a list of pidl's in 1 step, then look up their information in a 2nd, rather than
                 // looking them up as we get them.  This would replace the need for the work around.
-                object padlock = new object();
+                object padlock = new();
                 lock (padlock)
                 {
                     IntPtr unknown = Marshal.GetIUnknownForObject(nativeShellItem2);
@@ -169,7 +169,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             // Create a native shellitem from our path
             IShellItem2? nativeShellItem;
-            Guid guid = new Guid(ShellIIDGuid.IShellItem2);
+            Guid guid = new(ShellIIDGuid.IShellItem2);
             int retCode = ShellNativeMethods.SHCreateItemFromParsingName(parsingName, IntPtr.Zero, ref guid, out nativeShellItem);
 
             if (!CoreErrorHelper.Succeeded(retCode))
@@ -189,7 +189,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             // Throw exception if not running on Win7 or newer.
             CoreHelpers.ThrowIfNotVista();
 
-            Guid guid = new Guid(ShellIIDGuid.IShellItem2);
+            Guid guid = new(ShellIIDGuid.IShellItem2);
 
             IShellItem2? nativeShellItem;
             int retCode = ShellNativeMethods.SHCreateItemFromIDList(idListPtr, ref guid, out nativeShellItem);
