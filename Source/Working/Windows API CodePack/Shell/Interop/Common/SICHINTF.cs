@@ -1,9 +1,0 @@
-namespace Microsoft.WindowsAPICodePack.Shell;
-
-public enum SICHINTF
-{
-    SICHINT_DISPLAY = 0x00000000,
-    SICHINT_CANONICAL = 0x10000000,
-    SICHINT_TEST_FILESYSPATH_IF_NOT_EQUAL = 0x20000000,
-    SICHINT_ALLFIELDS = unchecked((int)0x80000000)
-}
