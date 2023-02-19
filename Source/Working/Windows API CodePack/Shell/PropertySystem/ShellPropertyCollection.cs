@@ -196,9 +196,9 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         // TODO - ShellProperties.cs also has a similar class that is used for creating
         // a ShellObject specific IShellProperty. These 2 methods should be combined or moved to a 
         // common location.
-        internal static IShellProperty CreateTypedProperty(PropertyKey propKey, IPropertyStore? NativePropertyStore)
+        internal static IShellProperty CreateTypedProperty(PropertyKey propKey, IPropertyStore? nativePropertyStore)
         {
-            return ShellPropertyFactory.CreateShellProperty(propKey, NativePropertyStore);
+            return ShellPropertyFactory.CreateShellProperty(propKey, nativePropertyStore);
         }
 
         #region IDisposable Members
