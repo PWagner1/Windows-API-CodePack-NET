@@ -1,10 +1,8 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable RedundantAssignment
-#pragma warning disable CS0472
-#pragma warning disable CS8605
-#pragma warning disable CS8602
-#pragma warning disable CS8600
+// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+#pragma warning disable CS0472, CS8605, CS8602, CS8600, CS8604, CS0436, CS8597
 namespace Microsoft.WindowsAPICodePack.Sensors
 {
     /// <summary>
@@ -149,7 +147,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <summary>
         /// Gets a value that specifies the manufacturer of the sensor.
         /// </summary>
-        public string Manufacturer
+        public string? Manufacturer
         {
             get
             {

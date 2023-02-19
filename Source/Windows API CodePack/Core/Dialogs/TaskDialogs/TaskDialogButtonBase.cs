@@ -28,7 +28,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <param name="text">The label for this button.</param>
         protected TaskDialogButtonBase(string? name, string? text) : base(name)
         {
-            this._text = text;
+            _text = text;
         }
 
         // Note that we don't need to explicitly 

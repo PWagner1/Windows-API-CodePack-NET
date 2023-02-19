@@ -2799,7 +2799,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             /// <para>Type:     String -- VT_LPWSTR  (For variants: VT_BSTR)  Legacy code may treat this as VT_LPSTR.</para>
             /// <para>FormatID: (FMTID_SummaryInformation) {F29F85E0-4FF9-1068-AB91-08002B27B3D9}, 2 (PIDSI_TITLE)</para>
             /// </summary>
-            public ShellProperty<String> Title
+            public ShellProperty<string?> Title
             {
                 get
                 {
@@ -2810,7 +2810,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                         hashtable.Add(key, shellObjectParent.Properties.CreateTypedProperty<String>(key));
                     }
 
-                    return hashtable[key] as ShellProperty<String>;
+                    return hashtable[key] as ShellProperty<string?>;
                 }
             }
 

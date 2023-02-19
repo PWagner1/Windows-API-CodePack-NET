@@ -21,7 +21,7 @@ namespace Microsoft.WindowsAPICodePack.Net
 
         internal Network(INetwork network)
         {
-            this._network = network;
+            _network = network;
         }
 
         /// <summary>

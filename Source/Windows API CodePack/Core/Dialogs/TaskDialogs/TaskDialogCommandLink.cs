@@ -28,7 +28,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         public TaskDialogCommandLink(string? name, string? text, string? instruction)
             : base(name, text)
         {
-            this._instruction = instruction;
+            _instruction = instruction;
         }
 
         private string? _instruction;

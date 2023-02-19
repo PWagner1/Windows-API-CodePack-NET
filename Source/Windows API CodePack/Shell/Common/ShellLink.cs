@@ -1,6 +1,8 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable InvertIf
+// ReSharper disable UseNameofExpression
+#pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -77,7 +79,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Gets or sets the link's title
         /// </summary>
-        public string Title
+        public string? Title
         {
             get
             {
@@ -88,7 +90,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException(@"value");
                 }
 
                 if (NativeShellItem2 != null)

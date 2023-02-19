@@ -8,7 +8,7 @@ using ThumbnailAlphaType = Microsoft.WindowsAPICodePack.Shell.Interop.ThumbnailA
 // ReSharper disable PossibleNullReferenceException
 // ReSharper disable SuspiciousTypeConversion.Global
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
-#pragma warning disable CS8602
+#pragma warning disable CS8602, CS8600
 
 namespace Microsoft.WindowsAPICodePack.ShellExtensions
 {

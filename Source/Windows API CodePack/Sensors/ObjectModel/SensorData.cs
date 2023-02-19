@@ -1,8 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
-#pragma warning disable CS8613
-#pragma warning disable CS8614
-#pragma warning disable CS8603
+#pragma warning disable CS8613, CS8614, CS8603, CS8602, CS8601
 namespace Microsoft.WindowsAPICodePack.Sensors
 {
     /// <summary>

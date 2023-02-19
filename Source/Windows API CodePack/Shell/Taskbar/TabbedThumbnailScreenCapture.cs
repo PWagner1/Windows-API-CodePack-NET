@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable UsePatternMatching
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
     /// <summary>
@@ -16,12 +17,12 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="windowHandle">The window handle.</param>
         /// <param name="bitmapSize">The requested bitmap size.</param>
         /// <returns>A screen capture of the window.</returns>        
-        public static Bitmap GrabWindowBitmap(IntPtr windowHandle, System.Drawing.Size bitmapSize)
+        public static Bitmap? GrabWindowBitmap(IntPtr windowHandle, System.Drawing.Size bitmapSize)
         {
             if (bitmapSize.Height <= 0 || bitmapSize.Width <= 0) { return null; }
 
             IntPtr windowDC = IntPtr.Zero;
-             
+
             try
             {
                 windowDC = TabbedThumbnailNativeMethods.GetWindowDC(windowHandle);
@@ -33,14 +34,14 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 {
                     realWindowSize = new(200, 200);
                 }
-                
+
                 System.Drawing.Size size = (bitmapSize == System.Drawing.Size.Empty) ?
                         realWindowSize : bitmapSize;
-                
-                Bitmap targetBitmap = null;
+
+                Bitmap? targetBitmap = null;
                 try
                 {
-                    
+
 
                     targetBitmap = new(size.Width, size.Height);
 
@@ -74,7 +75,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 if (windowDC != IntPtr.Zero)
                 {
                     TabbedThumbnailNativeMethods.ReleaseDC(windowHandle, windowDC);
-                }                
+                }
             }
         }
 
@@ -87,10 +88,10 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="width">The requested bitmap width.</param>
         /// <param name="height">The requested bitmap height.</param>
         /// <returns>Returns the bitmap (PNG format).</returns>
-        public static Bitmap GrabWindowBitmap(UIElement element, int dpiX, int dpiY, int width, int height)
+        public static Bitmap? GrabWindowBitmap(UIElement element, int dpiX, int dpiY, int width, int height)
         {
             // Special case for HwndHost controls
-            HwndHost host = element as HwndHost;
+            HwndHost? host = element as HwndHost;
             if (host != null)
             {
                 IntPtr handle = host.Handle;
@@ -105,7 +106,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 return null;    // 0 sized element. Probably hidden
             }
 
-            RenderTargetBitmap rendertarget = new((int)(bounds.Width * dpiX / 96.0),
+            RenderTargetBitmap renderTarget = new((int)(bounds.Width * dpiX / 96.0),
              (int)(bounds.Height * dpiY / 96.0), dpiX, dpiY, PixelFormats.Default);
 
             DrawingVisual dv = new();
@@ -115,10 +116,10 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 ctx.DrawRectangle(vb, null, new(new(), bounds.Size));
             }
 
-            rendertarget.Render(dv);
+            renderTarget.Render(dv);
 
             BitmapEncoder bmpe = new PngBitmapEncoder();
-            bmpe.Frames.Add(BitmapFrame.Create(rendertarget));
+            bmpe.Frames.Add(BitmapFrame.Create(renderTarget));
 
             Bitmap bmp;
             // Create a MemoryStream with the image.            
@@ -142,7 +143,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <returns></returns>
         internal static Bitmap ResizeImageWithAspect(IntPtr originalHBitmap, int newWidth, int maxHeight, bool resizeIfWider)
         {
-            Bitmap originalBitmap = Image.FromHbitmap(originalHBitmap);
+            Bitmap? originalBitmap = Image.FromHbitmap(originalHBitmap);
 
             try
             {

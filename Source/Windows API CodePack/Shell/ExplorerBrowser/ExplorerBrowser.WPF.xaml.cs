@@ -1,6 +1,8 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 using UserControl = System.Windows.Controls.UserControl;
+// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+// ReSharper disable UseNameofForDependencyProperty
 
 
 namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
@@ -19,16 +21,16 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
             set;
         }
 
-        private ObservableCollection<ShellObject> _selectedItems;
-        private ObservableCollection<ShellObject> _items;
-        private ObservableCollection<ShellObject?> _navigationLog;
-        private DispatcherTimer _dtClrUpdater = new();
+        private readonly ObservableCollection<ShellObject> _selectedItems;
+        private readonly ObservableCollection<ShellObject> _items;
+        private readonly ObservableCollection<ShellObject?> _navigationLog;
+        private readonly DispatcherTimer _dtClrUpdater = new();
 
         private ShellObject? _initialNavigationTarget;
         private ExplorerBrowserViewMode? _initialViewMode;
 
-        private AutoResetEvent _itemsChanged = new(false);
-        private AutoResetEvent _selectionChanged = new(false);
+        private readonly AutoResetEvent _itemsChanged = new(false);
+        private readonly AutoResetEvent _selectionChanged = new(false);
         private int _selectionChangeWaitCount;
 
         /// <summary>
@@ -236,7 +238,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
         /// <summary>
         /// The selected items in the ExplorerBrowser window
         /// </summary>
-        public ObservableCollection<ShellObject> NavigationLog
+        public ObservableCollection<ShellObject?> NavigationLog
         {
             get => (ObservableCollection<ShellObject>)GetValue(NavigationLogProperty);
             internal set => SetValue(NavigationLogPropertyKey, value);
@@ -273,15 +275,15 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
         /// </summary>
         public static readonly DependencyProperty NavigationTargetProperty =
                     DependencyProperty.Register(
-                        "NavigationTarget", typeof(ShellObject),
+                        @"NavigationTarget", typeof(ShellObject),
                         typeof(ExplorerBrowser),
                         new(null, NavigationTargetChanged));
 
         private static void NavigationTargetChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ExplorerBrowser instance = d as ExplorerBrowser;
+            ExplorerBrowser? instance = d as ExplorerBrowser;
 
-            if (instance.ExplorerBrowserControl.ExplorerBrowserControl != null)
+            if (instance != null && instance.ExplorerBrowserControl.ExplorerBrowserControl != null)
             {
                 instance.ExplorerBrowserControl.Navigate((ShellObject)e.NewValue);
             }
@@ -359,7 +361,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
                 instance.ExplorerBrowserControl.ContentOptions.CheckSelect = (bool)e.NewValue;
             }
         }
-    
+
         /// <summary>
         /// When the view is in "tile view mode" the layout of a single item should be extended to the width of the view.
         /// </summary>
@@ -747,7 +749,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
             ExplorerBrowser instance = d as ExplorerBrowser;
             if (instance.ExplorerBrowserControl != null)
             {
-                instance.ExplorerBrowserControl.NavigationOptions.PaneVisibility.Commands = 
+                instance.ExplorerBrowserControl.NavigationOptions.PaneVisibility.Commands =
                     (PaneVisibilityState)e.NewValue;
             }
         }
@@ -772,7 +774,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
             ExplorerBrowser instance = d as ExplorerBrowser;
             if (instance.ExplorerBrowserControl != null)
             {
-                instance.ExplorerBrowserControl.NavigationOptions.PaneVisibility.CommandsOrganize = 
+                instance.ExplorerBrowserControl.NavigationOptions.PaneVisibility.CommandsOrganize =
                     (PaneVisibilityState)e.NewValue;
             }
         }

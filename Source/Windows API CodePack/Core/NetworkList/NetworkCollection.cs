@@ -2,7 +2,7 @@
 
 // ReSharper disable LoopCanBeConvertedToQuery
 
-#pragma warning disable CS8600
+#pragma warning disable CS8600, CS8604
 namespace Microsoft.WindowsAPICodePack.Net
 {
     /// <summary>
@@ -16,7 +16,7 @@ namespace Microsoft.WindowsAPICodePack.Net
 
         #endregion // Private Fields
 
-        internal NetworkCollection(IEnumerable networkEnumerable) => this._networkEnumerable = networkEnumerable;
+        internal NetworkCollection(IEnumerable networkEnumerable) => _networkEnumerable = networkEnumerable;
 
         #region IEnumerable<Network> Members
 

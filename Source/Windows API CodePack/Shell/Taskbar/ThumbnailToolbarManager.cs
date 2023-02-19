@@ -64,7 +64,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 throw new ArgumentException(LocalizedMessages.ThumbnailToolbarManagerNullEmptyArray, "buttons");
             }
-            if (buttons.Length > 7)
+            if (buttons != null && buttons.Length > 7)
             {
                 throw new ArgumentException(LocalizedMessages.ThumbnailToolbarManagerMaxButtons, "buttons");
             }

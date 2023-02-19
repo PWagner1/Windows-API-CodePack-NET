@@ -26,8 +26,8 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// </param>
         public RestartSettings(string command, RestartRestrictions restrictions)
         {
-            this._command = command;
-            this._restrictions = restrictions;
+            _command = command;
+            _restrictions = restrictions;
         }
 
         /// <summary>

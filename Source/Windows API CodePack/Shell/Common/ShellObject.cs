@@ -1,6 +1,7 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable NonReadonlyMemberInGetHashCode
+#pragma warning disable CS8600, CS8602, CS8618, SYSLIB0021
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -47,10 +48,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
         }
 
-        internal ShellObject(IShellItem2? shellItem)
-        {
-            nativeShellItem = shellItem;
-        }
+        internal ShellObject(IShellItem2? shellItem) => nativeShellItem = shellItem;
 
         #endregion
 
@@ -141,11 +139,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         #region Public Properties
 
-        private ShellProperties _properties;
+        private ShellProperties? _properties;
         /// <summary>
         /// Gets an object that allows the manipulation of ShellProperties for this shell item.
         /// </summary>
-        public ShellProperties Properties
+        public ShellProperties? Properties
         {
             get
             {
@@ -302,11 +300,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
         }
 
-        private ShellThumbnail _thumbnail;
+        private ShellThumbnail? _thumbnail;
         /// <summary>
         /// Gets the thumbnail of the ShellObject.
         /// </summary>
-        public ShellThumbnail Thumbnail
+        public ShellThumbnail? Thumbnail
         {
             get
             {
@@ -471,10 +469,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="obj">The object to compare against.</param>
         /// <returns>Equality result.</returns>
-        public override bool Equals(object obj)
-        {
-            return Equals(obj as ShellObject);
-        }
+        public override bool Equals(object obj) => Equals(obj as ShellObject);
 
         /// <summary>
         /// Implements the == (equality) operator.

@@ -639,7 +639,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             { //TabbedThumbnail is linked to WinformsControl
                 if (taskbarWindow.TabbedThumbnail.CurrentHBitmap == IntPtr.Zero)
                 {
-                    using (Bitmap bmp = TabbedThumbnailScreenCapture.GrabWindowBitmap(
+                    using (Bitmap? bmp = TabbedThumbnailScreenCapture.GrabWindowBitmap(
                         taskbarWindow.TabbedThumbnail.WindowHandle, requestedSize))
                     {
 
@@ -661,7 +661,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             { //TabbedThumbnail is linked to a WPF UIElement
                 if (taskbarWindow.TabbedThumbnail.CurrentHBitmap == IntPtr.Zero)
                 {
-                    Bitmap bmp = TabbedThumbnailScreenCapture.GrabWindowBitmap(
+                    Bitmap? bmp = TabbedThumbnailScreenCapture.GrabWindowBitmap(
                         taskbarWindow.TabbedThumbnail.WindowsControl,
                         96, 96, requestedSize.Width, requestedSize.Height);
 

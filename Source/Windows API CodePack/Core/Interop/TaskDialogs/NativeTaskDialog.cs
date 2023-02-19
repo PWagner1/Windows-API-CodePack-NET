@@ -2,7 +2,8 @@
 
 // ReSharper disable SuggestVarOrType_BuiltInTypes
 // ReSharper disable SuggestVarOrType_SimpleTypes
-#pragma warning disable CS8602
+// ReSharper disable StringLiteralTypo
+#pragma warning disable CS8602, CS0472, CS8073
 namespace Microsoft.WindowsAPICodePack.Dialogs
 {
     /// <summary>
@@ -35,7 +36,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         internal NativeTaskDialog(NativeTaskDialogSettings settings, TaskDialog outerDialog)
         {
             _nativeDialogConfig = settings.NativeConfiguration;
-            this._settings = settings;
+            _settings = settings;
 
             // Wireup dialog proc message loop for this instance.
             _nativeDialogConfig.callback = new(DialogProc);
@@ -43,7 +44,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             ShowState = DialogShowState.PreShow;
 
             // Keep a reference to the outer shell, so we can notify.
-            this._outerDialog = outerDialog;
+            _outerDialog = outerDialog;
         }
 
         #endregion
@@ -551,7 +552,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-        
+
         ~NativeTaskDialog()
         {
             Dispose(false);

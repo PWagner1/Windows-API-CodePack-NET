@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable RedundantAssignment
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -9,17 +10,17 @@ namespace Microsoft.WindowsAPICodePack.Shell
     /// </summary>
     public class ShellObjectWatcher : IDisposable
     {
-        private ShellObject _shellObject;
-        private bool _recursive;
+        private readonly ShellObject _shellObject;
+        private readonly bool _recursive;
 
-        private ChangeNotifyEventManager _manager = new();
-        private IntPtr _listenerHandle;
-        private uint _message;
+        private readonly ChangeNotifyEventManager _manager = new();
+        private readonly IntPtr _listenerHandle;
+        private readonly uint _message;
 
         private uint _registrationId;
         private volatile bool _running;
 
-        private SynchronizationContext _context = SynchronizationContext.Current;
+        private readonly SynchronizationContext _context = SynchronizationContext.Current;
 
         /// <summary>
         /// Creates the ShellObjectWatcher for the given ShellObject
@@ -132,7 +133,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             ChangeNotifyLock notifyLock = new(e.Message);
 
-            ShellObjectNotificationEventArgs args = null;
+            ShellObjectNotificationEventArgs? args = null;
             switch (notifyLock.ChangeType)
             {
                 case ShellObjectChangeTypes.DirectoryRename:

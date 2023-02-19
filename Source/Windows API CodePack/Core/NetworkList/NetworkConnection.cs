@@ -17,7 +17,7 @@ namespace Microsoft.WindowsAPICodePack.Net
 
         internal NetworkConnection(INetworkConnection networkConnection)
         {
-            this._networkConnection = networkConnection;
+            _networkConnection = networkConnection;
         }
 
         /// <summary>
