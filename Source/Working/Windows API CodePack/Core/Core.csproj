@@ -44,6 +44,8 @@
 		<IncludeSymbols>True</IncludeSymbols>
 
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+		<BaseOutputPath>..\..\..\..\Output\bin</BaseOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -67,10 +69,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="../../../Assets/Documents/Licenses/License.md">
+		<None Update="../../../../Assets/Documents/Licenses/License.md">
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Update="../../../Assets/Icon/PNG/Windows.png">
+		<None Update="../../../../Assets/Icon/PNG/Windows.png">
 			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>

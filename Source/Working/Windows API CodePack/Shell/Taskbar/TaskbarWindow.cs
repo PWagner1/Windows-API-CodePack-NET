@@ -14,7 +14,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         internal IntPtr UserWindowHandle { get; set; }
 
-        internal UIElement WindowsControl { get; set; }
+        internal UIElement? WindowsControl { get; set; }
 
         private TabbedThumbnail? _tabbedThumbnailPreview;
         internal TabbedThumbnail? TabbedThumbnail
@@ -113,7 +113,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             WindowsControl = null;
         }
 
-        internal TaskbarWindow(UIElement windowsControl, params ThumbnailToolBarButton[] buttons)
+        internal TaskbarWindow(UIElement? windowsControl, params ThumbnailToolBarButton[] buttons)
         {
             if (windowsControl == null)
             {

@@ -1,0 +1,13 @@
+﻿global using System;
+global using System.Collections.Generic;
+global using System.Runtime.InteropServices;
+global using System.Runtime.Serialization;
+global using System.Runtime.CompilerServices;
+global using System.Reflection;
+global using System.Diagnostics.CodeAnalysis;
+global using System.Globalization;
+global using System.Threading;
+global using System.Linq;
+global using Microsoft.WindowsAPICodePack.Sensors.Resources;
+global using Microsoft.WindowsAPICodePack.Shell.PropertySystem;
+global using MS.WindowsAPICodePack.Internal;

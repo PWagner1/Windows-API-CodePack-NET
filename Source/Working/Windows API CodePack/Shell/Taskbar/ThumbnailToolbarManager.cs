@@ -49,7 +49,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// they can be shown and hidden through ThumbnailToolBarButton.Visible as needed. 
         /// The toolbar itself cannot be removed without re-creating the window itself.
         /// </remarks>
-        public void AddButtons(UIElement control, params ThumbnailToolBarButton[] buttons)
+        public void AddButtons(UIElement? control, params ThumbnailToolBarButton[] buttons)
         {
             if (control == null) { throw new ArgumentNullException("control"); }
             VerifyButtons(buttons);

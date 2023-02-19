@@ -13,9 +13,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="pidl"></param>
         /// <returns></returns>
         internal static IKnownFolderNative? FromPIDL(IntPtr pidl)
-        {            
+        {
             KnownFolderManagerClass knownFolderManager = new();
-            
+
             IKnownFolderNative? knownFolder;
             HResult hr = knownFolderManager.FindFolderFromIDList(pidl, out knownFolder);
 
@@ -72,7 +72,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             // Get the native IShellItem2 from the native IKnownFolder
             IShellItem2? shellItem;
             Guid guid = new(ShellIIDGuid.IShellItem2);
-            HResult hr = knownFolderNative.GetShellItem(0, ref guid, out shellItem);
+            HResult hr = knownFolderNative!.GetShellItem(0, ref guid, out shellItem);
 
             if (!CoreErrorHelper.Succeeded(hr)) { return null; }
 

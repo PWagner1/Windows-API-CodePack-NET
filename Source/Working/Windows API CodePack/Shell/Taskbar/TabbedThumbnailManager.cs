@@ -16,7 +16,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// corresponding thumbnail preview objects.
         /// </summary>
         private readonly Dictionary<IntPtr, TabbedThumbnail?> _tabbedThumbnailCache;
-        private readonly Dictionary<UIElement, TabbedThumbnail?> _tabbedThumbnailCacheWPF; // list for WPF controls
+        private readonly Dictionary<UIElement?, TabbedThumbnail?> _tabbedThumbnailCacheWPF; // list for WPF controls
 
         /// <summary>
         /// Internal constructor that creates a new dictionary for keeping track of the window handles
@@ -98,7 +98,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         /// <param name="windowsControl">WPF Control (UIElement) for which the preview object is requested</param>
         /// <returns>TabbedThumbnail associated with the given WPF Window</returns>
-        public TabbedThumbnail? GetThumbnailPreview(UIElement windowsControl)
+        public TabbedThumbnail? GetThumbnailPreview(UIElement? windowsControl)
         {
             if (windowsControl == null)
             {
@@ -182,7 +182,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         /// <param name="windowsControl">TabbedThumbnail associated with the WPF Control (UIElement) that 
         /// is to be removed from the taskbar</param>
-        public void RemoveThumbnailPreview(UIElement windowsControl)
+        public void RemoveThumbnailPreview(UIElement? windowsControl)
         {
             if (windowsControl == null) { throw new ArgumentNullException("windowsControl"); }
 
@@ -276,7 +276,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         /// <param name="windowsControl">WPF control that is currently active in the application</param>
         /// <exception cref="System.ArgumentException">If the control/window is not yet added to the tabbed thumbnails list</exception>
-        public void SetActiveTab(UIElement windowsControl)
+        public void SetActiveTab(UIElement? windowsControl)
         {
             if (windowsControl == null)
             {
@@ -350,7 +350,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         /// <param name="control">The preview to locate on the taskbar's tabbed thumbnail list</param>
         /// <returns>true if the tab is already added on the taskbar; otherwise, false.</returns>
-        public bool IsThumbnailPreviewAdded(UIElement control)
+        public bool IsThumbnailPreviewAdded(UIElement? control)
         {
             if (control == null)
             {

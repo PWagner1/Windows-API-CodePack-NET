@@ -9,7 +9,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         private ThumbnailToolBarButton[] _thumbnailButtons;
         private readonly IntPtr _internalWindowHandle;
 
-        internal UIElement WindowsControl { get; set; }
+        internal UIElement? WindowsControl { get; set; }
 
         internal IntPtr WindowToTellTaskbarAbout => _internalWindowHandle != IntPtr.Zero ? _internalWindowHandle : Handle;
 
@@ -37,7 +37,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             AssignHandle(windowHandle);
         }
 
-        internal ThumbnailToolbarProxyWindow(UIElement windowsControl, ThumbnailToolBarButton[] buttons)
+        internal ThumbnailToolbarProxyWindow(UIElement? windowsControl, ThumbnailToolBarButton[] buttons)
         {
             if (windowsControl == null) { throw new ArgumentNullException("windowsControl"); }
             if (buttons != null && buttons.Length == 0)

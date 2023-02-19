@@ -1,9 +1,8 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+#pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 {
-
-
     /// <summary>
     /// Provides easy access to all the system properties (property keys and their descriptions)
     /// </summary>
@@ -15,10 +14,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// </summary>
         /// <param name="propertyKey">Property key of the property whose description is required.</param>
         /// <returns>Property Description for a given property key</returns>
-        public static ShellPropertyDescription? GetPropertyDescription(PropertyKey propertyKey)
-        {
-            return ShellPropertyDescriptionsCache.Cache.GetPropertyDescription(propertyKey);
-        }
+        public static ShellPropertyDescription? GetPropertyDescription(PropertyKey propertyKey) => ShellPropertyDescriptionsCache.Cache.GetPropertyDescription(propertyKey);
 
 
         /// <summary>

@@ -88,7 +88,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="width">The requested bitmap width.</param>
         /// <param name="height">The requested bitmap height.</param>
         /// <returns>Returns the bitmap (PNG format).</returns>
-        public static Bitmap? GrabWindowBitmap(UIElement element, int dpiX, int dpiY, int width, int height)
+        public static Bitmap? GrabWindowBitmap(UIElement? element, int dpiX, int dpiY, int width, int height)
         {
             // Special case for HwndHost controls
             HwndHost? host = element as HwndHost;
