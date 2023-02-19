@@ -23,10 +23,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             private ShellObject? shellObjectParent;
             private Hashtable hashtable = new();
 
-            internal PropertySystem(ShellObject? parent)
-            {
-                shellObjectParent = parent;
-            }
+            internal PropertySystem(ShellObject? parent) => shellObjectParent = parent;
 
             #region Properties
 
@@ -45,10 +42,13 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                     if (!hashtable.ContainsKey(key))
                     {
-                        hashtable.Add(key, shellObjectParent.Properties.CreateTypedProperty<Int32?>(key));
+                        if (shellObjectParent != null)
+                        {
+                            hashtable.Add(key, shellObjectParent.Properties.CreateTypedProperty<int?>(key));
+                        }
                     }
 
-                    return hashtable[key] as ShellProperty<Int32?>;
+                    return hashtable[key] as ShellProperty<int?>;
                 }
             }
 

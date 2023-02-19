@@ -511,7 +511,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         private static bool DispatchNCDestroyMessage(ref Message m, TaskbarWindow taskbarWindow)
         {
-            if (m.Msg == (int)WindowMessage.NCDestroy)
+            if (m.Msg == (int)WindowMessage.NcDestroy)
             {
                 // Raise the event
                 taskbarWindow.TabbedThumbnail.OnTabbedThumbnailClosed();

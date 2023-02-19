@@ -12,8 +12,8 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
     /// terminating.</remarks>
     public class RestartSettings
     {
-        private string command;
-        private RestartRestrictions restrictions;
+        private string _command;
+        private RestartRestrictions _restrictions;
 
         /// <summary>
         /// Creates a new instance of the RestartSettings class.
@@ -26,22 +26,22 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// </param>
         public RestartSettings(string command, RestartRestrictions restrictions)
         {
-            this.command = command;
-            this.restrictions = restrictions;
+            this._command = command;
+            this._restrictions = restrictions;
         }
 
         /// <summary>
         /// Gets the command line arguments used to restart the application.
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
-        public string Command => command;
+        public string Command => _command;
 
         /// <summary>
         /// Gets the set of conditions when the application 
         /// should not be restarted.
         /// </summary>
         /// <value>A set of <see cref="RestartRestrictions"/> values.</value>
-        public RestartRestrictions Restrictions => restrictions;
+        public RestartRestrictions Restrictions => _restrictions;
 
         /// <summary>
         /// Returns a string representation of the current state
@@ -54,7 +54,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         {
             return string.Format(CultureInfo.InvariantCulture,
                 LocalizedMessages.RestartSettingsFormatString,
-                command, restrictions.ToString());
+                _command, _restrictions.ToString());
         }
     }
 }

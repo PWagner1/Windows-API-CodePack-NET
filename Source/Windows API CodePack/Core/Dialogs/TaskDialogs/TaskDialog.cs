@@ -1,5 +1,8 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+// ReSharper disable PossibleInvalidCastExceptionInForeachLoop
+#pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Dialogs
 {
     /// <summary>
@@ -18,9 +21,9 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         // Main current native dialog.
         private NativeTaskDialog? _nativeDialog;
 
-        private List<TaskDialogButtonBase> _buttons = new();
-        private List<TaskDialogButtonBase> _radioButtons = new();
-        private List<TaskDialogButtonBase> _commandLinks = new();
+        private List<TaskDialogButtonBase?>? _buttons = new();
+        private List<TaskDialogButtonBase?>? _radioButtons = new();
+        private List<TaskDialogButtonBase?>? _commandLinks = new();
         private IntPtr _ownerWindow;
 
         #region Public Properties
@@ -756,7 +759,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 // These are the actual arrays/lists of 
                 // the structs that we'll copy to the 
                 // unmanaged heap.
-                List<TaskDialogButtonBase> sourceList = (_buttons.Count > 0 ? _buttons : _commandLinks);
+                List<TaskDialogButtonBase?>? sourceList = (_buttons.Count > 0 ? _buttons : _commandLinks);
                 settings.Buttons = BuildButtonStructArray(sourceList);
 
                 // Apply option flag that forces all 
@@ -788,10 +791,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             }
         }
 
-        private static TaskDialogNativeMethods.TaskDialogButton[]? BuildButtonStructArray(List<TaskDialogButtonBase> controls)
+        private static TaskDialogNativeMethods.TaskDialogButton[]? BuildButtonStructArray(List<TaskDialogButtonBase?>? controls)
         {
             TaskDialogNativeMethods.TaskDialogButton[]? buttonStructs;
-            TaskDialogButtonBase button;
+            TaskDialogButtonBase? button;
 
             int totalButtons = controls.Count;
             buttonStructs = new TaskDialogNativeMethods.TaskDialogButton[totalButtons];
@@ -805,7 +808,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         // Searches list of controls and returns the ID of 
         // the default control, or 0 if no default was specified.
-        private static int FindDefaultButtonId(List<TaskDialogButtonBase> controls)
+        private static int FindDefaultButtonId(List<TaskDialogButtonBase?>? controls)
         {
             var defaults = controls.FindAll(control => control.Default);
 
@@ -818,9 +821,9 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             return TaskDialogNativeMethods.NoDefaultButtonSpecified;
         }
 
-        private static void ApplyElevatedIcons(NativeTaskDialogSettings settings, List<TaskDialogButtonBase> controls)
+        private static void ApplyElevatedIcons(NativeTaskDialogSettings settings, List<TaskDialogButtonBase?>? controls)
         {
-            foreach (TaskDialogButton control in controls)
+            foreach (TaskDialogButton? control in controls)
             {
                 if (control.UseElevationIcon)
                 {
@@ -852,8 +855,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             foreach (TaskDialogControl control in _controls)
             {
-                TaskDialogButtonBase buttonBase = control as TaskDialogButtonBase;
-                TaskDialogCommandLink commandLink = control as TaskDialogCommandLink;
+                TaskDialogButtonBase? buttonBase = control as TaskDialogButtonBase;
+                TaskDialogCommandLink? commandLink = control as TaskDialogCommandLink;
 
                 if (buttonBase != null && string.IsNullOrEmpty(buttonBase.Text) &&
                     commandLink != null && string.IsNullOrEmpty(commandLink.Instruction))
@@ -861,7 +864,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                     throw new InvalidOperationException(LocalizedMessages.TaskDialogButtonTextEmpty);
                 }
 
-                TaskDialogRadioButton radButton;
+                TaskDialogRadioButton? radButton;
                 TaskDialogProgressBar? progBar;
 
                 // Loop through child controls 
@@ -942,10 +945,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         // NOTE: we are going to require names be unique 
         // across both buttons and radio buttons,
         // even though the Win32 API allows them to be separate.
-        private TaskDialogButtonBase GetButtonForId(int id)
-        {
-            return (TaskDialogButtonBase)_controls.GetControlbyId(id);
-        }
+        private TaskDialogButtonBase? GetButtonForId(int id) => _controls.GetControlbyId(id) as TaskDialogButtonBase;
 
         #endregion
 
@@ -1138,7 +1138,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         internal void RaiseButtonClickEvent(int id)
         {
             // First check to see if the ID matches a custom button.
-            TaskDialogButtonBase button = GetButtonForId(id);
+            TaskDialogButtonBase? button = GetButtonForId(id);
 
             // If a custom button was found, 
             // raise the event - if not, it's a standard button, and
@@ -1166,7 +1166,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             EventHandler<TaskDialogClosingEventArgs>? handler = Closing;
             if (handler != null)
             {
-                TaskDialogButtonBase customButton = null;
+                TaskDialogButtonBase? customButton = null;
                 TaskDialogClosingEventArgs e = new();
 
                 // Try to identify the button - is it a standard one?

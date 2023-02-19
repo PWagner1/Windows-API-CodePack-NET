@@ -28,7 +28,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <param name="text">The label for this button.</param>
         protected TaskDialogButtonBase(string? name, string? text) : base(name)
         {
-            this.text = text;
+            this._text = text;
         }
 
         // Note that we don't need to explicitly 
@@ -45,27 +45,27 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         internal void RaiseClickEvent()
         {
             // Only perform click if the button is enabled.
-            if (!enabled) { return; }
+            if (!_enabled) { return; }
             
             if (Click != null) { Click(this, EventArgs.Empty); }
         }
 
-        private string? text;
+        private string? _text;
         /// <summary>
         /// Gets or sets the button text.
         /// </summary>
         public string? Text
         {
-            get => text;
+            get => _text;
             set 
             {
                 CheckPropertyChangeAllowed("Text");
-                text = value;
+                _text = value;
                 ApplyPropertyChange("Text");
             }
         }
 
-        private bool enabled = true;
+        private bool _enabled = true;
         /// <summary>
         /// Gets or sets a value that determines whether the
         /// button is enabled. The enabled state can cannot be changed
@@ -73,27 +73,27 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public bool Enabled
         {
-            get => enabled;
+            get => _enabled;
             set 
             {
                 CheckPropertyChangeAllowed("Enabled");
-                enabled = value;
+                _enabled = value;
                 ApplyPropertyChange("Enabled");
             }
         }
 
-        private bool defaultControl;
+        private bool _defaultControl;
         /// <summary>
         /// Gets or sets a value that indicates whether
         /// this button is the default button.
         /// </summary>
         public bool Default
         {
-            get => defaultControl;
+            get => _defaultControl;
             set
             {
                 CheckPropertyChangeAllowed("Default");
-                defaultControl = value;
+                _defaultControl = value;
                 ApplyPropertyChange("Default");
             }
         }
@@ -104,7 +104,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <returns>A <see cref="System.String"/>.</returns>
         public override string ToString()
         {
-            return text ?? string.Empty;
+            return _text ?? string.Empty;
         }
     }
 }

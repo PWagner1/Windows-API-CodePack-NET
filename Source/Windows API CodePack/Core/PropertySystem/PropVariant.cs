@@ -1,7 +1,8 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable SuggestVarOrType_BuiltInTypes
-#pragma warning disable CS8602
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+#pragma warning disable CS8600, CS8602
 namespace MS.WindowsAPICodePack.Internal
 {
     /// <summary>
@@ -15,7 +16,7 @@ namespace MS.WindowsAPICodePack.Internal
     [SuppressMessage("Microsoft.Portability", "CA1900:ValueTypeFieldsShouldBePortable", MessageId = "_ptr2")]
     [StructLayout(LayoutKind.Explicit)]
     public sealed class PropVariant : IDisposable
-    {   
+    {
         #region Vector Action Cache
 
         // A static dictionary of delegates to get data from array's contained within PropVariants
@@ -92,7 +93,7 @@ namespace MS.WindowsAPICodePack.Internal
             });
 
             cache.Add(typeof(Single), (pv, array, i) => // float
-            {                
+            {
                 float[] val = new float[1];
                 Marshal.Copy(pv._ptr2, val, (int)i, 1);
                 array.SetValue(val[0], (int)i);
@@ -470,9 +471,9 @@ namespace MS.WindowsAPICodePack.Internal
             _int32 = value.Length;
 
             // allocate required memory for array with 128bit elements
-            _ptr2 = Marshal.AllocCoTaskMem(value.Length * sizeof(decimal));            
+            _ptr2 = Marshal.AllocCoTaskMem(value.Length * sizeof(decimal));
             for (int i = 0; i < value.Length; i++)
-            {                
+            {
                 int[] bits = decimal.GetBits(value[i]);
                 Marshal.Copy(bits, 0, _ptr2, bits.Length);
             }
@@ -497,7 +498,7 @@ namespace MS.WindowsAPICodePack.Internal
 
             _valueType = (ushort)(VarEnum.VT_R4 | VarEnum.VT_VECTOR);
             _int32 = value.Length;
-                        
+
             _ptr2 = Marshal.AllocCoTaskMem(value.Length * sizeof(float));
 
             Marshal.Copy(value, 0, _ptr2, value.Length);
@@ -560,9 +561,12 @@ namespace MS.WindowsAPICodePack.Internal
             {
                 for (int i = 0; i < array.Length; ++i)
                 {
-                    object obj = array.GetValue(i);
-                    IntPtr punk = (obj != null) ? Marshal.GetIUnknownForObject(obj) : IntPtr.Zero;
-                    Marshal.WriteIntPtr(pvData, i * IntPtr.Size, punk);
+                    if (array != null)
+                    {
+                        object obj = array.GetValue(i);
+                        IntPtr punk = (obj != null) ? Marshal.GetIUnknownForObject(obj) : IntPtr.Zero;
+                        Marshal.WriteIntPtr(pvData, i * IntPtr.Size, punk);
+                    }
                 }
             }
             finally
@@ -664,7 +668,7 @@ namespace MS.WindowsAPICodePack.Internal
                         return GetVector<Int64>();
                     case (VarEnum.VT_VECTOR | VarEnum.VT_UI8):
                         return GetVector<UInt64>();
-                    case (VarEnum.VT_VECTOR|VarEnum.VT_R4):
+                    case (VarEnum.VT_VECTOR | VarEnum.VT_R4):
                         return GetVector<float>();
                     case (VarEnum.VT_VECTOR | VarEnum.VT_R8):
                         return GetVector<Double>();
@@ -692,10 +696,10 @@ namespace MS.WindowsAPICodePack.Internal
 
         private static System.Runtime.InteropServices.ComTypes.FILETIME DateTimeToFileTime(DateTime value)
         {
-            long hFT = value.ToFileTime();
+            long hFt = value.ToFileTime();
             System.Runtime.InteropServices.ComTypes.FILETIME ft = new();
-            ft.dwLowDateTime = (int)(hFT & 0xFFFFFFFF);
-            ft.dwHighDateTime = (int)(hFT >> 32);
+            ft.dwLowDateTime = (int)(hFt & 0xFFFFFFFF);
+            ft.dwHighDateTime = (int)(hFt >> 32);
             return ft;
         }
 

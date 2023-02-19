@@ -1,6 +1,7 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-#pragma warning disable CS8600
+// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+#pragma warning disable CS8600, CS8605
 namespace Microsoft.WindowsAPICodePack.ApplicationServices
 {
     /// <summary>
@@ -117,7 +118,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
                 if (_eventList.Contains(eventId))
                 {
                     ArrayList currList = (ArrayList)_eventList[eventId];
-                    currList.Remove(eventToUnregister);
+                    if (currList != null) currList.Remove(eventToUnregister);
                 }
                 else
                 {
@@ -132,11 +133,17 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             /// Executes any registered event handlers.
             /// </summary>
             /// <param name="eventHandlerList">ArrayList of event handlers.</param>            
-            private static void ExecuteEvents(ArrayList eventHandlerList)
+            private static void ExecuteEvents(ArrayList? eventHandlerList)
             {
-                foreach (EventHandler handler in eventHandlerList)
+                if (eventHandlerList != null)
                 {
-                    handler.Invoke(null, new());
+                    foreach (EventHandler handler in eventHandlerList)
+                    {
+                        if (handler != null)
+                        {
+                            handler.Invoke(null, new());
+                        }
+                    }
                 }
             }
 
@@ -164,12 +171,12 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
                     {
                         int monitorStatus = (int)Marshal.PtrToStructure(pData, typeof(int));
                         PowerManager.IsMonitorOn = monitorStatus != 0;
-                        EventManager.monitorOnReset.Set();
+                        EventManager.MonitorOnReset.Set();
                     }
 
                     if (!EventManager.IsMessageCaught(currentEvent))
                     {
-                        ExecuteEvents((ArrayList)_eventList[currentEvent]);
+                        ExecuteEvents(_eventList[currentEvent] as ArrayList);
                     }
                 }
                 else

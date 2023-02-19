@@ -10,13 +10,13 @@ namespace Microsoft.WindowsAPICodePack.Net
     {
         #region Private Fields
 
-        IEnumerable networkConnectionEnumerable;
+        IEnumerable _networkConnectionEnumerable;
 
         #endregion // Private Fields
 
         internal NetworkConnectionCollection(IEnumerable networkConnectionEnumerable)
         {
-            this.networkConnectionEnumerable = networkConnectionEnumerable;
+            this._networkConnectionEnumerable = networkConnectionEnumerable;
         }
 
         #region IEnumerable<NetworkConnection> Members
@@ -28,9 +28,9 @@ namespace Microsoft.WindowsAPICodePack.Net
         public IEnumerator<NetworkConnection> GetEnumerator()
         {
             // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-            if (networkConnectionEnumerable != null)
+            if (_networkConnectionEnumerable != null)
                 // ReSharper restore ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
-                foreach (INetworkConnection networkConnection in networkConnectionEnumerable)
+                foreach (INetworkConnection networkConnection in _networkConnectionEnumerable)
                 {
                     yield return new(networkConnection);
                 }
@@ -46,7 +46,7 @@ namespace Microsoft.WindowsAPICodePack.Net
         ///<returns>A <see cref="System.Collections.IEnumerator"/> object.</returns> 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            foreach (INetworkConnection networkConnection in networkConnectionEnumerable)
+            foreach (INetworkConnection networkConnection in _networkConnectionEnumerable)
             {
                 yield return new NetworkConnection(networkConnection);
             }

@@ -255,7 +255,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
 
                 try
                 {
-                    TS? sensor = (TS)Activator.CreateInstance(sensorClassType);
+                    TS? sensor = Activator.CreateInstance(sensorClassType) as TS;
                     if (sensor != null)
                     {
                         sensor.InternalObject = nativeISensor;

@@ -243,22 +243,22 @@ namespace MS.WindowsAPICodePack.Internal
         };
 
         // Enable/disable non-client rendering based on window style.
-        internal const int DWMNCRP_USEWINDOWSTYLE = 0;
+        internal const int DwmncrpUsewindowstyle = 0;
 
         // Disabled non-client rendering; window style is ignored.
-        internal const int DWMNCRP_DISABLED = 1;
+        internal const int DwmncrpDisabled = 1;
 
         // Enabled non-client rendering; window style is ignored.
-        internal const int DWMNCRP_ENABLED = 2;
+        internal const int DwmncrpEnabled = 2;
 
         // Enable/disable non-client rendering Use DWMNCRP_* values.
-        internal const int DWMWA_NCRENDERING_ENABLED = 1;
+        internal const int DwmwaNcrenderingEnabled = 1;
 
         // Non-client rendering policy.
-        internal const int DWMWA_NCRENDERING_POLICY = 2;
+        internal const int DwmwaNcrenderingPolicy = 2;
 
         // Potentially enable/forcibly disable transitions 0 or 1.
-        internal const int DWMWA_TRANSITIONS_FORCEDISABLED = 3;
+        internal const int DwmwaTransitionsForcedisabled = 3;
 
         #endregion
 
@@ -268,7 +268,7 @@ namespace MS.WindowsAPICodePack.Internal
 
 
 
-        public delegate int WNDPROC(IntPtr hWnd,
+        public delegate int Wndproc(IntPtr hWnd,
             uint uMessage,
             IntPtr wParam,
             IntPtr lParam);

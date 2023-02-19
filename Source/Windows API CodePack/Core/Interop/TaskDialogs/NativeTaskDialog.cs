@@ -17,33 +17,33 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
     /// </remarks>
     internal class NativeTaskDialog : IDisposable
     {
-        private TaskDialogNativeMethods.TaskDialogConfiguration nativeDialogConfig;
-        private NativeTaskDialogSettings settings;
-        private IntPtr hWndDialog;
-        private TaskDialog outerDialog;
+        private TaskDialogNativeMethods.TaskDialogConfiguration _nativeDialogConfig;
+        private NativeTaskDialogSettings _settings;
+        private IntPtr _hWndDialog;
+        private TaskDialog _outerDialog;
 
-        private IntPtr[] updatedStrings = new IntPtr[Enum.GetNames(typeof(TaskDialogNativeMethods.TaskDialogElements)).Length];
-        private IntPtr buttonArray, radioButtonArray;
+        private IntPtr[] _updatedStrings = new IntPtr[Enum.GetNames(typeof(TaskDialogNativeMethods.TaskDialogElements)).Length];
+        private IntPtr _buttonArray, _radioButtonArray;
 
         // Flag tracks whether our first radio 
         // button click event has come through.
-        private bool firstRadioButtonClicked = true;
+        private bool _firstRadioButtonClicked = true;
 
         #region Constructors
 
         // Configuration is applied at dialog creation time.
         internal NativeTaskDialog(NativeTaskDialogSettings settings, TaskDialog outerDialog)
         {
-            nativeDialogConfig = settings.NativeConfiguration;
-            this.settings = settings;
+            _nativeDialogConfig = settings.NativeConfiguration;
+            this._settings = settings;
 
             // Wireup dialog proc message loop for this instance.
-            nativeDialogConfig.callback = new(DialogProc);
+            _nativeDialogConfig.callback = new(DialogProc);
 
             ShowState = DialogShowState.PreShow;
 
             // Keep a reference to the outer shell, so we can notify.
-            this.outerDialog = outerDialog;
+            this._outerDialog = outerDialog;
         }
 
         #endregion
@@ -64,7 +64,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             // Applies config struct and other settings, then
             // calls main Win32 function.
-            if (settings == null)
+            if (_settings == null)
             {
                 throw new InvalidOperationException(LocalizedMessages.NativeTaskDialogConfigurationError);
             }
@@ -87,7 +87,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
                 // Here is the way we use "vanilla" P/Invoke to call TaskDialogIndirect().  
                 HResult hresult = TaskDialogNativeMethods.TaskDialogIndirect(
-                    nativeDialogConfig,
+                    _nativeDialogConfig,
                     out selectedButtonId,
                     out selectedRadioButtonId,
                     out checkBoxChecked);
@@ -177,7 +177,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             IntPtr referenceData)
         {
             // Fetch the HWND - it may be the first time we're getting it.
-            hWndDialog = windowHandle;
+            _hWndDialog = windowHandle;
 
             // Big switch on the various notifications the 
             // dialog proc can get.
@@ -185,7 +185,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 case TaskDialogNativeMethods.TaskDialogNotifications.Created:
                     int result = PerformDialogInitialization();
-                    outerDialog.RaiseOpenedEvent();
+                    _outerDialog.RaiseOpenedEvent();
                     return result;
                 case TaskDialogNativeMethods.TaskDialogNotifications.ButtonClicked:
                     return HandleButtonClick((int)wparam);
@@ -219,12 +219,12 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 // and non-normal states turn off the bar value change 
                 // animation, which is likely the intended
                 // and preferable behavior.
-                UpdateProgressBarState(settings.ProgressBarState);
-                UpdateProgressBarValue(settings.ProgressBarValue);
+                UpdateProgressBarState(_settings.ProgressBarState);
+                UpdateProgressBarValue(_settings.ProgressBarValue);
 
                 // Due to a bug that wasn't fixed in time for RTM of Vista,
                 // second SendMessage is required if the state is non-Normal.
-                UpdateProgressBarValue(settings.ProgressBarValue);
+                UpdateProgressBarValue(_settings.ProgressBarValue);
             }
             else if (IsOptionSet(TaskDialogNativeMethods.TaskDialogOptions.ShowMarqueeProgressBar))
             {
@@ -235,12 +235,12 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 // is set to different states, so it never has to 
                 // be touched/sent again.
                 SendMessageHelper(TaskDialogNativeMethods.TaskDialogMessages.SetProgressBarMarquee, 1, 0);
-                UpdateProgressBarState(settings.ProgressBarState);
+                UpdateProgressBarState(_settings.ProgressBarState);
             }
 
-            if (settings.ElevatedButtons != null && settings.ElevatedButtons.Count > 0)
+            if (_settings.ElevatedButtons != null && _settings.ElevatedButtons.Count > 0)
             {
-                foreach (int id in settings.ElevatedButtons)
+                foreach (int id in _settings.ElevatedButtons)
                 {
                     UpdateElevationIcon(id, true);
                 }
@@ -256,7 +256,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             // we don't want to raise a click event in response to that.
             if (ShowState != DialogShowState.Closing)
             {
-                outerDialog.RaiseButtonClickEvent(id);
+                _outerDialog.RaiseButtonClickEvent(id);
             }
 
             // Once that returns, we raise a Closing event for the dialog
@@ -266,7 +266,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             // Unfortunately, we do NOT have the return values at this stage.
             if (id < DialogsDefaults.MinimumDialogControlId)
             {
-                return outerDialog.RaiseClosingEvent(id);
+                return _outerDialog.RaiseClosingEvent(id);
             }
 
             // https://msdn.microsoft.com/en-us/library/windows/desktop/bb760542(v=vs.85).aspx
@@ -282,14 +282,14 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             // it (somewhat confusingly)issues a radio button clicked event
             //  - we mask that out - though ONLY if
             // we do have a default radio button
-            if (firstRadioButtonClicked
+            if (_firstRadioButtonClicked
                 && !IsOptionSet(TaskDialogNativeMethods.TaskDialogOptions.NoDefaultRadioButton))
             {
-                firstRadioButtonClicked = false;
+                _firstRadioButtonClicked = false;
             }
             else
             {
-                outerDialog.RaiseButtonClickEvent(id);
+                _outerDialog.RaiseButtonClickEvent(id);
             }
 
             // Note: we don't raise Closing, as radio 
@@ -300,7 +300,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         private int HandleHyperlinkClick(IntPtr href)
         {
             string link = Marshal.PtrToStringUni(href) ?? string.Empty;
-            outerDialog.RaiseHyperlinkClickEvent(link);
+            _outerDialog.RaiseHyperlinkClickEvent(link);
 
             return CoreErrorHelper.Ignored;
         }
@@ -308,13 +308,13 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         private int HandleTick(int ticks)
         {
-            outerDialog.RaiseTickEvent(ticks);
+            _outerDialog.RaiseTickEvent(ticks);
             return CoreErrorHelper.Ignored;
         }
 
         private int HandleHelpInvocation()
         {
-            outerDialog.RaiseHelpInvokedEvent();
+            _outerDialog.RaiseHelpInvokedEvent();
             return CoreErrorHelper.Ignored;
         }
 
@@ -323,7 +323,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         // that it is instantiated for a single show, then disposed of.
         private int PerformDialogCleanup()
         {
-            firstRadioButtonClicked = true;
+            _firstRadioButtonClicked = true;
 
             return CoreErrorHelper.Ignored;
         }
@@ -342,13 +342,13 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             AssertCurrentlyShowing();
 
-            if (min.HasValue) settings.ProgressBarMinimum = min.Value;
-            if (max.HasValue) settings.ProgressBarMaximum = max.Value;
+            if (min.HasValue) _settings.ProgressBarMinimum = min.Value;
+            if (max.HasValue) _settings.ProgressBarMaximum = max.Value;
 
             // Build range LPARAM - note it is in REVERSE intuitive order.
             long range = MakeLongLParam(
-                settings.ProgressBarMaximum,
-                settings.ProgressBarMinimum);
+                _settings.ProgressBarMaximum,
+                _settings.ProgressBarMinimum);
 
             SendMessageHelper(TaskDialogNativeMethods.TaskDialogMessages.SetProgressBarRange, 0, range);
         }
@@ -427,18 +427,18 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 Convert.ToInt32(showIcon));
         }
 
-        internal void UpdateButtonEnabled(int buttonID, bool enabled)
+        internal void UpdateButtonEnabled(int buttonId, bool enabled)
         {
             AssertCurrentlyShowing();
             SendMessageHelper(
-                TaskDialogNativeMethods.TaskDialogMessages.EnableButton, buttonID, enabled == true ? 1 : 0);
+                TaskDialogNativeMethods.TaskDialogMessages.EnableButton, buttonId, enabled == true ? 1 : 0);
         }
 
-        internal void UpdateRadioButtonEnabled(int buttonID, bool enabled)
+        internal void UpdateRadioButtonEnabled(int buttonId, bool enabled)
         {
             AssertCurrentlyShowing();
             SendMessageHelper(TaskDialogNativeMethods.TaskDialogMessages.EnableRadioButton,
-                buttonID, enabled == true ? 1 : 0);
+                buttonId, enabled == true ? 1 : 0);
         }
 
         internal void AssertCurrentlyShowing()
@@ -455,10 +455,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             // Be sure to at least assert here - 
             // messages to invalid handles often just disappear silently
-            Debug.Assert(hWndDialog != null, "HWND for dialog is null during SendMessage");
+            Debug.Assert(_hWndDialog != null, "HWND for dialog is null during SendMessage");
 
             return (int)CoreNativeMethods.SendMessage(
-                hWndDialog,
+                _hWndDialog,
                 (uint)message,
                 (IntPtr)wparam,
                 new IntPtr(lparam));
@@ -466,7 +466,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         private bool IsOptionSet(TaskDialogNativeMethods.TaskDialogOptions flag)
         {
-            return ((nativeDialogConfig.taskDialogFlags & flag) == flag);
+            return ((_nativeDialogConfig.taskDialogFlags & flag) == flag);
         }
 
         // Allocates a new string on the unmanaged heap, 
@@ -475,7 +475,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         private IntPtr MakeNewString(string? text, TaskDialogNativeMethods.TaskDialogElements element)
         {
             IntPtr newStringPtr = Marshal.StringToHGlobalUni(text);
-            updatedStrings[(int)element] = newStringPtr;
+            _updatedStrings[(int)element] = newStringPtr;
             return newStringPtr;
         }
 
@@ -488,10 +488,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         private void FreeOldString(TaskDialogNativeMethods.TaskDialogElements element)
         {
             int elementIndex = (int)element;
-            if (updatedStrings[elementIndex] != IntPtr.Zero)
+            if (_updatedStrings[elementIndex] != IntPtr.Zero)
             {
-                Marshal.FreeHGlobal(updatedStrings[elementIndex]);
-                updatedStrings[elementIndex] = IntPtr.Zero;
+                Marshal.FreeHGlobal(_updatedStrings[elementIndex]);
+                _updatedStrings[elementIndex] = IntPtr.Zero;
             }
         }
 
@@ -509,18 +509,18 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         // marshaling to the unmanaged heap, etc.
         private void MarshalDialogControlStructs()
         {
-            if (settings.Buttons != null && settings.Buttons.Length > 0)
+            if (_settings.Buttons != null && _settings.Buttons.Length > 0)
             {
-                buttonArray = AllocateAndMarshalButtons(settings.Buttons);
-                settings.NativeConfiguration.buttons = buttonArray;
-                settings.NativeConfiguration.buttonCount = (uint)settings.Buttons.Length;
+                _buttonArray = AllocateAndMarshalButtons(_settings.Buttons);
+                _settings.NativeConfiguration.buttons = _buttonArray;
+                _settings.NativeConfiguration.buttonCount = (uint)_settings.Buttons.Length;
             }
 
-            if (settings.RadioButtons != null && settings.RadioButtons.Length > 0)
+            if (_settings.RadioButtons != null && _settings.RadioButtons.Length > 0)
             {
-                radioButtonArray = AllocateAndMarshalButtons(settings.RadioButtons);
-                settings.NativeConfiguration.radioButtons = radioButtonArray;
-                settings.NativeConfiguration.radioButtonCount = (uint)settings.RadioButtons.Length;
+                _radioButtonArray = AllocateAndMarshalButtons(_settings.RadioButtons);
+                _settings.NativeConfiguration.radioButtons = _radioButtonArray;
+                _settings.NativeConfiguration.radioButtonCount = (uint)_settings.RadioButtons.Length;
             }
         }
 
@@ -543,7 +543,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         #region IDispose Pattern
 
-        private bool disposed;
+        private bool _disposed;
 
         // Finalizer and IDisposable implementation.
         public void Dispose()
@@ -560,9 +560,9 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         // Core disposing logic.
         protected void Dispose(bool disposing)
         {
-            if (!disposed)
+            if (!_disposed)
             {
-                disposed = true;
+                _disposed = true;
 
                 // Single biggest resource - make sure the dialog 
                 // itself has been instructed to close.
@@ -578,28 +578,28 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 // be cleaned up automagically by the default 
                 // marshalling logic.
 
-                if (updatedStrings != null)
+                if (_updatedStrings != null)
                 {
-                    for (int i = 0; i < updatedStrings.Length; i++)
+                    for (int i = 0; i < _updatedStrings.Length; i++)
                     {
-                        if (updatedStrings[i] != IntPtr.Zero)
+                        if (_updatedStrings[i] != IntPtr.Zero)
                         {
-                            Marshal.FreeHGlobal(updatedStrings[i]);
-                            updatedStrings[i] = IntPtr.Zero;
+                            Marshal.FreeHGlobal(_updatedStrings[i]);
+                            _updatedStrings[i] = IntPtr.Zero;
                         }
                     }
                 }
 
                 // Clean up the button and radio button arrays, if any.
-                if (buttonArray != IntPtr.Zero)
+                if (_buttonArray != IntPtr.Zero)
                 {
-                    Marshal.FreeHGlobal(buttonArray);
-                    buttonArray = IntPtr.Zero;
+                    Marshal.FreeHGlobal(_buttonArray);
+                    _buttonArray = IntPtr.Zero;
                 }
-                if (radioButtonArray != IntPtr.Zero)
+                if (_radioButtonArray != IntPtr.Zero)
                 {
-                    Marshal.FreeHGlobal(radioButtonArray);
-                    radioButtonArray = IntPtr.Zero;
+                    Marshal.FreeHGlobal(_radioButtonArray);
+                    _radioButtonArray = IntPtr.Zero;
                 }
 
                 if (disposing)

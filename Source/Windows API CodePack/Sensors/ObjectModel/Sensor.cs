@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable RedundantAssignment
+#pragma warning disable CS0472
 #pragma warning disable CS8605
 #pragma warning disable CS8602
 #pragma warning disable CS8600
@@ -341,7 +342,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                     }
                     else
                     {
-                        throw e;
+                        if (e != null) throw e;
                     }
                 }
                 return pv.Value;
@@ -488,9 +489,12 @@ namespace Microsoft.WindowsAPICodePack.Sensors
 
                 for (int i = 0; i < propIndexes.Length; i++)
                 {
-                    PropertyKey propKey = new(TypeId.Value, propIndexes[i]);
-                    keyCollection.Add(ref propKey);
-                    propKeyToIdx.Add(propKey, i);
+                    if (TypeId != null)
+                    {
+                        PropertyKey propKey = new(TypeId.Value, propIndexes[i]);
+                        keyCollection.Add(ref propKey);
+                        propKeyToIdx.Add(propKey, i);
+                    }
                 }
 
                 object?[] data = new object[propIndexes.Length];
@@ -692,7 +696,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
             newEventInterest[interestCount] = eventType;
 
             HResult hr = _nativeISensor.SetEventInterest(newEventInterest, (uint)(interestCount + 1));
-            if (hr != HResult.Ok)
+            if (hr != HResult.Ok || hr != null)
             {
                 throw Marshal.GetExceptionForHR((int)hr);
             }

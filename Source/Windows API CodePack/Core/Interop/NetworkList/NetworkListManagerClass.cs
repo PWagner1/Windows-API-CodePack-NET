@@ -25,7 +25,7 @@ namespace Microsoft.WindowsAPICodePack.Net
 
         [return: MarshalAs(UnmanagedType.Interface)]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime), DispId(1)]
-        public virtual extern IEnumerable GetNetworks([In] NetworkConnectivityLevels Flags);
+        public virtual extern IEnumerable GetNetworks([In] NetworkConnectivityLevels flags);
 
         [DispId(6)]
         public virtual extern bool IsConnected

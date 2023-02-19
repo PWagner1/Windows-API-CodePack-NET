@@ -8,11 +8,11 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
     /// <typeparam name="T">DialogControl</typeparam>
     public sealed class DialogControlCollection<T> : Collection<T> where T : DialogControl
     {
-        private IDialogControlHost? hostingDialog;
+        private IDialogControlHost? _hostingDialog;
 
         internal DialogControlCollection(IDialogControlHost? host)
         {
-            hostingDialog = host;
+            _hostingDialog = host;
         }
 
         /// <summary>
@@ -36,17 +36,17 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 throw new InvalidOperationException(LocalizedMessages.DialogCollectionControlAlreadyHosted);
             }
-            if (hostingDialog != null && !hostingDialog.IsCollectionChangeAllowed())
+            if (_hostingDialog != null && !_hostingDialog.IsCollectionChangeAllowed())
             {
                 throw new InvalidOperationException(LocalizedMessages.DialogCollectionModifyShowingDialog);
             }
 
             // Reparent, add control.
-            control.HostingDialog = hostingDialog;
+            control.HostingDialog = _hostingDialog;
             base.InsertItem(index, control);
 
             // Notify that we've added a control.
-            if (hostingDialog != null) hostingDialog.ApplyCollectionChanged();
+            if (_hostingDialog != null) _hostingDialog.ApplyCollectionChanged();
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             // Notify that we're about to remove a control.
             // Throw if dialog showing.
-            if (hostingDialog != null && !hostingDialog.IsCollectionChangeAllowed())
+            if (_hostingDialog != null && !_hostingDialog.IsCollectionChangeAllowed())
             {
                 throw new InvalidOperationException(LocalizedMessages.DialogCollectionModifyShowingDialog);
             }
@@ -71,7 +71,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             control.HostingDialog = null;
             base.RemoveItem(index);
 
-            if (hostingDialog != null) hostingDialog.ApplyCollectionChanged();
+            if (_hostingDialog != null) _hostingDialog.ApplyCollectionChanged();
         }
 
         /// <summary>

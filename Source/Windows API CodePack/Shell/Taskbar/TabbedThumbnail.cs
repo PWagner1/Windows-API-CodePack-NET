@@ -427,7 +427,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             else
             {
                 // No one is listening to these events. Forward the message to the main window
-                CoreNativeMethods.SendMessage(ParentWindowHandle, WindowMessage.NCDestroy, IntPtr.Zero, IntPtr.Zero);
+                CoreNativeMethods.SendMessage(ParentWindowHandle, WindowMessage.NcDestroy, IntPtr.Zero, IntPtr.Zero);
             }
 
             // Remove it from the internal list as well as the taskbar

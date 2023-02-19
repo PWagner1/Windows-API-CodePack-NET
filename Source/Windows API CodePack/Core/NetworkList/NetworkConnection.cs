@@ -11,13 +11,13 @@ namespace Microsoft.WindowsAPICodePack.Net
     {
         #region Private Fields
 
-        INetworkConnection networkConnection;
+        INetworkConnection _networkConnection;
 
         #endregion // Private Fields
 
         internal NetworkConnection(INetworkConnection networkConnection)
         {
-            this.networkConnection = networkConnection;
+            this._networkConnection = networkConnection;
         }
 
         /// <summary>
@@ -25,25 +25,25 @@ namespace Microsoft.WindowsAPICodePack.Net
         /// associated with this connection.
         /// </summary>
         /// <returns>A <see cref="Network"/> object.</returns>
-        public Network Network => new(networkConnection.GetNetwork());
+        public Network Network => new(_networkConnection.GetNetwork());
 
         /// <summary>
         /// Gets the adapter identifier for this connection.
         /// </summary>
         /// <value>A <see cref="System.Guid"/> object.</value>
-        public Guid AdapterId => networkConnection.GetAdapterId();
+        public Guid AdapterId => _networkConnection.GetAdapterId();
 
         /// <summary>
         /// Gets the unique identifier for this connection.
         /// </summary>
         /// <value>A <see cref="System.Guid"/> object.</value>
-        public Guid ConnectionId => networkConnection.GetConnectionId();
+        public Guid ConnectionId => _networkConnection.GetConnectionId();
 
         /// <summary>
         /// Gets a value that indicates the connectivity of this connection.
         /// </summary>
         /// <value>A <see cref="Connectivity"/> value.</value>
-        public ConnectivityStates Connectivity => networkConnection.GetConnectivity();
+        public ConnectivityStates Connectivity => _networkConnection.GetConnectivity();
 
         /// <summary>
         /// Gets a value that indicates whether the network associated
@@ -52,20 +52,20 @@ namespace Microsoft.WindowsAPICodePack.Net
         /// has been authenticated by Active Directory.
         /// </summary>
         /// <value>A <see cref="DomainType"/> value.</value>
-        public DomainType DomainType => networkConnection.GetDomainType();
+        public DomainType DomainType => _networkConnection.GetDomainType();
 
         /// <summary>
         /// Gets a value that indicates whether this 
         /// connection has Internet access.
         /// </summary>
         /// <value>A <see cref="System.Boolean"/> value.</value>
-        public bool IsConnectedToInternet => networkConnection.IsConnectedToInternet;
+        public bool IsConnectedToInternet => _networkConnection.IsConnectedToInternet;
 
         /// <summary>
         /// Gets a value that indicates whether this connection has
         /// network connectivity.
         /// </summary>
         /// <value>A <see cref="System.Boolean"/> value.</value>
-        public bool IsConnected => networkConnection.IsConnected;
+        public bool IsConnected => _networkConnection.IsConnected;
     }
 }

@@ -16,7 +16,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
                 throw new InvalidOperationException(LocalizedMessages.PowerManagerBatteryNotPresent);
             }
 
-            ACOnline = state.AcOnLine;
+            AcOnline = state.AcOnLine;
             MaxCharge = (int)state.MaxCapacity;
             CurrentCharge = (int)state.RemainingCapacity;
             ChargeRate = (int)state.Rate;
@@ -42,7 +42,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// operating on external power.
         /// </summary>
         /// <value>A <see cref="System.Boolean"/> value. <b>True</b> indicates the battery charger is operating on AC power.</value>
-        public bool ACOnline { get; private set; }
+        public bool AcOnline { get; private set; }
 
         /// <summary>
         /// Gets the maximum charge of the battery (in mW).
@@ -97,7 +97,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             return string.Format(CultureInfo.InvariantCulture,
                 LocalizedMessages.BatteryStateStringRepresentation,
                 Environment.NewLine,
-                ACOnline,
+                AcOnline,
                 MaxCharge,
                 CurrentCharge,
                 ChargeRate,

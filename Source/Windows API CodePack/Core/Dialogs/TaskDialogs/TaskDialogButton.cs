@@ -19,17 +19,17 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <param name="text">The button label.</param>
         public TaskDialogButton(string? name, string? text) : base(name, text) { }
 
-        private bool useElevationIcon;
+        private bool _useElevationIcon;
         /// <summary>
         /// Gets or sets a value that controls whether the elevation icon is displayed.
         /// </summary>
         public bool UseElevationIcon
         {
-            get => useElevationIcon;
+            get => _useElevationIcon;
             set
             {
                 CheckPropertyChangeAllowed("ShowElevationIcon");
-                useElevationIcon = value;
+                _useElevationIcon = value;
                 ApplyPropertyChange("ShowElevationIcon");
             }
         }

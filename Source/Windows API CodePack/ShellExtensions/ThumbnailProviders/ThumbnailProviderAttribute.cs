@@ -1,4 +1,5 @@
-﻿namespace Microsoft.WindowsAPICodePack.ShellExtensions
+﻿// ReSharper disable JoinNullCheckWithUsage
+namespace Microsoft.WindowsAPICodePack.ShellExtensions
 {
     /// <summary>    
     /// This class attribute is applied to a Thumbnail Provider to specify registration parameters
@@ -60,7 +61,7 @@
         /// If an empty string is provided, no overlay will be used.
         /// If the property is set to null, the default icon for the associated icon will be used as an overlay.
         /// </summary>
-        public string TypeOverlay { get; set; }
+        public string? TypeOverlay { get; set; }
 
         /// <summary>
         /// Specifies the <typeparamref name="ThumbnailAdornment"/> for the thumbnail.

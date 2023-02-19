@@ -1,6 +1,8 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable LoopCanBeConvertedToQuery
+
+#pragma warning disable CS8600
 namespace Microsoft.WindowsAPICodePack.Net
 {
     /// <summary>
@@ -10,14 +12,11 @@ namespace Microsoft.WindowsAPICodePack.Net
     {
         #region Private Fields
 
-        IEnumerable networkEnumerable;
+        IEnumerable _networkEnumerable;
 
         #endregion // Private Fields
 
-        internal NetworkCollection(IEnumerable networkEnumerable)
-        {
-            this.networkEnumerable = networkEnumerable;
-        }
+        internal NetworkCollection(IEnumerable networkEnumerable) => this._networkEnumerable = networkEnumerable;
 
         #region IEnumerable<Network> Members
 
@@ -27,7 +26,7 @@ namespace Microsoft.WindowsAPICodePack.Net
         /// <returns>An <see cref="System.Collections.Generic.IEnumerator{T}"/>  object.</returns>
         public IEnumerator<Network> GetEnumerator()
         {
-            foreach (INetwork network in networkEnumerable)
+            foreach (INetwork network in _networkEnumerable)
             {
                 yield return new(network);
             }
@@ -43,7 +42,7 @@ namespace Microsoft.WindowsAPICodePack.Net
         ///<returns>An <see cref="System.Collections.IEnumerator"/> object.</returns> 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            foreach (INetwork network in networkEnumerable)
+            foreach (INetwork network in _networkEnumerable)
             {
                 yield return new Network(network);
             }

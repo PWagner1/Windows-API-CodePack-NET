@@ -12,8 +12,8 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
     /// </remarks>
     public class RecoverySettings
     {
-        private RecoveryData recoveryData;
-        private uint pingInterval;
+        private RecoveryData _recoveryData;
+        private uint _pingInterval;
 
         /// <summary>
         /// Initializes a new instance of the <b>RecoverySettings</b> class.
@@ -26,8 +26,8 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// <seealso cref="ApplicationRestartRecoveryManager"/>
         public RecoverySettings(RecoveryData data, uint interval)
         {
-            recoveryData = data;
-            pingInterval = interval;
+            _recoveryData = data;
+            _pingInterval = interval;
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// callback method.
         /// </summary>
         /// <value>A <see cref="RecoveryData"/> object.</value>
-        public RecoveryData RecoveryData => recoveryData;
+        public RecoveryData RecoveryData => _recoveryData;
 
         /// <summary>
         /// Gets the time interval for notifying Windows Error Reporting.  
@@ -48,7 +48,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// By default, the interval is 5 seconds. 
         /// If you specify zero, the default interval is used. 
         /// </remarks>
-        public uint PingInterval => pingInterval;
+        public uint PingInterval => _pingInterval;
 
         /// <summary>
         /// Returns a string representation of the current state
@@ -59,8 +59,8 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         {
             return string.Format(CultureInfo.InvariantCulture,
                 LocalizedMessages.RecoverySettingsFormatString,
-                recoveryData.Callback.Method.ToString(),
-                recoveryData.State.ToString(),
+                _recoveryData.Callback.Method.ToString(),
+                _recoveryData.State.ToString(),
                 PingInterval);
         }
     }

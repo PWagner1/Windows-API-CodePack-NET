@@ -68,8 +68,11 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
                 if (_items != null)
                     foreach (CommonFileDialogControl? item in _items)
                     {
-                        item.HostingDialog = HostingDialog;
-                        item.Attach(dialog);
+                        if (item != null)
+                        {
+                            item.HostingDialog = HostingDialog;
+                            item.Attach(dialog);
+                        }
                     }
 
                 // End visual group

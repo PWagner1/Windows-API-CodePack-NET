@@ -9,7 +9,7 @@ namespace Microsoft.WindowsAPICodePack.Net
     {
         [return: MarshalAs(UnmanagedType.Interface)]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        IEnumerable GetNetworks([In] NetworkConnectivityLevels Flags);
+        IEnumerable GetNetworks([In] NetworkConnectivityLevels flags);
 
         [return: MarshalAs(UnmanagedType.Interface)]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]

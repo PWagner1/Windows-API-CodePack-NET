@@ -145,7 +145,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         /// <exception cref="System.PlatformNotSupportedException">Requires XP/Windows Server 2003 or higher.</exception>        
         public static BatteryState GetCurrentBatteryState()
         {
-            CoreHelpers.ThrowIfNotXP();
+            CoreHelpers.ThrowIfNotXp();
             return new();
         }
 
@@ -168,13 +168,13 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         {
             get
             {
-                CoreHelpers.ThrowIfNotXP();
+                CoreHelpers.ThrowIfNotXp();
                 return _monitorRequired;
             }
             [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
             set
             {
-                CoreHelpers.ThrowIfNotXP();
+                CoreHelpers.ThrowIfNotXp();
 
                 if (value)
                 {
@@ -202,14 +202,14 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         {
             get
             {
-                CoreHelpers.ThrowIfNotXP();
+                CoreHelpers.ThrowIfNotXp();
 
                 return _requestBlockSleep;
             }
             [PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
             set
             {
-                CoreHelpers.ThrowIfNotXP();
+                CoreHelpers.ThrowIfNotXp();
 
                 if (value)
                     SetThreadExecutionState(ExecutionStates.Continuous | ExecutionStates.SystemRequired);
@@ -230,7 +230,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         {
             get
             {
-                CoreHelpers.ThrowIfNotXP();
+                CoreHelpers.ThrowIfNotXp();
 
                 return Power.GetSystemBatteryState().BatteryPresent;
             }
@@ -245,7 +245,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         {
             get
             {
-                CoreHelpers.ThrowIfNotXP();
+                CoreHelpers.ThrowIfNotXp();
                 return Power.GetSystemPowerCapabilities().BatteriesAreShortTerm;
             }
         }
@@ -260,7 +260,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         {
             get
             {
-                CoreHelpers.ThrowIfNotXP();
+                CoreHelpers.ThrowIfNotXp();
 
                 // Because the native method doesn't return the correct value for .UpsPresent,
                 // use .BatteriesAreShortTerm and .SystemBatteriesPresent to check for UPS
@@ -340,7 +340,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
                         IsMonitorOnChanged += dummy;
                         // Wait until Windows updates the power source 
                         // (through RegisterPowerSettingNotification)
-                        EventManager.monitorOnReset.WaitOne();
+                        EventManager.MonitorOnReset.WaitOne();
                     }
                 }
 
@@ -365,9 +365,9 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
                     return PowerSource.Ups;
                 }
 
-                if (!IsBatteryPresent || GetCurrentBatteryState().ACOnline)
+                if (!IsBatteryPresent || GetCurrentBatteryState().AcOnline)
                 {
-                    return PowerSource.AC;
+                    return PowerSource.Ac;
                 }
 
                 return PowerSource.Battery;

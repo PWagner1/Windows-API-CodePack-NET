@@ -28,17 +28,17 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         public TaskDialogCommandLink(string? name, string? text, string? instruction)
             : base(name, text)
         {
-            this.instruction = instruction;
+            this._instruction = instruction;
         }
 
-        private string? instruction;
+        private string? _instruction;
         /// <summary>
         /// Gets or sets the instruction associated with this command link button.
         /// </summary>
         public string? Instruction
         {
-            get => instruction;
-            set => instruction = value;
+            get => _instruction;
+            set => _instruction = value;
         }
 
         /// <summary>
@@ -49,8 +49,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             return string.Format(CultureInfo.CurrentCulture, "{0}{1}{2}",
                 Text ?? string.Empty,
-                (!string.IsNullOrEmpty(Text) && !string.IsNullOrEmpty(instruction)) ? "\n" : string.Empty,
-                instruction ?? string.Empty);
+                (!string.IsNullOrEmpty(Text) && !string.IsNullOrEmpty(_instruction)) ? "\n" : string.Empty,
+                _instruction ?? string.Empty);
         }
     }
 }

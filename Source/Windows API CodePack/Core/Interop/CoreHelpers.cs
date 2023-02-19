@@ -10,16 +10,16 @@ namespace MS.WindowsAPICodePack.Internal
         /// <summary>
         /// Determines if the application is running on XP
         /// </summary>
-        public static bool RunningOnXP =>
+        public static bool RunningOnXp =>
             Environment.OSVersion.Platform == PlatformID.Win32NT &&
             Environment.OSVersion.Version.Major >= 5;
 
         /// <summary>
         /// Throws PlatformNotSupportedException if the application is not running on Windows XP
         /// </summary>
-        public static void ThrowIfNotXP()
+        public static void ThrowIfNotXp()
         {
-            if (!RunningOnXP)
+            if (!RunningOnXp)
             {
                 throw new PlatformNotSupportedException(LocalizedMessages.CoreHelpersRunningOnXp);
             }

@@ -207,18 +207,18 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             IntPtr rootPowerKey,
             [MarshalAs(UnmanagedType.LPStruct)]
             out Guid activePolicy);
-        
+
         [DllImport("User32", SetLastError = true,
             EntryPoint = "RegisterPowerSettingNotification",
             CallingConvention = CallingConvention.StdCall)]
         internal static extern int RegisterPowerSettingNotification(
                 IntPtr hRecipient,
-                ref Guid PowerSettingGuid,
-                Int32 Flags);
+                ref Guid powerSettingGuid,
+                Int32 flags);
 
         [DllImport("kernel32.dll", SetLastError = true)]
         internal static extern ExecutionStates SetThreadExecutionState(ExecutionStates esFlags);
-        
+
         #endregion
     }
 }

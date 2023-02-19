@@ -13,7 +13,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         // Prevents reading from PowerManager members while they are still null.
         // MessageManager notifies the PowerManager that the member 
         // has been set and can be used.        
-        internal static AutoResetEvent monitorOnReset = new(false);
+        internal static AutoResetEvent MonitorOnReset = new(false);
 
         #region Hardcoded GUIDS for each event
 
@@ -30,10 +30,10 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         // Used to catch the initial message Windows sends when 
         // you first register for a power notification.
         // We do not want to fire any event handlers when this happens.
-        private static bool personalityCaught;
-        private static bool powerSrcCaught;
-        private static bool batteryLifeCaught;
-        private static bool monitorOnCaught;
+        private static bool _personalityCaught;
+        private static bool _powerSrcCaught;
+        private static bool _batteryLifeCaught;
+        private static bool _monitorOnCaught;
 
         #endregion
 
@@ -51,33 +51,33 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
 
             if (eventGuid == BatteryCapacityChange)
             {
-                if (!batteryLifeCaught)
+                if (!_batteryLifeCaught)
                 {
-                    batteryLifeCaught = true;
+                    _batteryLifeCaught = true;
                     isMessageCaught = true;
                 }
             }
             else if (eventGuid == MonitorPowerStatus)
             {
-                if (!monitorOnCaught)
+                if (!_monitorOnCaught)
                 {
-                    monitorOnCaught = true;
+                    _monitorOnCaught = true;
                     isMessageCaught = true;
                 }
             }
             else if (eventGuid == PowerPersonalityChange)
             {
-                if (!personalityCaught)
+                if (!_personalityCaught)
                 {
-                    personalityCaught = true;
+                    _personalityCaught = true;
                     isMessageCaught = true;
                 }
             }
             else if (eventGuid == PowerSourceChange)
             {
-                if (!powerSrcCaught)
+                if (!_powerSrcCaught)
                 {
-                    powerSrcCaught = true;
+                    _powerSrcCaught = true;
                     isMessageCaught = true;
                 }
             }

@@ -18,17 +18,17 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <param name="name">The name for this control.</param>
         protected TaskDialogBar(string? name) : base(name) { }
 
-        private TaskDialogProgressBarState state;
+        private TaskDialogProgressBarState _state;
         /// <summary>
         /// Gets or sets the state of the progress bar.
         /// </summary>
         public TaskDialogProgressBarState State
         {
-            get => state;
+            get => _state;
             set
             {
                 CheckPropertyChangeAllowed("State");
-                state = value;
+                _state = value;
                 ApplyPropertyChange("State");
             }
         }
@@ -37,7 +37,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         protected internal virtual void Reset()
         {
-            state = TaskDialogProgressBarState.Normal;
+            _state = TaskDialogProgressBarState.Normal;
         }
     }
 }
