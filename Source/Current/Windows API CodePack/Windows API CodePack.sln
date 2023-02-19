@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Microsoft.WindowsAPICodePack.DirectX", "..\..\Working\Windows API CodePack\DirectX\DirectX.vcxproj", "{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{38C90087-8565-4EB6-BFC1-76748FA6084B}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\..\Changelog.md = ..\..\..\Changelog.md
@@ -23,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shell", "Shell\Shell.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShellExtensions", "ShellExtensions\ShellExtensions.csproj", "{5C380E35-D269-41F5-AA93-3A944E84208A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DirectX", "DirectX\DirectX.vcxproj", "{3D749320-ED01-45FC-AFC8-28E4B640E406}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug with FxCop|Any CPU = Debug with FxCop|Any CPU
@@ -39,30 +39,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Debug with FxCop|Any CPU.ActiveCfg = Debug with FxCop|x64
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Debug with FxCop|Any CPU.Build.0 = Debug with FxCop|x64
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Debug with FxCop|x64.ActiveCfg = Debug with FxCop|x64
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Debug with FxCop|x64.Build.0 = Debug with FxCop|x64
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Debug with FxCop|x86.ActiveCfg = Debug with FxCop|Win32
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Debug with FxCop|x86.Build.0 = Debug with FxCop|Win32
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Debug|Any CPU.Build.0 = Debug|x64
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Debug|x64.ActiveCfg = Debug|x64
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Debug|x64.Build.0 = Debug|x64
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Debug|x86.ActiveCfg = Debug|Win32
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Debug|x86.Build.0 = Debug|Win32
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Release with FxCop|Any CPU.ActiveCfg = Release with FxCop|x64
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Release with FxCop|Any CPU.Build.0 = Release with FxCop|x64
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Release with FxCop|x64.ActiveCfg = Release with FxCop|x64
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Release with FxCop|x64.Build.0 = Release with FxCop|x64
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Release with FxCop|x86.ActiveCfg = Release with FxCop|Win32
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Release with FxCop|x86.Build.0 = Release with FxCop|Win32
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Release|Any CPU.ActiveCfg = Release|x64
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Release|Any CPU.Build.0 = Release|x64
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Release|x64.ActiveCfg = Release|x64
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Release|x64.Build.0 = Release|x64
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Release|x86.ActiveCfg = Release|Win32
-		{446B1E21-65A1-4F56-AA2C-D2E24058B2B8}.Release|x86.Build.0 = Release|Win32
 		{FDBC4057-1758-4ABD-9B62-BCA5A306BAEA}.Debug with FxCop|Any CPU.ActiveCfg = Debug|Any CPU
 		{FDBC4057-1758-4ABD-9B62-BCA5A306BAEA}.Debug with FxCop|Any CPU.Build.0 = Debug|Any CPU
 		{FDBC4057-1758-4ABD-9B62-BCA5A306BAEA}.Debug with FxCop|x64.ActiveCfg = Debug|Any CPU
@@ -183,6 +159,30 @@ Global
 		{5C380E35-D269-41F5-AA93-3A944E84208A}.Release|x64.Build.0 = Release|Any CPU
 		{5C380E35-D269-41F5-AA93-3A944E84208A}.Release|x86.ActiveCfg = Release|Any CPU
 		{5C380E35-D269-41F5-AA93-3A944E84208A}.Release|x86.Build.0 = Release|Any CPU
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Debug with FxCop|Any CPU.ActiveCfg = Debug|x64
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Debug with FxCop|Any CPU.Build.0 = Debug|x64
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Debug with FxCop|x64.ActiveCfg = Debug|x64
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Debug with FxCop|x64.Build.0 = Debug|x64
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Debug with FxCop|x86.ActiveCfg = Debug|Win32
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Debug with FxCop|x86.Build.0 = Debug|Win32
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Debug|Any CPU.Build.0 = Debug|x64
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Debug|x64.ActiveCfg = Debug|x64
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Debug|x64.Build.0 = Debug|x64
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Debug|x86.ActiveCfg = Debug|Win32
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Debug|x86.Build.0 = Debug|Win32
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Release with FxCop|Any CPU.ActiveCfg = Release|x64
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Release with FxCop|Any CPU.Build.0 = Release|x64
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Release with FxCop|x64.ActiveCfg = Release|x64
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Release with FxCop|x64.Build.0 = Release|x64
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Release with FxCop|x86.ActiveCfg = Release|Win32
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Release with FxCop|x86.Build.0 = Release|Win32
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Release|Any CPU.ActiveCfg = Release|x64
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Release|Any CPU.Build.0 = Release|x64
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Release|x64.ActiveCfg = Release|x64
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Release|x64.Build.0 = Release|x64
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Release|x86.ActiveCfg = Release|Win32
+		{3D749320-ED01-45FC-AFC8-28E4B640E406}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
