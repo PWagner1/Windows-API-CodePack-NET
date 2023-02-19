@@ -1,6 +1,7 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable RedundantAssignment
+// ReSharper disable UseNameofExpression
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -31,7 +32,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             if (shellObject == null)
             {
-                throw new ArgumentNullException("shellObject");
+                throw new ArgumentNullException(@"shellObject");
             }
 
             if (_context == null)
