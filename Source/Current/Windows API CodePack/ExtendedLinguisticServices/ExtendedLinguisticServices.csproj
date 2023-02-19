@@ -46,7 +46,15 @@
 		<IncludeSymbols>True</IncludeSymbols>
 
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+		<BaseOutputPath>..\..\..\..\Output\bin</BaseOutputPath>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Content\**" />
+		<EmbeddedResource Remove="Content\**" />
+		<None Remove="Content\**" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.0" />
@@ -66,10 +74,6 @@
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>LocalizedMessages.Designer.cs</LastGenOutput>
 		</EmbeddedResource>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Content\" />
 	</ItemGroup>
 
 	<ItemGroup>
