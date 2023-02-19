@@ -8,7 +8,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
     internal interface ICustomDestinationList
     {
         void SetAppID(
-            [MarshalAs(UnmanagedType.LPWStr)] string pszAppID);
+            [MarshalAs(UnmanagedType.LPWStr)] string? pszAppID);
         [PreserveSig]
         HResult BeginList(
             out uint cMaxSlots,

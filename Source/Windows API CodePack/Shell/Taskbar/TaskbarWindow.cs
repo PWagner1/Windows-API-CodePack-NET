@@ -16,8 +16,8 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         internal UIElement WindowsControl { get; set; }
 
-        private TabbedThumbnail _tabbedThumbnailPreview;
-        internal TabbedThumbnail TabbedThumbnail
+        private TabbedThumbnail? _tabbedThumbnailPreview;
+        internal TabbedThumbnail? TabbedThumbnail
         {
             get => _tabbedThumbnailPreview;
             set
@@ -138,7 +138,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             WindowsControl = windowsControl;
         }
 
-        internal TaskbarWindow(TabbedThumbnail preview)
+        internal TaskbarWindow(TabbedThumbnail? preview)
         {
             if (preview == null) { throw new ArgumentNullException("preview"); }
 

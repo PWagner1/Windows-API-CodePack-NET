@@ -1,6 +1,9 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+// ReSharper disable InlineOutVariableDeclaration
+// ReSharper disable MemberInitializerValueIgnored
+#pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -67,14 +70,14 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 }
 
                 return _propertyKey;
-            }            
+            }
         }
 
         /// <summary>
         /// A value (in <see cref="System.String"/> format) to which the property is compared. 
         /// </summary>
         public string? PropertyValue { get; internal set; }
-        
+
         private readonly SearchConditionOperation _conditionOperation = SearchConditionOperation.Implicit;
         /// <summary>
         /// Search condition operation to be performed on the property/value combination.

@@ -40,12 +40,12 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// You can only set a value for this type using the <c>Property&lt;T&gt;</c> 
         /// class.
         /// </remarks>
-        object ValueAsObject { get; }
+        object? ValueAsObject { get; }
 
         /// <summary>
         /// Gets the <c>System.Type</c> value for this property.
         /// </summary>
-        Type ValueType { get; }
+        Type? ValueType { get; }
 
         /// <summary>
         /// Gets the image reference path and icon index associated with a property value. 

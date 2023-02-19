@@ -252,7 +252,7 @@ namespace MS.WindowsAPICodePack.Internal
         /// <summary>
         /// Set a string value
         /// </summary>
-        public PropVariant(string value)
+        public PropVariant(string? value)
         {
             if (value == null)
             {

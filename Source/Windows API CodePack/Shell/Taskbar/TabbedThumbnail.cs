@@ -17,8 +17,8 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         internal UIElement WindowsControl { get; set; }
         internal Window WindowsControlParentWindow { get; set; }
 
-        private TaskbarWindow _taskbarWindow;
-        internal TaskbarWindow TaskbarWindow
+        private TaskbarWindow? _taskbarWindow;
+        internal TaskbarWindow? TaskbarWindow
         {
             get => _taskbarWindow;
             set

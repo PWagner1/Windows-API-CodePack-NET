@@ -23,7 +23,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// the properties that are indexed, look for the specific property's property description and 
         /// <see cref="P:Microsoft.WindowsAPICodePack.Shell.PropertySystem.ShellPropertyDescription.TypeFlags"/> property for IsQueryable flag.
         /// </remarks>
-        public static SearchCondition? CreateLeafCondition(string? propertyName, string value, SearchConditionOperation operation)
+        public static SearchCondition? CreateLeafCondition(string? propertyName, string? value, SearchConditionOperation operation)
         {
             using (PropVariant propVar = new(value))
             {
@@ -170,7 +170,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// the properties that are indexed, look for the specific property's property description and 
         /// <see cref="P:Microsoft.WindowsAPICodePack.Shell.PropertySystem.ShellPropertyDescription.TypeFlags"/> property for IsQueryable flag.
         /// </remarks>
-        public static SearchCondition? CreateLeafCondition(PropertyKey propertyKey, string value, SearchConditionOperation operation)
+        public static SearchCondition? CreateLeafCondition(PropertyKey propertyKey, string? value, SearchConditionOperation operation)
         {
             string? canonicalName;
             PropertySystemNativeMethods.PSGetNameFromPropertyKey(ref propertyKey, out canonicalName);

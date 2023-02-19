@@ -8,14 +8,14 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 {
     internal static class TaskbarWindowManager
     {
-        internal static List<TaskbarWindow> _taskbarWindowList = new();
+        internal static List<TaskbarWindow?> _taskbarWindowList = new();
 
         private static bool _buttonsAdded;
 
         internal static void AddThumbnailButtons(IntPtr userWindowHandle, params ThumbnailToolBarButton[] buttons)
         {
             // Try to get an existing taskbar window for this user windowhandle            
-            TaskbarWindow taskbarWindow = GetTaskbarWindow(userWindowHandle, TaskbarProxyWindowType.ThumbnailToolbar);
+            TaskbarWindow? taskbarWindow = GetTaskbarWindow(userWindowHandle, TaskbarProxyWindowType.ThumbnailToolbar);
             TaskbarWindow temp = null;
             try
             {
@@ -34,7 +34,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         internal static void AddThumbnailButtons(UIElement control, params ThumbnailToolBarButton[] buttons)
         {
             // Try to get an existing taskbar window for this user uielement            
-            TaskbarWindow taskbarWindow = GetTaskbarWindow(control, TaskbarProxyWindowType.ThumbnailToolbar);
+            TaskbarWindow? taskbarWindow = GetTaskbarWindow(control, TaskbarProxyWindowType.ThumbnailToolbar);
             TaskbarWindow temp = null;
             try
             {
@@ -50,7 +50,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        private static void AddThumbnailButtons(TaskbarWindow taskbarWindow, bool add, params ThumbnailToolBarButton[] buttons)
+        private static void AddThumbnailButtons(TaskbarWindow? taskbarWindow, bool add, params ThumbnailToolBarButton[] buttons)
         {
             if (add)
             {
@@ -67,10 +67,10 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        internal static void AddTabbedThumbnail(TabbedThumbnail preview)
+        internal static void AddTabbedThumbnail(TabbedThumbnail? preview)
         {
             // Create a TOP-LEVEL proxy window for the user's source window/control
-            TaskbarWindow taskbarWindow = null;
+            TaskbarWindow? taskbarWindow = null;
 
             // get the TaskbarWindow for UIElement/WindowHandle respectfully.
             if (preview.WindowHandle == IntPtr.Zero)
@@ -127,11 +127,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             preview.AddedToTaskbar = true;
         }
 
-        internal static TaskbarWindow GetTaskbarWindow(UIElement windowsControl, TaskbarProxyWindowType taskbarProxyWindowType)
+        internal static TaskbarWindow? GetTaskbarWindow(UIElement windowsControl, TaskbarProxyWindowType taskbarProxyWindowType)
         {
             if (windowsControl == null) { throw new ArgumentNullException("windowsControl"); }
 
-            TaskbarWindow toReturn = _taskbarWindowList.FirstOrDefault(window =>
+            TaskbarWindow? toReturn = _taskbarWindowList.FirstOrDefault(window =>
             {
                 return (window.TabbedThumbnail != null && window.TabbedThumbnail.WindowsControl == windowsControl) ||
                     (window.ThumbnailToolbarProxyWindow != null &&
@@ -153,14 +153,14 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             return toReturn;
         }
 
-        internal static TaskbarWindow GetTaskbarWindow(IntPtr userWindowHandle, TaskbarProxyWindowType taskbarProxyWindowType)
+        internal static TaskbarWindow? GetTaskbarWindow(IntPtr userWindowHandle, TaskbarProxyWindowType taskbarProxyWindowType)
         {
             if (userWindowHandle == IntPtr.Zero)
             {
                 throw new ArgumentException(LocalizedMessages.CommonFileDialogInvalidHandle, "userWindowHandle");
             }
 
-            TaskbarWindow toReturn = _taskbarWindowList.FirstOrDefault(window => window.UserWindowHandle == userWindowHandle);
+            TaskbarWindow? toReturn = _taskbarWindowList.FirstOrDefault(window => window.UserWindowHandle == userWindowHandle);
 
             // If its not in the list, return null so it can be added.            
             if (toReturn != null)
@@ -179,7 +179,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         }
 
         #region Message dispatch methods
-        private static void DispatchTaskbarButtonMessages(ref Message m, TaskbarWindow taskbarWindow)
+        private static void DispatchTaskbarButtonMessages(ref Message m, TaskbarWindow? taskbarWindow)
         {
             if (m.Msg == (int)TaskbarNativeMethods.WmTaskbarButtonCreated)
             {
@@ -210,7 +210,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        private static bool DispatchActivateMessage(ref Message m, TaskbarWindow taskbarWindow)
+        private static bool DispatchActivateMessage(ref Message m, TaskbarWindow? taskbarWindow)
         {
             if (m.Msg == (int)WindowMessage.Activate)
             {
@@ -222,7 +222,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             return false;
         }
 
-        private static bool DispatchSendIconThumbnailMessage(ref Message m, TaskbarWindow taskbarWindow)
+        private static bool DispatchSendIconThumbnailMessage(ref Message m, TaskbarWindow? taskbarWindow)
         {
             if (m.Msg == (int)TaskbarNativeMethods.WmDwmSendIconThumbnail)
             {
@@ -339,7 +339,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             return false;
         }
 
-        private static bool DispatchLivePreviewBitmapMessage(ref Message m, TaskbarWindow taskbarWindow)
+        private static bool DispatchLivePreviewBitmapMessage(ref Message m, TaskbarWindow? taskbarWindow)
         {
             if (m.Msg == (int)TaskbarNativeMethods.WmDwmSendIconicLivePreviewBitmap)
             {
@@ -496,7 +496,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             return false;
         }
 
-        private static bool DispatchDestroyMessage(ref Message m, TaskbarWindow taskbarWindow)
+        private static bool DispatchDestroyMessage(ref Message m, TaskbarWindow? taskbarWindow)
         {
             if (m.Msg == (int)WindowMessage.Destroy)
             {
@@ -509,7 +509,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             return false;
         }
 
-        private static bool DispatchNCDestroyMessage(ref Message m, TaskbarWindow taskbarWindow)
+        private static bool DispatchNCDestroyMessage(ref Message m, TaskbarWindow? taskbarWindow)
         {
             if (m.Msg == (int)WindowMessage.NcDestroy)
             {
@@ -529,7 +529,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             return false;
         }
 
-        private static bool DispatchSystemCommandMessage(ref Message m, TaskbarWindow taskbarWindow)
+        private static bool DispatchSystemCommandMessage(ref Message m, TaskbarWindow? taskbarWindow)
         {
             if (m.Msg == (int)WindowMessage.SystemCommand)
             {
@@ -574,7 +574,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// from a Windows Forms or WPF window procedure.</param>
         /// <param name="taskbarWindow">Taskbar window for which we are intercepting the messages</param>
         /// <returns>Returns true if this method handles the window message</returns>           
-        internal static bool DispatchMessage(ref Message m, TaskbarWindow taskbarWindow)
+        internal static bool DispatchMessage(ref Message m, TaskbarWindow? taskbarWindow)
         {
             if (taskbarWindow.EnableThumbnailToolbars)
             {
@@ -631,7 +631,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="taskbarWindow">The proxy window for which a bitmap needs to be created</param>
         /// <param name="requestedSize">Size for the requested bitmap image</param>
         /// <returns>Bitmap captured from the window handle or UIElement. Null if the window is hidden or it's size is zero.</returns>
-        private static IntPtr GrabBitmap(TaskbarWindow taskbarWindow, Size requestedSize)
+        private static IntPtr GrabBitmap(TaskbarWindow? taskbarWindow, Size requestedSize)
         {
             IntPtr hBitmap = IntPtr.Zero;
 
@@ -714,7 +714,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        private static void AddButtons(TaskbarWindow taskbarWindow)
+        private static void AddButtons(TaskbarWindow? taskbarWindow)
         {
             // Add the buttons
             // Get the array of thumbnail buttons in native format
@@ -739,11 +739,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         #region Event handlers
 
-        private static void thumbnailPreview_TooltipChanged(object sender, EventArgs e)
+        private static void thumbnailPreview_TooltipChanged(object? sender, EventArgs e)
         {
             TabbedThumbnail preview = sender as TabbedThumbnail;
 
-            TaskbarWindow taskbarWindow = null;
+            TaskbarWindow? taskbarWindow = null;
 
             if (preview.WindowHandle == IntPtr.Zero)
             {
@@ -761,11 +761,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        private static void thumbnailPreview_TitleChanged(object sender, EventArgs e)
+        private static void thumbnailPreview_TitleChanged(object? sender, EventArgs e)
         {
             TabbedThumbnail preview = sender as TabbedThumbnail;
 
-            TaskbarWindow taskbarWindow = null;
+            TaskbarWindow? taskbarWindow = null;
 
             if (preview.WindowHandle == IntPtr.Zero)
             {

@@ -1,6 +1,7 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 using SystemProperties = Microsoft.WindowsAPICodePack.Shell.PropertySystem.SystemProperties;
+// ReSharper disable SuspiciousTypeConversion.Global
 
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
@@ -10,10 +11,10 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
     /// </summary>
     public class JumpListSeparator : JumpListTask, IDisposable
     {
-        internal static PropertyKey PKEY_AppUserModel_IsDestListSeparator = SystemProperties.System.AppUserModel.IsDestinationListSeparator;
+        internal static PropertyKey _pKeyAppUserModelIsDestListSeparator = SystemProperties.System.AppUserModel.IsDestinationListSeparator;
 
-        private IPropertyStore nativePropertyStore;
-        private IShellLinkW? nativeShellLink;
+        private IPropertyStore? _nativePropertyStore;
+        private IShellLinkW? _nativeShellLink;
         /// <summary>
         /// Gets an IShellLinkW representation of this object
         /// </summary>
@@ -21,33 +22,33 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             get
             {
-                if (nativeShellLink != null)
+                if (_nativeShellLink != null)
                 {
-                    Marshal.ReleaseComObject(nativeShellLink);
-                    nativeShellLink = null;
+                    Marshal.ReleaseComObject(_nativeShellLink);
+                    _nativeShellLink = null;
                 }
 
-                nativeShellLink = (IShellLinkW)new CShellLink();
+                _nativeShellLink = (IShellLinkW)new CShellLink();
 
-                if (nativePropertyStore != null)
+                if (_nativePropertyStore != null)
                 {
-                    Marshal.ReleaseComObject(nativePropertyStore);
-                    nativePropertyStore = null;
+                    Marshal.ReleaseComObject(_nativePropertyStore);
+                    _nativePropertyStore = null;
                 }
 
-                nativePropertyStore = (IPropertyStore)nativeShellLink;
+                _nativePropertyStore = (IPropertyStore)_nativeShellLink;
 
-                using(PropVariant propVariant = new(true))
+                using (PropVariant propVariant = new(true))
                 {
-                    HResult result = nativePropertyStore.SetValue(ref PKEY_AppUserModel_IsDestListSeparator, propVariant);
+                    HResult result = _nativePropertyStore.SetValue(ref _pKeyAppUserModelIsDestListSeparator, propVariant);
                     if (!CoreErrorHelper.Succeeded(result))
                     {
                         throw new ShellException(result);
                     }
-                    nativePropertyStore.Commit();
+                    _nativePropertyStore.Commit();
                 }
-                
-                return nativeShellLink; ;
+
+                return _nativeShellLink; ;
             }
         }
 
@@ -59,16 +60,16 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="disposing">Indicates that this is being called from Dispose(), rather than the finalizer.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (nativePropertyStore != null)
+            if (_nativePropertyStore != null)
             {
-                Marshal.ReleaseComObject(nativePropertyStore);
-                nativePropertyStore = null;
+                Marshal.ReleaseComObject(_nativePropertyStore);
+                _nativePropertyStore = null;
             }
 
-            if (nativeShellLink != null)
+            if (_nativeShellLink != null)
             {
-                Marshal.ReleaseComObject(nativeShellLink);
-                nativeShellLink = null;
+                Marshal.ReleaseComObject(_nativeShellLink);
+                _nativeShellLink = null;
             }
         }
 

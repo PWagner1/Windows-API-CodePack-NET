@@ -1,4 +1,6 @@
 ﻿
+// ReSharper disable InconsistentNaming
+// ReSharper disable SuspiciousTypeConversion.Global
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
     /// <summary>
@@ -8,25 +10,25 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
     internal static class TaskbarList
     {
         private static readonly object _syncLock = new();
-                
-        private static ITaskbarList4 _taskbarList;
-        internal static ITaskbarList4 Instance
+
+        private static ITaskbarList4? _taskBarList;
+        internal static ITaskbarList4? Instance
         {
             get
             {
-                if (_taskbarList == null)
-                {                    
+                if (_taskBarList == null)
+                {
                     lock (_syncLock)
                     {
-                        if (_taskbarList == null)
+                        if (_taskBarList == null)
                         {
-                            _taskbarList = (ITaskbarList4)new CTaskbarList();
-                            _taskbarList.HrInit();
+                            _taskBarList = (ITaskbarList4)new CTaskbarList();
+                            _taskBarList.HrInit();
                         }
                     }
                 }
 
-                return _taskbarList;
+                return _taskBarList;
             }
         }
     }

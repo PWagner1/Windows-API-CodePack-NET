@@ -7,7 +7,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
     internal sealed class TabbedThumbnailProxyWindow : Form, IDisposable
     {
         
-        internal TabbedThumbnailProxyWindow(TabbedThumbnail preview)
+        internal TabbedThumbnailProxyWindow(TabbedThumbnail? preview)
         {
             TabbedThumbnail = preview;
             Size = new(1, 1);
@@ -23,7 +23,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        internal TabbedThumbnail TabbedThumbnail { get; private set; }
+        internal TabbedThumbnail? TabbedThumbnail { get; private set; }
 
         internal UIElement WindowsControl { get; private set; }
 

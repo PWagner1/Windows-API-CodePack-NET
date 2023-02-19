@@ -26,7 +26,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="appId">Application Id for the individual window. This must be unique for each top-level window in order to have a individual JumpList.</param>
         /// <param name="windowHandle">Handle of the window associated with the new JumpList</param>
         /// <returns>A new JumpList that is associated with the specific window handle</returns>
-        public static JumpList CreateJumpListForIndividualWindow(string appId, IntPtr windowHandle)
+        public static JumpList CreateJumpListForIndividualWindow(string? appId, IntPtr windowHandle)
         {
             return new(appId, windowHandle);
         }
@@ -37,7 +37,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="appId">Application Id for the individual window. This must be unique for each top-level window in order to have a individual JumpList.</param>
         /// <param name="window">WPF Window associated with the new JumpList</param>
         /// <returns>A new JumpList that is associated with the specific WPF window</returns>
-        public static JumpList CreateJumpListForIndividualWindow(string appId, Window window)
+        public static JumpList CreateJumpListForIndividualWindow(string? appId, Window window)
         {
             return new(appId, window);
         }
@@ -180,7 +180,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <summary>
         /// Gets or sets the application ID to use for this jump list.
         /// </summary>
-        public string ApplicationId { get; private set; }
+        public string? ApplicationId { get; private set; }
 
         #endregion
 
@@ -189,7 +189,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// appId. The JumpList is associated with the main window of the application.
         /// </summary>
         /// <param name="appID">Application Id to use for this instace.</param>
-        internal JumpList(string appID)
+        internal JumpList(string? appID)
             : this(appID, TaskbarManager.Instance.OwnerHandle)
         {
         }
@@ -200,7 +200,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         /// <param name="appID">Application Id to use for this instace.</param>
         /// <param name="window">WPF Window that is associated with this JumpList</param>
-        internal JumpList(string appID, Window window)
+        internal JumpList(string? appID, Window window)
             : this(appID, (new WindowInteropHelper(window)).Handle)
         {
         }
@@ -211,7 +211,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         /// <param name="appID">Application Id to use for this instace.</param>
         /// <param name="windowHandle">Window handle for the window that is associated with this JumpList</param>
-        private JumpList(string appID, IntPtr windowHandle)
+        private JumpList(string? appID, IntPtr windowHandle)
         {
             // Throw exception if not running on Win7 or newer
             CoreHelpers.ThrowIfNotWin7();

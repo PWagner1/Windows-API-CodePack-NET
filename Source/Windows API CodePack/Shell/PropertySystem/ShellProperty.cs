@@ -3,7 +3,9 @@
 // ReSharper disable AssignNullToNotNullAttribute
 // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
 // ReSharper disable MergeSequentialChecks
-#pragma warning disable CS8602, CS8604, CS7023
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+// ReSharper disable MergeConditionalExpression
+#pragma warning disable CS8602, CS8604, CS7023, CS8600, CS8605
 namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 {
     /// <summary>
@@ -352,7 +354,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// Property&lt;T&gt; class.
         /// Also, you can only set a value for this type using Property&lt;T&gt;
         /// </summary>
-        public object ValueAsObject
+        public object? ValueAsObject
         {
             get
             {
@@ -381,7 +383,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <summary>
         /// Gets the associated runtime type.
         /// </summary>
-        public Type ValueType
+        public Type? ValueType
         {
             get
             {

@@ -1,8 +1,9 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
-#pragma warning disable CS8600
-#pragma warning disable CS8602
+// ReSharper disable UsePatternMatching
+// ReSharper disable InlineOutVariableDeclaration
+#pragma warning disable CS8600, CS8602, CS8073
 namespace Microsoft.WindowsAPICodePack.Dialogs
 {
     /// <summary>
@@ -206,7 +207,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// has closed, to retrieve the final set of values. The call to this method will fail 
         /// unless property collection has been turned on with a call to SetCollectedPropertyKeys method.
         /// </remarks>
-        public ShellPropertyCollection CollectedProperties
+        public ShellPropertyCollection? CollectedProperties
         {
             get
             {
@@ -241,7 +242,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         internal override IFileDialog? GetNativeFileDialog()
         {
             Debug.Assert(_saveDialogCoClass != null, "Must call Initialize() before fetching dialog interface");
-            return (IFileDialog)_saveDialogCoClass;
+            return _saveDialogCoClass;
         }
 
         internal override void PopulateWithFileNames(

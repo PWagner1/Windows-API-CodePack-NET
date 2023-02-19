@@ -1,5 +1,10 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable IdentifierTypo
+// ReSharper disable UseNameofExpression
+// ReSharper disable InconsistentNaming
+// ReSharper disable SuspiciousTypeConversion.Global
+#pragma warning disable CS8618
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
     /// <summary>
@@ -7,14 +12,14 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
     /// </summary>
     public class JumpListLink : JumpListTask, IJumpListItem, IDisposable
     {
-        internal static PropertyKey PKEY_Title = SystemProperties.System.Title;
+        internal static PropertyKey _pKeyTitle = SystemProperties.System.Title;
 
         /// <summary>
         /// Initializes a new instance of a JumpListLink with the specified path.
         /// </summary>
         /// <param name="pathValue">The path to the item. The path is required for the JumpList Link</param>
         /// <param name="titleValue">The title for the JumpListLink item. The title is required for the JumpList link.</param>
-        public JumpListLink(string? pathValue, string titleValue)
+        public JumpListLink(string? pathValue, string? titleValue)
         {
             if (string.IsNullOrEmpty(pathValue))
             {
@@ -30,13 +35,13 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             Title = titleValue;
         }
 
-        private string title;
+        private string? _title;
         /// <summary>
         /// Gets or sets the link's title
         /// </summary>
-        public string Title
+        public string? Title
         {
-            get => title;
+            get => _title;
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -44,17 +49,17 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                     throw new ArgumentNullException("value", LocalizedMessages.JumpListLinkTitleRequired);
                 }
 
-                title = value;
+                _title = value;
             }
         }
 
-        private string? path;
+        private string? _path;
         /// <summary>
         /// Gets or sets the link's path
         /// </summary>
         public string? Path
         {
-            get => path;
+            get => _path;
             set
             {
                 if (string.IsNullOrEmpty(value))
@@ -62,7 +67,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                     throw new ArgumentNullException("value", LocalizedMessages.JumpListLinkTitleRequired);
                 }
 
-                path = value;
+                _path = value;
             }
         }
 
@@ -86,8 +91,8 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public WindowShowCommand ShowCommand { get; set; }
 
-        private IPropertyStore nativePropertyStore;
-        private IShellLinkW? nativeShellLink;
+        private IPropertyStore? _nativePropertyStore;
+        private IShellLinkW? _nativeShellLink;
         /// <summary>
         /// Gets an IShellLinkW representation of this object
         /// </summary>
@@ -95,56 +100,56 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             get
             {
-                if (nativeShellLink != null)
+                if (_nativeShellLink != null)
                 {
-                    Marshal.ReleaseComObject(nativeShellLink);
-                    nativeShellLink = null;
+                    Marshal.ReleaseComObject(_nativeShellLink);
+                    _nativeShellLink = null;
                 }
 
-                nativeShellLink = (IShellLinkW)new CShellLink();
+                _nativeShellLink = (IShellLinkW)new CShellLink();
 
-                if (nativePropertyStore != null)
+                if (_nativePropertyStore != null)
                 {
-                    Marshal.ReleaseComObject(nativePropertyStore);
-                    nativePropertyStore = null;
+                    Marshal.ReleaseComObject(_nativePropertyStore);
+                    _nativePropertyStore = null;
                 }
 
-                nativePropertyStore = (IPropertyStore)nativeShellLink;
+                _nativePropertyStore = (IPropertyStore)_nativeShellLink;
 
-                nativeShellLink.SetPath(Path);
+                _nativeShellLink.SetPath(Path);
 
                 if (!string.IsNullOrEmpty(IconReference.ModuleName))
                 {
-                    nativeShellLink.SetIconLocation(IconReference.ModuleName, IconReference.ResourceId);
+                    _nativeShellLink.SetIconLocation(IconReference.ModuleName, IconReference.ResourceId);
                 }
 
                 if (!string.IsNullOrEmpty(Arguments))
                 {
-                    nativeShellLink.SetArguments(Arguments);
+                    _nativeShellLink.SetArguments(Arguments);
                 }
 
                 if (!string.IsNullOrEmpty(WorkingDirectory))
                 {
-                    nativeShellLink.SetWorkingDirectory(WorkingDirectory);
+                    _nativeShellLink.SetWorkingDirectory(WorkingDirectory);
                 }
 
-                nativeShellLink.SetShowCmd((uint)ShowCommand);
+                _nativeShellLink.SetShowCmd((uint)ShowCommand);
 
                 using (PropVariant propVariant = new(Title))
                 {
-                    HResult result =  nativePropertyStore.SetValue(ref PKEY_Title, propVariant);
+                    HResult result = _nativePropertyStore.SetValue(ref _pKeyTitle, propVariant);
                     if (!CoreErrorHelper.Succeeded(result))
                     {
                         throw new ShellException(result);
                     }
 
-                    nativePropertyStore.Commit();
+                    _nativePropertyStore.Commit();
                 }
 
-                return nativeShellLink;
+                return _nativeShellLink;
             }
         }
-        
+
         #region IDisposable Members
 
         /// <summary>
@@ -155,19 +160,19 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             if (disposing)
             {
-                title = null;
+                _title = null;
             }
 
-            if (nativePropertyStore != null)
+            if (_nativePropertyStore != null)
             {
-                Marshal.ReleaseComObject(nativePropertyStore);
-                nativePropertyStore = null;
+                Marshal.ReleaseComObject(_nativePropertyStore);
+                _nativePropertyStore = null;
             }
 
-            if (nativeShellLink != null)
+            if (_nativeShellLink != null)
             {
-                Marshal.ReleaseComObject(nativeShellLink);
-                nativeShellLink = null;
+                Marshal.ReleaseComObject(_nativeShellLink);
+                _nativeShellLink = null;
             }
         }
 

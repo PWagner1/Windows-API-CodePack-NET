@@ -13,7 +13,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         internal IntPtr WindowToTellTaskbarAbout => _internalWindowHandle != IntPtr.Zero ? _internalWindowHandle : Handle;
 
-        internal TaskbarWindow TaskbarWindow { get; set; }
+        internal TaskbarWindow? TaskbarWindow { get; set; }
 
         internal ThumbnailToolbarProxyWindow(IntPtr windowHandle, ThumbnailToolBarButton[] buttons)
         {

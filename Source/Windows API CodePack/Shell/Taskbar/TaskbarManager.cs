@@ -199,7 +199,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// Gets or sets the application user model id. Use this to explicitly
         /// set the application id when generating custom jump lists
         /// </summary>
-        public string ApplicationId
+        public string? ApplicationId
         {
             get => GetCurrentProcessAppId();
             set
@@ -247,7 +247,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <remarks>AppId specifies a unique Application User Model ID (AppID) for the application or individual 
         /// top-level window whose taskbar button will hold the custom JumpList built through the methods <see cref="Microsoft.WindowsAPICodePack.Taskbar.JumpList"/> class.
         /// By setting an appId for a specific window, the window will not be grouped with it's parent window/application. Instead it will have it's own taskbar button.</remarks>
-        public void SetApplicationIdForSpecificWindow(IntPtr windowHandle, string appId) =>
+        public void SetApplicationIdForSpecificWindow(IntPtr windowHandle, string? appId) =>
             // Left as instance method, to follow singleton pattern.
             TaskbarNativeMethods.SetWindowAppId(windowHandle, appId);
 
@@ -259,7 +259,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <remarks>AppId specifies a unique Application User Model ID (AppID) for the application or individual 
         /// top-level window whose taskbar button will hold the custom JumpList built through the methods <see cref="Microsoft.WindowsAPICodePack.Taskbar.JumpList"/> class.
         /// By setting an appId for a specific window, the window will not be grouped with it's parent window/application. Instead it will have it's own taskbar button.</remarks>
-        public void SetApplicationIdForSpecificWindow(Window window, string appId) =>
+        public void SetApplicationIdForSpecificWindow(Window window, string? appId) =>
             // Left as instance method, to follow singleton pattern.
             TaskbarNativeMethods.SetWindowAppId((new WindowInteropHelper(window)).Handle, appId);
 
@@ -267,15 +267,15 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// Sets the current process' explicit application user model id.
         /// </summary>
         /// <param name="appId">The application id.</param>
-        private void SetCurrentProcessAppId(string appId) => TaskbarNativeMethods.SetCurrentProcessExplicitAppUserModelID(appId);
+        private void SetCurrentProcessAppId(string? appId) => TaskbarNativeMethods.SetCurrentProcessExplicitAppUserModelID(appId);
 
         /// <summary>
         /// Gets the current process' explicit application user model id.
         /// </summary>
         /// <returns>The app id or null if no app id has been defined.</returns>
-        private string GetCurrentProcessAppId()
+        private string? GetCurrentProcessAppId()
         {
-            string appId = string.Empty;
+            string? appId = string.Empty;
             TaskbarNativeMethods.GetCurrentProcessExplicitAppUserModelID(out appId);
             return appId;
         }

@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable AssignNullToNotNullAttribute
 namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 {
     /// <summary>

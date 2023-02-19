@@ -64,7 +64,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <param name="VarEnumType">VarEnum value</param>
         /// <returns>Associated .net equivelent.</returns>
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-        public static Type VarEnumToSystemType(VarEnum VarEnumType)
+        public static Type? VarEnumToSystemType(VarEnum VarEnumType)
         {
             switch (VarEnumType)
             {

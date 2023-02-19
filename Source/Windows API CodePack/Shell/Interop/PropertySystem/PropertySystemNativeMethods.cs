@@ -35,7 +35,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         internal static extern HResult PSGetPropertyDescription(
             ref PropertyKey propkey,
             ref Guid riid,
-            [Out, MarshalAs(UnmanagedType.Interface)] out IPropertyDescription ppv
+            [Out, MarshalAs(UnmanagedType.Interface)] out IPropertyDescription? ppv
         );
 
         [DllImport("propsys.dll", CharSet = CharSet.Unicode, SetLastError = true)]

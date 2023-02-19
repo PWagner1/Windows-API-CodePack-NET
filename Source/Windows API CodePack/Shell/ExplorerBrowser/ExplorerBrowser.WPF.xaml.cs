@@ -3,7 +3,7 @@
 using UserControl = System.Windows.Controls.UserControl;
 // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
 // ReSharper disable UseNameofForDependencyProperty
-
+#pragma warning disable CS8619, CS8602, CS8622, CS8600, CS8604
 
 namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
 {
@@ -15,7 +15,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
         /// <summary>
         /// The underlying WinForms control
         /// </summary>
-        public Microsoft.WindowsAPICodePack.Controls.WindowsForms.ExplorerBrowser ExplorerBrowserControl
+        public WindowsForms.ExplorerBrowser ExplorerBrowserControl
         {
             get;
             set;
@@ -310,7 +310,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
 
         private static void OnAlignLeftChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ExplorerBrowser instance = d as ExplorerBrowser;
+            ExplorerBrowser? instance = d as ExplorerBrowser;
             if (instance.ExplorerBrowserControl != null)
                 instance.ExplorerBrowserControl.ContentOptions.AlignLeft = (bool)e.NewValue;
         }

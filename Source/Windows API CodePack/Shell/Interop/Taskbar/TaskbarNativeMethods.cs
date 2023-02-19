@@ -107,11 +107,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         [DllImport("shell32.dll")]
         internal static extern void SetCurrentProcessExplicitAppUserModelID(
-            [MarshalAs(UnmanagedType.LPWStr)] string AppID);
+            [MarshalAs(UnmanagedType.LPWStr)] string? AppID);
 
         [DllImport("shell32.dll")]
         internal static extern void GetCurrentProcessExplicitAppUserModelID(
-            [Out(), MarshalAs(UnmanagedType.LPWStr)] out string AppID);
+            [Out(), MarshalAs(UnmanagedType.LPWStr)] out string? AppID);
 
         [DllImport("shell32.dll")]
         internal static extern void SHAddToRecentDocs(
@@ -138,12 +138,12 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         /// <param name="hwnd">The window handle.</param>
         /// <param name="appId">The application id.</param>
-        internal static void SetWindowAppId(IntPtr hwnd, string appId)
+        internal static void SetWindowAppId(IntPtr hwnd, string? appId)
         {
             SetWindowProperty(hwnd, SystemProperties.System.AppUserModel.ID, appId);
         }
 
-        internal static void SetWindowProperty(IntPtr hwnd, PropertyKey propkey, string value)
+        internal static void SetWindowProperty(IntPtr hwnd, PropertyKey propkey, string? value)
         {
             // Get the IPropertyStore for the given window handle
             IPropertyStore propStore = GetWindowPropertyStore(hwnd);

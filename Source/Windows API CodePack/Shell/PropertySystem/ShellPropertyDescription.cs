@@ -1,6 +1,14 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+// ReSharper disable AssignNullToNotNullAttribute
+// ReSharper disable InlineOutVariableDeclaration
+// ReSharper disable RedundantAssignment
+// ReSharper disable MergeConditionalExpression
+#pragma warning disable IDE0034
+#pragma warning disable CS8618
+#pragma warning disable CS8600
+
 namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 {
     /// <summary>
@@ -10,7 +18,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
     {
         #region Private Fields
 
-        private IPropertyDescription _nativePropertyDescription;
+        private IPropertyDescription? _nativePropertyDescription;
         private string? _canonicalName;
         private PropertyKey _propertyKey;
         private string? _displayName;
@@ -21,8 +29,8 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         private uint? _defaultColumWidth;
         private PropertyTypeOptions? _propertyTypeFlags;
         private PropertyViewOptions? _propertyViewFlags;
-        private Type _valueType;
-        private ReadOnlyCollection<ShellPropertyEnumType> _propertyEnumTypes;
+        private Type? _valueType;
+        private ReadOnlyCollection<ShellPropertyEnumType>? _propertyEnumTypes;
         private PropertyColumnStateOptions? _columnState;
         private PropertyConditionType? _conditionType;
         private PropertyConditionOperation? _conditionOperation;
@@ -136,7 +144,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// Gets the .NET system type for a value of this property, or
         /// null if the value is empty.
         /// </summary>
-        public Type ValueType
+        public Type? ValueType
         {
             get
             {
@@ -222,7 +230,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <summary>
         /// Gets a list of the possible values for this property.
         /// </summary>
-        public ReadOnlyCollection<ShellPropertyEnumType> PropertyEnumTypes
+        public ReadOnlyCollection<ShellPropertyEnumType>? PropertyEnumTypes
         {
             get
             {
@@ -425,7 +433,14 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 }
             }
 
-            return label;
+            if (label != null)
+            {
+                return label;
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
 
         /// <summary>
@@ -476,10 +491,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
         #region Internal Constructor
 
-        internal ShellPropertyDescription(PropertyKey key)
-        {
-            _propertyKey = key;
-        }
+        internal ShellPropertyDescription(PropertyKey key) => _propertyKey = key;
 
         #endregion
 
@@ -488,7 +500,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <summary>
         /// Get the native property description COM interface
         /// </summary>
-        internal IPropertyDescription NativePropertyDescription
+        internal IPropertyDescription? NativePropertyDescription
         {
             get
             {
