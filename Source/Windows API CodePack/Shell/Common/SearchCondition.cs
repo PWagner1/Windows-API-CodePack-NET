@@ -42,14 +42,14 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         internal ICondition? NativeSearchCondition { get; set; }
 
-        private string? _canonicalName;
+        private readonly string? _canonicalName;
         /// <summary>
         /// The name of a property to be compared or NULL for an unspecified property.
         /// </summary>
         public string? PropertyCanonicalName => _canonicalName;
 
         private PropertyKey _propertyKey;
-        private PropertyKey _emptyPropertyKey = new();
+        private readonly PropertyKey _emptyPropertyKey = new();
         /// <summary>
         /// The property key for the property that is to be compared.
         /// </summary>        
@@ -75,14 +75,14 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public string? PropertyValue { get; internal set; }
         
-        private SearchConditionOperation _conditionOperation = SearchConditionOperation.Implicit;
+        private readonly SearchConditionOperation _conditionOperation = SearchConditionOperation.Implicit;
         /// <summary>
         /// Search condition operation to be performed on the property/value combination.
         /// See <see cref="Microsoft.WindowsAPICodePack.Shell.SearchConditionOperation"/> for more details.
         /// </summary>        
         public SearchConditionOperation ConditionOperation => _conditionOperation;
 
-        private SearchConditionType _conditionType = SearchConditionType.Leaf;
+        private readonly SearchConditionType _conditionType = SearchConditionType.Leaf;
         /// <summary>
         /// Represents the condition type for the given node. 
         /// </summary>        

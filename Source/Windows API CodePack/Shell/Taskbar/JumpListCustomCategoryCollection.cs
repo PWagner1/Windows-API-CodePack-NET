@@ -8,7 +8,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
     internal class JumpListCustomCategoryCollection
         : ICollection<JumpListCustomCategory>, INotifyCollectionChanged
     {
-        private List<JumpListCustomCategory> _categories = new();
+        private readonly List<JumpListCustomCategory> _categories = new();
 
         /// <summary>
         /// Event to trigger anytime this collection is modified

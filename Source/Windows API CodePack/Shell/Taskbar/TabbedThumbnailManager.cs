@@ -12,8 +12,8 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// Internal dictionary to keep track of the user's window handle and its 
         /// corresponding thumbnail preview objects.
         /// </summary>
-        private Dictionary<IntPtr, TabbedThumbnail> _tabbedThumbnailCache;
-        private Dictionary<UIElement, TabbedThumbnail> _tabbedThumbnailCacheWPF; // list for WPF controls
+        private readonly Dictionary<IntPtr, TabbedThumbnail> _tabbedThumbnailCache;
+        private readonly Dictionary<UIElement, TabbedThumbnail> _tabbedThumbnailCacheWPF; // list for WPF controls
 
         /// <summary>
         /// Internal constructor that creates a new dictionary for keeping track of the window handles

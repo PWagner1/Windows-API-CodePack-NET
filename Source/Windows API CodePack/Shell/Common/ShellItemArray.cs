@@ -4,7 +4,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 {
     internal class ShellItemArray : IShellItemArray
     {
-        List<IShellItem?> shellItemsList = new();
+        readonly List<IShellItem?> shellItemsList = new();
 
         internal ShellItemArray(IShellItem?[] shellItems)
         {

@@ -4,7 +4,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 {
     internal class ChangeNotifyLock
     {
-        private uint _event = 0;
+        private readonly uint _event = 0;
 
         internal ChangeNotifyLock(Message message)
         {

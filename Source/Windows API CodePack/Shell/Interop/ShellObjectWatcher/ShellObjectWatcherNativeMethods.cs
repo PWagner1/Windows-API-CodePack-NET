@@ -77,12 +77,12 @@
     /// </summary>
     public struct Message
     {
-        private IntPtr windowHandle;
-        private uint msg;
-        private IntPtr wparam;
-        private IntPtr lparam;
-        private int time;
-        private NativePoint point;
+        private readonly IntPtr windowHandle;
+        private readonly uint msg;
+        private readonly IntPtr wparam;
+        private readonly IntPtr lparam;
+        private readonly int time;
+        private readonly NativePoint point;
 
         /// <summary>
         /// Gets the window handle

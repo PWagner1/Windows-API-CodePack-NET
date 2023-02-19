@@ -9,10 +9,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
     {
         #region Private Members
 
-        private IDictionary<StockIconIdentifier, StockIcon> stockIconCache;
-        private StockIconSize defaultSize = StockIconSize.Large;
-        private bool isSelected;
-        private bool isLinkOverlay;
+        private readonly IDictionary<StockIconIdentifier, StockIcon> stockIconCache;
+        private readonly StockIconSize defaultSize = StockIconSize.Large;
+        private readonly bool isSelected;
+        private readonly bool isLinkOverlay;
 
         #endregion
 

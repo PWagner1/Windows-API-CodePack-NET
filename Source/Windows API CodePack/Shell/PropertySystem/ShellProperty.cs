@@ -1,5 +1,9 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable AssignNullToNotNullAttribute
+// ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+// ReSharper disable MergeSequentialChecks
+#pragma warning disable CS8602, CS8604, CS7023
 namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 {
     /// <summary>
@@ -17,7 +21,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         private PropertyKey _propertyKey;
         string? _imageReferencePath = null;
         int? _imageReferenceIconIndex;
-        private ShellPropertyDescription? _description = null;
+        private readonly ShellPropertyDescription? _description = null;
 
         #endregion
 
@@ -25,7 +29,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
         private ShellObject? ParentShellObject { get; set; }
 
-        private IPropertyStore NativePropertyStore { get; set; }
+        private IPropertyStore? NativePropertyStore { get; set; }
 
         private void GetImageReference()
         {
@@ -133,7 +137,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         internal ShellProperty(
             PropertyKey propertyKey,
             ShellPropertyDescription? description,
-            IPropertyStore propertyStore)
+            IPropertyStore? propertyStore)
         {
             this._propertyKey = propertyKey;
             this._description = description;
@@ -154,7 +158,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <exception cref="NotSupportedException">If the type of this property is not supported; e.g. writing a binary object.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Thrown if <see cref="AllowSetTruncatedValue"/> is false, and either 
         /// a string value was truncated or a numeric value was rounded.</exception>        
-        public T Value
+        public T? Value
         {
             get
             {
@@ -248,7 +252,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// cannot be formatted for display.</param>
         /// <returns>True if the method successfully locates the formatted string; otherwise 
         /// False.</returns>
-        public bool TryFormatForDisplay(PropertyDescriptionFormatOptions format, out string formattedString)
+        public bool TryFormatForDisplay(PropertyDescriptionFormatOptions format, out string? formattedString)
         {
 
 
@@ -289,9 +293,9 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// that indicate the desired format.</param>
         /// <returns>The formatted value as a string, or null if this property 
         /// cannot be formatted for display.</returns>
-        public string FormatForDisplay(PropertyDescriptionFormatOptions format)
+        public string? FormatForDisplay(PropertyDescriptionFormatOptions format)
         {
-            string formattedString;
+            string? formattedString;
 
             if (Description == null || Description.NativePropertyDescription == null)
             {

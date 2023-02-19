@@ -11,9 +11,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
     /// </summary>
     public class ShellObjectCollection : IEnumerable, IDisposable, IList<ShellObject>
     {
-        private List<ShellObject?> content = new();
+        private readonly List<ShellObject?> content = new();
 
-        bool readOnly;
+        readonly bool readOnly;
         bool isDisposed;
 
         #region construction/disposal/finialization

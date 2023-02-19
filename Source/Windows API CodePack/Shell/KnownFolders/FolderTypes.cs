@@ -177,7 +177,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             0x0b0ba2e3, 0x405f, 0x415e, 0xa6, 0xee, 0xca, 0xd6, 0x25, 0x20, 0x78, 0x53);
 
 
-        static Dictionary<Guid, string> types;
+        static readonly Dictionary<Guid, string> types;
 
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static FolderTypes()

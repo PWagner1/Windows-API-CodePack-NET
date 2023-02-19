@@ -15,9 +15,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
         private static Thread _windowThread = null;
         private static volatile bool _running = false;
 
-        private static ShellObjectWatcherNativeMethods.WndProcDelegate wndProc = WndProc;
+        private static readonly ShellObjectWatcherNativeMethods.WndProcDelegate wndProc = WndProc;
         // Dictionary relating window's hwnd to its message window
-        private static Dictionary<IntPtr, MessageListener> _listeners = new();
+        private static readonly Dictionary<IntPtr, MessageListener> _listeners = new();
         private static IntPtr _firstWindowHandle = IntPtr.Zero;
 
         private static readonly object _crossThreadWindowLock = new();

@@ -8,7 +8,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         private IEnumIDList nativeEnumIdList;
         private ShellObject? currentItem;
-        ShellContainer nativeShellFolder;
+        readonly ShellContainer nativeShellFolder;
 
         #endregion
 

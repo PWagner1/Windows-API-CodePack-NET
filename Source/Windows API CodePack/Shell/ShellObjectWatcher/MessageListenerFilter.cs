@@ -3,7 +3,7 @@
     internal static class MessageListenerFilter
     {
         private static readonly object _registerLock = new();
-        private static List<RegisteredListener> _packages = new();
+        private static readonly List<RegisteredListener> _packages = new();
 
         public static MessageListenerFilterRegistrationResult Register(Action<WindowMessageEventArgs> callback)
         {

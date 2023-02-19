@@ -10,7 +10,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
     internal static class ShellPropertyFactory
     {
         // Constructor cache.  It takes object as the third param so a single function will suffice for both constructors.
-        private static Dictionary<int, Func<PropertyKey, ShellPropertyDescription, object, IShellProperty>> _storeCache
+        private static readonly Dictionary<int, Func<PropertyKey, ShellPropertyDescription, object, IShellProperty>> _storeCache
             = new();
 
         /// <summary>

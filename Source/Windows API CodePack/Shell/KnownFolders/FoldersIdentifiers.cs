@@ -7,7 +7,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
     /// </summary>
     internal static class FolderIdentifiers
     {
-        private static Dictionary<Guid, string> folders;
+        private static readonly Dictionary<Guid, string> folders;
 
         static FolderIdentifiers()
         {

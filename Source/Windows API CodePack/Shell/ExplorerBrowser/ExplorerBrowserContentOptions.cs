@@ -9,7 +9,8 @@ namespace Microsoft.WindowsAPICodePack.Controls
     public class ExplorerBrowserContentOptions
     {
         #region construction
-        ExplorerBrowser eb;
+
+        readonly ExplorerBrowser eb;
         internal ExplorerBrowserContentOptions(ExplorerBrowser eb)
         {
             this.eb = eb;
