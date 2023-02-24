@@ -3,8 +3,7 @@
 // ReSharper disable SuggestVarOrType_BuiltInTypes
 // ReSharper disable RedundantAssignment
 // ReSharper disable SuspiciousTypeConversion.Global
-#pragma warning disable CS8600
-#pragma warning disable CS8602
+#pragma warning disable CS8600, CS8602, CS8604
 namespace Microsoft.WindowsAPICodePack.Dialogs
 {
     /// <summary>

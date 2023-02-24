@@ -4,11 +4,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
 {
     internal class ShellItemArray : IShellItemArray
     {
-        readonly List<IShellItem?> shellItemsList = new();
+        readonly List<IShellItem?> _shellItemsList = new();
 
         internal ShellItemArray(IShellItem?[] shellItems)
         {
-            shellItemsList.AddRange(shellItems);
+            _shellItemsList.AddRange(shellItems);
         }
 
         #region IShellItemArray Members
@@ -18,7 +18,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             throw new NotSupportedException();
         }
 
-        public HResult GetPropertyStore(int Flags, ref Guid riid, out IntPtr ppv)
+        public HResult GetPropertyStore(int flags, ref Guid riid, out IntPtr ppv)
         {
             throw new NotSupportedException();
         }
@@ -35,7 +35,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         public HResult GetCount(out uint pdwNumItems)
         {
-            pdwNumItems = (uint)shellItemsList.Count;
+            pdwNumItems = (uint)_shellItemsList.Count;
             return HResult.Ok;
         }
 
@@ -43,9 +43,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             int index = (int)dwIndex;
 
-            if (index < shellItemsList.Count)
+            if (index < _shellItemsList.Count)
             {
-                ppsi = shellItemsList[index];
+                ppsi = _shellItemsList[index];
                 return HResult.Ok;
             }
             else

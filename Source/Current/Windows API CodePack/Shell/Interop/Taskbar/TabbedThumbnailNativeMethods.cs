@@ -1,5 +1,6 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
+#pragma warning disable CS8597, CS8600
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
     internal static class TabbedThumbnailNativeMethods
@@ -8,7 +9,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         internal const int ForceIconicRepresentation = 7;
         internal const int HasIconicBitmap = 10;
-        
+
         internal const uint WmDwmSendIconicThumbnail = 0x0323;
         internal const uint WmDwmSendIconicLivePreviewBitmap = 0x0326;
 

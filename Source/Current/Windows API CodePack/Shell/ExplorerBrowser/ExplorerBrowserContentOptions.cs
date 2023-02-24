@@ -10,31 +10,31 @@ namespace Microsoft.WindowsAPICodePack.Controls
     {
         #region construction
 
-        readonly ExplorerBrowser eb;
+        readonly ExplorerBrowser _eb;
         internal ExplorerBrowserContentOptions(ExplorerBrowser eb)
         {
-            this.eb = eb;
+            this._eb = eb;
         }
         #endregion
 
         #region ViewMode property
         // This is a one-way property of the explorer browser. 
         // Keeping it around for the get implementations.
-        internal FolderSettings folderSettings = new();
+        internal FolderSettings FolderSettings = new();
 
         /// <summary>
         /// The viewing mode of the Explorer Browser
         /// </summary>
         public ExplorerBrowserViewMode ViewMode
         {
-            get => (ExplorerBrowserViewMode)folderSettings.ViewMode;
+            get => (ExplorerBrowserViewMode)FolderSettings.ViewMode;
             set
             {
-                folderSettings.ViewMode = (FolderViewMode)value;
+                FolderSettings.ViewMode = (FolderViewMode)value;
 
-                if (eb.ExplorerBrowserControl != null)
+                if (_eb.ExplorerBrowserControl != null)
                 {
-                    eb.ExplorerBrowserControl.SetFolderSettings(folderSettings);
+                    _eb.ExplorerBrowserControl.SetFolderSettings(FolderSettings);
                 }
             }
         }
@@ -46,13 +46,13 @@ namespace Microsoft.WindowsAPICodePack.Controls
         /// </summary>
         public ExplorerBrowserContentSectionOptions Flags
         {
-            get => (ExplorerBrowserContentSectionOptions)folderSettings.Options;
+            get => (ExplorerBrowserContentSectionOptions)FolderSettings.Options;
             set
             {
-                folderSettings.Options = (FolderOptions)value | FolderOptions.UseSearchFolders | FolderOptions.NoWebView;
-                if (eb.ExplorerBrowserControl != null)
+                FolderSettings.Options = (FolderOptions)value | FolderOptions.UseSearchFolders | FolderOptions.NoWebView;
+                if (_eb.ExplorerBrowserControl != null)
                 {
-                    eb.ExplorerBrowserControl.SetFolderSettings(folderSettings);
+                    _eb.ExplorerBrowserControl.SetFolderSettings(FolderSettings);
                 }
             }
         }
@@ -166,18 +166,18 @@ namespace Microsoft.WindowsAPICodePack.Controls
 
         private bool IsFlagSet(ExplorerBrowserContentSectionOptions flag)
         {
-            return (folderSettings.Options & (FolderOptions)flag) != 0;
+            return (FolderSettings.Options & (FolderOptions)flag) != 0;
         }
 
         private void SetFlag(ExplorerBrowserContentSectionOptions flag, bool value)
         {
             if (value)
-                folderSettings.Options |= (FolderOptions)flag;
+                FolderSettings.Options |= (FolderOptions)flag;
             else
-                folderSettings.Options = folderSettings.Options & ~(FolderOptions)flag;
+                FolderSettings.Options = FolderSettings.Options & ~(FolderOptions)flag;
 
-            if (eb.ExplorerBrowserControl != null)
-                eb.ExplorerBrowserControl.SetFolderSettings(folderSettings);
+            if (_eb.ExplorerBrowserControl != null)
+                _eb.ExplorerBrowserControl.SetFolderSettings(FolderSettings);
         }
 
         #endregion
@@ -191,13 +191,13 @@ namespace Microsoft.WindowsAPICodePack.Controls
             get
             {
                 int iconSize = 0;
-                IFolderView2? iFV2 = eb.GetFolderView2();
-                if (iFV2 != null)
+                IFolderView2? iFv2 = _eb.GetFolderView2();
+                if (iFv2 != null)
                 {
                     try
                     {
                         int fvm = 0;
-                        HResult hr = iFV2.GetViewModeAndIconSize(out fvm, out iconSize);
+                        HResult hr = iFv2.GetViewModeAndIconSize(out fvm, out iconSize);
                         if (hr != HResult.Ok)
                         {
                             throw new CommonControlException(LocalizedMessages.ExplorerBrowserIconSize, hr);
@@ -205,8 +205,8 @@ namespace Microsoft.WindowsAPICodePack.Controls
                     }
                     finally
                     {
-                        Marshal.ReleaseComObject(iFV2);
-                        iFV2 = null;
+                        Marshal.ReleaseComObject(iFv2);
+                        iFv2 = null;
                     }
                 }
 
@@ -214,19 +214,19 @@ namespace Microsoft.WindowsAPICodePack.Controls
             }
             set
             {
-                IFolderView2? iFV2 = eb.GetFolderView2();
-                if (iFV2 != null)
+                IFolderView2? iFv2 = _eb.GetFolderView2();
+                if (iFv2 != null)
                 {
                     try
                     {
                         int fvm = 0;
                         int iconSize = 0;
-                        HResult hr = iFV2.GetViewModeAndIconSize(out fvm, out iconSize);
+                        HResult hr = iFv2.GetViewModeAndIconSize(out fvm, out iconSize);
                         if (hr != HResult.Ok)
                         {
                             throw new CommonControlException(LocalizedMessages.ExplorerBrowserIconSize, hr);
                         }
-                        hr = iFV2.SetViewModeAndIconSize(fvm, value);
+                        hr = iFv2.SetViewModeAndIconSize(fvm, value);
                         if (hr != HResult.Ok)
                         {
                             throw new CommonControlException(LocalizedMessages.ExplorerBrowserIconSize, hr);
@@ -234,8 +234,8 @@ namespace Microsoft.WindowsAPICodePack.Controls
                     }
                     finally
                     {
-                        Marshal.ReleaseComObject(iFV2);
-                        iFV2 = null;
+                        Marshal.ReleaseComObject(iFv2);
+                        iFv2 = null;
                     }
                 }
             }

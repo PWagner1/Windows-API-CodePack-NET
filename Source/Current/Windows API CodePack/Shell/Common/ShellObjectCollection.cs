@@ -11,10 +11,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
     /// </summary>
     public class ShellObjectCollection : IEnumerable, IDisposable, IList<ShellObject>
     {
-        private readonly List<ShellObject?> content = new();
+        private readonly List<ShellObject?> _content = new();
 
-        readonly bool readOnly;
-        bool isDisposed;
+        readonly bool _readOnly;
+        bool _isDisposed;
 
         #region construction/disposal/finialization
         /// <summary>
@@ -24,7 +24,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="readOnly">Indicates whether the collection shouldbe read-only or not</param>
         internal ShellObjectCollection(IShellItemArray? iArray, bool readOnly)
         {
-            this.readOnly = readOnly;
+            this._readOnly = readOnly;
 
             if (iArray != null)
             {
@@ -32,12 +32,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 {
                     uint itemCount = 0;
                     iArray.GetCount(out itemCount);
-                    content.Capacity = (int)itemCount;
+                    _content.Capacity = (int)itemCount;
                     for (uint index = 0; index < itemCount; index++)
                     {
                         IShellItem? iShellItem;
                         iArray.GetItemAt(index, out iShellItem);
-                        content.Add(ShellObjectFactory.Create(iShellItem));
+                        _content.Add(ShellObjectFactory.Create(iShellItem));
                     }
                 }
                 finally
@@ -91,19 +91,19 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="disposing">Indicates that this is being called from Dispose(), rather than the finalizer.</param>
         protected virtual void Dispose(bool disposing)
         {
-            if (isDisposed == false)
+            if (_isDisposed == false)
             {
                 if (disposing)
                 {
-                    foreach (ShellObject? shellObject in content)
+                    foreach (ShellObject? shellObject in _content)
                     {
                         shellObject.Dispose();
                     }
 
-                    content.Clear();
+                    _content.Clear();
                 }
 
-                isDisposed = true;
+                _isDisposed = true;
             }
         }
         #endregion
@@ -113,7 +113,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Item count
         /// </summary>
-        public int Count => content.Count;
+        public int Count => _content.Count;
 
         /// <summary>
         /// Collection enumeration
@@ -121,7 +121,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns></returns>
         public IEnumerator GetEnumerator()
         {
-            foreach (ShellObject? obj in content)
+            foreach (ShellObject? obj in _content)
             {
                 yield return obj;
             }
@@ -132,9 +132,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// ShellObjects in the collection.
         /// </summary>
         /// <returns>A memory stream containing the drag/drop data.</returns>
-        public MemoryStream BuildShellIDList()
+        public MemoryStream BuildShellIdList()
         {
-            if (content.Count == 0)
+            if (_content.Count == 0)
             {
                 throw new InvalidOperationException(LocalizedMessages.ShellObjectCollectionEmptyCollection);
             }
@@ -147,7 +147,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
 
                 // number of IDLs to be written (shell objects + parent folder)
-                uint itemCount = (uint)(content.Count + 1);
+                uint itemCount = (uint)(_content.Count + 1);
 
                 // grab the object IDLs            
                 IntPtr[] idls = new IntPtr[itemCount];
@@ -162,7 +162,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     }
                     else
                     {
-                        idls[index] = content[index - 1].Pidl;
+                        idls[index] = _content[index - 1].Pidl;
                     }
                 }
 
@@ -188,7 +188,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 //    UINT aoffset[1];    // [0]: folder IDList, [1]-[cidl]: item IDList
                 //    } CIDA, * LPIDA;
                 //
-                bwriter.Write(content.Count);
+                bwriter.Write(_content.Count);
                 foreach (uint offset in offsets)
                 {
                     bwriter.Write(offset);
@@ -221,7 +221,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>The index of the item found, or -1 if not found.</returns>
         public int IndexOf(ShellObject? item)
         {
-            return content.IndexOf(item);
+            return _content.IndexOf(item);
         }
 
         /// <summary>
@@ -231,12 +231,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="item">The item to insert.</param>
         public void Insert(int index, ShellObject? item)
         {
-            if (readOnly)
+            if (_readOnly)
             {
                 throw new InvalidOperationException(LocalizedMessages.ShellObjectCollectionInsertReadOnly);
             }
 
-            content.Insert(index, item);
+            _content.Insert(index, item);
         }
 
         /// <summary>
@@ -245,12 +245,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="index">The index to remove at.</param>
         public void RemoveAt(int index)
         {
-            if (readOnly)
+            if (_readOnly)
             {
                 throw new InvalidOperationException(LocalizedMessages.ShellObjectCollectionRemoveReadOnly);
             }
 
-            content.RemoveAt(index);
+            _content.RemoveAt(index);
         }
 
         /// <summary>
@@ -260,15 +260,15 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>The ShellObject at the specified index</returns>
         public ShellObject? this[int index]
         {
-            get => content[index];
+            get => _content[index];
             set
             {
-                if (readOnly)
+                if (_readOnly)
                 {
                     throw new InvalidOperationException(LocalizedMessages.ShellObjectCollectionInsertReadOnly);
                 }
 
-                content[index] = value;
+                _content[index] = value;
             }
         }
 
@@ -282,12 +282,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="item">The ShellObject to add.</param>
         public void Add(ShellObject? item)
         {
-            if (readOnly)
+            if (_readOnly)
             {
                 throw new InvalidOperationException(LocalizedMessages.ShellObjectCollectionInsertReadOnly);
             }
 
-            content.Add(item);
+            _content.Add(item);
         }
 
         /// <summary>
@@ -295,12 +295,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public void Clear()
         {
-            if (readOnly)
+            if (_readOnly)
             {
                 throw new InvalidOperationException(LocalizedMessages.ShellObjectCollectionRemoveReadOnly);
             }
 
-            content.Clear();
+            _content.Clear();
         }
 
         /// <summary>
@@ -310,7 +310,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>true, if the ShellObject is in the list, false otherwise.</returns>
         public bool Contains(ShellObject? item)
         {
-            return content.Contains(item);
+            return _content.Contains(item);
         }
 
         /// <summary>
@@ -321,26 +321,26 @@ namespace Microsoft.WindowsAPICodePack.Shell
         public void CopyTo(ShellObject?[] array, int arrayIndex)
         {
             if (array == null) { throw new ArgumentNullException("array"); }
-            if (array.Length < arrayIndex + content.Count)
+            if (array.Length < arrayIndex + _content.Count)
             {
                 throw new ArgumentException(LocalizedMessages.ShellObjectCollectionArrayTooSmall, "array");
             }
 
-            for (int index = 0; index < content.Count; index++)
+            for (int index = 0; index < _content.Count; index++)
             {
-                array[index + arrayIndex] = content[index];
+                array[index + arrayIndex] = _content[index];
             }
         }
 
         /// <summary>
         /// Retrieves the number of ShellObjects in the collection
         /// </summary>
-        int ICollection<ShellObject>.Count => content.Count;
+        int ICollection<ShellObject>.Count => _content.Count;
 
         /// <summary>
         /// If true, the contents of the collection are immutable.
         /// </summary>
-        public bool IsReadOnly => readOnly;
+        public bool IsReadOnly => _readOnly;
 
         /// <summary>
         /// Removes a particular ShellObject from the list.
@@ -349,12 +349,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>True if the item could be removed, false otherwise.</returns>
         public bool Remove(ShellObject? item)
         {
-            if (readOnly)
+            if (_readOnly)
             {
                 throw new InvalidOperationException(LocalizedMessages.ShellObjectCollectionRemoveReadOnly);
             }
 
-            return content.Remove(item);
+            return _content.Remove(item);
         }
 
         #endregion
@@ -367,7 +367,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>The IEnumerator interface to use for enumeration.</returns>
         IEnumerator<ShellObject?> IEnumerable<ShellObject>.GetEnumerator()
         {
-            foreach (ShellObject? obj in content)
+            foreach (ShellObject? obj in _content)
             {
                 yield return obj;
             }

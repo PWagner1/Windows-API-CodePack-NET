@@ -1,11 +1,14 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 using System.Drawing.Drawing2D;
+
 using Application = System.Windows.Forms.Application;
 using Brushes = System.Drawing.Brushes;
 using Color = System.Drawing.Color;
 using LinearGradientBrush = System.Drawing.Drawing2D.LinearGradientBrush;
 // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+// ReSharper disable AssignNullToNotNullAttribute
+#pragma warning disable CS8601, CS8604, CS8618
 
 namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
 {
@@ -59,11 +62,11 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         }
 
         private IShellItemArray? _selectedShellItemsArray;
-        private ShellObjectCollection _selectedItemsCollection;
+        private ShellObjectCollection? _selectedItemsCollection;
         /// <summary>
         /// The set of selected ShellObjects in the Explorer Browser
         /// </summary>
-        public ShellObjectCollection SelectedItems
+        public ShellObjectCollection? SelectedItems
         {
             get
             {
@@ -215,7 +218,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         #region implementation
 
         #region construction
-        internal ExplorerBrowserClass ExplorerBrowserControl;
+        internal ExplorerBrowserClass? ExplorerBrowserControl;
 
         // for the IExplorerBrowserEvents Advise call
         internal uint EventsCookie;
@@ -540,7 +543,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         HResult IExplorerBrowserEvents.OnNavigationComplete(IntPtr pidlFolder)
         {
             // view mode may change 
-            ContentOptions.folderSettings.ViewMode = GetCurrentViewMode();
+            ContentOptions.FolderSettings.ViewMode = GetCurrentViewMode();
 
             if (NavigationComplete != null)
             {
@@ -731,7 +734,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 try
                 {
                     Guid iidShellItemArray = new(ShellIIDGuid.IShellItemArray);
-                    object oArray = null;
+                    object? oArray = null;
                     HResult hr = iFv2.Items((uint)ShellViewGetItemObject.Selection, ref iidShellItemArray, out oArray);
                     iArray = oArray as IShellItemArray;
                     if (hr != HResult.Ok &&
@@ -820,7 +823,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 try
                 {
                     Guid iidShellItemArray = new(ShellIIDGuid.IShellItemArray);
-                    object oArray = null;
+                    object? oArray = null;
                     HResult hr = iFv2.Items((uint)ShellViewGetItemObject.AllView, ref iidShellItemArray, out oArray);
                     if (hr != HResult.Ok &&
                         hr != HResult.Fail &&

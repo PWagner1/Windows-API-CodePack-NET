@@ -2,6 +2,7 @@
 
 // ReSharper disable RedundantAssignment
 // ReSharper disable UseNameofExpression
+#pragma warning disable CS8601
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>

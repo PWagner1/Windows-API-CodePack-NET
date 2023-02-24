@@ -234,7 +234,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 _win32ThumbButton.Icon = Icon != null ? Icon.Handle : IntPtr.Zero;
                 _win32ThumbButton.Flags = Flags;
 
-                _win32ThumbButton.Mask = ThumbButtonMask.THB_FLAGS;
+                _win32ThumbButton.Mask = ThumbButtonMask.ThbFlags;
                 if (Tooltip != null)
                 {
                     _win32ThumbButton.Mask |= ThumbButtonMask.Tooltip;

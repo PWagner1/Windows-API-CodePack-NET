@@ -1,6 +1,8 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+// ReSharper disable SuspiciousTypeConversion.Global
+#pragma warning disable CS8604
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -67,7 +69,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
         }
 
-        private string?[] _searchScopePaths;
+        private string?[]? _searchScopePaths;
         /// <summary>
         /// Gets the search scope, as specified using an array of locations to search. 
         /// The search will include this location and all its subcontainers. The default is FOLDERID_Profile
@@ -91,7 +93,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 Guid shellItemArrayGuid = new(ShellIIDGuid.IShellItemArray);
 
                 // Create IShellItem for all the scopes we were given
-                foreach (string path in _searchScopePaths)
+                foreach (string? path in _searchScopePaths)
                 {
                     IShellItem? scopeShellItem;
 

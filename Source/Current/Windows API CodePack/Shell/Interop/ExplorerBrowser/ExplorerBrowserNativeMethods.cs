@@ -11,8 +11,8 @@ namespace Microsoft.WindowsAPICodePack.Controls
     {
         [DllImport("SHLWAPI.DLL", CharSet = CharSet.Unicode, SetLastError = true)]
         internal static extern HResult IUnknown_SetSite(
-            [In, MarshalAs(UnmanagedType.IUnknown)] object punk,
-            [In, MarshalAs(UnmanagedType.IUnknown)] object punkSite);
+            [In, MarshalAs(UnmanagedType.IUnknown)] object? punk,
+            [In, MarshalAs(UnmanagedType.IUnknown)] object? punkSite);
 
 
         [DllImport("SHLWAPI.DLL", CharSet = CharSet.Unicode, SetLastError = true)]
@@ -20,7 +20,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
             [In, MarshalAs(UnmanagedType.IUnknown)] object punk,
             ref Guid riidEvent,
             [MarshalAs(UnmanagedType.Bool)] bool fConnect,
-            [In, MarshalAs(UnmanagedType.IUnknown)] object punkTarget,
+            [In, MarshalAs(UnmanagedType.IUnknown)] object? punkTarget,
             ref uint pdwCookie,
             ref IntPtr ppcpOut);
 

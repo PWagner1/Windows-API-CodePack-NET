@@ -1,4 +1,5 @@
 ﻿// ReSharper disable AssignNullToNotNullAttribute
+#pragma warning disable CS8600
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     internal class ChangeNotifyEventManager
@@ -6,7 +7,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         #region Change order
         private static readonly ShellObjectChangeTypes[] _changeOrder = {
             ShellObjectChangeTypes.ItemCreate,
-            ShellObjectChangeTypes.ItemRename,            
+            ShellObjectChangeTypes.ItemRename,
             ShellObjectChangeTypes.ItemDelete,
 
             ShellObjectChangeTypes.AttributesChange,
@@ -19,18 +20,18 @@ namespace Microsoft.WindowsAPICodePack.Shell
             ShellObjectChangeTypes.Update,
 
             ShellObjectChangeTypes.MediaInsert,
-            ShellObjectChangeTypes.MediaRemove,            
+            ShellObjectChangeTypes.MediaRemove,
             ShellObjectChangeTypes.DriveAdd,
-            ShellObjectChangeTypes.DriveRemove,            
+            ShellObjectChangeTypes.DriveRemove,
             ShellObjectChangeTypes.NetShare,
             ShellObjectChangeTypes.NetUnshare,
-            
+
             ShellObjectChangeTypes.ServerDisconnect,
             ShellObjectChangeTypes.SystemImageUpdate,
-            
+
             ShellObjectChangeTypes.AssociationChange,
             ShellObjectChangeTypes.FreeSpace,
-            
+
             ShellObjectChangeTypes.DiskEventsMask,
             ShellObjectChangeTypes.GlobalEventsMask,
             ShellObjectChangeTypes.AllEventsMask

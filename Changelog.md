@@ -1,9 +1,10 @@
-20/02/2023
+23/02/2023
 
 Version 7.0.4
 - Support for `nullable`
 - Usage of `new()`
 - New symbol packages
+- Add `DirectX` project
 
 =========
 

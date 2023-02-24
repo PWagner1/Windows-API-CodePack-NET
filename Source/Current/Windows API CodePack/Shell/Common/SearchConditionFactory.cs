@@ -2,6 +2,7 @@
 
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
 // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
+// ReSharper disable SuspiciousTypeConversion.Global
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -374,7 +375,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>Search condition resulting from the query</returns>
         /// <remarks>For more information on structured query syntax, visit http://msdn.microsoft.com/en-us/library/bb233500.aspx and
         /// http://www.microsoft.com/windows/products/winfamily/desktopsearch/technicalresources/advquery.mspx</remarks>
-        public static SearchCondition ParseStructuredQuery(string query)
+        public static SearchCondition? ParseStructuredQuery(string query)
         {
             return ParseStructuredQuery(query, null);
         }
@@ -388,7 +389,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <returns>Search condition resulting from the query</returns>
         /// <remarks>For more information on structured query syntax, visit http://msdn.microsoft.com/en-us/library/bb233500.aspx and
         /// http://www.microsoft.com/windows/products/winfamily/desktopsearch/technicalresources/advquery.mspx</remarks>
-        public static SearchCondition ParseStructuredQuery(string query, CultureInfo? cultureInfo)
+        public static SearchCondition? ParseStructuredQuery(string query, CultureInfo? cultureInfo)
         {
             if (string.IsNullOrEmpty(query))
             {
@@ -396,12 +397,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
 
             IQueryParserManager nativeQueryParserManager = (IQueryParserManager)new QueryParserManagerCoClass();
-            IQueryParser queryParser = null;
-            IQuerySolution querySolution = null;
+            IQueryParser? queryParser = null;
+            IQuerySolution? querySolution = null;
             ICondition? result = null;
 
-            IEntity mainType = null;
-            SearchCondition searchCondition = null;
+            IEntity? mainType = null;
+            SearchCondition? searchCondition = null;
             try
             {
                 // First, try to create a new IQueryParser using IQueryParserManager

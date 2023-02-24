@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
+#pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -13,9 +14,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="pidl"></param>
         /// <returns></returns>
         internal static IKnownFolderNative? FromPIDL(IntPtr pidl)
-        {            
+        {
             KnownFolderManagerClass knownFolderManager = new();
-            
+
             IKnownFolderNative? knownFolder;
             HResult hr = knownFolderManager.FindFolderFromIDList(pidl, out knownFolder);
 

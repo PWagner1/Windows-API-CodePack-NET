@@ -1,4 +1,6 @@
-﻿namespace Microsoft.WindowsAPICodePack.Shell
+﻿// ReSharper disable InconsistentNaming
+#pragma warning disable CS8600, CS8622
+namespace Microsoft.WindowsAPICodePack.Shell
 {
     internal static class MessageListenerFilter
     {
@@ -36,7 +38,7 @@
                 {
                     throw new ArgumentException(LocalizedMessages.MessageListenerFilterUnknownListenerHandle);
                 }
-                
+
                 if (package.Callbacks.Count == 0)
                 {
                     package.Listener.Dispose();

@@ -1,6 +1,7 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable InlineOutVariableDeclaration
+#pragma warning disable CS8604
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -51,7 +52,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             if (shellItem != null)
             {
-                string? itemType = null;                
+                string? itemType = null;
                 HResult hr = shellItem.GetString(ref ItemTypePropertyKey, out itemType);
                 if (hr == HResult.Ok) { return itemType; }
             }

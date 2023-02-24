@@ -148,7 +148,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Similar to <see cref="Normal"/>, except that the window is not
         /// activated.
         /// </summary>
-        ShowNA = 8,
+        ShowNa = 8,
 
         /// <summary>
         /// Activates and displays the window, restoring it to its original
@@ -522,7 +522,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// have "\(LCID)" appended to them, where language code identifier (LCID) is 
         /// the decimal locale ID for the localized language. The default is TRUE.
         /// </summary>
-        AppendLCIDToLocalizedPath = 4,
+        AppendLcidToLocalizedPath = 4,
 
         /// <summary>
         /// A VT_UNKNOWN with an object supporting ISchemaLocalizerSupport. 

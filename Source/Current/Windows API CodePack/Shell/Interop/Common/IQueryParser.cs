@@ -11,7 +11,7 @@ internal interface IQueryParser
     // For each IRichChunk, the position information identifies the character span of the custom property,
     // the string value should be the name of an actual property, and the PROPVARIANT is completely ignored.
     [PreserveSig]
-    HResult Parse([In, MarshalAs(UnmanagedType.LPWStr)] string pszInputString, [In] IEnumUnknown? pCustomProperties, [Out] out IQuerySolution ppSolution);
+    HResult Parse([In, MarshalAs(UnmanagedType.LPWStr)] string pszInputString, [In] IEnumUnknown? pCustomProperties, [Out] out IQuerySolution? ppSolution);
 
     // Set a single option. See STRUCTURED_QUERY_SINGLE_OPTION above.
     [PreserveSig]

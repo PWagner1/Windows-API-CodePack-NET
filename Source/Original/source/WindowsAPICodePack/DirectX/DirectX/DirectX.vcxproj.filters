@@ -6,116 +6,116 @@
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Source Files\DXGI">
-      <UniqueIdentifier>{be3cdfce-319e-4b1a-adb7-47d32445f2c0}</UniqueIdentifier>
+      <UniqueIdentifier>{e13d16a3-8446-442e-bb79-91d247233a21}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Common">
-      <UniqueIdentifier>{87732a53-8515-4d4d-9dcf-8f6b2bb51f18}</UniqueIdentifier>
+      <UniqueIdentifier>{0dbc948c-d2cd-428b-9b76-e45e07ad49d8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\D3D10">
-      <UniqueIdentifier>{2179e2c6-7262-48fc-993d-05db255d91f6}</UniqueIdentifier>
+      <UniqueIdentifier>{2663bcd6-a103-43b4-beff-673c260edca8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\D3D10\Core">
-      <UniqueIdentifier>{95d601f0-0ca4-4dae-bdf6-44e8231f9ae4}</UniqueIdentifier>
+      <UniqueIdentifier>{ca3c1b08-b90a-40d8-8913-702aaae73d48}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\D3D10\Core\GraphicsPipeline">
-      <UniqueIdentifier>{9d649ad6-b0b5-4d9e-bd79-8a206eca96d0}</UniqueIdentifier>
+      <UniqueIdentifier>{a433045d-1913-4ebb-8d2a-e838defebb46}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\D3D10\Resource">
-      <UniqueIdentifier>{995a62a0-8074-4518-80c5-74d2976ff8bb}</UniqueIdentifier>
+      <UniqueIdentifier>{b1334945-fa8b-44cf-8fc6-101ec8496442}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\D3D10\Shader">
-      <UniqueIdentifier>{254e8777-0dc4-417e-be6c-2f3eaf2b398a}</UniqueIdentifier>
+      <UniqueIdentifier>{9c82ec86-26af-4ae3-8c86-c30a45baf77f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\D3D10\Effect">
-      <UniqueIdentifier>{121b601c-29a9-459d-80fc-315c341246dd}</UniqueIdentifier>
+      <UniqueIdentifier>{d932d463-a8ca-4ee8-a71c-4f30fae50cea}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\D3D11">
-      <UniqueIdentifier>{6927e371-3de8-41cb-9643-a1201664f081}</UniqueIdentifier>
+      <UniqueIdentifier>{33f024f6-4ff7-4374-93c8-aed2362920e6}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\D3D11\Core">
-      <UniqueIdentifier>{c80384a9-6c9f-409b-93be-ef63e4bceaa5}</UniqueIdentifier>
+      <UniqueIdentifier>{b8009909-55bc-43df-b96e-25ade1cc5987}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\D3D11\Core\GraphicsPipeline">
-      <UniqueIdentifier>{f5a5f14f-cb3d-4a04-8070-28817ae649b6}</UniqueIdentifier>
+      <UniqueIdentifier>{6ab40ea2-a9e2-45c4-8a4e-d2225364ff6c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\D3D11\Layer">
-      <UniqueIdentifier>{515e52ab-0d08-45e6-b163-172e6a58989f}</UniqueIdentifier>
+      <UniqueIdentifier>{45647528-d696-4977-a1ac-e905d73942ec}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\D3D11\Shader">
-      <UniqueIdentifier>{75ad1631-da5e-4d03-abe7-100d04f51bf5}</UniqueIdentifier>
+      <UniqueIdentifier>{e78241be-e7d8-4cc6-bbcd-c66bd2a9cbbd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\D3D11\Resource">
-      <UniqueIdentifier>{3d63e3a0-17fa-4a64-8cae-97646e76cd93}</UniqueIdentifier>
+      <UniqueIdentifier>{3d6db48a-70f3-49bb-8b59-987a9f953103}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\D2D1">
-      <UniqueIdentifier>{296bc3bb-65ef-4f48-9590-5eb4342ebf41}</UniqueIdentifier>
+      <UniqueIdentifier>{8a04bee2-0926-481b-a7fc-2dbd3005e360}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\WIC">
-      <UniqueIdentifier>{9ec01db9-f394-4d43-abce-2da7e0f61806}</UniqueIdentifier>
+      <UniqueIdentifier>{3bcdfd67-55dd-4f01-8af0-72bc4dc8989d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\DWrite">
-      <UniqueIdentifier>{cb2da0d2-8869-4257-9329-a2d10e1ffa95}</UniqueIdentifier>
+      <UniqueIdentifier>{1996c902-5a33-40e4-a166-03e778e0ed2f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\D3DCommon">
-      <UniqueIdentifier>{df819201-3f55-4402-a511-b85e20ab9d1e}</UniqueIdentifier>
+      <UniqueIdentifier>{442a6ead-f66e-42b9-a8df-f0639f63200b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="Header Files\DXGI">
-      <UniqueIdentifier>{acac7659-862c-4466-9f08-efd6842e5d62}</UniqueIdentifier>
+      <UniqueIdentifier>{737871aa-28c1-4c7b-8d14-db69e750e102}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Common">
-      <UniqueIdentifier>{f0e5bd99-cc7f-4c3a-8a2b-f925444e0bd2}</UniqueIdentifier>
+      <UniqueIdentifier>{b3f0a18b-1a86-4fd5-b0fd-634312d50841}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\D3D10">
-      <UniqueIdentifier>{02c6e2ff-f9f1-45ac-ae6c-bf1db1111a47}</UniqueIdentifier>
+      <UniqueIdentifier>{24643612-8772-4c49-a543-e16e7c13569c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\D3D10\Core">
-      <UniqueIdentifier>{b6986e33-129c-4bac-ab55-2feb1efd3841}</UniqueIdentifier>
+      <UniqueIdentifier>{36c2377f-c1ad-4079-b537-ec1ae1b9727f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\D3D10\Core\GraphicsPipeline">
-      <UniqueIdentifier>{028bc895-9c42-42f0-80ea-8023d9c905ea}</UniqueIdentifier>
+      <UniqueIdentifier>{2f19f34c-9716-4adf-aa64-54326be4362c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\D3D10\Effect">
-      <UniqueIdentifier>{e2c35a5d-58d2-459a-a32c-15a2e7b9f616}</UniqueIdentifier>
+      <UniqueIdentifier>{a6489511-a7b0-4a87-9ec7-e2da06a99dc4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\D3D10\Shader">
-      <UniqueIdentifier>{f6f132bf-f8da-4a12-8f7a-261f7210c75b}</UniqueIdentifier>
+      <UniqueIdentifier>{44fd934e-2612-42e0-a2d5-53b6b974c196}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\D3D10\Resource">
-      <UniqueIdentifier>{22cd46e0-cff1-435f-9c27-fb172c4f95e2}</UniqueIdentifier>
+      <UniqueIdentifier>{04826131-67d9-4485-b134-3c97aa09dac4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\D3D11">
-      <UniqueIdentifier>{4aa23929-13d9-4472-babc-581e00e342c3}</UniqueIdentifier>
+      <UniqueIdentifier>{2ca39b1e-8d19-4f78-9c37-b08185e5512a}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\D3D11\Core">
-      <UniqueIdentifier>{495bc8e3-4e82-4e9a-ba56-e99cb85ef2a0}</UniqueIdentifier>
+      <UniqueIdentifier>{0928431f-51df-4c34-a504-f2850a0395b4}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\D3D11\Core\GraphicsPipeline">
-      <UniqueIdentifier>{e6c1ca36-9354-4a63-a494-364f420e0526}</UniqueIdentifier>
+      <UniqueIdentifier>{1d423296-ff28-4c8c-bb58-1d81a5d0cb3f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\D3D11\Layer">
-      <UniqueIdentifier>{541d19bf-5e0c-43da-afac-956ec86051b0}</UniqueIdentifier>
+      <UniqueIdentifier>{8f040da1-17e2-402a-8a75-e7910ce4ece9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\D3D11\Shader">
-      <UniqueIdentifier>{e72e3083-880a-4826-9186-2560f52ddcb2}</UniqueIdentifier>
+      <UniqueIdentifier>{d014377a-eb00-4812-a254-55d3fa1e0704}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\D3D11\Resource">
-      <UniqueIdentifier>{c83e1383-2c94-4e18-8ef6-cc43bab04ae5}</UniqueIdentifier>
+      <UniqueIdentifier>{acde9760-c838-4057-8af5-decf2bfee6e8}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\DWrite">
-      <UniqueIdentifier>{38fc9f62-4d15-41b9-b809-19b54a52a080}</UniqueIdentifier>
+      <UniqueIdentifier>{401d39a6-bffa-4a0e-b2ed-78e38ef04b52}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\D2D1">
-      <UniqueIdentifier>{4404a08c-1161-403e-b956-7c13e38f5337}</UniqueIdentifier>
+      <UniqueIdentifier>{3d13c78f-954b-4509-a74b-d938fea62383}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\WIC">
-      <UniqueIdentifier>{aab6159d-8ef3-4bcb-a267-d3f081294354}</UniqueIdentifier>
+      <UniqueIdentifier>{dadc24b2-f4ee-42aa-ad92-fe27836a78e3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\D3DCommon">
-      <UniqueIdentifier>{c813d823-3d05-4b6c-985a-e27ec8cfed70}</UniqueIdentifier>
+      <UniqueIdentifier>{932792a1-fd04-45f4-821b-e9c81e7dc160}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -140,7 +140,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 // Native call to start adding items to the taskbar destination list
                 HResult hr = customDestinationList.BeginList(
                     out maxSlotsInList,
-                    ref TaskbarNativeMethods.TaskbarGuids.IObjectArray,
+                    ref TaskbarNativeMethods.TaskbarGuids.ObjectArray,
                     out removedItems);
 
                 if (CoreErrorHelper.Succeeded(hr))
@@ -243,7 +243,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="destination">The full path of the file to report usage.</param>
         public static void AddToRecent(string destination)
         {
-            TaskbarNativeMethods.SHAddToRecentDocs(destination);
+            TaskbarNativeMethods.ShAddToRecentDocs(destination);
         }
 
         /// <summary>
@@ -306,7 +306,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             // Native call to start adding items to the taskbar destination list
             HResult hr = customDestinationList.BeginList(
                 out maxSlotsInList,
-                ref TaskbarNativeMethods.TaskbarGuids.IObjectArray,
+                ref TaskbarNativeMethods.TaskbarGuids.ObjectArray,
                 out removedItems);
 
             if (!CoreErrorHelper.Succeeded(hr))
@@ -347,7 +347,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 // Get list of removed items from native code
                 object removedItems;
 
-                customDestinationList.GetRemovedDestinations(ref TaskbarNativeMethods.TaskbarGuids.IObjectArray, out removedItems);
+                customDestinationList.GetRemovedDestinations(ref TaskbarNativeMethods.TaskbarGuids.ObjectArray, out removedItems);
 
                 return ProcessDeletedItems((IObjectArray)removedItems);
             }
@@ -366,7 +366,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 // Native call to retrieve objects from IObjectArray
                 object item;
                 removedItems.GetAt(i,
-                    ref TaskbarNativeMethods.TaskbarGuids.IUnknown,
+                    ref TaskbarNativeMethods.TaskbarGuids.Unknown,
                     out item);
 
                 IShellItem shellItem = item as IShellItem;

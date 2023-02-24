@@ -1,5 +1,8 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable AssignNullToNotNullAttribute
+#pragma warning disable CS8602
+#pragma warning disable CS8618
 namespace MS.WindowsAPICodePack.Internal
 {
     /// <summary>
@@ -11,15 +14,15 @@ namespace MS.WindowsAPICodePack.Internal
     public class ExplorerBrowserViewEvents : IDisposable
     {
         #region implementation
-        private uint viewConnectionPointCookie;
-        private object viewDispatch;
+        private uint _viewConnectionPointCookie;
+        private object? _viewDispatch;
 
         [SuppressMessage("Microsoft.Reliability", "CA2006:UseSafeHandleToEncapsulateNativeResources")]
-        private IntPtr nullPtr = IntPtr.Zero;
+        private IntPtr _nullPtr = IntPtr.Zero;
 
-        private Guid IID_DShellFolderViewEvents = new(ExplorerBrowserIIDGuid.DShellFolderViewEvents);
-        private Guid IID_IDispatch = new(ExplorerBrowserIIDGuid.IDispatch);
-        private ExplorerBrowser? parent;
+        private Guid _iidDShellFolderViewEvents = new(ExplorerBrowserIIDGuid.DShellFolderViewEvents);
+        private Guid _iidIDispatch = new(ExplorerBrowserIIDGuid.IDispatch);
+        private ExplorerBrowser? _parent;
         #endregion
 
         #region contstruction
@@ -30,7 +33,7 @@ namespace MS.WindowsAPICodePack.Internal
 
         internal ExplorerBrowserViewEvents(ExplorerBrowser? parent)
         {
-            this.parent = parent;
+            this._parent = parent;
         }
         #endregion
 
@@ -41,41 +44,41 @@ namespace MS.WindowsAPICodePack.Internal
 
             HResult hr = psv.GetItemObject(
                 ShellViewGetItemObject.Background,
-                ref IID_IDispatch,
-                out viewDispatch);
+                ref _iidIDispatch,
+                out _viewDispatch);
 
             if (hr == HResult.Ok)
             {
                 hr = ExplorerBrowserNativeMethods.ConnectToConnectionPoint(
                     this,
-                    ref IID_DShellFolderViewEvents,
+                    ref _iidDShellFolderViewEvents,
                     true,
-                    viewDispatch,
-                    ref viewConnectionPointCookie,
-                    ref nullPtr);
+                    _viewDispatch,
+                    ref _viewConnectionPointCookie,
+                    ref _nullPtr);
 
                 if (hr != HResult.Ok)
                 {
-                    Marshal.ReleaseComObject(viewDispatch);
+                    Marshal.ReleaseComObject(_viewDispatch);
                 }
             }
         }
 
         internal void DisconnectFromView()
         {
-            if (viewDispatch != null)
+            if (_viewDispatch != null)
             {
                 ExplorerBrowserNativeMethods.ConnectToConnectionPoint(
                     IntPtr.Zero,
-                    ref IID_DShellFolderViewEvents,
+                    ref _iidDShellFolderViewEvents,
                     false,
-                    viewDispatch,
-                    ref viewConnectionPointCookie,
-                    ref nullPtr);
+                    _viewDispatch,
+                    ref _viewConnectionPointCookie,
+                    ref _nullPtr);
 
-                Marshal.ReleaseComObject(viewDispatch);
-                viewDispatch = null;
-                viewConnectionPointCookie = 0;
+                Marshal.ReleaseComObject(_viewDispatch);
+                _viewDispatch = null;
+                _viewConnectionPointCookie = 0;
             }
         }
         #endregion
@@ -89,7 +92,7 @@ namespace MS.WindowsAPICodePack.Internal
         [DispId(ExplorerBrowserViewDispatchIds.SelectionChanged)]
         public void ViewSelectionChanged()
         {
-            parent.FireSelectionChanged();
+            _parent.FireSelectionChanged();
         }
 
         /// <summary>
@@ -98,7 +101,7 @@ namespace MS.WindowsAPICodePack.Internal
         [DispId(ExplorerBrowserViewDispatchIds.ContentsChanged)]
         public void ViewContentsChanged()
         {
-            parent.FireContentChanged();
+            _parent.FireContentChanged();
         }
 
         /// <summary>
@@ -107,7 +110,7 @@ namespace MS.WindowsAPICodePack.Internal
         [DispId(ExplorerBrowserViewDispatchIds.FileListEnumDone)]
         public void ViewFileListEnumDone()
         {
-            parent.FireContentEnumerationComplete();
+            _parent.FireContentEnumerationComplete();
         }
 
         /// <summary>
@@ -116,7 +119,7 @@ namespace MS.WindowsAPICodePack.Internal
         [DispId(ExplorerBrowserViewDispatchIds.SelectedItemChanged)]
         public void ViewSelectedItemChanged()
         {
-            parent.FireSelectedItemChanged();
+            _parent.FireSelectedItemChanged();
         }
         #endregion
 

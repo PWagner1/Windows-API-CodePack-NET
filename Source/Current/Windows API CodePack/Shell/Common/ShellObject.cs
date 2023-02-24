@@ -1,7 +1,7 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable NonReadonlyMemberInGetHashCode
-#pragma warning disable CS8600, CS8602, CS8618, SYSLIB0021
+#pragma warning disable CS8600, CS8602, CS8604, CS8618, CS8765, SYSLIB0021
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>

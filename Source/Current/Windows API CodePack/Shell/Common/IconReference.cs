@@ -2,6 +2,7 @@
 
 // ReSharper disable AssignNullToNotNullAttribute
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
+#pragma warning disable CS8604
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -13,7 +14,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         private string? _moduleName;
         private string _referencePath;
-        static private readonly char[] _commaSeparator = new char[] { ',' };
+        static private readonly char[] CommaSeparator = new char[] { ',' };
 
         #endregion
 
@@ -48,7 +49,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 throw new ArgumentNullException("refPath");
             }
 
-            string?[] refParams = refPath.Split(_commaSeparator);
+            string?[] refParams = refPath.Split(CommaSeparator);
 
             if (refParams.Length != 2 || string.IsNullOrEmpty(refParams[0]) || string.IsNullOrEmpty(refParams[1]))
             {
@@ -98,7 +99,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     throw new ArgumentNullException("value");
                 }
 
-                string?[] refParams = value.Split(_commaSeparator);
+                string?[] refParams = value.Split(CommaSeparator);
 
                 if (refParams.Length != 2 || string.IsNullOrEmpty(refParams[0]) || string.IsNullOrEmpty(refParams[1]))
                 {

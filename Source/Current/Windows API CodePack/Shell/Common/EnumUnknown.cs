@@ -1,26 +1,27 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+#pragma warning disable CS8604
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     internal class EnumUnknownClass : IEnumUnknown
     {
-        readonly List<ICondition?> conditionList = new();
-        int current = -1;
+        readonly List<ICondition?> _conditionList = new();
+        int _current = -1;
 
         internal EnumUnknownClass(ICondition?[] conditions)
         {
-            conditionList.AddRange(conditions);
+            _conditionList.AddRange(conditions);
         }
 
         #region IEnumUnknown Members
 
         public HResult Next(uint requestedNumber, ref IntPtr buffer, ref uint fetchedNumber)
         {
-            current++;
+            _current++;
 
-            if (current < conditionList.Count)
+            if (_current < _conditionList.Count)
             {
-                buffer = Marshal.GetIUnknownForObject(conditionList[current]);
+                buffer = Marshal.GetIUnknownForObject(_conditionList[_current]);
                 fetchedNumber = 1;
                 return HResult.Ok;
             }
@@ -30,26 +31,26 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         public HResult Skip(uint number)
         {
-            int temp = current + (int)number;
+            int temp = _current + (int)number;
 
-            if (temp > (conditionList.Count - 1))
+            if (temp > (_conditionList.Count - 1))
             {
                 return HResult.False;
             }
 
-            current = temp;
+            _current = temp;
             return HResult.Ok;
         }
 
         public HResult Reset()
         {
-            current = -1;
+            _current = -1;
             return HResult.Ok;
         }
 
         public HResult Clone(out IEnumUnknown result)
         {
-            result = new EnumUnknownClass(conditionList.ToArray());
+            result = new EnumUnknownClass(_conditionList.ToArray());
             return HResult.Ok;
         }
 

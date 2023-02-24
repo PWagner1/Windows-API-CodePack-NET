@@ -12,8 +12,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         #region Private Fields
 
-        private IShellFolder? desktopFolderEnumeration;
-        private IShellFolder? nativeShellFolder;
+        private IShellFolder? _desktopFolderEnumeration;
+        private IShellFolder? _nativeShellFolder;
 
         #endregion
 
@@ -23,7 +23,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                if (nativeShellFolder == null)
+                if (_nativeShellFolder == null)
                 {
                     Guid guid = new(ShellIIDGuid.IShellFolder);
                     Guid handler = new(ShellBHIDGuid.ShellFolderObject);
@@ -31,7 +31,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     if (NativeShellItem != null)
                     {
                         HResult hr = NativeShellItem.BindToHandler(
-                            IntPtr.Zero, ref handler, ref guid, out nativeShellFolder);
+                            IntPtr.Zero, ref handler, ref guid, out _nativeShellFolder);
 
                         if (CoreErrorHelper.Failed(hr))
                         {
@@ -44,7 +44,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     }
                 }
 
-                return nativeShellFolder;
+                return _nativeShellFolder;
             }
         }
 
@@ -66,16 +66,16 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="disposing"><B>True</B> indicates that this is being called from Dispose(), rather than the finalizer.</param>
         protected override void Dispose(bool disposing)
         {
-            if (nativeShellFolder != null)
+            if (_nativeShellFolder != null)
             {
-                Marshal.ReleaseComObject(nativeShellFolder);
-                nativeShellFolder = null;
+                Marshal.ReleaseComObject(_nativeShellFolder);
+                _nativeShellFolder = null;
             }
 
-            if (desktopFolderEnumeration != null)
+            if (_desktopFolderEnumeration != null)
             {
-                Marshal.ReleaseComObject(desktopFolderEnumeration);
-                desktopFolderEnumeration = null;
+                Marshal.ReleaseComObject(_desktopFolderEnumeration);
+                _desktopFolderEnumeration = null;
             }
 
             base.Dispose(disposing);
@@ -93,12 +93,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             if (NativeShellFolder == null)
             {
-                if (desktopFolderEnumeration == null)
+                if (_desktopFolderEnumeration == null)
                 {
-                    ShellNativeMethods.SHGetDesktopFolder(out desktopFolderEnumeration);
+                    ShellNativeMethods.SHGetDesktopFolder(out _desktopFolderEnumeration);
                 }
 
-                nativeShellFolder = desktopFolderEnumeration;
+                _nativeShellFolder = _desktopFolderEnumeration;
             }
 
             return new ShellFolderItems(this);

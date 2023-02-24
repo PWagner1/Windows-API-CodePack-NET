@@ -1,5 +1,6 @@
 ﻿using Message = Microsoft.WindowsAPICodePack.Shell.Interop.Message;
-
+// ReSharper disable InconsistentNaming
+#pragma warning disable CS8600, CS8604
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     internal class MessageListener : IDisposable
@@ -12,7 +13,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         private static readonly object _threadlock = new();
         private static uint _atom;
-        private static Thread _windowThread = null;
+        private static Thread? _windowThread = null;
         private static volatile bool _running = false;
 
         private static readonly ShellObjectWatcherNativeMethods.WndProcDelegate wndProc = WndProc;
@@ -23,7 +24,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         private static readonly object _crossThreadWindowLock = new();
         private static IntPtr _tempHandle = IntPtr.Zero;
 
-        public event EventHandler<WindowMessageEventArgs> MessageReceived;
+        public event EventHandler<WindowMessageEventArgs>? MessageReceived;
 
         public MessageListener()
         {

@@ -15,12 +15,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Native shellItem
         /// </summary>
-        private readonly IShellItem? shellItemNative;
+        private readonly IShellItem? _shellItemNative;
 
         /// <summary>
         /// Internal member to keep track of the current size
         /// </summary>
-        private System.Windows.Size currentSize = new(256, 256);
+        private System.Windows.Size _currentSize = new(256, 256);
 
         #endregion
 
@@ -37,7 +37,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 throw new ArgumentNullException("shellObject");
             }
 
-            shellItemNative = shellObject.NativeShellItem;
+            _shellItemNative = shellObject.NativeShellItem;
         }
 
         #endregion
@@ -53,7 +53,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </remarks>
         public System.Windows.Size CurrentSize
         {
-            get => currentSize;
+            get => _currentSize;
             set
             {
                 // Check for 0; negative number check not required as System.Windows.Size only allows positive numbers.
@@ -72,7 +72,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                         LocalizedMessages.ShellThumbnailCurrentSizeRange, size.ToString()));
                 }
 
-                currentSize = value;
+                _currentSize = value;
             }
         }
 
@@ -160,17 +160,17 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public ShellThumbnailRetrievalOption RetrievalOption { get; set; }
 
-        private ShellThumbnailFormatOption formatOption = ShellThumbnailFormatOption.Default;
+        private ShellThumbnailFormatOption _formatOption = ShellThumbnailFormatOption.Default;
         /// <summary>
         /// Gets or sets a value that determines if the current format option is thumbnail or icon, thumbnail only, or icon only.
         /// The default is thumbnail or icon.
         /// </summary>
         public ShellThumbnailFormatOption FormatOption
         {
-            get => formatOption;
+            get => _formatOption;
             set
             {
-                formatOption = value;
+                _formatOption = value;
 
                 // Do a similar check as we did in CurrentSize property setter,
                 // If our mode is IconOnly, then our max is defined by DefaultIconSize.Maximum. We should make sure 
@@ -241,7 +241,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             // Use IShellItemImageFactory to get an icon
             // Options passed in: Resize to fit
-            HResult hr = ((IShellItemImageFactory)shellItemNative).GetImage(nativeSize, CalculateFlags(), out hbitmap);
+            HResult hr = ((IShellItemImageFactory)_shellItemNative).GetImage(nativeSize, CalculateFlags(), out hbitmap);
 
             if (hr == HResult.Ok) { return hbitmap; }
             else if ((uint)hr == 0x8004B200 && FormatOption == ShellThumbnailFormatOption.ThumbnailOnly)

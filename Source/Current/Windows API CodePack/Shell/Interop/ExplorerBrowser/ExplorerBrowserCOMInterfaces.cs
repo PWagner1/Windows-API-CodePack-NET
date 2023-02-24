@@ -131,7 +131,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
     internal class ExplorerBrowserClass : IExplorerBrowser
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void Initialize(IntPtr hwndParent, [In]ref NativeRect prc, [In] FolderSettings pfs);
+        public virtual extern void Initialize(IntPtr hwndParent, [In]ref NativeRect prc, [In] FolderSettings? pfs);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern void Destroy();
@@ -199,7 +199,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
         /// should be called, otherwise, the default view settings for the folder are used.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void Initialize(IntPtr hwndParent, [In] ref NativeRect prc, [In] FolderSettings pfs);
+        void Initialize(IntPtr hwndParent, [In] ref NativeRect prc, [In] FolderSettings? pfs);
 
         /// <summary>
         /// Destroys the browser.
@@ -419,7 +419,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HResult Items(uint uFlags, ref Guid riid, [Out, MarshalAs(UnmanagedType.IUnknown)] out object ppv);
+        HResult Items(uint uFlags, ref Guid riid, [Out, MarshalAs(UnmanagedType.IUnknown)] out object? ppv);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         void GetSelectionMarkedItem(out int piItem);
@@ -780,7 +780,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
         HResult GetItemObject(
             ShellViewGetItemObject uItem,
             ref Guid riid,
-            [MarshalAs(UnmanagedType.IUnknown)] out object ppv);
+            [MarshalAs(UnmanagedType.IUnknown)] out object? ppv);
     }
 
 #pragma warning restore 108
