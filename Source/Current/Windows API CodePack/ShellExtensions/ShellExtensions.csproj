@@ -1,0 +1,74 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>
+			net462;net47;net471;net472;net48;net481;netcoreapp3.1;net5.0-windows;net6.0-windows;net7.0-windows
+		</TargetFrameworks>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<RootNamespace>Microsoft.WindowsAPICodePack.ShellExtensions</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.ShellExtensions</AssemblyName>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<Title>WindowsAPICodePackShellExtensions</Title>
+		<Description>
+			This package contains extensions to the shell binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
+		</Description>
+		<PackageIcon>Windows.png</PackageIcon>
+		<PackageLicenseFile>License.md</PackageLicenseFile>
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<Authors>$(Title)</Authors>
+		<PackageId>$(Title)</PackageId>
+		<SignAssembly>True</SignAssembly>
+		<AssemblyOriginatorKeyFile>WindowsAPICodePack.snk</AssemblyOriginatorKeyFile>
+		<IncludeSymbols>True</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+		<BaseOutputPath>..\..\..\..\Output\bin</BaseOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\Core\Core.csproj" />
+		<ProjectReference Include="..\Shell\Shell.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Reference Include="System.Windows.Forms">
+			<HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\System.Windows.Forms.dll</HintPath>
+		</Reference>
+
+		<Reference Include="System.Windows.Forms.Integration">
+			<HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\WindowsFormsIntegration.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Resources\LocalizedMessages.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>LocalizedMessages.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\LocalizedMessages.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>LocalizedMessages.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Update="../../../../Assets/Documents/Licenses/License.md">
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Update="../../../../Assets/Icon/PNG/Windows.png">
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+</Project>
