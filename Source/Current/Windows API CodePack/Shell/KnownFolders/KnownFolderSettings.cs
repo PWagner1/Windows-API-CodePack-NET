@@ -106,7 +106,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             try
             {
-                kfPath = knownFolderNative.GetPath(0);
+                if (knownFolderNative != null)
+                {
+                    kfPath = knownFolderNative.GetPath(0);
+                }
             }
             catch (FileNotFoundException)
             {

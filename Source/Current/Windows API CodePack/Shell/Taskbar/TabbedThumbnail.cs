@@ -14,7 +14,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         internal IntPtr ParentWindowHandle { get; set; }
 
         // WPF properties
-        internal UIElement WindowsControl { get; set; }
+        internal UIElement? WindowsControl { get; set; }
         internal Window WindowsControlParentWindow { get; set; }
 
         private TaskbarWindow? _taskbarWindow;
@@ -112,7 +112,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="windowsControl">WPF Control (UIElement) for which a tabbed thumbnail needs to be displayed</param>
         /// <param name="peekOffset">Offset point used for displaying the peek bitmap. This setting is
         /// recomended for hidden WPF controls as it is difficult to calculate their offset.</param>
-        public TabbedThumbnail(Window parentWindow, UIElement windowsControl, Vector peekOffset)
+        public TabbedThumbnail(Window parentWindow, UIElement? windowsControl, Vector peekOffset)
         {
             if (windowsControl == null)
             {

@@ -59,7 +59,10 @@ namespace MS.WindowsAPICodePack.Internal
 
                 if (hr != HResult.Ok)
                 {
-                    Marshal.ReleaseComObject(_viewDispatch);
+                    if (_viewDispatch != null)
+                    {
+                        Marshal.ReleaseComObject(_viewDispatch);
+                    }
                 }
             }
         }

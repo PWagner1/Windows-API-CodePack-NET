@@ -6,16 +6,16 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 {
     internal class ThumbnailToolbarProxyWindow : NativeWindow, IDisposable
     {
-        private ThumbnailToolBarButton[] _thumbnailButtons;
+        private ThumbnailToolBarButton[]? _thumbnailButtons;
         private readonly IntPtr _internalWindowHandle;
 
-        internal UIElement WindowsControl { get; set; }
+        internal UIElement? WindowsControl { get; set; }
 
         internal IntPtr WindowToTellTaskbarAbout => _internalWindowHandle != IntPtr.Zero ? _internalWindowHandle : Handle;
 
         internal TaskbarWindow? TaskbarWindow { get; set; }
 
-        internal ThumbnailToolbarProxyWindow(IntPtr windowHandle, ThumbnailToolBarButton[] buttons)
+        internal ThumbnailToolbarProxyWindow(IntPtr windowHandle, ThumbnailToolBarButton[]? buttons)
         {
             if (windowHandle == IntPtr.Zero)
             {
@@ -30,14 +30,17 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             _thumbnailButtons = buttons;
 
             // Set the window handle on the buttons (for future updates)
-            Array.ForEach(_thumbnailButtons, new(UpdateHandle));
+            if (_thumbnailButtons != null)
+            {
+                Array.ForEach(_thumbnailButtons, new(UpdateHandle));
+            }
 
             // Assign the window handle (coming from the user) to this native window
             // so we can intercept the window messages sent from the taskbar to this window.
             AssignHandle(windowHandle);
         }
 
-        internal ThumbnailToolbarProxyWindow(UIElement windowsControl, ThumbnailToolBarButton[] buttons)
+        internal ThumbnailToolbarProxyWindow(UIElement? windowsControl, ThumbnailToolBarButton[]? buttons)
         {
             if (windowsControl == null) { throw new ArgumentNullException("windowsControl"); }
             if (buttons != null && buttons.Length == 0)
@@ -50,7 +53,10 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             _thumbnailButtons = buttons;
 
             // Set the window handle on the buttons (for future updates)
-            Array.ForEach(_thumbnailButtons, new(UpdateHandle));
+            if (_thumbnailButtons != null)
+            {
+                Array.ForEach(_thumbnailButtons, new(UpdateHandle));
+            }
         }
 
         private void UpdateHandle(ThumbnailToolBarButton button)

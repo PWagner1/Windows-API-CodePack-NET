@@ -22,7 +22,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// Creates a Event Args for a TabbedThumbnailBitmapRequested event.
         /// </summary>
         /// <param name="windowsControl">WPF Control (UIElement) related to the event</param>
-        public TabbedThumbnailBitmapRequestedEventArgs(UIElement windowsControl)
+        public TabbedThumbnailBitmapRequestedEventArgs(UIElement? windowsControl)
             : base(windowsControl)
         {
         }

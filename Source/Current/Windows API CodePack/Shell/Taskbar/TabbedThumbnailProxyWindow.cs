@@ -25,7 +25,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         internal TabbedThumbnail? TabbedThumbnail { get; private set; }
 
-        internal UIElement WindowsControl { get; private set; }
+        internal UIElement? WindowsControl { get; private set; }
 
         internal IntPtr WindowToTellTaskbarAbout => Handle;
 

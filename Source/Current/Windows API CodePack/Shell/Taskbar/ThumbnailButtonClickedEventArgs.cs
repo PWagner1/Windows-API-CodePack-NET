@@ -24,7 +24,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         /// <param name="windowsControl">WPF Control (UIElement) related to the event</param>
         /// <param name="button">Thumbnail toolbar button that was clicked</param>
-        public ThumbnailButtonClickedEventArgs(UIElement windowsControl, ThumbnailToolBarButton button)
+        public ThumbnailButtonClickedEventArgs(UIElement? windowsControl, ThumbnailToolBarButton button)
         {
             ThumbnailButton = button;
             WindowHandle = IntPtr.Zero;
@@ -42,7 +42,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// Gets the WPF Control (UIElement) that is related to this event. This property may be null
         /// for non-WPF applications.
         /// </summary>
-        public UIElement WindowsControl { get; private set; }
+        public UIElement? WindowsControl { get; private set; }
 
         /// <summary>
         /// Gets the ThumbnailToolBarButton that was clicked

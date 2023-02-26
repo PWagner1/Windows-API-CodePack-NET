@@ -12,7 +12,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         private static bool _buttonsAdded;
 
-        internal static void AddThumbnailButtons(IntPtr userWindowHandle, params ThumbnailToolBarButton[] buttons)
+        internal static void AddThumbnailButtons(IntPtr userWindowHandle, params ThumbnailToolBarButton[]? buttons)
         {
             // Try to get an existing taskbar window for this user windowhandle            
             TaskbarWindow? taskbarWindow = GetTaskbarWindow(userWindowHandle, TaskbarProxyWindowType.ThumbnailToolbar);
@@ -31,7 +31,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        internal static void AddThumbnailButtons(UIElement control, params ThumbnailToolBarButton[] buttons)
+        internal static void AddThumbnailButtons(UIElement? control, params ThumbnailToolBarButton[]? buttons)
         {
             // Try to get an existing taskbar window for this user uielement            
             TaskbarWindow? taskbarWindow = GetTaskbarWindow(control, TaskbarProxyWindowType.ThumbnailToolbar);
@@ -50,7 +50,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        private static void AddThumbnailButtons(TaskbarWindow? taskbarWindow, bool add, params ThumbnailToolBarButton[] buttons)
+        private static void AddThumbnailButtons(TaskbarWindow? taskbarWindow, bool add, params ThumbnailToolBarButton[]? buttons)
         {
             if (add)
             {
@@ -127,7 +127,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             preview.AddedToTaskbar = true;
         }
 
-        internal static TaskbarWindow? GetTaskbarWindow(UIElement windowsControl, TaskbarProxyWindowType taskbarProxyWindowType)
+        internal static TaskbarWindow? GetTaskbarWindow(UIElement? windowsControl, TaskbarProxyWindowType taskbarProxyWindowType)
         {
             if (windowsControl == null) { throw new ArgumentNullException("windowsControl"); }
 

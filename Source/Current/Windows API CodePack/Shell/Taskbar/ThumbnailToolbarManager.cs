@@ -25,7 +25,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// they can be shown and hidden through <see cref="P:Microsoft.WindowsAPICodePack.Taskbar.ThumbnailToolBarButton.Visible"/> as needed. 
         /// The toolbar itself cannot be removed without re-creating the window itself.
         /// </remarks>
-        public void AddButtons(IntPtr windowHandle, params ThumbnailToolBarButton[] buttons)
+        public void AddButtons(IntPtr windowHandle, params ThumbnailToolBarButton[]? buttons)
         {
             if (windowHandle == IntPtr.Zero)
             {
@@ -49,7 +49,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// they can be shown and hidden through ThumbnailToolBarButton.Visible as needed. 
         /// The toolbar itself cannot be removed without re-creating the window itself.
         /// </remarks>
-        public void AddButtons(UIElement control, params ThumbnailToolBarButton[] buttons)
+        public void AddButtons(UIElement? control, params ThumbnailToolBarButton[]? buttons)
         {
             if (control == null) { throw new ArgumentNullException("control"); }
             VerifyButtons(buttons);
@@ -58,7 +58,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             TaskbarWindowManager.AddThumbnailButtons(control, buttons);
         }
 
-        private static void VerifyButtons(params ThumbnailToolBarButton[] buttons)
+        private static void VerifyButtons(params ThumbnailToolBarButton[]? buttons)
         {
             if (buttons != null && buttons.Length == 0)
             {
