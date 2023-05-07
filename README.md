@@ -4,7 +4,11 @@ Microsoft Windows API Codepack
 README
 ======
 
-Licence
+## Current Version
+
+
+
+License
 -------
 
 The library is not developed anymore by Microsoft and seems to have been left as 'free to use'. A clarification or update about the licence terms from Microsoft is welcome, however.
