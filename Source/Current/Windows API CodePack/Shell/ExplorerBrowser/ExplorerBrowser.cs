@@ -6,6 +6,7 @@ using Application = System.Windows.Forms.Application;
 using Brushes = System.Drawing.Brushes;
 using Color = System.Drawing.Color;
 using LinearGradientBrush = System.Drawing.Drawing2D.LinearGradientBrush;
+using MethodInvoker = System.Windows.Forms.MethodInvoker;
 // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
 // ReSharper disable AssignNullToNotNullAttribute
 #pragma warning disable CS8601, CS8604, CS8618
