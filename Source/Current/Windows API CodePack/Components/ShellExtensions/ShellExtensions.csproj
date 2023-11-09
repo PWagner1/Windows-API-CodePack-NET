@@ -5,54 +5,44 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<OutputType>Library</OutputType>
-		<RootNamespace>Microsoft.WindowsAPICodePack.Sensors</RootNamespace>
-		<AssemblyName>Microsoft.WindowsAPICodePack.Sensors</AssemblyName>
-		<UseWindowsForms>True</UseWindowsForms>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
+		<RootNamespace>Microsoft.WindowsAPICodePack.ShellExtensions</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.ShellExtensions</AssemblyName>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>WindowsAPICodePackSensors</Title>
-
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<Title>WindowsAPICodePackShellExtensions</Title>
 		<Description>
-			This package contains the sensors binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
+			This package contains extensions to the shell binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
 		</Description>
-
-		<PackageProjectUrl>https://github.com/Wagnerp/Windows-API-CodePack-NET</PackageProjectUrl>
-
 		<PackageIcon>Windows.png</PackageIcon>
-
-		<RepositoryType>git</RepositoryType>
-
-		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-
 		<PackageLicenseFile>License.md</PackageLicenseFile>
-
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+		<Authors>$(Title)</Authors>
 		<PackageId>$(Title)</PackageId>
-
 		<SignAssembly>True</SignAssembly>
-
 		<AssemblyOriginatorKeyFile>WindowsAPICodePack.snk</AssemblyOriginatorKeyFile>
-
 		<IncludeSymbols>True</IncludeSymbols>
-
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
 		<BaseOutputPath>..\..\..\..\Output\bin</BaseOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.0" />
-		<PackageReference Include="System.Net.Http" Version="4.3.4" />
+		<ProjectReference Include="..\Core\Core.csproj" />
+		<ProjectReference Include="..\Shell\Shell.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Core\Core.csproj" />
+		<Reference Include="System.Windows.Forms">
+			<HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\System.Windows.Forms.dll</HintPath>
+		</Reference>
+
+		<Reference Include="System.Windows.Forms.Integration">
+			<HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\WindowsFormsIntegration.dll</HintPath>
+		</Reference>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -71,10 +61,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="../../../../Assets/Documents/Licenses/License.md">
+		<None Update="../../../../../Assets/Documents/Licenses/License.md">
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Update="../../../../Assets/Icon/PNG/Windows.png">
+		<None Update="../../../../../Assets/Icon/PNG/Windows.png">
 			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>

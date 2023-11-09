@@ -6,8 +6,8 @@
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<RootNamespace>Microsoft.WindowsAPICodePack.ExtendedLinguisticServices</RootNamespace>
-		<AssemblyName>Microsoft.WindowsAPICodePack.ExtendedLinguisticServices</AssemblyName>
+		<RootNamespace>Microsoft.WindowsAPICodePack.Core</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.Core</AssemblyName>
 		<UseWindowsForms>True</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
@@ -17,21 +17,19 @@
 
 	<PropertyGroup>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<Title>WindowsAPICodePackExtendedLinguisticServices</Title>
+		<Title>WindowsAPICodePackCore</Title>
 
-		<Description>
-			This package contains the extended linguistic services binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
-		</Description>
-
-		<PackageIcon>Windows.png</PackageIcon>
-
-		<RepositoryType>git</RepositoryType>
-
-		<RepositoryUrl>https://github.com/Wagnerp/Windows-API-CodePack-NET</RepositoryUrl>
+		<Description>This package contains the core binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.</Description>
 
 		<PackageLicenseFile>License.md</PackageLicenseFile>
 
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+
+		<PackageIcon>Windows.png</PackageIcon>
+
+		<PackageProjectUrl>https://github.com/Wagnerp/Windows-API-CodePack-NET</PackageProjectUrl>
+
+		<RepositoryUrl>git</RepositoryUrl>
 
 		<Authors>$(Title)</Authors>
 
@@ -47,12 +45,6 @@
 
 		<BaseOutputPath>..\..\..\..\Output\bin</BaseOutputPath>
 	</PropertyGroup>
-
-	<ItemGroup>
-		<Compile Remove="Content\**" />
-		<EmbeddedResource Remove="Content\**" />
-		<None Remove="Content\**" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.0" />
@@ -75,10 +67,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="../../../../Assets/Documents/Licenses/License.md">
+		<None Update="../../../../../Assets/Documents/Licenses/License.md">
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Update="../../../../Assets/Icon/PNG/Windows.png">
+		<None Update="../../../../../Assets/Icon/PNG/Windows.png">
 			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>

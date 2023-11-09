@@ -5,53 +5,57 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<RootNamespace>Microsoft.WindowsAPICodePack.Shell</RootNamespace>
-		<AssemblyName>Microsoft.WindowsAPICodePack.Shell</AssemblyName>
+		<OutputType>Library</OutputType>
+		<RootNamespace>Microsoft.WindowsAPICodePack.Sensors</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.Sensors</AssemblyName>
+		<UseWindowsForms>True</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<Nullable>enable</Nullable>
-		<UseWPF>true</UseWPF>
-		<Title>WindowsAPICodePackShell</Title>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>WindowsAPICodePackSensors</Title>
+
 		<Description>
-			This package contains the shell binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
+			This package contains the sensors binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
 		</Description>
+
 		<PackageProjectUrl>https://github.com/Wagnerp/Windows-API-CodePack-NET</PackageProjectUrl>
+
 		<PackageIcon>Windows.png</PackageIcon>
+
 		<RepositoryType>git</RepositoryType>
+
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+
 		<PackageLicenseFile>License.md</PackageLicenseFile>
+
 		<PackageId>$(Title)</PackageId>
-		<Authors>$(Authors)</Authors>
+
 		<SignAssembly>True</SignAssembly>
+
 		<AssemblyOriginatorKeyFile>WindowsAPICodePack.snk</AssemblyOriginatorKeyFile>
+
 		<IncludeSymbols>True</IncludeSymbols>
+
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
 		<BaseOutputPath>..\..\..\..\Output\bin</BaseOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>
+		<PackageReference Include="Microsoft.NETCore.Platforms" Version="7.0.0" />
+		<PackageReference Include="System.Net.Http" Version="4.3.4" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\Core\Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Reference Include="System.Windows.Forms">
-			<HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\System.Windows.Forms.dll</HintPath>
-		</Reference>
-
-		<Reference Include="System.Windows.Forms.Integration">
-			<HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\WindowsFormsIntegration.dll</HintPath>
-		</Reference>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Compile Update="Properties\Resources.Designer.cs">
-			<DesignTime>True</DesignTime>
-			<AutoGen>True</AutoGen>
-			<DependentUpon>Resources.resx</DependentUpon>
-		</Compile>
 		<Compile Update="Resources\LocalizedMessages.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -60,10 +64,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<EmbeddedResource Update="Properties\Resources.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
 		<EmbeddedResource Update="Resources\LocalizedMessages.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>LocalizedMessages.Designer.cs</LastGenOutput>
@@ -71,10 +71,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="../../../../Assets/Documents/Licenses/License.md">
+		<None Update="../../../../../Assets/Documents/Licenses/License.md">
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Update="../../../../Assets/Icon/PNG/Windows.png">
+		<None Update="../../../../../Assets/Icon/PNG/Windows.png">
 			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>

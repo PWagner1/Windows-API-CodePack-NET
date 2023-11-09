@@ -5,23 +5,25 @@
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<RootNamespace>Microsoft.WindowsAPICodePack.ShellExtensions</RootNamespace>
-		<AssemblyName>Microsoft.WindowsAPICodePack.ShellExtensions</AssemblyName>
+		<RootNamespace>Microsoft.WindowsAPICodePack.Shell</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack.Shell</AssemblyName>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<Nullable>enable</Nullable>
 		<UseWPF>true</UseWPF>
-		<Title>WindowsAPICodePackShellExtensions</Title>
+		<Title>WindowsAPICodePackShell</Title>
 		<Description>
-			This package contains extensions to the shell binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
+			This package contains the shell binary for the Windows API Code Pack needed for Windows Forms Development in the 1.1 version, released by Microsoft in 2009.
 		</Description>
+		<PackageProjectUrl>https://github.com/Wagnerp/Windows-API-CodePack-NET</PackageProjectUrl>
 		<PackageIcon>Windows.png</PackageIcon>
-		<PackageLicenseFile>License.md</PackageLicenseFile>
+		<RepositoryType>git</RepositoryType>
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
-		<Authors>$(Title)</Authors>
+		<PackageLicenseFile>License.md</PackageLicenseFile>
 		<PackageId>$(Title)</PackageId>
+		<Authors>$(Authors)</Authors>
 		<SignAssembly>True</SignAssembly>
 		<AssemblyOriginatorKeyFile>WindowsAPICodePack.snk</AssemblyOriginatorKeyFile>
 		<IncludeSymbols>True</IncludeSymbols>
@@ -32,7 +34,6 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Core\Core.csproj" />
-		<ProjectReference Include="..\Shell\Shell.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -46,6 +47,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
 		<Compile Update="Resources\LocalizedMessages.Designer.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>
@@ -54,6 +60,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
 		<EmbeddedResource Update="Resources\LocalizedMessages.resx">
 			<Generator>ResXFileCodeGenerator</Generator>
 			<LastGenOutput>LocalizedMessages.Designer.cs</LastGenOutput>
@@ -61,10 +71,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Update="../../../../Assets/Documents/Licenses/License.md">
+		<None Update="../../../../../Assets/Documents/Licenses/License.md">
 			<PackagePath>\</PackagePath>
 		</None>
-		<None Update="../../../../Assets/Icon/PNG/Windows.png">
+		<None Update="../../../../../Assets/Icon/PNG/Windows.png">
 			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
