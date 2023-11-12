@@ -2,13 +2,13 @@
 
 // ReSharper disable UseNameofExpression
 // ReSharper disable InlineOutVariableDeclaration
-#pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
     /// <summary>
     /// Represents the main class for adding and removing tabbed thumbnails on the Taskbar
     /// for child windows and controls.
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class TabbedThumbnailManager
     {
         /// <summary>
@@ -41,11 +41,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             // UI Element has a windowHandle of zero.
             if (preview.WindowHandle == IntPtr.Zero)
             {
-                if (_tabbedThumbnailCacheWPF.ContainsKey(preview.WindowsControl))
+                if (_tabbedThumbnailCacheWPF.ContainsKey(preview.WindowsControl!))
                 {
                     throw new ArgumentException(LocalizedMessages.ThumbnailManagerPreviewAdded, "preview");
                 }
-                _tabbedThumbnailCacheWPF.Add(preview.WindowsControl, preview);
+                _tabbedThumbnailCacheWPF.Add(preview.WindowsControl!, preview);
             }
             else
             {
@@ -125,7 +125,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 RemoveThumbnailPreview(preview.WindowHandle);
             }
-            else if (_tabbedThumbnailCacheWPF.ContainsKey(preview.WindowsControl))
+            else if (_tabbedThumbnailCacheWPF.ContainsKey(preview.WindowsControl!))
             {
                 RemoveThumbnailPreview(preview.WindowsControl);
             }
@@ -143,7 +143,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 throw new ArgumentException(LocalizedMessages.ThumbnailManagerControlNotAdded, "windowHandle");
             }
 
-            TaskbarWindowManager.UnregisterTab(_tabbedThumbnailCache[windowHandle].TaskbarWindow);
+            TaskbarWindowManager.UnregisterTab(_tabbedThumbnailCache[windowHandle]?.TaskbarWindow);
 
             _tabbedThumbnailCache.Remove(windowHandle);
 
@@ -156,7 +156,6 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                     TaskbarWindowManager._taskbarWindowList.Remove(taskBarWindow);
                 }
                 taskBarWindow.Dispose();
-                taskBarWindow = null;
             }
         }
 
@@ -191,7 +190,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 throw new ArgumentException(LocalizedMessages.ThumbnailManagerControlNotAdded, "windowsControl");
             }
 
-            TaskbarWindowManager.UnregisterTab(_tabbedThumbnailCacheWPF[windowsControl].TaskbarWindow);
+            TaskbarWindowManager.UnregisterTab(_tabbedThumbnailCacheWPF[windowsControl]?.TaskbarWindow);
 
             _tabbedThumbnailCacheWPF.Remove(windowsControl);
 
@@ -204,7 +203,6 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                     TaskbarWindowManager._taskbarWindowList.Remove(taskbarWindow);
                 }
                 taskbarWindow.Dispose();
-                taskbarWindow = null;
             }
         }
 
@@ -225,7 +223,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 {
                     throw new ArgumentException(LocalizedMessages.ThumbnailManagerPreviewNotAdded, "preview");
                 }
-                TaskbarWindowManager.SetActiveTab(_tabbedThumbnailCache[preview.WindowHandle].TaskbarWindow);
+                TaskbarWindowManager.SetActiveTab(_tabbedThumbnailCache[preview.WindowHandle]?.TaskbarWindow);
             }
             else if (preview.WindowsControl != null)
             {
@@ -233,7 +231,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 {
                     throw new ArgumentException(LocalizedMessages.ThumbnailManagerPreviewNotAdded, "preview");
                 }
-                TaskbarWindowManager.SetActiveTab(_tabbedThumbnailCacheWPF[preview.WindowsControl].TaskbarWindow);
+                TaskbarWindowManager.SetActiveTab(_tabbedThumbnailCacheWPF[preview.WindowsControl]?.TaskbarWindow);
             }
         }
 
@@ -250,7 +248,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 throw new ArgumentException(LocalizedMessages.ThumbnailManagerPreviewNotAdded, "windowHandle");
             }
-            TaskbarWindowManager.SetActiveTab(_tabbedThumbnailCache[windowHandle].TaskbarWindow);
+            TaskbarWindowManager.SetActiveTab(_tabbedThumbnailCache[windowHandle]?.TaskbarWindow);
         }
 
         /// <summary>
@@ -287,7 +285,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 throw new ArgumentException(LocalizedMessages.ThumbnailManagerPreviewNotAdded, "windowsControl");
             }
-            TaskbarWindowManager.SetActiveTab(_tabbedThumbnailCacheWPF[windowsControl].TaskbarWindow);
+            TaskbarWindowManager.SetActiveTab(_tabbedThumbnailCacheWPF[windowsControl]?.TaskbarWindow);
 
         }
 
@@ -373,14 +371,14 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
             foreach (TabbedThumbnail? thumbnail in _tabbedThumbnailCache.Values)
             {
-                TaskbarWindowManager.InvalidatePreview(thumbnail.TaskbarWindow);
-                thumbnail.SetImage(IntPtr.Zero); // TODO: Investigate this, and why it needs to be called.
+                TaskbarWindowManager.InvalidatePreview(thumbnail?.TaskbarWindow);
+                thumbnail?.SetImage(IntPtr.Zero); // TODO: Investigate this, and why it needs to be called.
             }
 
             foreach (TabbedThumbnail? thumbnail in _tabbedThumbnailCacheWPF.Values)
             {
-                TaskbarWindowManager.InvalidatePreview(thumbnail.TaskbarWindow);
-                thumbnail.SetImage(IntPtr.Zero);
+                TaskbarWindowManager.InvalidatePreview(thumbnail?.TaskbarWindow);
+                thumbnail?.SetImage(IntPtr.Zero);
             }
         }
 
@@ -388,10 +386,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// Clear a clip that is already in place and return to the default display of the thumbnail.
         /// </summary>
         /// <param name="windowHandle">The handle to a window represented in the taskbar. This has to be a top-level window.</param>
-        public static void ClearThumbnailClip(IntPtr windowHandle)
-        {
-            TaskbarList.Instance.SetThumbnailClip(windowHandle, IntPtr.Zero);
-        }
+        public static void ClearThumbnailClip(IntPtr windowHandle) => TaskbarList.Instance?.SetThumbnailClip(windowHandle, IntPtr.Zero);
 
         /// <summary>
         /// Selects a portion of a window's client area to display as that window's thumbnail in the taskbar.
@@ -418,7 +413,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             try
             {
                 Marshal.StructureToPtr(rect, rectPtr, true);
-                TaskbarList.Instance.SetThumbnailClip(windowHandle, rectPtr);
+                TaskbarList.Instance?.SetThumbnailClip(windowHandle, rectPtr);
             }
             finally
             {
@@ -441,16 +436,16 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 throw new ArgumentNullException("previewToChange");
             }
 
-            IntPtr handleToReorder = previewToChange.TaskbarWindow.WindowToTellTaskbarAbout;
+            IntPtr handleToReorder = previewToChange.TaskbarWindow!.WindowToTellTaskbarAbout;
 
             if (insertBeforePreview == null)
             {
-                TaskbarList.Instance.SetTabOrder(handleToReorder, IntPtr.Zero);
+                TaskbarList.Instance?.SetTabOrder(handleToReorder, IntPtr.Zero);
             }
             else
             {
-                IntPtr handleBefore = insertBeforePreview.TaskbarWindow.WindowToTellTaskbarAbout;
-                TaskbarList.Instance.SetTabOrder(handleToReorder, handleBefore);
+                IntPtr handleBefore = insertBeforePreview.TaskbarWindow!.WindowToTellTaskbarAbout;
+                TaskbarList.Instance?.SetTabOrder(handleToReorder, handleBefore);
             }
         }
     }

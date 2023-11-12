@@ -5,7 +5,6 @@
 // ReSharper disable MergeSequentialChecks
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
 // ReSharper disable MergeConditionalExpression
-#pragma warning disable CS8602, CS8604, CS7023, CS8600, CS8605
 namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 {
     /// <summary>
@@ -21,9 +20,9 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         #region Private Fields
 
         private PropertyKey _propertyKey;
-        string? _imageReferencePath = null;
+        string? _imageReferencePath;
         int? _imageReferenceIconIndex;
-        private readonly ShellPropertyDescription? _description = null;
+        private readonly ShellPropertyDescription? _description;
 
         #endregion
 
@@ -39,13 +38,13 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
             using (PropVariant propVar = new())
             {
-                store.GetValue(ref _propertyKey, propVar);
+                store?.GetValue(ref _propertyKey, propVar);
 
                 Marshal.ReleaseComObject(store);
                 store = null;
 
                 string? refPath;
-                ((IPropertyDescription2)Description.NativePropertyDescription).GetImageReferenceForValue(
+                ((IPropertyDescription2)Description?.NativePropertyDescription!).GetImageReferenceForValue(
                     propVar, out refPath);
 
                 if (refPath == null) { return; }
@@ -65,7 +64,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             IPropertyStore? writablePropStore = null;
             try
             {
-                int hr = ParentShellObject.NativeShellItem2.GetPropertyStore(
+                int hr = ParentShellObject!.NativeShellItem2!.GetPropertyStore(
                         ShellNativeMethods.GetPropertyStoreOptions.ReadWrite,
                         ref guid,
                         out writablePropStore);
@@ -76,19 +75,22 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                         Marshal.GetExceptionForHR(hr));
                 }
 
-                HResult result = writablePropStore.SetValue(ref _propertyKey, propVar);
-
-                if (!AllowSetTruncatedValue && (int)result == ShellNativeMethods.InPlaceStringTruncated)
+                if (writablePropStore != null)
                 {
-                    throw new ArgumentOutOfRangeException("propVar", LocalizedMessages.ShellPropertyValueTruncated);
+                    HResult result = writablePropStore.SetValue(ref _propertyKey, propVar);
+
+                    if (!AllowSetTruncatedValue && (int)result == ShellNativeMethods.InPlaceStringTruncated)
+                    {
+                        throw new ArgumentOutOfRangeException("propVar", LocalizedMessages.ShellPropertyValueTruncated);
+                    }
+
+                    if (!CoreErrorHelper.Succeeded(result))
+                    {
+                        throw new PropertySystemException(LocalizedMessages.ShellPropertySetValue, Marshal.GetExceptionForHR((int)result));
+                    }
                 }
 
-                if (!CoreErrorHelper.Succeeded(result))
-                {
-                    throw new PropertySystemException(LocalizedMessages.ShellPropertySetValue, Marshal.GetExceptionForHR((int)result));
-                }
-
-                writablePropStore.Commit();
+                writablePropStore?.Commit();
 
             }
             catch (InvalidComObjectException e)
@@ -104,7 +106,6 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 if (writablePropStore != null)
                 {
                     Marshal.ReleaseComObject(writablePropStore);
-                    writablePropStore = null;
                 }
             }
         }
@@ -124,8 +125,8 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             ShellPropertyDescription? description,
             ShellObject? parent)
         {
-            this._propertyKey = propertyKey;
-            this._description = description;
+            _propertyKey = propertyKey;
+            _description = description;
             ParentShellObject = parent;
             AllowSetTruncatedValue = false;
         }
@@ -141,8 +142,8 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             ShellPropertyDescription? description,
             IPropertyStore? propertyStore)
         {
-            this._propertyKey = propertyKey;
-            this._description = description;
+            _propertyKey = propertyKey;
+            _description = description;
             NativePropertyStore = propertyStore;
             AllowSetTruncatedValue = false;
         }
@@ -165,11 +166,11 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             get
             {
                 // Make sure we load the correct type
-                Debug.Assert(ValueType == ShellPropertyFactory.VarEnumToSystemType(Description.VarEnumType));
+                Debug.Assert(ValueType == ShellPropertyFactory.VarEnumToSystemType(Description!.VarEnumType));
 
                 using (PropVariant propVar = new())
                 {
-                    if (ParentShellObject.NativePropertyStore != null)
+                    if (ParentShellObject?.NativePropertyStore! != null)
                     {
                         // If there is a valid property store for this shell object, then use it.
                         ParentShellObject.NativePropertyStore.GetValue(ref _propertyKey, propVar);
@@ -178,11 +179,11 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                     {
                         // Use IShellItem2.GetProperty instead of creating a new property store
                         // The file might be locked. This is probably quicker, and sufficient for what we need
-                        ParentShellObject.NativeShellItem2.GetProperty(ref _propertyKey, propVar);
+                        ParentShellObject?.NativeShellItem2!.GetProperty(ref _propertyKey, propVar);
                     }
                     else if (NativePropertyStore != null)
                     {
-                        NativePropertyStore.GetValue(ref _propertyKey, propVar);
+                        NativePropertyStore?.GetValue(ref _propertyKey, propVar);
                     }
 
                     //Get the value
@@ -192,13 +193,13 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             set
             {
                 // Make sure we use the correct type
-                Debug.Assert(ValueType == ShellPropertyFactory.VarEnumToSystemType(Description.VarEnumType));
+                Debug.Assert(ValueType == ShellPropertyFactory.VarEnumToSystemType(Description!.VarEnumType));
 
                 if (typeof(T) != ValueType)
                 {
                     throw new NotSupportedException(
                         string.Format(CultureInfo.InvariantCulture,
-                        LocalizedMessages.ShellPropertyWrongType, ValueType.Name));
+                        LocalizedMessages.ShellPropertyWrongType, ValueType?.Name!));
                 }
 
                 if (value is Nullable)
@@ -223,9 +224,9 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                 if (ParentShellObject != null)
                 {
-                    using (ShellPropertyWriter propertyWriter = ParentShellObject.Properties.GetPropertyWriter())
+                    using (ShellPropertyWriter propertyWriter = ParentShellObject?.Properties!.GetPropertyWriter()!)
                     {
-                        propertyWriter.WriteProperty<T>(this, value, AllowSetTruncatedValue);
+                        propertyWriter?.WriteProperty(this, value, AllowSetTruncatedValue);
                     }
                 }
                 else if (NativePropertyStore != null)
@@ -269,11 +270,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
             using (PropVariant propVar = new())
             {
-                store.GetValue(ref _propertyKey, propVar);
+                store?.GetValue(ref _propertyKey, propVar);
 
                 // Release the Propertystore
                 Marshal.ReleaseComObject(store);
-                store = null;
 
                 HResult hr = Description.NativePropertyDescription.FormatForDisplay(propVar, ref format, out formattedString);
 
@@ -309,11 +309,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
             using (PropVariant propVar = new())
             {
-                store.GetValue(ref _propertyKey, propVar);
+                store?.GetValue(ref _propertyKey, propVar);
 
                 // Release the Propertystore
                 Marshal.ReleaseComObject(store);
-                store = null;
 
                 HResult hr = Description.NativePropertyDescription.FormatForDisplay(propVar, ref format, out formattedString);
 
@@ -335,7 +334,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// Gets the case-sensitive name of a property as it is known to the system,
         /// regardless of its localized name.
         /// </summary>
-        public string? CanonicalName => Description.CanonicalName;
+        public string? CanonicalName => Description?.CanonicalName!;
 
         /// <summary>
         /// Clears the value of the property.
@@ -365,14 +364,13 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                         IPropertyStore? store = ShellPropertyCollection.CreateDefaultPropertyStore(ParentShellObject);
 
-                        store.GetValue(ref _propertyKey, propVar);
+                        store?.GetValue(ref _propertyKey, propVar);
 
                         Marshal.ReleaseComObject(store);
-                        store = null;
                     }
                     else if (NativePropertyStore != null)
                     {
-                        NativePropertyStore.GetValue(ref _propertyKey, propVar);
+                        NativePropertyStore?.GetValue(ref _propertyKey, propVar);
                     }
 
                     return propVar != null ? propVar.Value : null;
@@ -388,9 +386,9 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             get
             {
                 // The type for this object need to match that of the description
-                Debug.Assert(Description.ValueType == typeof(T));
+                Debug.Assert(Description?.ValueType! == typeof(T));
 
-                return Description.ValueType;
+                return Description?.ValueType!;
             }
         }
 

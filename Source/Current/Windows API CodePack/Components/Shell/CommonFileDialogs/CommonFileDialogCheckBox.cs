@@ -51,7 +51,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         public CommonFileDialogCheckBox(string? text, bool isChecked)
             : base(text)
         {
-            this._isChecked = isChecked;
+            _isChecked = isChecked;
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         public CommonFileDialogCheckBox(string? name, string? text, bool isChecked)
             : base(name, text)
         {
-            this._isChecked = isChecked;
+            _isChecked = isChecked;
         }
 
         /// <summary>

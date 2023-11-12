@@ -2,6 +2,7 @@
 
 Version 7.0.5
 - Add .NET 8 support
+- More `nullable` checking
 
 =========
 

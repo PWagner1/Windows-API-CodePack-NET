@@ -1,9 +1,5 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-#pragma warning disable CS8600
-#pragma warning disable CS8602
-#pragma warning disable CS8616
-#pragma warning disable CS8766
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -24,13 +20,13 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="readOnly">Indicates whether the collection shouldbe read-only or not</param>
         internal ShellObjectCollection(IShellItemArray? iArray, bool readOnly)
         {
-            this._readOnly = readOnly;
+            _readOnly = readOnly;
 
             if (iArray != null)
             {
                 try
                 {
-                    uint itemCount = 0;
+                    uint itemCount;
                     iArray.GetCount(out itemCount);
                     _content.Capacity = (int)itemCount;
                     for (uint index = 0; index < itemCount; index++)
@@ -97,7 +93,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 {
                     foreach (ShellObject? shellObject in _content)
                     {
-                        shellObject.Dispose();
+                        shellObject?.Dispose();
                     }
 
                     _content.Clear();
@@ -158,11 +154,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     {
                         // Because the ShellObjects passed in may be from anywhere, the 
                         // parent folder reference must be the desktop.
-                        idls[index] = ((ShellObject)KnownFolders.Desktop).Pidl;
+                        idls[index] = ((ShellObject)KnownFolders.Desktop!).Pidl;
                     }
                     else
                     {
-                        idls[index] = _content[index - 1].Pidl;
+                        idls[index] = _content[index - 1]!.Pidl;
                     }
                 }
 
@@ -258,9 +254,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         /// <param name="index">The index of the item to retrieve.</param>
         /// <returns>The ShellObject at the specified index</returns>
-        public ShellObject? this[int index]
+        public ShellObject this[int index]
         {
-            get => _content[index];
+            get => _content[index]!;
             set
             {
                 if (_readOnly)
@@ -365,11 +361,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Allows for enumeration through the list of ShellObjects in the collection.
         /// </summary>
         /// <returns>The IEnumerator interface to use for enumeration.</returns>
-        IEnumerator<ShellObject?> IEnumerable<ShellObject>.GetEnumerator()
+        IEnumerator<ShellObject> IEnumerable<ShellObject>.GetEnumerator()
         {
             foreach (ShellObject? obj in _content)
             {
-                yield return obj;
+                yield return obj!;
             }
         }
 

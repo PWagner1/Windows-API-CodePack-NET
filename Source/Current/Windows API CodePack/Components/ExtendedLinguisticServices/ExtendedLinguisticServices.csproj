@@ -45,7 +45,7 @@
 
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 
-		<BaseOutputPath>..\..\..\..\Output\bin</BaseOutputPath>
+		<BaseOutputPath>..\..\..\..\..\Output\bin</BaseOutputPath>
 	</PropertyGroup>
 
 	<ItemGroup>

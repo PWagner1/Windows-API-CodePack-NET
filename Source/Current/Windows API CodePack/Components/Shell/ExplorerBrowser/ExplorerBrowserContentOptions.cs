@@ -6,6 +6,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
     /// These options control how the content of the Explorer Browser 
     /// is rendered.
     /// </summary>
+    [SuppressMessage("ReSharper", "NotAccessedVariable")]
     public class ExplorerBrowserContentOptions
     {
         #region construction
@@ -13,7 +14,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
         readonly ExplorerBrowser _eb;
         internal ExplorerBrowserContentOptions(ExplorerBrowser eb)
         {
-            this._eb = eb;
+            _eb = eb;
         }
         #endregion
 
@@ -206,7 +207,6 @@ namespace Microsoft.WindowsAPICodePack.Controls
                     finally
                     {
                         Marshal.ReleaseComObject(iFv2);
-                        iFv2 = null;
                     }
                 }
 
@@ -219,7 +219,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
                 {
                     try
                     {
-                        int fvm = 0;
+                        int fvm;
                         int iconSize = 0;
                         HResult hr = iFv2.GetViewModeAndIconSize(out fvm, out iconSize);
                         if (hr != HResult.Ok)
@@ -235,7 +235,6 @@ namespace Microsoft.WindowsAPICodePack.Controls
                     finally
                     {
                         Marshal.ReleaseComObject(iFv2);
-                        iFv2 = null;
                     }
                 }
             }

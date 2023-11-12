@@ -2,6 +2,8 @@
 	<PropertyGroup>
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 		<NeutralLanguage>en</NeutralLanguage>
+
+		<BaseOutputPath>..\..\..\..\..\Output\bin</BaseOutputPath>
 	</PropertyGroup>
 
 	<PropertyGroup>

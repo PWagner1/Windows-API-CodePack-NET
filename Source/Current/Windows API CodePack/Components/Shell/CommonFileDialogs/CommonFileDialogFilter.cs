@@ -35,7 +35,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// The <paramref name="extensionList"/> cannot be null or a 
         /// zero-length string. 
         /// </permission>
-        public CommonFileDialogFilter(string? rawDisplayName, string extensionList)
+        public CommonFileDialogFilter(string? rawDisplayName, string? extensionList)
             : this()
         {
             if (string.IsNullOrEmpty(extensionList))
@@ -43,12 +43,12 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 throw new ArgumentNullException("extensionList");
             }
 
-            this._rawDisplayName = rawDisplayName;
+            _rawDisplayName = rawDisplayName ?? "*";
 
             // Parse string and create extension strings.
             // Format: "bat,cmd", or "bat;cmd", or "*.bat;*.cmd"
             // Can support leading "." or "*." - these will be stripped.
-            string?[] rawExtensions = extensionList.Split(',', ';');
+            string?[] rawExtensions = extensionList!.Split(',', ';');
             foreach (string? extension in rawExtensions)
             {
                 _extensions.Add(NormalizeExtension(extension));
@@ -69,7 +69,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 {
                     return string.Format(CultureInfo.InvariantCulture,
                         "{0} ({1})",
-                        _rawDisplayName, 
+                        _rawDisplayName,
                         GetDisplayExtensionList(_extensions));
                 }
 
@@ -112,7 +112,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 return rawExtension;
             }
 
-            return String.Empty;
+            return string.Empty;
         }
 
         private static string GetDisplayExtensionList(Collection<string?> extensions)

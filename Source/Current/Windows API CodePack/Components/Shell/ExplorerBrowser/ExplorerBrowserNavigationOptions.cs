@@ -13,7 +13,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
         readonly ExplorerBrowser _eb;
         internal ExplorerBrowserNavigationOptions(ExplorerBrowser eb)
         {
-            this._eb = eb;
+            _eb = eb;
             PaneVisibility = new();
         }
         #endregion

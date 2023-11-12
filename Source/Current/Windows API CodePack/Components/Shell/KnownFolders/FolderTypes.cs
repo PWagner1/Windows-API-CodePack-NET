@@ -6,6 +6,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
     /// The FolderTypes values represent a view template applied to a folder, 
     /// usually based on its intended use and contents.
     /// </summary>
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     internal static class FolderTypes
     {
         /// <summary>
@@ -177,48 +178,48 @@ namespace Microsoft.WindowsAPICodePack.Shell
             0x0b0ba2e3, 0x405f, 0x415e, 0xa6, 0xee, 0xca, 0xd6, 0x25, 0x20, 0x78, 0x53);
 
 
-        static readonly Dictionary<Guid, string> types;
+        private static readonly Dictionary<Guid, string> _types;
 
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static FolderTypes()
         {
-            types = new();
+            _types = new();
             // Review: These Localized messages could probably be a reflected value of the field's name.
-            types.Add(NotSpecified, LocalizedMessages.FolderTypeNotSpecified);
-            types.Add(Invalid, LocalizedMessages.FolderTypeInvalid);
-            types.Add(Communications, LocalizedMessages.FolderTypeCommunications);
-            types.Add(CompressedFolder, LocalizedMessages.FolderTypeCompressedFolder);
-            types.Add(Contacts, LocalizedMessages.FolderTypeContacts);
-            types.Add(ControlPanelCategory, LocalizedMessages.FolderTypeCategory);
-            types.Add(ControlPanelClassic, LocalizedMessages.FolderTypeClassic);
-            types.Add(Documents, LocalizedMessages.FolderTypeDocuments);
-            types.Add(Games, LocalizedMessages.FolderTypeGames);
-            types.Add(GenericSearchResults, LocalizedMessages.FolderTypeSearchResults);
-            types.Add(GenericLibrary, LocalizedMessages.FolderTypeGenericLibrary);
-            types.Add(Library, LocalizedMessages.FolderTypeLibrary);
-            types.Add(Music, LocalizedMessages.FolderTypeMusic);
-            types.Add(MusicIcons, LocalizedMessages.FolderTypeMusicIcons);
-            types.Add(NetworkExplorer, LocalizedMessages.FolderTypeNetworkExplorer);
-            types.Add(OtherUsers, LocalizedMessages.FolderTypeOtherUsers);
-            types.Add(OpenSearch, LocalizedMessages.FolderTypeOpenSearch);
-            types.Add(Pictures, LocalizedMessages.FolderTypePictures);
-            types.Add(Printers, LocalizedMessages.FolderTypePrinters);
-            types.Add(RecycleBin, LocalizedMessages.FolderTypeRecycleBin);
-            types.Add(RecordedTV, LocalizedMessages.FolderTypeRecordedTV);
-            types.Add(SoftwareExplorer, LocalizedMessages.FolderTypeSoftwareExplorer);
-            types.Add(SavedGames, LocalizedMessages.FolderTypeSavedGames);
-            types.Add(SearchConnector, LocalizedMessages.FolderTypeSearchConnector);
-            types.Add(Searches, LocalizedMessages.FolderTypeSearches);
-            types.Add(UsersLibraries, LocalizedMessages.FolderTypeUserLibraries);
-            types.Add(UserFiles, LocalizedMessages.FolderTypeUserFiles);
-            types.Add(Videos, LocalizedMessages.FolderTypeVideos);
+            _types.Add(NotSpecified, LocalizedMessages.FolderTypeNotSpecified);
+            _types.Add(Invalid, LocalizedMessages.FolderTypeInvalid);
+            _types.Add(Communications, LocalizedMessages.FolderTypeCommunications);
+            _types.Add(CompressedFolder, LocalizedMessages.FolderTypeCompressedFolder);
+            _types.Add(Contacts, LocalizedMessages.FolderTypeContacts);
+            _types.Add(ControlPanelCategory, LocalizedMessages.FolderTypeCategory);
+            _types.Add(ControlPanelClassic, LocalizedMessages.FolderTypeClassic);
+            _types.Add(Documents, LocalizedMessages.FolderTypeDocuments);
+            _types.Add(Games, LocalizedMessages.FolderTypeGames);
+            _types.Add(GenericSearchResults, LocalizedMessages.FolderTypeSearchResults);
+            _types.Add(GenericLibrary, LocalizedMessages.FolderTypeGenericLibrary);
+            _types.Add(Library, LocalizedMessages.FolderTypeLibrary);
+            _types.Add(Music, LocalizedMessages.FolderTypeMusic);
+            _types.Add(MusicIcons, LocalizedMessages.FolderTypeMusicIcons);
+            _types.Add(NetworkExplorer, LocalizedMessages.FolderTypeNetworkExplorer);
+            _types.Add(OtherUsers, LocalizedMessages.FolderTypeOtherUsers);
+            _types.Add(OpenSearch, LocalizedMessages.FolderTypeOpenSearch);
+            _types.Add(Pictures, LocalizedMessages.FolderTypePictures);
+            _types.Add(Printers, LocalizedMessages.FolderTypePrinters);
+            _types.Add(RecycleBin, LocalizedMessages.FolderTypeRecycleBin);
+            _types.Add(RecordedTV, LocalizedMessages.FolderTypeRecordedTV);
+            _types.Add(SoftwareExplorer, LocalizedMessages.FolderTypeSoftwareExplorer);
+            _types.Add(SavedGames, LocalizedMessages.FolderTypeSavedGames);
+            _types.Add(SearchConnector, LocalizedMessages.FolderTypeSearchConnector);
+            _types.Add(Searches, LocalizedMessages.FolderTypeSearches);
+            _types.Add(UsersLibraries, LocalizedMessages.FolderTypeUserLibraries);
+            _types.Add(UserFiles, LocalizedMessages.FolderTypeUserFiles);
+            _types.Add(Videos, LocalizedMessages.FolderTypeVideos);
         }
 
         internal static string GetFolderType(Guid typeId)
         {
             // ReSharper disable once InlineOutVariableDeclaration
             string type;
-            return types.TryGetValue(typeId, out type) ? type : string.Empty;
+            return _types.TryGetValue(typeId, out type) ? type : string.Empty;
         }
     }
 }

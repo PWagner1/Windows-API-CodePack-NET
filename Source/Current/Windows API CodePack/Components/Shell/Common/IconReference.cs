@@ -2,7 +2,6 @@
 
 // ReSharper disable AssignNullToNotNullAttribute
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
-#pragma warning disable CS8604
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -31,7 +30,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 throw new ArgumentNullException("moduleName");
             }
 
-            this._moduleName = moduleName;
+            _moduleName = moduleName;
             ResourceId = resourceId;
             _referencePath = string.Format(CultureInfo.InvariantCulture,
                 "{0},{1}", moduleName, resourceId);

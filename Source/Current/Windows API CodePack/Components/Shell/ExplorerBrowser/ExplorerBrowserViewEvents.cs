@@ -1,8 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable AssignNullToNotNullAttribute
-#pragma warning disable CS8602
-#pragma warning disable CS8618
 namespace MS.WindowsAPICodePack.Internal
 {
     /// <summary>
@@ -33,7 +31,7 @@ namespace MS.WindowsAPICodePack.Internal
 
         internal ExplorerBrowserViewEvents(ExplorerBrowser? parent)
         {
-            this._parent = parent;
+            _parent = parent;
         }
         #endregion
 
@@ -93,37 +91,26 @@ namespace MS.WindowsAPICodePack.Internal
         /// The view selection has changed
         /// </summary>
         [DispId(ExplorerBrowserViewDispatchIds.SelectionChanged)]
-        public void ViewSelectionChanged()
-        {
-            _parent.FireSelectionChanged();
-        }
+        public void ViewSelectionChanged() => _parent?.FireSelectionChanged();
 
         /// <summary>
         /// The contents of the view have changed
         /// </summary>
         [DispId(ExplorerBrowserViewDispatchIds.ContentsChanged)]
-        public void ViewContentsChanged()
-        {
-            _parent.FireContentChanged();
-        }
+        public void ViewContentsChanged() => _parent?.FireContentChanged();
 
         /// <summary>
         /// The enumeration of files in the view is complete
         /// </summary>
         [DispId(ExplorerBrowserViewDispatchIds.FileListEnumDone)]
-        public void ViewFileListEnumDone()
-        {
-            _parent.FireContentEnumerationComplete();
-        }
+        public void ViewFileListEnumDone() => _parent?.FireContentEnumerationComplete();
 
         /// <summary>
         /// The selected item in the view has changed (not the same as the selection has changed)
         /// </summary>
         [DispId(ExplorerBrowserViewDispatchIds.SelectedItemChanged)]
-        public void ViewSelectedItemChanged()
-        {
-            _parent.FireSelectedItemChanged();
-        }
+        public void ViewSelectedItemChanged() => _parent?.FireSelectedItemChanged();
+
         #endregion
 
         /// <summary>

@@ -1,6 +1,5 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-#pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     class ShellFolderItems : IEnumerator<ShellObject>
@@ -17,9 +16,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         internal ShellFolderItems(ShellContainer nativeShellFolder)
         {
-            this._nativeShellFolder = nativeShellFolder;
+            _nativeShellFolder = nativeShellFolder;
 
-            HResult hr = nativeShellFolder.NativeShellFolder.EnumObjects(
+            HResult hr = nativeShellFolder!.NativeShellFolder!.EnumObjects(
                 IntPtr.Zero,
                 ShellNativeMethods.ShellFolderEnumerationOptions.Folders | ShellNativeMethods.ShellFolderEnumerationOptions.NonFolders,
                 out _nativeEnumIdList);

@@ -2,13 +2,12 @@
 
 // ReSharper disable SuspiciousTypeConversion.Global
 // ReSharper disable AssignNullToNotNullAttribute
-#pragma warning disable CS8600
-#pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
     /// A Shell Library in the Shell Namespace
     /// </summary>
+    [SuppressMessage("ReSharper", "PrivateFieldCanBeConvertedToLocalVariable")]
     public sealed class ShellLibrary : ShellContainer, IList<ShellFileSystemFolder>
     {
         #region Private Fields
@@ -38,7 +37,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         private ShellLibrary(INativeShellLibrary? nativeShellLibrary)
             : this()
         {
-            this._nativeShellLibrary = nativeShellLibrary;
+            _nativeShellLibrary = nativeShellLibrary;
         }
 
         /// <summary>
@@ -62,7 +61,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     AccessModes.ReadWrite;
 
             // Get the IShellItem2
-            nativeShellItem = ((ShellObject)sourceKnownFolder).NativeShellItem2;
+            nativeShellItem = ((ShellObject)sourceKnownFolder!).NativeShellItem2;
 
             Guid guid = sourceKnownFolder.FolderId;
 
@@ -128,7 +127,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             _knownFolder = sourceKnownFolder;
 
             Name = libraryName;
-            Guid guid = _knownFolder.FolderId;
+            Guid guid = _knownFolder!.FolderId!;
 
             ShellNativeMethods.LibrarySaveOptions flags = overwrite ?
                     ShellNativeMethods.LibrarySaveOptions.OverrideExisting :
@@ -203,13 +202,13 @@ namespace Microsoft.WindowsAPICodePack.Shell
             get
             {
                 string iconRef;
-                _nativeShellLibrary.GetIcon(out iconRef);
+                _nativeShellLibrary!.GetIcon(out iconRef);
                 return new(iconRef);
             }
 
             set
             {
-                _nativeShellLibrary.SetIcon(value.ReferencePath);
+                _nativeShellLibrary!.SetIcon(value.ReferencePath);
                 _nativeShellLibrary.Commit();
             }
         }
@@ -223,7 +222,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             get
             {
                 Guid folderTypeGuid;
-                _nativeShellLibrary.GetFolderType(out folderTypeGuid);
+                _nativeShellLibrary!.GetFolderType(out folderTypeGuid);
 
                 return GetFolderTypefromGuid(folderTypeGuid);
             }
@@ -231,7 +230,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             set
             {
                 Guid guid = FolderTypesGuids[(int)value];
-                _nativeShellLibrary.SetFolderType(ref guid);
+                _nativeShellLibrary!.SetFolderType(ref guid);
                 _nativeShellLibrary.Commit();
             }
         }
@@ -245,7 +244,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             get
             {
                 Guid folderTypeGuid;
-                _nativeShellLibrary.GetFolderType(out folderTypeGuid);
+                _nativeShellLibrary!.GetFolderType(out folderTypeGuid);
 
                 return folderTypeGuid;
             }
@@ -278,7 +277,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                 IShellItem? saveFolderItem;
 
-                _nativeShellLibrary.GetDefaultSaveFolder(
+                _nativeShellLibrary!.GetDefaultSaveFolder(
                     ShellNativeMethods.DefaultSaveFolderType.Detect,
                     ref guid,
                     out saveFolderItem);
@@ -304,7 +303,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                 ShellNativeMethods.SHCreateItemFromParsingName(fullPath, IntPtr.Zero, ref guid, out saveFolderItem);
 
-                _nativeShellLibrary.SetDefaultSaveFolder(
+                _nativeShellLibrary!.SetDefaultSaveFolder(
                     ShellNativeMethods.DefaultSaveFolderType.Detect,
                     saveFolderItem);
 
@@ -322,7 +321,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 ShellNativeMethods.LibraryOptions flags = ShellNativeMethods.LibraryOptions.PinnedToNavigationPane;
 
-                _nativeShellLibrary.GetOptions(out flags);
+                _nativeShellLibrary!.GetOptions(out flags);
 
                 return (
                     (flags & ShellNativeMethods.LibraryOptions.PinnedToNavigationPane) ==
@@ -341,7 +340,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     flags &= ~ShellNativeMethods.LibraryOptions.PinnedToNavigationPane;
                 }
 
-                _nativeShellLibrary.SetOptions(ShellNativeMethods.LibraryOptions.PinnedToNavigationPane, flags);
+                _nativeShellLibrary!.SetOptions(ShellNativeMethods.LibraryOptions.PinnedToNavigationPane, flags);
                 _nativeShellLibrary.Commit();
             }
         }
@@ -415,7 +414,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 ShellLibrary library = new(nativeShellLibrary);
                 try
                 {
-                    library.nativeShellItem = (IShellItem2)nativeShellItem;
+                    library.nativeShellItem = nativeShellItem as IShellItem2;
                     library.Name = libraryName;
 
                     return library;
@@ -455,7 +454,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             ShellLibrary library = new(nativeShellLibrary);
             try
             {
-                library.nativeShellItem = (IShellItem2)nativeShellItem;
+                library.nativeShellItem = nativeShellItem as IShellItem2;
                 library.Name = libraryName;
 
                 return library;
@@ -486,7 +485,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             nativeShellLibrary.LoadLibraryFromItem(nativeShellItem, flags);
 
             ShellLibrary? library = new(nativeShellLibrary);
-            library.nativeShellItem = (IShellItem2)nativeShellItem;
+            library.nativeShellItem = nativeShellItem as IShellItem2;
 
             return library;
         }
@@ -703,11 +702,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
         private List<ShellFileSystemFolder> GetFolders()
         {
             List<ShellFileSystemFolder> list = new();
-            IShellItemArray itemArray;
+            IShellItemArray? itemArray;
 
             Guid shellItemArrayGuid = new(ShellIIDGuid.IShellItemArray);
 
-            HResult hr = _nativeShellLibrary.GetFolders(ShellNativeMethods.LibraryFolderFilter.AllItems, ref shellItemArrayGuid, out itemArray);
+            HResult hr = _nativeShellLibrary!.GetFolders(ShellNativeMethods.LibraryFolderFilter.AllItems, ref shellItemArrayGuid, out itemArray);
 
             if (!CoreErrorHelper.Succeeded(hr)) { return list; }
 
@@ -724,7 +723,6 @@ namespace Microsoft.WindowsAPICodePack.Shell
             if (itemArray != null)
             {
                 Marshal.ReleaseComObject(itemArray);
-                itemArray = null;
             }
 
             return list;
