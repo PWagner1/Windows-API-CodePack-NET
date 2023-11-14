@@ -1,0 +1,27 @@
+<Project>
+	<PropertyGroup>
+		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+		<NeutralLanguage>en</NeutralLanguage>
+
+		<BaseOutputPath>..\..\..\..\..\Output\bin</BaseOutputPath>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<Version>$(LibraryVersion)</Version>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="../../../../../Assets/Icon/PNG/Windows.png" Link="Icon.png" Pack="true" PackagePath="/" />
+
+		<None Include="../../../../../Assets/Documents/Licenses/License.md" Link="License.md" Pack="true" PackagePath="/" />
+	</ItemGroup>
+
+	<PropertyGroup>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<!--<PackageIcon>Icon.png</PackageIcon>
+
+		<PackageLicenseFile>License.md</PackageLicenseFile>
+
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>-->
+	</PropertyGroup>
+</Project>

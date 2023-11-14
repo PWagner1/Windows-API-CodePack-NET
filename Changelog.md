@@ -1,3 +1,11 @@
+14/11/2023
+
+Version 8.0.0
+- Add .NET 8 support
+- More `nullable` checking
+
+=========
+
 26/02/2023
 
 Version 7.0.4
