@@ -1,3 +1,12 @@
+14/02/2024
+
+Version 8.0.1
+- Update year 2023 -> 2024
+- Add `Readme` to NuGet packages
+- Add preliminary support for .NET 9
+
+=========
+
 14/11/2023
 
 Version 8.0.0

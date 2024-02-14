@@ -10,6 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\..\..\Directory.Build.props = ..\..\..\Directory.Build.props
 		Directory.Build.targets = Directory.Build.targets
 		..\..\..\LICENSE = ..\..\..\LICENSE
+		..\..\..\Assets\Documents\Licenses\License.md = ..\..\..\Assets\Documents\Licenses\License.md
 		..\..\..\README.md = ..\..\..\README.md
 	EndProjectSection
 EndProject
@@ -27,7 +28,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shell", "Components\Shell\S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShellExtensions", "Components\ShellExtensions\ShellExtensions.csproj", "{94059CB9-3C91-47E4-A934-45932B643A8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScratchProject", "ScratchProject\ScratchProject.csproj", "{A12DB06F-15B4-41B7-BB98-505CC1EB2DD0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScratchProject", "ScratchProject\ScratchProject.csproj", "{A12DB06F-15B4-41B7-BB98-505CC1EB2DD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
