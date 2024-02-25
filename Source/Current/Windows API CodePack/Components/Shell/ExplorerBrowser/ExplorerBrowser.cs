@@ -316,6 +316,9 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 // the control panel succeeds, but no items are visible in the view.
                 ExplorerBrowserControl.SetOptions(ExplorerBrowserOptions.ShowFrames);
 
+                // ExplorerBrowserOptions.NoBorder does not work, so we do it manually...
+                RemoveWindowBorder();
+
                 ExplorerBrowserControl.SetPropertyBag(_propertyBagName);
 
                 if (_antecreationNavigationTarget != null)
@@ -753,6 +756,31 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
             }
 
             return iArray;
+        }
+
+        /// <summary>
+        /// Find the native control handle, remove its border style, then ask for a redraw.
+        /// </summary>
+        internal void RemoveWindowBorder()
+        {
+            // There is an option (EBO_NOBORDER) to avoid showing a border on the native ExplorerBrowser control
+            // so we wouldn't have to remove it afterwards, but:
+            // 1. It's not implemented by the Windows API Code Pack
+            // 2. The flag doesn't seem to work anyway (tested on 7 and 8.1)
+            // For reference: EXPLORER_BROWSER_OPTIONS https://msdn.microsoft.com/en-us/library/windows/desktop/bb762501(v=vs.85).aspx
+
+            IntPtr hwnd = WindowNativeMethods.FindWindowEx(Handle, IntPtr.Zero, "ExplorerBrowserControl", IntPtr.Zero);
+            int explorerBrowserStyle = WindowNativeMethods.GetWindowLong(hwnd, (int)WindowLongFlags.GWL_STYLE);
+            WindowNativeMethods.SetWindowLong(
+                hwnd,
+                (int)WindowLongFlags.GWL_STYLE,
+                explorerBrowserStyle & ~(int)WindowStyles.Caption & ~(int)WindowStyles.Border);
+            WindowNativeMethods.SetWindowPos(
+                hwnd,
+                IntPtr.Zero,
+                0, 0, 0, 0,
+                SetWindowPosFlags.SWP_FRAMECHANGED | SetWindowPosFlags.SWP_NOMOVE | SetWindowPosFlags.SWP_NOSIZE);
+
         }
 
         internal int GetItemsCount()

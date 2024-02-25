@@ -2,7 +2,6 @@
 
 // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
 // ReSharper disable PossibleInvalidCastExceptionInForeachLoop
-#pragma warning disable CS8602
 namespace Microsoft.WindowsAPICodePack.Dialogs
 {
     /// <summary>
@@ -271,6 +270,21 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 _standardButtons = value;
             }
         }
+
+        private TaskDialogDefaultButton defaultButton = TaskDialogDefaultButton.None;
+        /// <summary>
+        /// Gets or sets a value that contains the default button.
+        /// </summary>
+        public TaskDialogDefaultButton DefaultButton
+        {
+            get { return defaultButton; }
+            set
+            {
+                ThrowIfDialogShowing(LocalizedMessages.DefaultButtonCannotBeChanged);
+                defaultButton = value;
+            }
+        }
+
 
         private DialogControlCollection<TaskDialogControl> _controls;
         /// <summary>
@@ -1318,5 +1332,9 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         public static bool IsPlatformSupported =>
             // We need Windows Vista onwards ...
             CoreHelpers.RunningOnVista;
+    }
+
+    internal class TaskDialogDefaultButton
+    {
     }
 }

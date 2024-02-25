@@ -90,7 +90,9 @@ namespace Microsoft.WindowsAPICodePack.Controls
         AlwaysNavigate = 0x00000004,
         NoTravelLog = 0x00000008,
         NoWrapperWindow = 0x00000010,
-        HtmlSharepointView = 0x00000020
+        HtmlSharepointView = 0x00000020,
+        NoBorder = 0x00000040,
+        NoPersistViewState = 0x00000080,
     }
 
     internal enum CommDlgBrowserStateChange
@@ -131,7 +133,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
     internal class ExplorerBrowserClass : IExplorerBrowser
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void Initialize(IntPtr hwndParent, [In]ref NativeRect prc, [In] FolderSettings? pfs);
+        public virtual extern void Initialize(IntPtr hwndParent, [In] ref NativeRect prc, [In] FolderSettings? pfs);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern void Destroy();
@@ -158,7 +160,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
         public virtual extern HResult Unadvise(uint dwCookie);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void SetOptions([In]ExplorerBrowserOptions dwFlag);
+        public virtual extern void SetOptions([In] ExplorerBrowserOptions dwFlag);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern void GetOptions(out ExplorerBrowserOptions pdwFlag);
@@ -274,7 +276,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
         /// <param name="dwFlag">One or more EXPLORER_BROWSER_OPTIONS flags to be set.</param>
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        void SetOptions([In]ExplorerBrowserOptions dwFlag);
+        void SetOptions([In] ExplorerBrowserOptions dwFlag);
 
         /// <summary>
         /// Gets the current browser options.
@@ -545,7 +547,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        HResult OnViewCreated([MarshalAs(UnmanagedType.IUnknown)]  object psv);
+        HResult OnViewCreated([MarshalAs(UnmanagedType.IUnknown)] object psv);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
