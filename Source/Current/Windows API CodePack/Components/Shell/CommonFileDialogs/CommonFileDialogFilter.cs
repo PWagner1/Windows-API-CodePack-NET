@@ -104,15 +104,22 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
         private static string? NormalizeExtension(string? rawExtension)
         {
+            rawExtension = rawExtension?.Trim();
+
+            rawExtension = rawExtension?.Replace(@"*.", null);
+
+            // Fix so that multi extensions do work!
             if (rawExtension != null)
             {
-                rawExtension = rawExtension.Trim();
-                rawExtension = rawExtension.Replace("*.", null);
-                rawExtension = rawExtension.Replace(".", null);
-                return rawExtension;
+                int dotIndex = rawExtension.IndexOf('.');
+
+                if (dotIndex != -1)
+                {
+                    rawExtension = rawExtension.Substring(dotIndex + 1);
+                }
             }
 
-            return string.Empty;
+            return rawExtension;
         }
 
         private static string GetDisplayExtensionList(Collection<string?> extensions)

@@ -1,5 +1,4 @@
-﻿#pragma warning disable CS8604
-#pragma warning disable CS8602
+﻿
 namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 {
 
@@ -39,7 +38,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             Type thirdType = (thirdArg is ShellObject) ? typeof(ShellObject) : typeof(T);
 
-            ShellPropertyDescription? propDesc = ShellPropertyDescriptionsCache.Cache.GetPropertyDescription(propKey);
+            ShellPropertyDescription? propDesc = ShellPropertyDescriptionsCache.Cache?.GetPropertyDescription(propKey);
 
             // Get the generic type
             Type type = typeof(ShellProperty<>).MakeGenericType(VarEnumToSystemType(propDesc.VarEnumType));
@@ -47,15 +46,23 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             // The hash for the function is based off the generic type and which type (constructor) we're using.
             int hash = GetTypeHash(type, thirdType);
 
-            Func<PropertyKey, ShellPropertyDescription, object, IShellProperty> ctor;
-            if (!_storeCache.TryGetValue(hash, out ctor))
-            {
-                Type[] argTypes = { typeof(PropertyKey), typeof(ShellPropertyDescription), thirdType };
-                ctor = ExpressConstructor(type, argTypes);
-                _storeCache.Add(hash, ctor);
-            }
+            //Func<PropertyKey, ShellPropertyDescription, object, IShellProperty> ctor;
 
-            return ctor(propKey, propDesc, thirdArg);
+            lock (_storeCache)
+            {
+                if (_storeCache.TryGetValue(hash, out var ctor))
+                {
+                    return ctor(propKey, propDesc, thirdArg);
+                }
+
+                Type[] argTypes = { typeof(PropertyKey), typeof(ShellPropertyDescription), thirdType };
+
+                ctor = ExpressConstructor(type, argTypes);
+
+                _storeCache.Add(hash, ctor);
+
+                return ctor(propKey, propDesc, thirdArg);
+            }
         }
 
         /// <summary>

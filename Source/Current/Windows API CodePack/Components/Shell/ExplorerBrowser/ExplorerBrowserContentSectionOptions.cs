@@ -24,7 +24,7 @@ public enum ExplorerBrowserContentSectionOptions
     /// <summary>
     /// Turns on check mode for the view
     /// </summary>
-    CheckSelect = 0x08040000,
+    CheckSelect = 0x08000000,
     /// <summary>
     /// When the view is set to "Tile" the layout of a single item should be extended to the width of the view.
     /// </summary>

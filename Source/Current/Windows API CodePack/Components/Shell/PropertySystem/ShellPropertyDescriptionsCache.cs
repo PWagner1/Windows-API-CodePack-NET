@@ -26,11 +26,14 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
         public ShellPropertyDescription? GetPropertyDescription(PropertyKey key)
         {
-            if (!_propsDictionary.ContainsKey(key))
+            lock (_propsDictionary)
             {
-                _propsDictionary.Add(key, new(key));
+                if (!_propsDictionary.ContainsKey(key))
+                {
+                    _propsDictionary.Add(key, new(key));
+                }
+                return _propsDictionary[key];
             }
-            return _propsDictionary[key];
         }
     }
 }
