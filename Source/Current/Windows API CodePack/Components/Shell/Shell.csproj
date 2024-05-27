@@ -79,8 +79,8 @@
 			<PackagePath>\</PackagePath>
 		</None>
 		<None Update="Readme.md">
-		  <Pack>True</Pack>
-		  <PackagePath>\</PackagePath>
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
 
