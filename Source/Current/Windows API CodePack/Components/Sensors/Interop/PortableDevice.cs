@@ -9,12 +9,12 @@ namespace Microsoft.WindowsAPICodePack.Sensors
     [ComImport, Guid("DADA2357-E0AD-492E-98DB-DD61C53BA353"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
     internal interface IPortableDeviceKeyCollection
     {
-        void GetCount(out UInt32 pcElems);
+        void GetCount(out uint pcElems);
         [PreserveSig]
-        HResult GetAt([In] UInt32 dwIndex, out PropertyKey pKey);
+        HResult GetAt([In] uint dwIndex, out PropertyKey pKey);
         void Add([In] ref PropertyKey Key);
         void Clear();
-        void RemoveAt([In] UInt32 dwIndex);
+        void RemoveAt([In] uint dwIndex);
     }
 
     /// <summary>
@@ -144,11 +144,11 @@ namespace Microsoft.WindowsAPICodePack.Sensors
     internal class PortableDeviceKeyCollection : IPortableDeviceKeyCollection
     {
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void GetCount(out UInt32 pcElems);
+        public virtual extern void GetCount(out uint pcElems);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern HResult GetAt([In] UInt32 dwIndex, out PropertyKey pKey);
+        public virtual extern HResult GetAt([In] uint dwIndex, out PropertyKey pKey);
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern void Add([In] ref PropertyKey Key);
@@ -157,7 +157,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         public virtual extern void Clear();
 
         [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-        public virtual extern void RemoveAt([In] UInt32 dwIndex);
+        public virtual extern void RemoveAt([In] uint dwIndex);
     }
 
     [ComImport, Guid("0C15D503-D017-47CE-9016-7B3F978721CC"), ClassInterface(ClassInterfaceType.None), TypeLibType(TypeLibTypeFlags.FCanCreate)]

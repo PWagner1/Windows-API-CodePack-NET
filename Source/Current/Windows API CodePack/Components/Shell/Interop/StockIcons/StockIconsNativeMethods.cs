@@ -58,7 +58,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         [StructLayoutAttribute(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
         internal struct StockIconInfo
         {
-            internal UInt32 StuctureSize;
+            internal uint StuctureSize;
             internal IntPtr Handle;
             internal Int32 ImageIndex;
             internal Int32 Identifier;

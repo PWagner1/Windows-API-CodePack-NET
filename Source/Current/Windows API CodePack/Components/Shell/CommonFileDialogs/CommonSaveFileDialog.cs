@@ -115,7 +115,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             if (item == null)
             {
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException(nameof(item));
             }
 
             InitializeNativeFileDialog();
@@ -221,7 +221,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
                     if (propertyStore != null && CoreErrorHelper.Succeeded(hr))
                     {
-                        return new(propertyStore);
+                        return new ShellPropertyCollection(propertyStore);
                     }
                 }
 
@@ -235,7 +235,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             if (_saveDialogCoClass == null)
             {
-                _saveDialogCoClass = new();
+                _saveDialogCoClass = new NativeFileSaveDialog();
             }
         }
 

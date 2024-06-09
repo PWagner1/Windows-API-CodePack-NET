@@ -2,7 +2,7 @@
 
 // ReSharper disable InlineOutVariableDeclaration
 #pragma warning disable CS8600
-#pragma warning disable CS8602
+
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -34,7 +34,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             if (shellObject == null || shellObject.NativeShellItem == null)
             {
-                throw new ArgumentNullException("shellObject");
+                throw new ArgumentNullException(nameof(shellObject));
             }
 
             _shellItemNative = shellObject.NativeShellItem;
@@ -59,7 +59,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 // Check for 0; negative number check not required as System.Windows.Size only allows positive numbers.
                 if (value.Height == 0 || value.Width == 0)
                 {
-                    throw new ArgumentOutOfRangeException("value", LocalizedMessages.ShellThumbnailSizeCannotBe0);
+                    throw new ArgumentOutOfRangeException(nameof(value), LocalizedMessages.ShellThumbnailSizeCannotBe0);
                 }
 
                 System.Windows.Size size = (FormatOption == ShellThumbnailFormatOption.IconOnly) ?
@@ -67,7 +67,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                 if (value.Height > size.Height || value.Width > size.Width)
                 {
-                    throw new ArgumentOutOfRangeException("value",
+                    throw new ArgumentOutOfRangeException(nameof(value),
                         string.Format(CultureInfo.InvariantCulture,
                         LocalizedMessages.ShellThumbnailCurrentSizeRange, size.ToString()));
                 }
@@ -241,7 +241,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             // Use IShellItemImageFactory to get an icon
             // Options passed in: Resize to fit
-            HResult hr = ((IShellItemImageFactory)_shellItemNative).GetImage(nativeSize, CalculateFlags(), out hbitmap);
+            var hr = (_shellItemNative as IShellItemImageFactory).GetImage(nativeSize, CalculateFlags(), out hbitmap);
 
             if (hr == HResult.Ok) { return hbitmap; }
             else if ((uint)hr == 0x8004B200 && FormatOption == ShellThumbnailFormatOption.ThumbnailOnly)

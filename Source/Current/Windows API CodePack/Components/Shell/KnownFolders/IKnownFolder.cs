@@ -20,12 +20,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Gets this known folder's canonical name.
         /// </summary>
-        string CanonicalName { get; }
+        string? CanonicalName { get; }
 
         /// <summary>
         /// Gets this known folder's description.
         /// </summary>
-        string Description { get; }
+        string? Description { get; }
 
         /// <summary>
         /// Gets the unique identifier for this known folder's parent folder.
@@ -35,7 +35,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Gets this known folder's relative path.
         /// </summary>
-        string RelativePath { get; }
+        string? RelativePath { get; }
 
         /// <summary>
         /// Gets this known folder's parsing name.
@@ -51,7 +51,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Gets the resource identifier for this 
         /// known folder's tool tip text.
         /// </summary>
-        string TooltipResourceId { get; }
+        string? TooltipResourceId { get; }
 
         /// <summary>
         /// Gets this known folder's localized name.
@@ -62,12 +62,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Gets the resource identifier for this 
         /// known folder's localized name.
         /// </summary>
-        string LocalizedNameResourceId { get; }
+        string? LocalizedNameResourceId { get; }
 
         /// <summary>
         /// Gets this known folder's security attributes.
         /// </summary>
-        string Security { get; }
+        string? Security { get; }
 
         /// <summary>
         /// Gets this known folder's file attributes, 
@@ -88,7 +88,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Gets a string representation of this known folder's type.
         /// </summary>
-        string FolderType { get; }
+        string? FolderType { get; }
 
         /// <summary>
         /// Gets the unique identifier for this known folder.

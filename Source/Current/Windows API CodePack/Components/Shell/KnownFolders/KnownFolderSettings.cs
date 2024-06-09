@@ -144,13 +144,13 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Gets this known folder's canonical name.
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
-        public string CanonicalName => _knownFolderProperties.canonicalName;
+        public string? CanonicalName => _knownFolderProperties.canonicalName;
 
         /// <summary>
         /// Gets this known folder's description.
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
-        public string Description => _knownFolderProperties.description;
+        public string? Description => _knownFolderProperties.description;
 
         /// <summary>
         /// Gets the unique identifier for this known folder's parent folder.
@@ -162,7 +162,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Gets this known folder's relative path.
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
-        public string RelativePath => _knownFolderProperties.relativePath;
+        public string? RelativePath => _knownFolderProperties.relativePath;
 
         /// <summary>
         /// Gets this known folder's tool tip text.
@@ -175,7 +175,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// known folder's tool tip text.
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
-        public string TooltipResourceId => _knownFolderProperties.tooltipResourceId;
+        public string? TooltipResourceId => _knownFolderProperties.tooltipResourceId;
 
         /// <summary>
         /// Gets this known folder's localized name.
@@ -188,13 +188,13 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// known folder's localized name.
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
-        public string LocalizedNameResourceId => _knownFolderProperties.localizedNameResourceId;
+        public string? LocalizedNameResourceId => _knownFolderProperties.localizedNameResourceId;
 
         /// <summary>
         /// Gets this known folder's security attributes.
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
-        public string Security => _knownFolderProperties.security;
+        public string? Security => _knownFolderProperties.security;
 
         /// <summary>
         /// Gets this known folder's file attributes, 
@@ -219,7 +219,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// Gets a string representation of this known folder's type.
         /// </summary>
         /// <value>A <see cref="System.String"/> object.</value>
-        public string FolderType => _knownFolderProperties.folderType;
+        public string? FolderType => _knownFolderProperties.folderType;
 
         /// <summary>
         /// Gets the unique identifier for this known folder.

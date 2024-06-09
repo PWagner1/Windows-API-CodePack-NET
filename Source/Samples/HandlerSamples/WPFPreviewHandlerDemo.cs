@@ -1,6 +1,6 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.InteropServices;
+
 using Microsoft.WindowsAPICodePack.Shell;
 using Microsoft.WindowsAPICodePack.ShellExtensions;
 
@@ -20,11 +20,11 @@ namespace HandlerSamples
 
         private void Populate(Stream stream)
         {
-            XyzFileDefinition definition = new XyzFileDefinition(stream);
+            var definition = new XyzFileDefinition(stream);
 
             if (definition != null)
             {
-                ((WpfPreviewHandlerDemoControl)Control).Populate(definition);
+                (Control as WpfPreviewHandlerDemoControl)?.Populate(definition);
             }
         }
 

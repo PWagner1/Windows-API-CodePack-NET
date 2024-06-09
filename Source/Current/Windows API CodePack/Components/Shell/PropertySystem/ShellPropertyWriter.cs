@@ -24,9 +24,8 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             {
                 if (ParentShellObject != null)
                 {
-#pragma warning disable CS8602
-                    int hr = ParentShellObject.NativeShellItem2.GetPropertyStore(
-#pragma warning restore CS8602
+
+                    int hr = ParentShellObject.NativeShellItem2!.GetPropertyStore(
                         ShellNativeMethods.GetPropertyStoreOptions.ReadWrite,
                         ref guid,
                         out WritablePropStore);
@@ -48,7 +47,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                     }
                 }
             }
-            catch (InvalidComObjectException e)
+            catch (InvalidComObjectException? e)
             {
                 throw new PropertySystemException(LocalizedMessages.ShellPropertyUnableToGetWritableProperty, e);
             }
@@ -72,7 +71,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// </summary>
         /// <param name="key">The property key.</param>
         /// <param name="value">The value associated with the key.</param>
-        public void WriteProperty(PropertyKey key, object value)
+        public void WriteProperty(PropertyKey key, object? value)
         {
             WriteProperty(key, value, true);
         }
@@ -89,7 +88,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <exception cref="System.ArgumentOutOfRangeException">If AllowTruncatedValue is set to false 
         /// and while setting the value on the property it had to be truncated in a string or rounded in 
         /// a numeric value.</exception>
-        public void WriteProperty(PropertyKey key, object value, bool allowTruncatedValue)
+        public void WriteProperty(PropertyKey key, object? value, bool allowTruncatedValue)
         {
             if (WritablePropStore == null)
                 throw new InvalidOperationException("Writeable store has been closed.");
@@ -106,7 +105,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                     Marshal.ReleaseComObject(WritablePropStore);
                     WritablePropStore = null;
 
-                    throw new ArgumentOutOfRangeException("value", LocalizedMessages.ShellPropertyValueTruncated);
+                    throw new ArgumentOutOfRangeException(nameof(value), LocalizedMessages.ShellPropertyValueTruncated);
                 }
 
                 if (!CoreErrorHelper.Succeeded(result))
@@ -121,7 +120,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// </summary>
         /// <param name="canonicalName">The canonical name.</param>
         /// <param name="value">The property value.</param>
-        public void WriteProperty(string? canonicalName, object value)
+        public void WriteProperty(string? canonicalName, object? value)
         {
             WriteProperty(canonicalName, value, true);
         }
@@ -134,7 +133,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <param name="value">The property value.</param>
         /// <param name="allowTruncatedValue">True to allow truncation (default); otherwise False.</param>
         /// <exception cref="System.ArgumentException">If the given canonical name is not valid.</exception>
-        public void WriteProperty(string? canonicalName, object value, bool allowTruncatedValue)
+        public void WriteProperty(string? canonicalName, object? value, bool allowTruncatedValue)
         {
             // Get the PropertyKey using the canonicalName passed in
             PropertyKey propKey;
@@ -156,7 +155,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// </summary>
         /// <param name="shellProperty">The property name.</param>
         /// <param name="value">The property value.</param>
-        public void WriteProperty(IShellProperty shellProperty, object value)
+        public void WriteProperty(IShellProperty shellProperty, object? value)
         {
             WriteProperty(shellProperty, value, true);
         }
@@ -168,9 +167,9 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <param name="shellProperty">The property name.</param>
         /// <param name="value">The property value.</param>
         /// <param name="allowTruncatedValue">True to allow truncation (default); otherwise False.</param>
-        public void WriteProperty(IShellProperty shellProperty, object value, bool allowTruncatedValue)
+        public void WriteProperty(IShellProperty shellProperty, object? value, bool allowTruncatedValue)
         {
-            if (shellProperty == null) { throw new ArgumentNullException("shellProperty"); }
+            if (shellProperty == null) { throw new ArgumentNullException(nameof(shellProperty)); }
             WriteProperty(shellProperty.PropertyKey, value, allowTruncatedValue);
         }
 
@@ -180,9 +179,9 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <typeparam name="T">The type of the property name.</typeparam>
         /// <param name="shellProperty">The property name.</param>
         /// <param name="value">The property value.</param>
-        public void WriteProperty<T>(ShellProperty<T> shellProperty, T value)
+        public void WriteProperty<T>(ShellProperty<T?> shellProperty, T? value)
         {
-            WriteProperty<T>(shellProperty, value, true);
+            WriteProperty(shellProperty, value, true);
         }
         /// <summary>
         /// Writes the specified property given a strongly-typed ShellProperty and a value. To allow truncation of the given value, set allowTruncatedValue
@@ -192,9 +191,9 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <param name="shellProperty">The property name.</param>
         /// <param name="value">The property value.</param>
         /// <param name="allowTruncatedValue">True to allow truncation (default); otherwise False.</param>
-        public void WriteProperty<T>(ShellProperty<T> shellProperty, T value, bool allowTruncatedValue)
+        public void WriteProperty<T>(ShellProperty<T> shellProperty, T? value, bool allowTruncatedValue)
         {
-            if (shellProperty == null) { throw new ArgumentNullException("shellProperty"); }
+            if (shellProperty == null) { throw new ArgumentNullException(nameof(shellProperty)); }
             WriteProperty(shellProperty.PropertyKey, value, allowTruncatedValue);
         }
 
@@ -242,7 +241,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 WritablePropStore = null;
             }
 
-            ParentShellObject.NativePropertyStore = null;
+            if (ParentShellObject != null)
+            {
+                ParentShellObject.NativePropertyStore = null;
+            }
         }
 
         #endregion

@@ -9,7 +9,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
     /// </summary>
     public class MappingActionAsyncResult : MappingAsyncResult
     {
-        
+
         internal MappingActionAsyncResult(
             object callerData,
             AsyncCallback asyncCallback,

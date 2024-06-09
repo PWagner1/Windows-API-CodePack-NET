@@ -13,7 +13,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <summary>
         /// Event to trigger anytime this collection is modified
         /// </summary>
-        public event NotifyCollectionChangedEventHandler CollectionChanged = delegate { };
+        public event NotifyCollectionChangedEventHandler? CollectionChanged = delegate { };
 
         /// <summary>
         /// Determines if this collection is read-only
@@ -33,14 +33,14 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             if (category == null)
             {
-                throw new ArgumentNullException("category");
+                throw new ArgumentNullException(nameof(category));
             }
             _categories.Add(category);
 
             // Trigger CollectionChanged event
-            CollectionChanged(
+            CollectionChanged?.Invoke(
                 this,
-                new(
+                new NotifyCollectionChangedEventArgs(
                     NotifyCollectionChangedAction.Add,
                     category));
 
@@ -59,12 +59,12 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             bool removed = _categories.Remove(category);
 
-            if (removed == true)
+            if (removed)
             {
                 // Trigger CollectionChanged event
-                CollectionChanged(
+                CollectionChanged?.Invoke(
                     this,
-                    new(
+                    new NotifyCollectionChangedEventArgs(
                         NotifyCollectionChangedAction.Remove,
                         0));
             }
@@ -79,9 +79,9 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             _categories.Clear();
 
-            CollectionChanged(
+            CollectionChanged?.Invoke(
                 this,
-                new(
+                new NotifyCollectionChangedEventArgs(
                     NotifyCollectionChangedAction.Reset));
         }
 

@@ -10,15 +10,12 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
     public class TaskbarManager
     {
         // Hide the default constructor
-        private TaskbarManager()
-        {
-            CoreHelpers.ThrowIfNotWin7();
-        }
+        public TaskbarManager() => CoreHelpers.ThrowIfNotWin7OrHigher();
 
         // Best practice recommends defining a private object to lock on
-        private static readonly object _syncLock = new();
+        private static readonly object SyncLock = new object();
 
-        private static TaskbarManager _instance;
+        private static TaskbarManager? _instance;
         /// <summary>
         /// Represents an instance of the Windows Taskbar
         /// </summary>
@@ -28,11 +25,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 if (_instance == null)
                 {
-                    lock (_syncLock)
+                    lock (SyncLock)
                     {
                         if (_instance == null)
                         {
-                            _instance = new();
+                            _instance = new TaskbarManager();
                         }
                     }
                 }
@@ -48,9 +45,9 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="accessibilityText">String that provides an alt text version of the information conveyed by the overlay, for accessibility purposes</param>
         public void SetOverlayIcon(Icon? icon, string accessibilityText)
         {
-            TaskbarList.Instance.SetOverlayIcon(
+            TaskbarList.Instance?.SetOverlayIcon(
                 OwnerHandle,
-                icon != null ? icon.Handle : IntPtr.Zero,
+                icon?.Handle ?? IntPtr.Zero,
                 accessibilityText);
         }
 
@@ -62,9 +59,9 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="accessibilityText">String that provides an alt text version of the information conveyed by the overlay, for accessibility purposes</param>
         public void SetOverlayIcon(IntPtr windowHandle, Icon? icon, string accessibilityText)
         {
-            TaskbarList.Instance.SetOverlayIcon(
+            TaskbarList.Instance?.SetOverlayIcon(
                 windowHandle,
-                icon != null ? icon.Handle : IntPtr.Zero,
+                icon?.Handle ?? IntPtr.Zero,
                 accessibilityText);
         }
 
@@ -76,9 +73,9 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="accessibilityText">String that provides an alt text version of the information conveyed by the overlay, for accessibility purposes</param>
         public void SetOverlayIcon(Window window, Icon? icon, string accessibilityText)
         {
-            TaskbarList.Instance.SetOverlayIcon(
+            TaskbarList.Instance?.SetOverlayIcon(
                 (new WindowInteropHelper(window)).Handle,
-                icon != null ? icon.Handle : IntPtr.Zero,
+                icon?.Handle ?? IntPtr.Zero,
                 accessibilityText);
         }
 
@@ -92,7 +89,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             int tmpMaxValue = maximumValue ?? 100;
 
-            TaskbarList.Instance.SetProgressValue(OwnerHandle, Convert.ToUInt32(currentValue), Convert.ToUInt32(tmpMaxValue));
+            TaskbarList.Instance?.SetProgressValue(OwnerHandle, Convert.ToUInt32(currentValue), Convert.ToUInt32(tmpMaxValue));
         }
 
         /// <summary>
@@ -107,7 +104,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             int tmpMaxValue = maximumValue ?? 100;
 
-            TaskbarList.Instance.SetProgressValue(
+            TaskbarList.Instance?.SetProgressValue(
                 windowHandle,
                 Convert.ToUInt32(currentValue),
                 Convert.ToUInt32(tmpMaxValue));
@@ -125,7 +122,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             int tmpMaxValue = maximumValue ?? 100;
 
-            TaskbarList.Instance.SetProgressValue(
+            TaskbarList.Instance?.SetProgressValue(
                 (new WindowInteropHelper(window)).Handle,
                 Convert.ToUInt32(currentValue),
                 Convert.ToUInt32(tmpMaxValue));
@@ -135,7 +132,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// Sets the type and state of the progress indicator displayed on a taskbar button of the main application window.
         /// </summary>
         /// <param name="state">Progress state of the progress button</param>
-        public void SetProgressState(TaskbarProgressBarState state) => TaskbarList.Instance.SetProgressState(OwnerHandle, (TaskbarProgressBarStatus)state);
+        public void SetProgressState(TaskbarProgressBarState state) => TaskbarList.Instance?.SetProgressState(OwnerHandle, (TaskbarProgressBarStatus)state);
 
         /// <summary>
         /// Sets the type and state of the progress indicator displayed on a taskbar button 
@@ -144,7 +141,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="windowHandle">The handle of the window whose associated taskbar button is being used as a progress indicator.
         /// This window belong to a calling process associated with the button's application and must be already loaded.</param>
         /// <param name="state">Progress state of the progress button</param>
-        public void SetProgressState(TaskbarProgressBarState state, IntPtr windowHandle) => TaskbarList.Instance.SetProgressState(windowHandle, (TaskbarProgressBarStatus)state);
+        public void SetProgressState(TaskbarProgressBarState state, IntPtr windowHandle) => TaskbarList.Instance?.SetProgressState(windowHandle, (TaskbarProgressBarStatus)state);
 
         /// <summary>
         /// Sets the type and state of the progress indicator displayed on a taskbar button 
@@ -155,40 +152,40 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="state">Progress state of the progress button</param>
         public void SetProgressState(TaskbarProgressBarState state, Window window)
         {
-            TaskbarList.Instance.SetProgressState(
+            TaskbarList.Instance?.SetProgressState(
                 (new WindowInteropHelper(window)).Handle,
                 (TaskbarProgressBarStatus)state);
         }
 
-        private TabbedThumbnailManager _tabbedThumbnail;
+        private TabbedThumbnailManager? _tabbedThumbnail;
         /// <summary>
         /// Gets the Tabbed Thumbnail manager class for adding/updating
         /// tabbed thumbnail previews.
         /// </summary>
-        public TabbedThumbnailManager TabbedThumbnail
+        public TabbedThumbnailManager? TabbedThumbnail
         {
             get
             {
                 if (_tabbedThumbnail == null)
                 {
-                    _tabbedThumbnail = new();
+                    _tabbedThumbnail = new TabbedThumbnailManager();
                 }
                 return _tabbedThumbnail;
             }
         }
 
-        private ThumbnailToolBarManager _thumbnailToolBarManager;
+        private ThumbnailToolBarManager? _thumbnailToolBarManager;
         /// <summary>
         /// Gets the Thumbnail toolbar manager class for adding/updating
         /// toolbar buttons.
         /// </summary>
-        public ThumbnailToolBarManager ThumbnailToolBars
+        public ThumbnailToolBarManager? ThumbnailToolBars
         {
             get
             {
                 if (_thumbnailToolBarManager == null)
                 {
-                    _thumbnailToolBarManager = new();
+                    _thumbnailToolBarManager = new ThumbnailToolBarManager();
                 }
 
                 return _thumbnailToolBarManager;
@@ -206,7 +203,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException(nameof(value));
                 }
 
                 SetCurrentProcessAppId(value);
@@ -290,6 +287,6 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         public static bool IsPlatformSupported =>
             // We need Windows 7 onwards ...
-            CoreHelpers.RunningOnWin7;
+            CoreHelpers.RunningOnWin7OrHigher;
     }
 }

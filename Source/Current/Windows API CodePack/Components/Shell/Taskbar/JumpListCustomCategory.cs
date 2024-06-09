@@ -26,7 +26,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 if (value != _name)
                 {
                     _name = value;
-                    CollectionChanged(this, new(NotifyCollectionChangedAction.Reset));
+                    CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
                 }
             }
         }
@@ -60,8 +60,8 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             Name = categoryName;
 
-            JumpListItems = new();
-            JumpListItems.CollectionChanged += OnJumpListCollectionChanged;
+            JumpListItems = new JumpListItemCollection<IJumpListItem>();
+            JumpListItems.CollectionChanged += OnJumpListCollectionChanged!;
         }
 
         internal void OnJumpListCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)

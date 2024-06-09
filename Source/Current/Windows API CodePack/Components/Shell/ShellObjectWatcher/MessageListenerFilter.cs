@@ -15,7 +15,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 var package = _packages.FirstOrDefault(x => x.TryRegister(callback, out message));
                 if (package == null)
                 {
-                    package = new();
+                    package = new RegisteredListener();
                     if (!package.TryRegister(callback, out message))
                     {   // this should never happen
                         throw new ShellException(LocalizedMessages.MessageListenerFilterUnableToRegister);
@@ -23,7 +23,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     _packages.Add(package);
                 }
 
-                return new(
+                return new MessageListenerFilterRegistrationResult(
                     package.Listener.WindowHandle,
                     message);
             }
@@ -55,8 +55,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             public RegisteredListener()
             {
-                Callbacks = new();
-                Listener = new();
+                Callbacks = new Dictionary<uint, Action<WindowMessageEventArgs>>();
+                Listener = new MessageListener();
                 Listener.MessageReceived += MessageReceived;
             }
 

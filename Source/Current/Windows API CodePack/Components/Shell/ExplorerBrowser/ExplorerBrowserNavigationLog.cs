@@ -105,14 +105,9 @@ namespace Microsoft.WindowsAPICodePack.Controls
 
         internal ExplorerBrowserNavigationLog(ExplorerBrowser? parent)
         {
-            if (parent == null)
-            {
-                throw new ArgumentException(LocalizedMessages.NavigationLogNullParent, "parent");
-            }
-
             // Hook navigation events from the parent to distinguish between
             // navigation log induced navigation, and other navigations.
-            _parent = parent;
+            _parent = parent ?? throw new ArgumentException(LocalizedMessages.NavigationLogNullParent, nameof(parent));
             _parent.NavigationComplete += OnNavigationComplete;
             _parent.NavigationFailed += OnNavigationFailed;
         }
@@ -196,7 +191,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
 
             // initiate traversal request
             ShellObject? location = _locations[locationIndex];
-            _pendingNavigation = new(location, locationIndex);
+            _pendingNavigation = new PendingNavigation(location, locationIndex);
             _parent?.Navigate(location);
             return true;
         }
@@ -211,7 +206,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
 
             // initiate traversal request
             ShellObject? location = _locations[index];
-            _pendingNavigation = new(location, index);
+            _pendingNavigation = new PendingNavigation(location, index);
             _parent?.Navigate(location);
             return true;
         }

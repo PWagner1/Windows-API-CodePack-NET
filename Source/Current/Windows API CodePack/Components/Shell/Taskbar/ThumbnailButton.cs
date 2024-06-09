@@ -1,6 +1,5 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-#pragma warning disable CS8618
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
     /// <summary>
@@ -15,21 +14,21 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// The event that occurs when the taskbar thumbnail button
         /// is clicked.
         /// </summary>
-        public event EventHandler<ThumbnailButtonClickedEventArgs> Click;
+        public event EventHandler<ThumbnailButtonClickedEventArgs>? Click;
 
         // Internal bool to track whether we should be updating the taskbar 
         // if any of our properties change or if it's just an internal update
         // on the properties (via the constructor)
-        private readonly bool _internalUpdate = false;
+        private readonly bool _internalUpdate;
 
         /// <summary>
         /// Initializes an instance of this class
         /// </summary>
         /// <param name="icon">The icon to use for this button</param>
         /// <param name="tooltip">The tooltip string to use for this button.</param>
-        public ThumbnailToolBarButton(Icon icon, string tooltip)
+        public ThumbnailToolBarButton(Icon? icon, string? tooltip)
         {
-            // Start internal update (so we don't accidently update the taskbar
+            // Start internal update (so we don't accidentally update the taskbar
             // via the native API)
             _internalUpdate = true;
 
@@ -50,7 +49,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             Enabled = true;
 
             // Create a native 
-            _win32ThumbButton = new();
+            _win32ThumbButton = new ThumbButton();
 
             // End our internal update
             _internalUpdate = false;
@@ -63,11 +62,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </summary>
         internal uint Id { get; set; }
 
-        private Icon _icon;
+        private Icon? _icon;
         /// <summary>
         /// Gets or sets the thumbnail button's icon.
         /// </summary>
-        public Icon Icon
+        public Icon? Icon
         {
             get => _icon;
             set
@@ -80,11 +79,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        private string _tooltip;
+        private string? _tooltip;
         /// <summary>
         /// Gets or sets the thumbnail button's tooltip.
         /// </summary>
-        public string Tooltip
+        public string? Tooltip
         {
             get => _tooltip;
             set
@@ -259,11 +258,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 if (taskbarWindow.UserWindowHandle != IntPtr.Zero)
                 {
-                    Click(this, new(taskbarWindow.UserWindowHandle, this));
+                    Click(this, new ThumbnailButtonClickedEventArgs(taskbarWindow.UserWindowHandle, this));
                 }
                 else if (taskbarWindow.WindowsControl != null)
                 {
-                    Click(this, new(taskbarWindow.WindowsControl, this));
+                    Click(this, new ThumbnailButtonClickedEventArgs(taskbarWindow.WindowsControl, this));
                 }
             }
         }
@@ -294,7 +293,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             // Get the array of thumbnail buttons in native format
             ThumbButton[] nativeButtons = { Win32ThumbButton };
 
-            HResult hr = TaskbarList.Instance.ThumbBarUpdateButtons(WindowHandle, 1, nativeButtons);
+            HResult hr = TaskbarList.Instance!.ThumbBarUpdateButtons(WindowHandle, 1, nativeButtons);
 
             if (!CoreErrorHelper.Succeeded(hr)) { throw new ShellException(hr); }
         }
@@ -329,7 +328,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             if (disposing)
             {
                 // Dispose managed resources
-                Icon.Dispose();
+                Icon?.Dispose();
                 _tooltip = null;
             }
         }

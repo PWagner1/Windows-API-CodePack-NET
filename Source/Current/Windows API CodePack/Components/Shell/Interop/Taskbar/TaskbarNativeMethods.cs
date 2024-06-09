@@ -36,6 +36,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         UseMdiLivePreview = 0x2
     }
 
+    [Flags]
     internal enum ThumbButtonMask
     {
         Bitmap = 0x1,
@@ -82,7 +83,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         internal uint Bitmap;
         internal IntPtr Icon;
         [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 260)]
-        internal string Tip;
+        internal string? Tip;
         [MarshalAs(UnmanagedType.U4)]
         internal ThumbButtonOptions Flags;
     }

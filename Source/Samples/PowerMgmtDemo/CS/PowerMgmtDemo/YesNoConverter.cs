@@ -20,7 +20,7 @@ namespace Microsoft.WindowsAPICodePack.Samples.PowerMgmtDemoApp
                 return null;
 
             bool what = (bool) value;
-            if (what == true)
+            if (what)
                 return "Yes";
             else
                 return "No";

@@ -2,7 +2,7 @@
 
 // ReSharper disable InlineOutVariableDeclaration
 #pragma warning disable CS8600
-#pragma warning disable CS8602
+
 namespace Microsoft.WindowsAPICodePack.Dialogs
 {
     /// <summary>
@@ -123,7 +123,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             if (_openDialogCoClass == null)
             {
-                _openDialogCoClass = new();
+                _openDialogCoClass = new NativeFileOpenDialog();
             }
         }
 
@@ -140,7 +140,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             IShellItemArray resultsArray;
             uint count;
 
-            _openDialogCoClass.GetResults(out resultsArray);
+            _openDialogCoClass!.GetResults(out resultsArray);
             resultsArray.GetCount(out count);
             names.Clear();
             for (int i = 0; i < count; i++)
@@ -154,7 +154,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             IShellItemArray resultsArray;
             uint count;
 
-            _openDialogCoClass.GetResults(out resultsArray);
+            _openDialogCoClass!.GetResults(out resultsArray);
             resultsArray.GetCount(out count);
             items.Clear();
             for (int i = 0; i < count; i++)

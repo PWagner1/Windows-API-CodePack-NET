@@ -29,7 +29,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             if (windowHandle == IntPtr.Zero)
             {
-                throw new ArgumentException(LocalizedMessages.ThumbnailManagerInvalidHandle, "windowHandle");
+                throw new ArgumentException(LocalizedMessages.ThumbnailManagerInvalidHandle, nameof(windowHandle));
             }
             VerifyButtons(buttons);
 
@@ -51,7 +51,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// </remarks>
         public void AddButtons(UIElement? control, params ThumbnailToolBarButton[]? buttons)
         {
-            if (control == null) { throw new ArgumentNullException("control"); }
+            if (control == null) { throw new ArgumentNullException(nameof(control)); }
             VerifyButtons(buttons);
 
             // Add the buttons to our window manager, which will also create a proxy window
@@ -62,11 +62,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             if (buttons != null && buttons.Length == 0)
             {
-                throw new ArgumentException(LocalizedMessages.ThumbnailToolbarManagerNullEmptyArray, "buttons");
+                throw new ArgumentException(LocalizedMessages.ThumbnailToolbarManagerNullEmptyArray, nameof(buttons));
             }
             if (buttons != null && buttons.Length > 7)
             {
-                throw new ArgumentException(LocalizedMessages.ThumbnailToolbarManagerMaxButtons, "buttons");
+                throw new ArgumentException(LocalizedMessages.ThumbnailToolbarManagerMaxButtons, nameof(buttons));
             }
         }
     }

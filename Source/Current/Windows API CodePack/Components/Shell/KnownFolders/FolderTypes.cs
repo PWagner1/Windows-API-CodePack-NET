@@ -178,12 +178,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
             0x0b0ba2e3, 0x405f, 0x415e, 0xa6, 0xee, 0xca, 0xd6, 0x25, 0x20, 0x78, 0x53);
 
 
-        private static readonly Dictionary<Guid, string> _types;
+        private static readonly Dictionary<Guid, string?> _types;
 
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static FolderTypes()
         {
-            _types = new();
+            _types = new Dictionary<Guid, string>();
             // Review: These Localized messages could probably be a reflected value of the field's name.
             _types.Add(NotSpecified, LocalizedMessages.FolderTypeNotSpecified);
             _types.Add(Invalid, LocalizedMessages.FolderTypeInvalid);
@@ -215,10 +215,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
             _types.Add(Videos, LocalizedMessages.FolderTypeVideos);
         }
 
-        internal static string GetFolderType(Guid typeId)
+        internal static string? GetFolderType(Guid typeId)
         {
             // ReSharper disable once InlineOutVariableDeclaration
-            string type;
+            string? type;
             return _types.TryGetValue(typeId, out type) ? type : string.Empty;
         }
     }

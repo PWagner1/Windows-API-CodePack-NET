@@ -8,11 +8,11 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
     /// </summary>
     public class MappingAsyncResult : IAsyncResult, IDisposable
     {
-        private object _callerData;
+        private readonly object _callerData;
         private MappingPropertyBag? _bag;
         private MappingResultState _resultState;
-        private ManualResetEvent _waitHandle;
-        private AsyncCallback _asyncCallback;
+        private readonly ManualResetEvent _waitHandle;
+        private readonly AsyncCallback _asyncCallback;
 
         internal MappingAsyncResult(
             object callerData,

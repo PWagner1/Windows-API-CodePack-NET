@@ -16,6 +16,8 @@ Imports System.IO
 Imports System.Runtime.InteropServices
 Imports Microsoft.WindowsAPICodePack.Dialogs
 
+Imports TD = Microsoft.WindowsAPICodePack.Dialogs.TaskDialog
+
 Namespace Transliterator
     Partial Friend Class Transliterator
         Inherits Form
@@ -31,11 +33,11 @@ Namespace Transliterator
         Private Const WM_HSCROLL As Integer = &H114
         Private Const WM_VSCROLL As Integer = &H115
 
-        Private Const categoryTransliteration As String = "Transliteration"
-        Private transliterationServices() As MappingService = Nothing
-        Private guidService? As Guid = Nothing
+        Private Const CategoryTransliteration As String = "Transliteration"
+        Private ReadOnly _transliterationServices() As MappingService = Nothing
+        Private _guidService? As Guid = Nothing
 
-        <DllImport("user32.dll")> _
+        <DllImport("user32.dll")>
         Private Shared Function SendMessage(ByVal hWnd As IntPtr, ByVal wMsg As Integer, ByVal wParam As Integer, ByVal lParam As Integer) As Integer
         End Function
 
@@ -50,20 +52,20 @@ Namespace Transliterator
                 textBoxSource.Text = File.ReadAllText(fileName)
             End If
 
-            transliterationServices = GetSpecifiedMappingServices(categoryTransliteration)
-            If (transliterationServices IsNot Nothing) AndAlso (transliterationServices.Count() > 0) Then
-                For Each ms As MappingService In transliterationServices
-                    comboBoxServices.Items.Add(New DataItem() With {.Name = ms.Description, .guid = ms.Guid})
+            _transliterationServices = GetSpecifiedMappingServices(CategoryTransliteration)
+            If (_transliterationServices IsNot Nothing) AndAlso (_transliterationServices.Count() > 0) Then
+                For Each ms As MappingService In _transliterationServices
+                    comboBoxServices.Items.Add(New DataItem() With {.Name = ms.Description, .Guid = ms.Guid})
                 Next ms
                 comboBoxServices.SelectedIndex = 0
             End If
 
         End Sub
 
-        Private Function GetSpecifiedMappingServices(ByVal CategoryName As String) As MappingService()
+        Private Function GetSpecifiedMappingServices(ByVal categoryName As String) As MappingService()
             Dim transliterationServices() As MappingService = Nothing
             Try
-                Dim enumOptions As New MappingEnumOptions() With {.Category = CategoryName}
+                Dim enumOptions As New MappingEnumOptions() With {.Category = categoryName}
                 transliterationServices = MappingService.GetServices(enumOptions)
             Catch exc As LinguisticException
                 ShowErrorMessage(String.Format("Error calling ELS: {0}, HResult: {1}", exc.ResultState.ErrorMessage, exc.ResultState.HResult))
@@ -87,7 +89,7 @@ Namespace Transliterator
         End Function
 
         Private Sub ShowErrorMessage(ByVal msg As String)
-            Dim td As New TaskDialog() With {.StandardButtons = TaskDialogStandardButtons.Close, .Caption = "Error", .InstructionText = msg, .Icon = TaskDialogStandardIcon.Error}
+            Dim td As New TD() With {.StandardButtons = TaskDialogStandardButtons.Close, .Caption = "Error", .InstructionText = msg, .Icon = TaskDialogStandardIcon.Error}
 
             Dim res As TaskDialogResult = td.Show()
         End Sub
@@ -114,8 +116,8 @@ Namespace Transliterator
 
         Private Sub btnConvert_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnConvert.Click
             Try
-                Debug.Assert(guidService.HasValue)
-                Dim result As String = LanguageConverter(guidService.GetValueOrDefault(), textBoxSource.Text)
+                Debug.Assert(_guidService.HasValue)
+                Dim result As String = LanguageConverter(_guidService.GetValueOrDefault(), textBoxSource.Text)
                 If (result IsNot Nothing) AndAlso (result.Length > 0) Then
                     textBoxResult.Text = result
                 End If
@@ -125,17 +127,17 @@ Namespace Transliterator
         End Sub
 
         Private Sub btnHelp_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnHelp.Click
-            Dim taskHelp As New TaskDialog()
+            Dim taskHelp As New TD()
             taskHelp.Caption = "Help"
-            taskHelp.Text = "Steps to use the tool:" & Constants.vbLf + Constants.vbLf
+            taskHelp.Text = "Steps to use the tool:" & vbLf + vbLf
             taskHelp.Text &= "1) Use the Browse button to load the unicode text from a "
             taskHelp.Text &= "text file or copy and paste text "
-            taskHelp.Text &= "directly to the text box under the 'Text for conversion:' label," & Constants.vbLf
-            taskHelp.Text &= "2) Choose a tranliteration service from the drop down list," & Constants.vbLf
-            taskHelp.Text &= "3) Click the Convert button." & Constants.vbLf + Constants.vbLf
+            taskHelp.Text &= "directly to the text box under the 'Text for conversion:' label," & vbLf
+            taskHelp.Text &= "2) Choose a tranliteration service from the drop down list," & vbLf
+            taskHelp.Text &= "3) Click the Convert button." & vbLf + vbLf
             taskHelp.Text &= "This demo uses the Extended Linguistic Services API in the Windows API Code "
-            taskHelp.Text &= "Pack for Microsoft .NET Framework."
-            taskHelp.DetailsExpandedText = "<a href=""http://code.msdn.microsoft.com/WindowsAPICodePack"">Windows API Code Pack for .NET Framework</a>"
+            taskHelp.Text &= "Pack for Microsoft .NET Framework and .NET."
+            taskHelp.DetailsExpandedText = "<a href=""https://github.com/Wagnerp/Windows-API-CodePack-NET"">Windows API Code Pack for .NET Framework and .NET</a>"
 
             ' Enable the hyperlinks
             taskHelp.HyperlinksEnabled = True
@@ -148,7 +150,7 @@ Namespace Transliterator
         End Sub
 
         Private Sub btnClose_Click(ByVal sender As Object, ByVal e As EventArgs) Handles btnClose.Click
-            Me.Close()
+            Close()
         End Sub
 
         Private Shared Sub taskHelp_HyperlinkClick(ByVal sender As Object, ByVal e As TaskDialogHyperlinkClickedEventArgs)
@@ -200,7 +202,7 @@ Namespace Transliterator
         Private Sub comboBoxServices_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles comboBoxServices.SelectedIndexChanged
             Dim cb As ComboBox = CType(sender, ComboBox)
             Dim di As DataItem = CType(comboBoxServices.Items(cb.SelectedIndex), DataItem)
-            guidService = di.guid
+            _guidService = di.Guid
         End Sub
 
         Private Sub textBoxSource_OnVerticalScroll(ByVal sender As Object, ByVal e As ScrollEventArgs) Handles textBoxSource.OnVerticalScroll
@@ -233,30 +235,30 @@ Namespace Transliterator
 
     End Class
 
-	Friend Class DataItem
-		Inherits System.Object
-		Private privateguid As Guid
-		Public Property guid() As Guid
-			Get
-				Return privateguid
-			End Get
-			Set(ByVal value As Guid)
-				privateguid = value
-			End Set
-		End Property
-		Private privateName As String
-		Public Property Name() As String
-			Get
-				Return privateName
-			End Get
-			Set(ByVal value As String)
-				privateName = value
-			End Set
-		End Property
+    Friend Class DataItem
+        Inherits Object
+        Private _privateGuid As Guid
+        Public Property Guid() As Guid
+            Get
+                Return _privateGuid
+            End Get
+            Set(ByVal value As Guid)
+                _privateGuid = value
+            End Set
+        End Property
+        Private _privateName As String
+        Public Property Name() As String
+            Get
+                Return _privateName
+            End Get
+            Set(ByVal value As String)
+                _privateName = value
+            End Set
+        End Property
 
-		Public Overrides Function ToString() As String
-			Return Name
-		End Function
-	End Class
+        Public Overrides Function ToString() As String
+            Return Name
+        End Function
+    End Class
 
 End Namespace

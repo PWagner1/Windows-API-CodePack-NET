@@ -18,7 +18,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public CommonFileDialogFilter()
         {
-            _extensions = new();
+            _extensions = new Collection<string>();
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             if (string.IsNullOrEmpty(extensionList))
             {
-                throw new ArgumentNullException("extensionList");
+                throw new ArgumentNullException(nameof(extensionList));
             }
 
             _rawDisplayName = rawDisplayName ?? "*";
@@ -80,7 +80,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 if (string.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentNullException("value");
+                    throw new ArgumentNullException(nameof(value));
                 }
                 _rawDisplayName = value;
             }
@@ -152,7 +152,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 filterList.Append(extension);
 
             }
-            return new(DisplayName, filterList.ToString());
+            return new ShellNativeMethods.FilterSpec(DisplayName, filterList.ToString());
         }
 
         /// <summary>

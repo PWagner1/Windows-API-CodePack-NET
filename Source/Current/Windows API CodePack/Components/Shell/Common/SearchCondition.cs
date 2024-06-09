@@ -3,7 +3,7 @@
 // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
 // ReSharper disable InlineOutVariableDeclaration
 // ReSharper disable MemberInitializerValueIgnored
-#pragma warning disable CS8602
+
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -13,12 +13,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
     {
         internal SearchCondition(ICondition? nativeSearchCondition)
         {
-            if (nativeSearchCondition == null)
-            {
-                throw new ArgumentNullException("nativeSearchCondition");
-            }
-
-            NativeSearchCondition = nativeSearchCondition;
+            NativeSearchCondition = nativeSearchCondition ?? throw new ArgumentNullException(nameof(nativeSearchCondition));
 
             HResult hr = NativeSearchCondition.GetConditionType(out _conditionType);
 
@@ -103,7 +98,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             object subConditionObj;
             Guid guid = new(ShellIIDGuid.IEnumUnknown);
 
-            HResult hr = NativeSearchCondition.GetSubConditions(ref guid, out subConditionObj);
+            HResult hr = NativeSearchCondition!.GetSubConditions(ref guid, out subConditionObj);
 
             if (!CoreErrorHelper.Succeeded(hr))
             {
@@ -124,7 +119,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                     if (hr == HResult.Ok && fetched == 1)
                     {
-                        subConditionsList.Add(new((ICondition)Marshal.GetObjectForIUnknown(buffer)));
+                        subConditionsList.Add(new SearchCondition((ICondition)Marshal.GetObjectForIUnknown(buffer)));
                     }
                 }
             }

@@ -46,9 +46,7 @@
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        protected CommonControlException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
+        protected CommonControlException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {
         }

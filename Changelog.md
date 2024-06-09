@@ -1,7 +1,20 @@
+10/06/2024
+
+Version 8.0.4
+- Removed support for .NET Core App 3.1
+- Removed support for .NET 5
+- Removed support for .NET 7
+- Some more nullables
+- Add samples
+
+=========
+
 01/03/2024
 
 Version 8.0.3
 - Fix the implementation of the property `CheckSelect`
+
+=========
 
 24/02/2024
 
@@ -10,6 +23,8 @@ Version 8.0.2
 - Remove the border on the `ExplorerBrowser` control 
 - New `SelectionChangedEventArgs` for selected folder and file names
 - Ensure that `Shell` is thread safe
+
+=========
 
 14/02/2024
 

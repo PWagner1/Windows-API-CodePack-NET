@@ -12,7 +12,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         static FolderIdentifiers()
         {
-            folders = new();
+            folders = new Dictionary<Guid, string>();
             Type folderIDs = typeof(FolderIdentifiers);
 
             FieldInfo[] fields = folderIDs.GetFields(BindingFlags.NonPublic | BindingFlags.Static);
@@ -21,7 +21,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 // Ignore dictionary field.
                 if (f.FieldType == typeof(Guid))
                 {
-                    Guid id = (Guid)f.GetValue(null);
+                    Guid id = (Guid)f.GetValue(null)!;
                     string name = f.Name;
                     folders.Add(id, name);
                 }
@@ -35,9 +35,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
         internal static string NameForGuid(Guid folderId)
         {
             string folder;
-            if (!folders.TryGetValue(folderId, out folder))
+            if (!folders.TryGetValue(folderId, out folder!))
             {
-                throw new ArgumentException(LocalizedMessages.FolderIdsUnknownGuid, "folderId");
+                throw new ArgumentException(LocalizedMessages.FolderIdsUnknownGuid, nameof(folderId));
             }
             return folder;
         }

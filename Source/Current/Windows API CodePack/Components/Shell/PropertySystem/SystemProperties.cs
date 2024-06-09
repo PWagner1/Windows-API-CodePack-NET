@@ -438,7 +438,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             /// <para>Name:     System.FileAttributes -- PKEY_FileAttributes</para>
             /// <para>Description: This is the WIN32_FIND_DATA dwFileAttributes for the file-based item.
             ///</para>
-            /// <para>Type:     UInt32 -- VT_UI4</para>
+            /// <para>Type:     uint -- VT_UI4</para>
             /// <para>FormatID: (FMTID_Storage) {B725F130-47EF-101A-A5F1-02608C9EEBAC}, 13 (PID_STG_ATTRIBUTES)</para>
             /// </summary>
             public static PropertyKey FileAttributes
@@ -1655,7 +1655,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             /// <summary>
             /// <para>Name:     System.OfflineAvailability -- PKEY_OfflineAvailability</para>
             /// <para>Description: </para>
-            /// <para>Type:     UInt32 -- VT_UI4</para>
+            /// <para>Type:     uint -- VT_UI4</para>
             /// <para>FormatID: {A94688B6-7D9F-4570-A648-E3DFC0AB2B3F}, 100</para>
             /// </summary>
             public static PropertyKey OfflineAvailability
@@ -1671,7 +1671,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             /// <summary>
             /// <para>Name:     System.OfflineStatus -- PKEY_OfflineStatus</para>
             /// <para>Description: </para>
-            /// <para>Type:     UInt32 -- VT_UI4</para>
+            /// <para>Type:     uint -- VT_UI4</para>
             /// <para>FormatID: {6D24888F-4718-4BDA-AFED-EA0FB4386CD8}, 100</para>
             /// </summary>
             public static PropertyKey OfflineStatus
@@ -1845,7 +1845,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             /// <para>Name:     System.PercentFull -- PKEY_PercentFull</para>
             /// <para>Description: The amount filled as a percentage, multiplied by 100 (ie, the valid range is 0 through 100).
             ///</para>
-            /// <para>Type:     UInt32 -- VT_UI4</para>
+            /// <para>Type:     uint -- VT_UI4</para>
             /// <para>FormatID: (FMTID_Volume) {9B174B35-40FF-11D2-A27E-00C04FC30871}, 5  (Filesystem Volume Properties)</para>
             /// </summary>
             public static PropertyKey PercentFull
@@ -1931,7 +1931,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             /// <para>Description: Indicates the users preference rating of an item on a scale of 1-99 (1-12 = One Star, 
             ///13-37 = Two Stars, 38-62 = Three Stars, 63-87 = Four Stars, 88-99 = Five Stars).
             ///</para>
-            /// <para>Type:     UInt32 -- VT_UI4</para>
+            /// <para>Type:     uint -- VT_UI4</para>
             /// <para>FormatID: (PSGUID_MEDIAFILESUMMARYINFORMATION) {64440492-4C8B-11D1-8B70-080036B11A03}, 9 (PIDMSI_RATING)</para>
             /// </summary>
             public static PropertyKey Rating
@@ -2001,7 +2001,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             /// <para>Name:     System.SFGAOFlags -- PKEY_SFGAOFlags</para>
             /// <para>Description: IShellFolder::GetAttributesOf flags, with SFGAO_PKEYSFGAOMASK attributes masked out.
             ///</para>
-            /// <para>Type:     UInt32 -- VT_UI4</para>
+            /// <para>Type:     uint -- VT_UI4</para>
             /// <para>FormatID: (FMTID_ShellDetails) {28636AA6-953D-11D2-B5D6-00C04FD918D0}, 25</para>
             /// </summary>
             [SuppressMessage("Microsoft.Naming", "CA1726:UsePreferredTerms", MessageId = "Flags")]
@@ -2036,7 +2036,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             /// <para>Name:     System.ShareUserRating -- PKEY_ShareUserRating</para>
             /// <para>Description: 
             ///</para>
-            /// <para>Type:     UInt32 -- VT_UI4</para>
+            /// <para>Type:     uint -- VT_UI4</para>
             /// <para>FormatID: (PSGUID_MEDIAFILESUMMARYINFORMATION) {64440492-4C8B-11D1-8B70-080036B11A03}, 12 (PIDMSI_SHARE_USER_RATING)</para>
             /// </summary>
             public static PropertyKey ShareUserRating
@@ -2053,7 +2053,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             /// <para>Name:     System.SharingStatus -- PKEY_SharingStatus</para>
             /// <para>Description: What is the item's sharing status (not shared, shared, everyone (homegroup or everyone), or private)?
             ///</para>
-            /// <para>Type:     UInt32 -- VT_UI4</para>
+            /// <para>Type:     uint -- VT_UI4</para>
             /// <para>FormatID: {EF884C5B-2BFE-41BB-AAE5-76EEDF4F9902}, 300</para>
             /// </summary>
             public static PropertyKey SharingStatus
@@ -2071,7 +2071,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             /// <para>Description: Indicates the users preference rating of an item on a scale of 0-5 (0=unrated, 1=One Star, 2=Two Stars, 3=Three Stars,
             ///4=Four Stars, 5=Five Stars)
             ///</para>
-            /// <para>Type:     UInt32 -- VT_UI4</para>
+            /// <para>Type:     uint -- VT_UI4</para>
             /// <para>FormatID: {A09F084E-AD41-489F-8076-AA5BE3082BCA}, 100</para>
             /// </summary>
             public static PropertyKey SimpleRating
@@ -2427,7 +2427,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Audio.ChannelCount -- PKEY_Audio_ChannelCount</para>
                 /// <para>Description: Indicates the channel count for the audio file.  Values: 1 (mono), 2 (stereo).
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_AudioSummaryInformation) {64440490-4C8B-11D1-8B70-080036B11A03}, 7 (PIDASI_CHANNEL_COUNT)</para>
                 /// </summary>
                 public static PropertyKey ChannelCount
@@ -2461,7 +2461,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Audio.EncodingBitrate -- PKEY_Audio_EncodingBitrate</para>
                 /// <para>Description: Indicates the average data rate in Hz for the audio file in "bits per second".
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_AudioSummaryInformation) {64440490-4C8B-11D1-8B70-080036B11A03}, 4 (PIDASI_AVG_DATA_RATE)</para>
                 /// </summary>
                 public static PropertyKey EncodingBitrate
@@ -2510,7 +2510,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <summary>
                 /// <para>Name:     System.Audio.PeakValue -- PKEY_Audio_PeakValue</para>
                 /// <para>Description: </para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {2579E5D0-1116-4084-BD9A-9B4F7CB4DF5E}, 100</para>
                 /// </summary>
                 public static PropertyKey PeakValue
@@ -2527,7 +2527,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Audio.SampleRate -- PKEY_Audio_SampleRate</para>
                 /// <para>Description: Indicates the audio sample rate for the audio file in "samples per second".
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_AudioSummaryInformation) {64440490-4C8B-11D1-8B70-080036B11A03}, 5 (PIDASI_SAMPLE_RATE)</para>
                 /// </summary>
                 public static PropertyKey SampleRate
@@ -2544,7 +2544,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Audio.SampleSize -- PKEY_Audio_SampleSize</para>
                 /// <para>Description: Indicates the audio sample size for the audio file in "bits per sample".
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_AudioSummaryInformation) {64440490-4C8B-11D1-8B70-080036B11A03}, 6 (PIDASI_SAMPLE_SIZE)</para>
                 /// </summary>
                 public static PropertyKey SampleSize
@@ -5208,7 +5208,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Devices.StorageFreeSpacePercent -- PKEY_Devices_StorageFreeSpacePercent</para>
                 /// <para>Description: Total free space of the storage of the device as a percentage.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {49CD1F76-5626-4B17-A4E8-18B4AA1A2213}, 14</para>
                 /// </summary>
                 public static PropertyKey StorageFreeSpacePercent
@@ -6008,7 +6008,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.DRM.PlayCount -- PKEY_DRM_PlayCount</para>
                 /// <para>Description: Indicates the play count for digital rights management.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_DRM) {AEAC19E4-89AE-4508-B9B7-BB867ABEE2ED}, 4 (PIDDRSI_PLAYCOUNT)</para>
                 /// </summary>
                 public static PropertyKey PlayCount
@@ -6057,7 +6057,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.AltitudeDenominator -- PKEY_GPS_AltitudeDenominator</para>
                 /// <para>Description: Denominator of PKEY_GPS_Altitude
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {78342DCB-E358-4145-AE9A-6BFE4E0F9F51}, 100</para>
                 /// </summary>
                 public static PropertyKey AltitudeDenominator
@@ -6074,7 +6074,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.AltitudeNumerator -- PKEY_GPS_AltitudeNumerator</para>
                 /// <para>Description: Numerator of PKEY_GPS_Altitude
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {2DAD1EB7-816D-40D3-9EC3-C9773BE2AADE}, 100</para>
                 /// </summary>
                 public static PropertyKey AltitudeNumerator
@@ -6160,7 +6160,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.DestBearingDenominator -- PKEY_GPS_DestBearingDenominator</para>
                 /// <para>Description: Denominator of PKEY_GPS_DestBearing
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {7ABCF4F8-7C3F-4988-AC91-8D2C2E97ECA5}, 100</para>
                 /// </summary>
                 public static PropertyKey DestinationBearingDenominator
@@ -6177,7 +6177,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.DestBearingNumerator -- PKEY_GPS_DestBearingNumerator</para>
                 /// <para>Description: Numerator of PKEY_GPS_DestBearing
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {BA3B1DA9-86EE-4B5D-A2A4-A271A429F0CF}, 100</para>
                 /// </summary>
                 public static PropertyKey DestinationBearingNumerator
@@ -6229,7 +6229,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.DestDistanceDenominator -- PKEY_GPS_DestDistanceDenominator</para>
                 /// <para>Description: Denominator of PKEY_GPS_DestDistance
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {9BC2C99B-AC71-4127-9D1C-2596D0D7DCB7}, 100</para>
                 /// </summary>
                 public static PropertyKey DestinationDistanceDenominator
@@ -6246,7 +6246,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.DestDistanceNumerator -- PKEY_GPS_DestDistanceNumerator</para>
                 /// <para>Description: Numerator of PKEY_GPS_DestDistance
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {2BDA47DA-08C6-4FE1-80BC-A72FC517C5D0}, 100</para>
                 /// </summary>
                 public static PropertyKey DestinationDistanceNumerator
@@ -6299,7 +6299,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.DestLatitudeDenominator -- PKEY_GPS_DestLatitudeDenominator</para>
                 /// <para>Description: Denominator of PKEY_GPS_DestLatitude
                 ///</para>
-                /// <para>Type:     Multivalue UInt32 -- VT_VECTOR | VT_UI4  (For variants: VT_ARRAY | VT_UI4)</para>
+                /// <para>Type:     Multivalue uint -- VT_VECTOR | VT_UI4  (For variants: VT_ARRAY | VT_UI4)</para>
                 /// <para>FormatID: {3A372292-7FCA-49A7-99D5-E47BB2D4E7AB}, 100</para>
                 /// </summary>
                 public static PropertyKey DestinationLatitudeDenominator
@@ -6316,7 +6316,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.DestLatitudeNumerator -- PKEY_GPS_DestLatitudeNumerator</para>
                 /// <para>Description: Numerator of PKEY_GPS_DestLatitude
                 ///</para>
-                /// <para>Type:     Multivalue UInt32 -- VT_VECTOR | VT_UI4  (For variants: VT_ARRAY | VT_UI4)</para>
+                /// <para>Type:     Multivalue uint -- VT_VECTOR | VT_UI4  (For variants: VT_ARRAY | VT_UI4)</para>
                 /// <para>FormatID: {ECF4B6F6-D5A6-433C-BB92-4076650FC890}, 100</para>
                 /// </summary>
                 public static PropertyKey DestinationLatitudeNumerator
@@ -6369,7 +6369,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.DestLongitudeDenominator -- PKEY_GPS_DestLongitudeDenominator</para>
                 /// <para>Description: Denominator of PKEY_GPS_DestLongitude
                 ///</para>
-                /// <para>Type:     Multivalue UInt32 -- VT_VECTOR | VT_UI4  (For variants: VT_ARRAY | VT_UI4)</para>
+                /// <para>Type:     Multivalue uint -- VT_VECTOR | VT_UI4  (For variants: VT_ARRAY | VT_UI4)</para>
                 /// <para>FormatID: {425D69E5-48AD-4900-8D80-6EB6B8D0AC86}, 100</para>
                 /// </summary>
                 public static PropertyKey DestinationLongitudeDenominator
@@ -6386,7 +6386,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.DestLongitudeNumerator -- PKEY_GPS_DestLongitudeNumerator</para>
                 /// <para>Description: Numerator of PKEY_GPS_DestLongitude
                 ///</para>
-                /// <para>Type:     Multivalue UInt32 -- VT_VECTOR | VT_UI4  (For variants: VT_ARRAY | VT_UI4)</para>
+                /// <para>Type:     Multivalue uint -- VT_VECTOR | VT_UI4  (For variants: VT_ARRAY | VT_UI4)</para>
                 /// <para>FormatID: {A3250282-FB6D-48D5-9A89-DBCACE75CCCF}, 100</para>
                 /// </summary>
                 public static PropertyKey DestinationLongitudeNumerator
@@ -6454,7 +6454,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.DOPDenominator -- PKEY_GPS_DOPDenominator</para>
                 /// <para>Description: Denominator of PKEY_GPS_DOP
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {A0BE94C5-50BA-487B-BD35-0654BE8881ED}, 100</para>
                 /// </summary>
                 public static PropertyKey DOPDenominator
@@ -6471,7 +6471,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.DOPNumerator -- PKEY_GPS_DOPNumerator</para>
                 /// <para>Description: Numerator of PKEY_GPS_DOP
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {47166B16-364F-4AA0-9F31-E2AB3DF449C3}, 100</para>
                 /// </summary>
                 public static PropertyKey DOPNumerator
@@ -6506,7 +6506,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.ImgDirectionDenominator -- PKEY_GPS_ImgDirectionDenominator</para>
                 /// <para>Description: Denominator of PKEY_GPS_ImgDirection
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {10B24595-41A2-4E20-93C2-5761C1395F32}, 100</para>
                 /// </summary>
                 public static PropertyKey ImageDirectionDenominator
@@ -6523,7 +6523,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.ImgDirectionNumerator -- PKEY_GPS_ImgDirectionNumerator</para>
                 /// <para>Description: Numerator of PKEY_GPS_ImgDirection
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {DC5877C7-225F-45F7-BAC7-E81334B6130A}, 100</para>
                 /// </summary>
                 public static PropertyKey ImageDirectionNumerator
@@ -6575,7 +6575,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.LatitudeDenominator -- PKEY_GPS_LatitudeDenominator</para>
                 /// <para>Description: Denominator of PKEY_GPS_Latitude
                 ///</para>
-                /// <para>Type:     Multivalue UInt32 -- VT_VECTOR | VT_UI4  (For variants: VT_ARRAY | VT_UI4)</para>
+                /// <para>Type:     Multivalue uint -- VT_VECTOR | VT_UI4  (For variants: VT_ARRAY | VT_UI4)</para>
                 /// <para>FormatID: {16E634EE-2BFF-497B-BD8A-4341AD39EEB9}, 100</para>
                 /// </summary>
                 public static PropertyKey LatitudeDenominator
@@ -6592,7 +6592,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.LatitudeNumerator -- PKEY_GPS_LatitudeNumerator</para>
                 /// <para>Description: Numerator of PKEY_GPS_Latitude
                 ///</para>
-                /// <para>Type:     Multivalue UInt32 -- VT_VECTOR | VT_UI4  (For variants: VT_ARRAY | VT_UI4)</para>
+                /// <para>Type:     Multivalue uint -- VT_VECTOR | VT_UI4  (For variants: VT_ARRAY | VT_UI4)</para>
                 /// <para>FormatID: {7DDAAAD1-CCC8-41AE-B750-B2CB8031AEA2}, 100</para>
                 /// </summary>
                 public static PropertyKey LatitudeNumerator
@@ -6644,7 +6644,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.LongitudeDenominator -- PKEY_GPS_LongitudeDenominator</para>
                 /// <para>Description: Denominator of PKEY_GPS_Longitude
                 ///</para>
-                /// <para>Type:     Multivalue UInt32 -- VT_VECTOR | VT_UI4  (For variants: VT_ARRAY | VT_UI4)</para>
+                /// <para>Type:     Multivalue uint -- VT_VECTOR | VT_UI4  (For variants: VT_ARRAY | VT_UI4)</para>
                 /// <para>FormatID: {BE6E176C-4534-4D2C-ACE5-31DEDAC1606B}, 100</para>
                 /// </summary>
                 public static PropertyKey LongitudeDenominator
@@ -6661,7 +6661,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.LongitudeNumerator -- PKEY_GPS_LongitudeNumerator</para>
                 /// <para>Description: Numerator of PKEY_GPS_Longitude
                 ///</para>
-                /// <para>Type:     Multivalue UInt32 -- VT_VECTOR | VT_UI4  (For variants: VT_ARRAY | VT_UI4)</para>
+                /// <para>Type:     Multivalue uint -- VT_VECTOR | VT_UI4  (For variants: VT_ARRAY | VT_UI4)</para>
                 /// <para>FormatID: {02B0F689-A914-4E45-821D-1DDA452ED2C4}, 100</para>
                 /// </summary>
                 public static PropertyKey LongitudeNumerator
@@ -6781,7 +6781,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.SpeedDenominator -- PKEY_GPS_SpeedDenominator</para>
                 /// <para>Description: Denominator of PKEY_GPS_Speed
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {7D122D5A-AE5E-4335-8841-D71E7CE72F53}, 100</para>
                 /// </summary>
                 public static PropertyKey SpeedDenominator
@@ -6798,7 +6798,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.SpeedNumerator -- PKEY_GPS_SpeedNumerator</para>
                 /// <para>Description: Numerator of PKEY_GPS_Speed
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {ACC9CE3D-C213-4942-8B48-6D0820F21C6D}, 100</para>
                 /// </summary>
                 public static PropertyKey SpeedNumerator
@@ -6869,7 +6869,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.TrackDenominator -- PKEY_GPS_TrackDenominator</para>
                 /// <para>Description: Denominator of PKEY_GPS_Track
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {C8D1920C-01F6-40C0-AC86-2F3A4AD00770}, 100</para>
                 /// </summary>
                 public static PropertyKey TrackDenominator
@@ -6886,7 +6886,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.GPS.TrackNumerator -- PKEY_GPS_TrackNumerator</para>
                 /// <para>Description: Numerator of PKEY_GPS_Track
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {702926F4-44A6-43E1-AE71-45627116893B}, 100</para>
                 /// </summary>
                 public static PropertyKey TrackNumerator
@@ -7132,7 +7132,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Image.BitDepth -- PKEY_Image_BitDepth</para>
                 /// <para>Description: 
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (PSGUID_IMAGESUMMARYINFORMATION) {6444048F-4C8B-11D1-8B70-080036B11A03}, 7 (PIDISI_BITDEPTH)</para>
                 /// </summary>
                 public static PropertyKey BitDepth
@@ -7183,7 +7183,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Image.CompressedBitsPerPixelDenominator -- PKEY_Image_CompressedBitsPerPixelDenominator</para>
                 /// <para>Description: Denominator of PKEY_Image_CompressedBitsPerPixel.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {1F8844E1-24AD-4508-9DFD-5326A415CE02}, 100</para>
                 /// </summary>
                 public static PropertyKey CompressedBitsPerPixelDenominator
@@ -7200,7 +7200,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Image.CompressedBitsPerPixelNumerator -- PKEY_Image_CompressedBitsPerPixelNumerator</para>
                 /// <para>Description: Numerator of PKEY_Image_CompressedBitsPerPixel.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {D21A7148-D32C-4624-8900-277210F79C0F}, 100</para>
                 /// </summary>
                 public static PropertyKey CompressedBitsPerPixelNumerator
@@ -7286,7 +7286,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Image.HorizontalSize -- PKEY_Image_HorizontalSize</para>
                 /// <para>Description: 
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (PSGUID_IMAGESUMMARYINFORMATION) {6444048F-4C8B-11D1-8B70-080036B11A03}, 3 (PIDISI_CX)</para>
                 /// </summary>
                 public static PropertyKey HorizontalSize
@@ -7352,7 +7352,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Image.VerticalSize -- PKEY_Image_VerticalSize</para>
                 /// <para>Description: 
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (PSGUID_IMAGESUMMARYINFORMATION) {6444048F-4C8B-11D1-8B70-080036B11A03}, 4 (PIDISI_CY)</para>
                 /// </summary>
                 public static PropertyKey VerticalSize
@@ -7600,7 +7600,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Description: IShellFolder::GetAttributesOf flags for the target of a link, with SFGAO_PKEYSFGAOMASK 
                 ///attributes masked out.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (PSGUID_LINK) {B9B4B3FC-2B51-4A42-B5D8-324146AFCF25}, 8</para>
                 /// </summary>
                 public static PropertyKey TargetSFGAOFlags
@@ -7681,7 +7681,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <summary>
                 /// <para>Name:     System.Media.AverageLevel -- PKEY_Media_AverageLevel</para>
                 /// <para>Description: </para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {09EDD5B6-B301-43C5-9990-D00302EFFD46}, 100</para>
                 /// </summary>
                 public static PropertyKey AverageLevel
@@ -7935,7 +7935,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Media.FrameCount -- PKEY_Media_FrameCount</para>
                 /// <para>Description: Indicates the frame count for the image.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (PSGUID_IMAGESUMMARYINFORMATION) {6444048F-4C8B-11D1-8B70-080036B11A03}, 12 (PIDISI_FRAMECOUNT)</para>
                 /// </summary>
                 public static PropertyKey FrameCount
@@ -8189,7 +8189,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Media.Year -- PKEY_Media_Year</para>
                 /// <para>Description: 
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_MUSIC) {56A3372E-CE9C-11D2-9F0E-006097C686F6}, 5 (PIDSI_MUSIC_YEAR)</para>
                 /// </summary>
                 public static PropertyKey Year
@@ -8926,7 +8926,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Music.TrackNumber -- PKEY_Music_TrackNumber</para>
                 /// <para>Description: 
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_MUSIC) {56A3372E-CE9C-11D2-9F0E-006097C686F6}, 7 (PIDSI_MUSIC_TRACK)</para>
                 /// </summary>
                 public static PropertyKey TrackNumber
@@ -9022,7 +9022,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.ApertureDenominator -- PKEY_Photo_ApertureDenominator</para>
                 /// <para>Description: Denominator of PKEY_Photo_Aperture
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {E1A9A38B-6685-46BD-875E-570DC7AD7320}, 100</para>
                 /// </summary>
                 public static PropertyKey ApertureDenominator
@@ -9039,7 +9039,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.ApertureNumerator -- PKEY_Photo_ApertureNumerator</para>
                 /// <para>Description: Numerator of PKEY_Photo_Aperture
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {0337ECEC-39FB-4581-A0BD-4C4CC51E9914}, 100</para>
                 /// </summary>
                 public static PropertyKey ApertureNumerator
@@ -9078,7 +9078,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.BrightnessDenominator -- PKEY_Photo_BrightnessDenominator</para>
                 /// <para>Description: Denominator of PKEY_Photo_Brightness
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {6EBE6946-2321-440A-90F0-C043EFD32476}, 100</para>
                 /// </summary>
                 public static PropertyKey BrightnessDenominator
@@ -9095,7 +9095,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.BrightnessNumerator -- PKEY_Photo_BrightnessNumerator</para>
                 /// <para>Description: Numerator of PKEY_Photo_Brightness
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {9E7D118F-B314-45A0-8CFB-D654B917C9E9}, 100</para>
                 /// </summary>
                 public static PropertyKey BrightnessNumerator
@@ -9164,7 +9164,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Description: This indicates the direction of contrast processing applied by the camera 
                 ///when the image was shot.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {2A785BA9-8D23-4DED-82E6-60A350C86A10}, 100</para>
                 /// </summary>
                 public static PropertyKey Contrast
@@ -9233,7 +9233,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.DigitalZoomDenominator -- PKEY_Photo_DigitalZoomDenominator</para>
                 /// <para>Description: Denominator of PKEY_Photo_DigitalZoom
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {745BAF0E-E5C1-4CFB-8A1B-D031A0A52393}, 100</para>
                 /// </summary>
                 public static PropertyKey DigitalZoomDenominator
@@ -9250,7 +9250,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.DigitalZoomNumerator -- PKEY_Photo_DigitalZoomNumerator</para>
                 /// <para>Description: Numerator of PKEY_Photo_DigitalZoom
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {16CBB924-6500-473B-A5BE-F1599BCBE413}, 100</para>
                 /// </summary>
                 public static PropertyKey DigitalZoomNumerator
@@ -9369,7 +9369,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.ExposureIndexDenominator -- PKEY_Photo_ExposureIndexDenominator</para>
                 /// <para>Description: Denominator of PKEY_Photo_ExposureIndex
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {93112F89-C28B-492F-8A9D-4BE2062CEE8A}, 100</para>
                 /// </summary>
                 public static PropertyKey ExposureIndexDenominator
@@ -9386,7 +9386,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.ExposureIndexNumerator -- PKEY_Photo_ExposureIndexNumerator</para>
                 /// <para>Description: Numerator of PKEY_Photo_ExposureIndex
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {CDEDCF30-8919-44DF-8F4C-4EB2FFDB8D89}, 100</para>
                 /// </summary>
                 public static PropertyKey ExposureIndexNumerator
@@ -9403,7 +9403,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.ExposureProgram -- PKEY_Photo_ExposureProgram</para>
                 /// <para>Description: 
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_ImageProperties) {14B81DA1-0135-4D31-96D9-6CBFC9671A99}, 34850 (PropertyTagExifExposureProg)</para>
                 /// </summary>
                 public static PropertyKey ExposureProgram
@@ -9455,7 +9455,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.ExposureTimeDenominator -- PKEY_Photo_ExposureTimeDenominator</para>
                 /// <para>Description: Denominator of PKEY_Photo_ExposureTime
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {55E98597-AD16-42E0-B624-21599A199838}, 100</para>
                 /// </summary>
                 public static PropertyKey ExposureTimeDenominator
@@ -9472,7 +9472,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.ExposureTimeNumerator -- PKEY_Photo_ExposureTimeNumerator</para>
                 /// <para>Description: Numerator of PKEY_Photo_ExposureTime
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {257E44E2-9031-4323-AC38-85C552871B2E}, 100</para>
                 /// </summary>
                 public static PropertyKey ExposureTimeNumerator
@@ -9523,7 +9523,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.FlashEnergyDenominator -- PKEY_Photo_FlashEnergyDenominator</para>
                 /// <para>Description: Denominator of PKEY_Photo_FlashEnergy
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {D7B61C70-6323-49CD-A5FC-C84277162C97}, 100</para>
                 /// </summary>
                 public static PropertyKey FlashEnergyDenominator
@@ -9540,7 +9540,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.FlashEnergyNumerator -- PKEY_Photo_FlashEnergyNumerator</para>
                 /// <para>Description: Numerator of PKEY_Photo_FlashEnergy
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {FCAD3D3D-0858-400F-AAA3-2F66CCE2A6BC}, 100</para>
                 /// </summary>
                 public static PropertyKey FlashEnergyNumerator
@@ -9624,7 +9624,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.FNumberDenominator -- PKEY_Photo_FNumberDenominator</para>
                 /// <para>Description: Denominator of PKEY_Photo_FNumber
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {E92A2496-223B-4463-A4E3-30EABBA79D80}, 100</para>
                 /// </summary>
                 public static PropertyKey FNumberDenominator
@@ -9641,7 +9641,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.FNumberNumerator -- PKEY_Photo_FNumberNumerator</para>
                 /// <para>Description: Numerator of PKEY_Photo_FNumber
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {1B97738A-FDFC-462F-9D93-1957E08BE90C}, 100</para>
                 /// </summary>
                 public static PropertyKey FNumberNumerator
@@ -9675,7 +9675,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.FocalLengthDenominator -- PKEY_Photo_FocalLengthDenominator</para>
                 /// <para>Description: Denominator of PKEY_Photo_FocalLength
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {305BC615-DCA1-44A5-9FD4-10C0BA79412E}, 100</para>
                 /// </summary>
                 public static PropertyKey FocalLengthDenominator
@@ -9708,7 +9708,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.FocalLengthNumerator -- PKEY_Photo_FocalLengthNumerator</para>
                 /// <para>Description: Numerator of PKEY_Photo_FocalLength
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {776B6B3B-1E3D-4B0C-9A0E-8FBAF2A8492A}, 100</para>
                 /// </summary>
                 public static PropertyKey FocalLengthNumerator
@@ -9743,7 +9743,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.FocalPlaneXResolutionDenominator -- PKEY_Photo_FocalPlaneXResolutionDenominator</para>
                 /// <para>Description: Denominator of PKEY_Photo_FocalPlaneXResolution
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {0933F3F5-4786-4F46-A8E8-D64DD37FA521}, 100</para>
                 /// </summary>
                 public static PropertyKey FocalPlaneXResolutionDenominator
@@ -9760,7 +9760,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.FocalPlaneXResolutionNumerator -- PKEY_Photo_FocalPlaneXResolutionNumerator</para>
                 /// <para>Description: Numerator of PKEY_Photo_FocalPlaneXResolution
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {DCCB10AF-B4E2-4B88-95F9-031B4D5AB490}, 100</para>
                 /// </summary>
                 public static PropertyKey FocalPlaneXResolutionNumerator
@@ -9795,7 +9795,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.FocalPlaneYResolutionDenominator -- PKEY_Photo_FocalPlaneYResolutionDenominator</para>
                 /// <para>Description: Denominator of PKEY_Photo_FocalPlaneYResolution
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {1D6179A6-A876-4031-B013-3347B2B64DC8}, 100</para>
                 /// </summary>
                 public static PropertyKey FocalPlaneYResolutionDenominator
@@ -9812,7 +9812,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.FocalPlaneYResolutionNumerator -- PKEY_Photo_FocalPlaneYResolutionNumerator</para>
                 /// <para>Description: Numerator of PKEY_Photo_FocalPlaneYResolution
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {A2E541C5-4440-4BA8-867E-75CFC06828CD}, 100</para>
                 /// </summary>
                 public static PropertyKey FocalPlaneYResolutionNumerator
@@ -9848,7 +9848,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.GainControlDenominator -- PKEY_Photo_GainControlDenominator</para>
                 /// <para>Description: Denominator of PKEY_Photo_GainControl
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {42864DFD-9DA4-4F77-BDED-4AAD7B256735}, 100</para>
                 /// </summary>
                 public static PropertyKey GainControlDenominator
@@ -9865,7 +9865,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.GainControlNumerator -- PKEY_Photo_GainControlNumerator</para>
                 /// <para>Description: Numerator of PKEY_Photo_GainControl
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {8E8ECF7C-B7B8-4EB8-A63F-0EE715C96F9E}, 100</para>
                 /// </summary>
                 public static PropertyKey GainControlNumerator
@@ -9949,7 +9949,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.LightSource -- PKEY_Photo_LightSource</para>
                 /// <para>Description: PropertyTagExifLightSource
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_ImageProperties) {14B81DA1-0135-4D31-96D9-6CBFC9671A99}, 37384</para>
                 /// </summary>
                 public static PropertyKey LightSource
@@ -10015,7 +10015,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.MaxApertureDenominator -- PKEY_Photo_MaxApertureDenominator</para>
                 /// <para>Description: Denominator of PKEY_Photo_MaxAperture
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {C77724D4-601F-46C5-9B89-C53F93BCEB77}, 100</para>
                 /// </summary>
                 public static PropertyKey MaxApertureDenominator
@@ -10032,7 +10032,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.MaxApertureNumerator -- PKEY_Photo_MaxApertureNumerator</para>
                 /// <para>Description: Numerator of PKEY_Photo_MaxAperture
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {C107E191-A459-44C5-9AE6-B952AD4B906D}, 100</para>
                 /// </summary>
                 public static PropertyKey MaxApertureNumerator
@@ -10173,7 +10173,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Description: This is the class of the program used by the camera to set exposure when the 
                 ///picture is taken.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {6D217F6D-3F6A-4825-B470-5F03CA2FBE9B}, 100</para>
                 /// </summary>
                 public static PropertyKey ProgramMode
@@ -10225,7 +10225,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Description: This indicates the direction of saturation processing applied by the camera when 
                 ///the image was shot.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {49237325-A95A-4F67-B211-816B2D45D2E0}, 100</para>
                 /// </summary>
                 public static PropertyKey Saturation
@@ -10261,7 +10261,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Description: This indicates the direction of sharpness processing applied by the camera when 
                 ///the image was shot.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {FC6976DB-8349-4970-AE97-B3C5316A08F0}, 100</para>
                 /// </summary>
                 public static PropertyKey Sharpness
@@ -10364,7 +10364,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.SubjectDistanceDenominator -- PKEY_Photo_SubjectDistanceDenominator</para>
                 /// <para>Description: Denominator of PKEY_Photo_SubjectDistance
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {0C840A88-B043-466D-9766-D4B26DA3FA77}, 100</para>
                 /// </summary>
                 public static PropertyKey SubjectDistanceDenominator
@@ -10381,7 +10381,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.SubjectDistanceNumerator -- PKEY_Photo_SubjectDistanceNumerator</para>
                 /// <para>Description: Numerator of PKEY_Photo_SubjectDistance
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {8AF4961C-F526-43E5-AA81-DB768219178D}, 100</para>
                 /// </summary>
                 public static PropertyKey SubjectDistanceNumerator
@@ -10431,7 +10431,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Photo.WhiteBalance -- PKEY_Photo_WhiteBalance</para>
                 /// <para>Description: This indicates the white balance mode set when the image was shot.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {EE3D3D8A-5381-4CFA-B13B-AAF66B5F4EC9}, 100</para>
                 /// </summary>
                 public static PropertyKey WhiteBalance
@@ -11045,7 +11045,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.RecordedTV.ChannelNumber -- PKEY_RecordedTV_ChannelNumber</para>
                 /// <para>Description: Example: 42
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {6D748DE2-8D38-4CC3-AC60-F009B057C557}, 7</para>
                 /// </summary>
                 public static PropertyKey ChannelNumber
@@ -11799,7 +11799,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Sync.HandlerType -- PKEY_Sync_HandlerType</para>
                 /// <para>Description: 
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {7BD5533E-AF15-44DB-B8C8-BD6624E1D032}, 8</para>
                 /// </summary>
                 public static PropertyKey HandlerType
@@ -11865,7 +11865,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Sync.ProgressPercentage -- PKEY_Sync_ProgressPercentage</para>
                 /// <para>Description: An integer value between 0 and 100 representing the percentage completed.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {7BD5533E-AF15-44DB-B8C8-BD6624E1D032}, 23</para>
                 /// </summary>
                 public static PropertyKey ProgressPercentage
@@ -11882,7 +11882,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Sync.State -- PKEY_Sync_State</para>
                 /// <para>Description: Sync state.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: {7BD5533E-AF15-44DB-B8C8-BD6624E1D032}, 24</para>
                 /// </summary>
                 public static PropertyKey State
@@ -12025,7 +12025,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Video.EncodingBitrate -- PKEY_Video_EncodingBitrate</para>
                 /// <para>Description: Indicates the data rate in "bits per second" for the video stream. "DataRate".
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_VideoSummaryInformation) {64440491-4C8B-11D1-8B70-080036B11A03}, 8 (PIDVSI_DATA_RATE)</para>
                 /// </summary>
                 public static PropertyKey EncodingBitrate
@@ -12042,7 +12042,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Video.FourCC -- PKEY_Video_FourCC</para>
                 /// <para>Description: Indicates the 4CC for the video stream.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_VideoSummaryInformation) {64440491-4C8B-11D1-8B70-080036B11A03}, 44</para>
                 /// </summary>
                 public static PropertyKey FourCC
@@ -12059,7 +12059,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Video.FrameHeight -- PKEY_Video_FrameHeight</para>
                 /// <para>Description: Indicates the frame height for the video stream.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_VideoSummaryInformation) {64440491-4C8B-11D1-8B70-080036B11A03}, 4</para>
                 /// </summary>
                 public static PropertyKey FrameHeight
@@ -12076,7 +12076,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Video.FrameRate -- PKEY_Video_FrameRate</para>
                 /// <para>Description: Indicates the frame rate in "frames per millisecond" for the video stream.  "FrameRate".
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_VideoSummaryInformation) {64440491-4C8B-11D1-8B70-080036B11A03}, 6 (PIDVSI_FRAME_RATE)</para>
                 /// </summary>
                 public static PropertyKey FrameRate
@@ -12093,7 +12093,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Video.FrameWidth -- PKEY_Video_FrameWidth</para>
                 /// <para>Description: Indicates the frame width for the video stream.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_VideoSummaryInformation) {64440491-4C8B-11D1-8B70-080036B11A03}, 3</para>
                 /// </summary>
                 public static PropertyKey FrameWidth
@@ -12111,7 +12111,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Description: Indicates the horizontal portion of the aspect ratio. The X portion of XX:YY,
                 ///like 16:9.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_VideoSummaryInformation) {64440491-4C8B-11D1-8B70-080036B11A03}, 42</para>
                 /// </summary>
                 public static PropertyKey HorizontalAspectRatio
@@ -12128,7 +12128,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Video.SampleSize -- PKEY_Video_SampleSize</para>
                 /// <para>Description: Indicates the sample size in bits for the video stream.  "SampleSize".
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_VideoSummaryInformation) {64440491-4C8B-11D1-8B70-080036B11A03}, 9 (PIDVSI_SAMPLE_SIZE)</para>
                 /// </summary>
                 public static PropertyKey SampleSize
@@ -12179,7 +12179,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Name:     System.Video.TotalBitrate -- PKEY_Video_TotalBitrate</para>
                 /// <para>Description: Indicates the total data rate in "bits per second" for all video and audio streams.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_VideoSummaryInformation) {64440491-4C8B-11D1-8B70-080036B11A03}, 43 (PIDVSI_TOTAL_BITRATE)</para>
                 /// </summary>
                 public static PropertyKey TotalBitrate
@@ -12213,7 +12213,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 /// <para>Description: Indicates the vertical portion of the aspect ratio. The Y portion of 
                 ///XX:YY, like 16:9.
                 ///</para>
-                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>Type:     uint -- VT_UI4</para>
                 /// <para>FormatID: (FMTID_VideoSummaryInformation) {64440491-4C8B-11D1-8B70-080036B11A03}, 45</para>
                 /// </summary>
                 public static PropertyKey VerticalAspectRatio

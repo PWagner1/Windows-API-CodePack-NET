@@ -1,14 +1,15 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ELSSamples", "ELSSamples.csproj", "{238AF76E-0D42-4F01-A852-12E65D84A885}"
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.34909.67
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ELSSamples", "ELSSamples.csproj", "{238AF76E-0D42-4F01-A852-12E65D84A885}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedLinguisticServices", "..\..\..\..\WindowsAPICodePack\ExtendedLinguisticServices\ExtendedLinguisticServices.csproj", "{B2CE24B7-FC5D-49AC-806F-1D88F78A31E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "..\..\..\..\Current\Windows API CodePack\Components\Core\Core.csproj", "{456259F2-82B4-4DDD-B2D9-85EDCC9BACCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\..\..\..\WindowsAPICodePack\Core\Core.csproj", "{2E1FB0DF-F9BB-4909-9F32-2D9D022A8E57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedLinguisticServices", "..\..\..\..\Current\Windows API CodePack\Components\ExtendedLinguisticServices\ExtendedLinguisticServices.csproj", "{95F19599-50DB-46A9-97F0-813FD3CB0580}"
 EndProject
 Global
-
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -18,16 +19,19 @@ Global
 		{238AF76E-0D42-4F01-A852-12E65D84A885}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{238AF76E-0D42-4F01-A852-12E65D84A885}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{238AF76E-0D42-4F01-A852-12E65D84A885}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B2CE24B7-FC5D-49AC-806F-1D88F78A31E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2CE24B7-FC5D-49AC-806F-1D88F78A31E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2CE24B7-FC5D-49AC-806F-1D88F78A31E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2CE24B7-FC5D-49AC-806F-1D88F78A31E9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2E1FB0DF-F9BB-4909-9F32-2D9D022A8E57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2E1FB0DF-F9BB-4909-9F32-2D9D022A8E57}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2E1FB0DF-F9BB-4909-9F32-2D9D022A8E57}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2E1FB0DF-F9BB-4909-9F32-2D9D022A8E57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{456259F2-82B4-4DDD-B2D9-85EDCC9BACCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{456259F2-82B4-4DDD-B2D9-85EDCC9BACCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{456259F2-82B4-4DDD-B2D9-85EDCC9BACCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{456259F2-82B4-4DDD-B2D9-85EDCC9BACCB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95F19599-50DB-46A9-97F0-813FD3CB0580}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95F19599-50DB-46A9-97F0-813FD3CB0580}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95F19599-50DB-46A9-97F0-813FD3CB0580}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95F19599-50DB-46A9-97F0-813FD3CB0580}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AF4B36CB-47F1-4573-A054-A39BEFFC7E99}
 	EndGlobalSection
 EndGlobal

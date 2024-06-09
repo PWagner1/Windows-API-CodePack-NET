@@ -1,5 +1,6 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Text;
@@ -27,7 +28,7 @@ namespace Microsoft.WindowsAPICodePack.Samples.NetworkDemo
             {
                 // Create a tab
                 TabItem tabItem = new TabItem();
-                tabItem.Header = string.Format("Network {0} ({1})", tabControl1.Items.Count, n.Name);
+                tabItem.Header = $"Network {tabControl1.Items.Count} ({n.Name})";
                 tabControl1.Items.Add(tabItem);
 
                 //
@@ -42,8 +43,8 @@ namespace Microsoft.WindowsAPICodePack.Samples.NetworkDemo
                 AddProperty("Is connected to the internet: ", n.IsConnectedToInternet.ToString(), stackPanel2);
                 AddProperty("Network ID: ", n.NetworkId.ToString(), stackPanel2);
                 AddProperty("Category: ", n.Category.ToString(), stackPanel2);
-                AddProperty("Created time: ", n.CreatedTime.ToString(), stackPanel2);
-                AddProperty("Connected time: ", n.ConnectedTime.ToString(), stackPanel2);
+                AddProperty("Created time: ", n.CreatedTime.ToString(CultureInfo.CurrentCulture), stackPanel2);
+                AddProperty("Connected time: ", n.ConnectedTime.ToString(CultureInfo.CurrentCulture), stackPanel2);
                 AddProperty("Connectivity: ", n.Connectivity.ToString(), stackPanel2);
 
                 //
@@ -75,7 +76,7 @@ namespace Microsoft.WindowsAPICodePack.Samples.NetworkDemo
 
             Label propertyNameLabel = new Label();
             propertyNameLabel.Content = propertyName;
-            panel.Children.Add(propertyNameLabel); 
+            panel.Children.Add(propertyNameLabel);
 
             Label propertyValueLabel = new Label();
             propertyValueLabel.Content = propertyValue;

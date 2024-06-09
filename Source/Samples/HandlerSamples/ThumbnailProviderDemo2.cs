@@ -2,7 +2,10 @@
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
+
 using Microsoft.WindowsAPICodePack.ShellExtensions;
+
+using ShellObject = Microsoft.WindowsAPICodePack.Shell.ShellObject;
 
 namespace HandlerSamples
 {
@@ -17,11 +20,11 @@ namespace HandlerSamples
 
         public Bitmap ConstructBitmap(FileInfo info, int sideSize)
         {
-            using (FileStream stream = new FileStream(info.FullName, FileMode.Open, FileAccess.Read))
+            using (var fs = new FileStream(info.FullName, FileMode.Open, FileAccess.Read))
             {
-                XyzFileDefinition file = new XyzFileDefinition(stream);
+                XyzFileDefinition file = new XyzFileDefinition(fs);
 
-                using (MemoryStream imageStream = new MemoryStream(Convert.FromBase64String(file.EncodedImage)))
+                using (var imageStream = new MemoryStream(Convert.FromBase64String(file.EncodedImage)))
                 {
                     return new Bitmap(imageStream);
                 }
@@ -32,7 +35,7 @@ namespace HandlerSamples
 
         #region IThumbnailFromShellObject Members
 
-        public Bitmap ConstructBitmap(Microsoft.WindowsAPICodePack.Shell.ShellObject shellObject, int sideSize)
+        public Bitmap ConstructBitmap(ShellObject shellObject, int sideSize)
         {
             using (FileStream stream = new FileStream(shellObject.ParsingName, FileMode.Open, FileAccess.Read))
             {

@@ -3,6 +3,7 @@ using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+
 using Microsoft.WindowsAPICodePack.ShellExtensions;
 
 namespace HandlerSamples
@@ -108,9 +109,9 @@ namespace HandlerSamples
 
         #endregion
 
-        private System.Windows.Forms.TextBox txtContent;
-        private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.PictureBox imageEncoded;
+        private TextBox txtContent;
+        private Label lblName;
+        private PictureBox imageEncoded;
     }
 
 
@@ -143,7 +144,7 @@ namespace HandlerSamples
         public void Load(Stream stream)
         {
             XyzFileDefinition definition = new XyzFileDefinition(stream);
-            ((PreviewHandlerWinformsDemoControl)Control).Populate(definition);
+            ((PreviewHandlerWinformsDemoControl)Control)?.Populate(definition);
         }
 
         #endregion

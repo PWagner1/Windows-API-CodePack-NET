@@ -1,25 +1,26 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
 using Message = System.Windows.Forms.Message;
+using Size = System.Drawing.Size;
 
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
     internal sealed class TabbedThumbnailProxyWindow : Form, IDisposable
     {
-        
+
         internal TabbedThumbnailProxyWindow(TabbedThumbnail? preview)
         {
             TabbedThumbnail = preview;
-            Size = new(1, 1);
+            Size = new Size(1, 1);
 
-            if (!string.IsNullOrEmpty(preview.Title))
+            if (!string.IsNullOrEmpty(preview!.Title))
             {
                 Text = preview.Title;
             }
 
             if (preview.WindowsControl != null)
-            {                
-                WindowsControl = preview.WindowsControl;            
+            {
+                WindowsControl = preview.WindowsControl;
             }
         }
 
@@ -75,7 +76,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 if (TabbedThumbnail != null) { TabbedThumbnail.Dispose(); }
 
                 TabbedThumbnail = null;
-                
+
                 WindowsControl = null;
             }
 

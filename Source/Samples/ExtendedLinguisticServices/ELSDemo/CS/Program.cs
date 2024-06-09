@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 
 using System;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.WindowsAPICodePack.ExtendedLinguisticServices;
 using System.Threading;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -9,6 +10,7 @@ using System.IO;
 namespace ELSSamples
 {
 
+    [SuppressMessage("ReSharper", "InconsistentNaming")]
     public class Program
     {
 
@@ -16,12 +18,12 @@ namespace ELSSamples
         {
             if (!MappingService.IsPlatformSupported)
             {
-                Console.WriteLine("This demo requires to be run on Windows 7");
+                Console.WriteLine(@"This demo requires to be run on at least Windows 7");
                 return;
             }
 
             UsageSamples();
-            Console.Write("Press any key to continue . . .");
+            Console.Write(@"Press any key to continue . . .");
             Console.ReadKey();
         }
 
@@ -51,18 +53,20 @@ namespace ELSSamples
                 using (MappingPropertyBag bag =
                     languageDetection.RecognizeText("This is English", null))
                 {
-                    string[] languages = bag.GetResultRanges()[0].FormatData(
+                    string[] languages = bag?.GetResultRanges()[0].FormatData(
                         new StringArrayFormatter());
-                    foreach (string language in languages)
+                    if (languages != null)
                     {
-                        Console.WriteLine("Recognized language: {0}", language);
+                        foreach (string language in languages)
+                        {
+                            Console.WriteLine($@"Recognized language: {language}");
+                        }
                     }
                 }
             }
             catch (LinguisticException exc)
             {
-                Console.WriteLine("Error calling ELS: {0}, HResult: {1}",
-                    exc.ResultState.ErrorMessage, exc.ResultState.HResult);
+                Console.WriteLine($@"Error calling ELS: {exc.ResultState.ErrorMessage}, HResult: {exc.ResultState.HResult}");
             }
         }
 
@@ -75,20 +79,22 @@ namespace ELSSamples
                 using (MappingPropertyBag bag =
                     scriptDetection.RecognizeText("This is English. АБВГД.", null))
                 {
-                    MappingDataRange[] ranges = bag.GetResultRanges();
-                    Console.WriteLine("Recognized {0} script ranges", ranges.Length);
-                    NullTerminatedStringFormatter formatter = new NullTerminatedStringFormatter();
-                    foreach (MappingDataRange range in ranges)
+                    MappingDataRange[] ranges = bag?.GetResultRanges();
+                    if (ranges != null)
                     {
-                        Console.WriteLine("Range from {0} to {1}, script {2}",
-                            range.StartIndex, range.EndIndex, range.FormatData(formatter));
+                        Console.WriteLine($@"Recognized {ranges.Length} script ranges");
+                        NullTerminatedStringFormatter formatter = new NullTerminatedStringFormatter();
+                        foreach (MappingDataRange range in ranges)
+                        {
+                            Console.WriteLine(
+                                $@"Range from {range.StartIndex} to {range.EndIndex}, script {range.FormatData(formatter)}");
+                        }
                     }
                 }
             }
             catch (LinguisticException exc)
             {
-                Console.WriteLine("Error calling ELS: {0}, HResult: {1}",
-                    exc.ResultState.ErrorMessage, exc.ResultState.HResult);
+                Console.WriteLine($@"Error calling ELS: {exc.ResultState.ErrorMessage}, HResult: {exc.ResultState.HResult}");
             }
         }
 
@@ -101,13 +107,12 @@ namespace ELSSamples
                 MappingService[] transliterationServices = MappingService.GetServices(enumOptions);
                 foreach (MappingService service in transliterationServices)
                 {
-                    Console.WriteLine("Service: {0}", service.Description);
+                    Console.WriteLine($@"Service: {service.Description}");
                 }
             }
             catch (LinguisticException exc)
             {
-                Console.WriteLine("Error calling ELS: {0}, HResult: {1}",
-                    exc.ResultState.ErrorMessage, exc.ResultState.HResult);
+                Console.WriteLine($@"Error calling ELS: {exc.ResultState.ErrorMessage}, HResult: {exc.ResultState.HResult}");
             }
         }
 
@@ -119,14 +124,13 @@ namespace ELSSamples
                     MappingAvailableServices.TransliterationCyrillicToLatin);
                 using (MappingPropertyBag bag = cyrlToLatin.RecognizeText("АБВГД.", null))
                 {
-                    string transliterated = bag.GetResultRanges()[0].FormatData(new StringFormatter());
-                    Console.WriteLine("Transliterated text: {0}", transliterated);
+                    string transliterated = bag?.GetResultRanges()[0].FormatData(new StringFormatter());
+                    Console.WriteLine($@"Transliterated text: {transliterated}");
                 }
             }
             catch (LinguisticException exc)
             {
-                Console.WriteLine("Error calling ELS: {0}, HResult: {1}",
-                    exc.ResultState.ErrorMessage, exc.ResultState.HResult);
+                Console.WriteLine($@"Error calling ELS: {exc.ResultState.ErrorMessage}, HResult: {exc.ResultState.HResult}");
             }
         }
 
@@ -141,14 +145,13 @@ namespace ELSSamples
                 MappingService[] cyrlToLatin = MappingService.GetServices(enumOptions);
                 using (MappingPropertyBag bag = cyrlToLatin[0].RecognizeText("АБВГД.", null))
                 {
-                    string transliterated = bag.GetResultRanges()[0].FormatData(new StringFormatter());
-                    Console.WriteLine("Transliterated text: {0}", transliterated);
+                    string transliterated = bag?.GetResultRanges()[0].FormatData(new StringFormatter());
+                    Console.WriteLine($@"Transliterated text: {transliterated}");
                 }
             }
             catch (LinguisticException exc)
             {
-                Console.WriteLine("Error calling ELS: {0}, HResult: {1}",
-                    exc.ResultState.ErrorMessage, exc.ResultState.HResult);
+                Console.WriteLine($@"Error calling ELS: {exc.ResultState.ErrorMessage}, HResult: {exc.ResultState.HResult}");
             }
         }
 
@@ -160,26 +163,26 @@ namespace ELSSamples
             {
                 try
                 {
-                    MappingDataRange[] ranges = asyncResult.PropertyBag.GetResultRanges();
-                    Console.WriteLine("Recognized {0} script ranges", ranges.Length);
-                    NullTerminatedStringFormatter formatter = new NullTerminatedStringFormatter();
-                    foreach (MappingDataRange range in ranges)
+                    MappingDataRange[] ranges = asyncResult.PropertyBag?.GetResultRanges();
+                    if (ranges != null)
                     {
-                        Console.WriteLine("Range from {0} to {1}, script {2}, text \"{3}\"",
-                            range.StartIndex, range.EndIndex, range.FormatData(formatter),
-                            asyncResult.Text.Substring((int)range.StartIndex,
-                                (int)(range.EndIndex - range.StartIndex + 1)));
+                        Console.WriteLine($@"Recognized {ranges.Length} script ranges");
+                        NullTerminatedStringFormatter formatter = new NullTerminatedStringFormatter();
+                        foreach (MappingDataRange range in ranges)
+                        {
+                            Console.WriteLine(
+                                $@"Range from {range.StartIndex} to {range.EndIndex}, script {range.FormatData(formatter)}, text ""{asyncResult.Text.Substring(range.StartIndex, (range.EndIndex - range.StartIndex + 1))}""");
+                        }
                     }
                 }
                 finally
                 {
-                    asyncResult.PropertyBag.Dispose();
+                    asyncResult.PropertyBag?.Dispose();
                 }
             }
             else
             {
-                Console.WriteLine("Error calling ELS: {0}, HResult: {1}",
-                    asyncResult.ResultState.ErrorMessage, asyncResult.ResultState.HResult);
+                Console.WriteLine($@"Error calling ELS: {asyncResult.ResultState.ErrorMessage}, HResult: {asyncResult.ResultState.HResult}");
             }
         }
 
@@ -195,8 +198,7 @@ namespace ELSSamples
             }
             catch (LinguisticException exc)
             {
-                Console.WriteLine("Error calling ELS: {0}, HResult: {1}",
-                    exc.ResultState.ErrorMessage, exc.ResultState.HResult);
+                Console.WriteLine($@"Error calling ELS: {exc.ResultState.ErrorMessage}, HResult: {exc.ResultState.HResult}");
             }
         }
 

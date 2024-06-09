@@ -14,7 +14,7 @@ namespace Microsoft.WindowsAPICodePack.Controls
         internal ExplorerBrowserNavigationOptions(ExplorerBrowser eb)
         {
             _eb = eb;
-            PaneVisibility = new();
+            PaneVisibility = new ExplorerBrowserPaneVisibility();
         }
         #endregion
 

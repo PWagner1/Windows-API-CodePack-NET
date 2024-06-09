@@ -54,7 +54,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
 
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged(this, new("Link"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("Link"));
                 }
             }
         }
@@ -71,7 +71,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
                 _note = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged(this, new("Note"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("Note"));
                 }
             }
         }
@@ -88,7 +88,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
                 _icon = value;
                 if (PropertyChanged != null)
                 {
-                    PropertyChanged(this, new("Icon"));
+                    PropertyChanged(this, new PropertyChangedEventArgs("Icon"));
                 }
             }
         }

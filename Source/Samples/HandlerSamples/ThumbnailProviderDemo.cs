@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
+
 using Microsoft.WindowsAPICodePack.ShellExtensions;
 
 namespace HandlerSamples
@@ -19,9 +20,9 @@ namespace HandlerSamples
         {
             XyzFileDefinition file = new XyzFileDefinition(stream);
 
-            using (MemoryStream mstream = new MemoryStream(Convert.FromBase64String(file.EncodedImage)))
+            using (var ms = new MemoryStream(Convert.FromBase64String(file.EncodedImage)))
             {
-                return new Bitmap(mstream);
+                return new Bitmap(ms);
             }
         }
 
@@ -31,9 +32,9 @@ namespace HandlerSamples
 
         public Bitmap ConstructBitmap(FileInfo info, int sideSize)
         {
-            using (FileStream stream = new FileStream(info.FullName, FileMode.Open, FileAccess.Read))
+            using (var fs = new FileStream(info.FullName, FileMode.Open, FileAccess.Read))
             {
-                return ConstructBitmap(stream, sideSize);
+                return ConstructBitmap(fs, sideSize);
             }
         }
 

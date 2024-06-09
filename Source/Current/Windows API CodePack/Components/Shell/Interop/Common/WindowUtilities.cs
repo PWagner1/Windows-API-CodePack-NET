@@ -1,5 +1,7 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
+using Size = System.Drawing.Size;
+
 namespace Microsoft.WindowsAPICodePack.Shell
 {
 
@@ -32,7 +34,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             TabbedThumbnailNativeMethods.GetWindowRect(hwnd, ref r);
 
-            return new(c.X - r.Left, c.Y - r.Top);
+            return new Size(c.X - r.Left, c.Y - r.Top);
         }
     }
 }

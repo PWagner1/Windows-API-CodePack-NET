@@ -4,6 +4,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:WB="clr-namespace:Microsoft.WindowsAPICodePack.Net;assembly=Microsoft.WindowsAPICodePack"
+    xmlns:net="clr-namespace:Microsoft.WindowsAPICodePack.Net;assembly=Microsoft.WindowsAPICodePack.Core"
     Title="NetworkList Demo" Height="573" Width="514">
 
     <Grid>
@@ -12,20 +13,20 @@
                 <StackPanel Name="stackPanel1" Orientation="Vertical">
                     <StackPanel Orientation="Horizontal">
                         <Label>Is the system connected:</Label>
-                        <Label Content="{x:Static WB:NetworkListManager.IsConnected}" Margin="40,0,0,0" />
+                        <Label Content="{x:Static net:NetworkListManager.IsConnected}" Margin="40,0,0,0" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal">
                         <Label>Is there an internet connection:</Label>
-                        <Label Content="{x:Static WB:NetworkListManager.IsConnectedToInternet}" Margin="5,0,0,0" />
+                        <Label Content="{x:Static net:NetworkListManager.IsConnectedToInternet}" Margin="5,0,0,0" />
                     </StackPanel>
 
 
                     <StackPanel Orientation="Horizontal">
                         <Label>System connectivity:</Label>
-                        <Label Content="{x:Static WB:NetworkListManager.Connectivity}" Margin="65,0,0,0" />
+                        <Label Content="{x:Static net:NetworkListManager.Connectivity}" Margin="65,0,0,0" />
                     </StackPanel>
-                   
+
                 </StackPanel>
             </TabItem>
         </TabControl>

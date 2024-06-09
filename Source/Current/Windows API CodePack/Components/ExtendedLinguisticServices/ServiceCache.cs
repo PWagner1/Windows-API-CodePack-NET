@@ -1,19 +1,18 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 
-#pragma warning disable CS8605
 namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
     // This singleton object is correctly finalized on appdomain unload.    
     internal class ServiceCache : CriticalFinalizerObject
     {
-        private static ServiceCache staticInstance = new();
+        private static readonly ServiceCache StaticInstance = new();
 
         // Guid -> IntPtr
         private Dictionary<Guid, IntPtr>? _guidToService = new();
         // IntPtr -> this (serves as a set)
         private List<IntPtr>? _servicePointers = new();
         // The lock
-        private ReaderWriterLockSlim _cacheLock = new();
+        private readonly ReaderWriterLockSlim _cacheLock = new();
         // Active resources refcount, signed 64-bit
         private long _resourceRefCount;
         // Specifies if the object has been finalized:
@@ -130,7 +129,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
                 for (int i = 0; i < length; ++i)
                 {
                     Guid guid = (Guid)Marshal.PtrToStructure(
-                        (IntPtr)((UInt64)pServices + InteropTools.OffsetOfGuidInService), 
+                        (IntPtr)((UInt64)pServices + InteropTools.OffsetOfGuidInService),
                         InteropTools.TypeOfGuid);
                     if (_guidToService != null) _guidToService.Remove(guid);
                     pServices = (IntPtr)((UInt64)pServices + InteropTools.SizeOfService);
@@ -204,6 +203,6 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
             }
         }
 
-        internal static ServiceCache Instance => staticInstance;
+        internal static ServiceCache Instance => StaticInstance;
     }
 }

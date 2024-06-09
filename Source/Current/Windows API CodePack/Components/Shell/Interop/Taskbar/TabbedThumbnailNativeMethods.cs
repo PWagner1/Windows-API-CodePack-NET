@@ -1,5 +1,7 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
+using Size = System.Drawing.Size;
+
 #pragma warning disable CS8597, CS8600
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
@@ -62,10 +64,10 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             NativeRect rect = new();
             if (!GetClientRect(hwnd, ref rect))
             {
-                size = new(-1, -1);
+                size = new Size(-1, -1);
                 return false;
             }
-            size = new(rect.Right, rect.Bottom);
+            size = new Size(rect.Right, rect.Bottom);
             return true;
         }
 

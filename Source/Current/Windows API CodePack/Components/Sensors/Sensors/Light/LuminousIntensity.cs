@@ -13,7 +13,7 @@ public class LuminousIntensity
     /// <returns></returns>
     public LuminousIntensity(SensorReport? report)
     {
-        if (report == null) { throw new ArgumentNullException("report"); }
+        if (report == null) { throw new ArgumentNullException(nameof(report)); }
 
         if (report.Values != null &&
             report.Values.ContainsKey(SensorPropertyKeys.SensorDataTypeLightLux.FormatId))

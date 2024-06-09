@@ -6,9 +6,9 @@ namespace Microsoft.WindowsAPICodePack.Shell;
 internal interface IEnumUnknown
 {
     [PreserveSig]
-    HResult Next(UInt32 requestedNumber, ref IntPtr buffer, ref UInt32 fetchedNumber);
+    HResult Next(uint requestedNumber, ref IntPtr buffer, ref uint fetchedNumber);
     [PreserveSig]
-    HResult Skip(UInt32 number);
+    HResult Skip(uint number);
     [PreserveSig]
     HResult Reset();
     [PreserveSig]

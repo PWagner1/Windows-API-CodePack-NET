@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Microsoft Corporation.  All rights reserved.
 
-#pragma warning disable CS8602, CS8604
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     public static class ShellObjectFactory
@@ -32,7 +31,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             // Get some IShellItem attributes
             ShellNativeMethods.ShellFileGetAttributesOptions sfgao;
 
-            nativeShellItem2.GetAttributes(
+            nativeShellItem2!.GetAttributes(
                 ShellNativeMethods.ShellFileGetAttributesOptions.FileSystem |
                 ShellNativeMethods.ShellFileGetAttributesOptions.Folder, out sfgao);
 
@@ -43,7 +42,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             bool isFolder = (sfgao & ShellNativeMethods.ShellFileGetAttributesOptions.Folder) != 0;
 
             // Shell Library
-            ShellLibrary? shellLibrary = null;
+            ShellLibrary? shellLibrary;
 
             // Create the right type of ShellObject based on the above information 
 
@@ -77,7 +76,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     if (!IsVirtualKnownFolder(nativeShellItem2))
                     {
                         //needs to check if it is a known folder and not virtual
-                        FileSystemKnownFolder? kf = new(nativeShellItem2);
+                        FileSystemKnownFolder kf = new(nativeShellItem2);
                         return kf;
                     }
 
@@ -88,7 +87,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 if (IsVirtualKnownFolder(nativeShellItem2))
                 {
                     //needs to check if known folder is virtual
-                    NonFileSystemKnownFolder? kf = new(nativeShellItem2);
+                    NonFileSystemKnownFolder kf = new(nativeShellItem2);
                     return kf;
                 }
 
@@ -126,7 +125,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 object padlock = new();
                 lock (padlock)
                 {
-                    IntPtr unknown = Marshal.GetIUnknownForObject(nativeShellItem2);
+                    var unknown = Marshal.GetIUnknownForObject(nativeShellItem2);
 
                     ThreadPool.QueueUserWorkItem(obj =>
                     {
@@ -165,7 +164,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             if (string.IsNullOrEmpty(parsingName))
             {
-                throw new ArgumentNullException("parsingName");
+                throw new ArgumentNullException(nameof(parsingName));
             }
 
             // Create a native shellitem from our path

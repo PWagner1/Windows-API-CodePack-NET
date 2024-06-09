@@ -1,11 +1,6 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Diagnostics;
 
 namespace Transliterator
 {
@@ -17,29 +12,19 @@ namespace Transliterator
         public event ScrollEventHandler OnHorizontalScroll = null;
         public event ScrollEventHandler OnVerticalScroll = null;
 
-        private static ScrollEventType[] scrollEventType = new ScrollEventType[] 
-        {   ScrollEventType.SmallDecrement,
-            ScrollEventType.SmallIncrement,
-            ScrollEventType.LargeDecrement,
-            ScrollEventType.LargeIncrement,
-            ScrollEventType.ThumbPosition,
-            ScrollEventType.ThumbTrack,
-            ScrollEventType.First,
-            ScrollEventType.Last,
-            ScrollEventType.EndScroll
+        private static readonly ScrollEventType[] ScrollEventType = {
+            System.Windows.Forms.ScrollEventType.SmallDecrement,
+            System.Windows.Forms.ScrollEventType.SmallIncrement,
+            System.Windows.Forms.ScrollEventType.LargeDecrement,
+            System.Windows.Forms.ScrollEventType.LargeIncrement,
+            System.Windows.Forms.ScrollEventType.ThumbPosition,
+            System.Windows.Forms.ScrollEventType.ThumbTrack,
+            System.Windows.Forms.ScrollEventType.First,
+            System.Windows.Forms.ScrollEventType.Last,
+            System.Windows.Forms.ScrollEventType.EndScroll
         };
 
-        private ScrollEventType GetEventType(uint wParam)
-        {
-            if (wParam < scrollEventType.Length)
-            {
-                return scrollEventType[wParam];
-            }
-            else
-            {
-                return ScrollEventType.EndScroll;
-            }
-        }
+        private ScrollEventType GetEventType(uint wParam) => wParam < ScrollEventType.Length ? ScrollEventType[wParam] : System.Windows.Forms.ScrollEventType.EndScroll;
 
         protected override void WndProc(ref Message m)
         {
@@ -49,7 +34,7 @@ namespace Transliterator
             {
                 if (OnHorizontalScroll != null)
                 {
-                    uint wParam = (uint)m.WParam.ToInt32();
+                    var wParam = (uint)m.WParam.ToInt32();
                     OnHorizontalScroll(this, new ScrollEventArgs(GetEventType(wParam & 0xffff), (int)(wParam >> 16)));
                 }
             }
@@ -57,7 +42,7 @@ namespace Transliterator
             {
                 if (OnVerticalScroll != null)
                 {
-                    uint wParam = (uint)m.WParam.ToInt32();
+                    var wParam = (uint)m.WParam.ToInt32();
                     OnVerticalScroll(this, new ScrollEventArgs(GetEventType(wParam & 0xffff), (int)(wParam >> 16)));
                 }
             }

@@ -23,12 +23,12 @@ internal interface IShellLinkW
         int cchMaxPath
     );
     void SetWorkingDirectory(
-        [MarshalAs(UnmanagedType.LPWStr)] string pszDir);
+        [MarshalAs(UnmanagedType.LPWStr)] string? pszDir);
     void GetArguments(
         [Out(), MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszArgs,
         int cchMaxPath);
     void SetArguments(
-        [MarshalAs(UnmanagedType.LPWStr)] string pszArgs);
+        [MarshalAs(UnmanagedType.LPWStr)] string? pszArgs);
     void GetHotKey(out short wHotKey);
     void SetHotKey(short wHotKey);
     void GetShowCmd(out uint iShowCmd);

@@ -7,15 +7,15 @@ namespace Microsoft.WindowsAPICodePack.Samples.PowerMgmtDemoApp
 {
     internal class MyPowerSettings : INotifyPropertyChanged
     {
-        string powerPersonality;
-        string powerSource;
-        bool batteryPresent;
-        bool upsPresent;
-        bool monitorOn;
-        bool batteryShortTerm;
-        int batteryLifePercent;
-        string batteryStateACOnline;
-        bool monitorRequired;
+        private string _powerPersonality;
+        private string _powerSource;
+        private bool _batteryPresent;
+        private bool _upsPresent;
+        private bool _monitorOn;
+        private bool _batteryShortTerm;
+        private int _batteryLifePercent;
+        private string _batteryStateAcOnline;
+        private bool _monitorRequired;
 
         #region INotifyPropertyChanged Members
 
@@ -25,12 +25,12 @@ namespace Microsoft.WindowsAPICodePack.Samples.PowerMgmtDemoApp
 
         public string PowerPersonality
         {
-            get { return powerPersonality; }
+            get => _powerPersonality;
             set
             {
-                if (powerPersonality != value)
+                if (_powerPersonality != value)
                 {
-                    powerPersonality = value;
+                    _powerPersonality = value;
                     OnPropertyChanged("PowerPersonality");
                 }
             }
@@ -38,36 +38,36 @@ namespace Microsoft.WindowsAPICodePack.Samples.PowerMgmtDemoApp
 
         public string PowerSource
         {
-            get { return powerSource; }
+            get => _powerSource;
             set
             {
-                if (powerSource != value)
+                if (_powerSource != value)
                 {
-                    powerSource = value;
+                    _powerSource = value;
                     OnPropertyChanged("PowerSource");
                 }
             }
         }
         public bool BatteryPresent
         {
-            get { return batteryPresent; }
+            get => _batteryPresent;
             set
             {
-                if (batteryPresent != value)
+                if (_batteryPresent != value)
                 {
-                    batteryPresent = value;
+                    _batteryPresent = value;
                     OnPropertyChanged("BatteryPresent");
                 }
             }
         }
         public bool UpsPresent
         {
-            get { return upsPresent; }
+            get => _upsPresent;
             set
             {
-                if (upsPresent != value)
+                if (_upsPresent != value)
                 {
-                    upsPresent = value;
+                    _upsPresent = value;
                     OnPropertyChanged("UPSPresent");
                 }
             }
@@ -75,60 +75,60 @@ namespace Microsoft.WindowsAPICodePack.Samples.PowerMgmtDemoApp
 
         public bool MonitorOn
         {
-            get { return monitorOn; }
+            get => _monitorOn;
             set
             {
-                if (monitorOn != value)
+                if (_monitorOn != value)
                 {
-                    monitorOn = value;
+                    _monitorOn = value;
                     OnPropertyChanged("MonitorOn");
                 }
             }
         }
         public bool BatteryShortTerm
         {
-            get { return batteryShortTerm; }
+            get => _batteryShortTerm;
             set
             {
-                if (batteryShortTerm != value)
+                if (_batteryShortTerm != value)
                 {
-                    batteryShortTerm = value;
+                    _batteryShortTerm = value;
                     OnPropertyChanged("BatteryShortTerm");
                 }
             }
         }
         public int BatteryLifePercent
         {
-            get { return batteryLifePercent; }
+            get => _batteryLifePercent;
             set
             {
-                if (batteryLifePercent != value)
+                if (_batteryLifePercent != value)
                 {
-                    batteryLifePercent = value;
+                    _batteryLifePercent = value;
                     OnPropertyChanged("BatteryLifePercent");
                 }
             }
         }
         public String BatteryState
         {
-            get { return batteryStateACOnline; }
+            get => _batteryStateAcOnline;
             set
             {
-                if (batteryStateACOnline != value)
+                if (_batteryStateAcOnline != value)
                 {
-                    batteryStateACOnline = value;
+                    _batteryStateAcOnline = value;
                     OnPropertyChanged("BatteryState");
                 }
             }
         }
         public bool MonitorRequired
         {
-            get { return monitorRequired; }
+            get => _monitorRequired;
             set
             {
-                if (monitorRequired != value)
+                if (_monitorRequired != value)
                 {
-                    monitorRequired = value;
+                    _monitorRequired = value;
                     OnPropertyChanged("MonitorRequired");
                 }
             }

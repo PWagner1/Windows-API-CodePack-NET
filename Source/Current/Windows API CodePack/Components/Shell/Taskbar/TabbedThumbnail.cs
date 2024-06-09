@@ -15,7 +15,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         // WPF properties
         internal UIElement? WindowsControl { get; set; }
-        internal Window WindowsControlParentWindow { get; set; }
+        internal Window? WindowsControlParentWindow { get; set; }
 
         private TaskbarWindow? _taskbarWindow;
         internal TaskbarWindow? TaskbarWindow
@@ -67,11 +67,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             if (parentWindowHandle == IntPtr.Zero)
             {
-                throw new ArgumentException(LocalizedMessages.TabbedThumbnailZeroParentHandle, "parentWindowHandle");
+                throw new ArgumentException(LocalizedMessages.TabbedThumbnailZeroParentHandle, nameof(parentWindowHandle));
             }
             if (windowHandle == IntPtr.Zero)
             {
-                throw new ArgumentException(LocalizedMessages.TabbedThumbnailZeroChildHandle, "windowHandle");
+                throw new ArgumentException(LocalizedMessages.TabbedThumbnailZeroChildHandle, nameof(windowHandle));
             }
 
             WindowHandle = windowHandle;
@@ -91,11 +91,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             if (parentWindowHandle == IntPtr.Zero)
             {
-                throw new ArgumentException(LocalizedMessages.TabbedThumbnailZeroParentHandle, "parentWindowHandle");
+                throw new ArgumentException(LocalizedMessages.TabbedThumbnailZeroParentHandle, nameof(parentWindowHandle));
             }
             if (control == null)
             {
-                throw new ArgumentNullException("control");
+                throw new ArgumentNullException(nameof(control));
             }
 
             WindowHandle = control.Handle;
@@ -112,15 +112,15 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="windowsControl">WPF Control (UIElement) for which a tabbed thumbnail needs to be displayed</param>
         /// <param name="peekOffset">Offset point used for displaying the peek bitmap. This setting is
         /// recomended for hidden WPF controls as it is difficult to calculate their offset.</param>
-        public TabbedThumbnail(Window parentWindow, UIElement? windowsControl, Vector peekOffset)
+        public TabbedThumbnail(Window? parentWindow, UIElement? windowsControl, Vector peekOffset)
         {
             if (windowsControl == null)
             {
-                throw new ArgumentNullException("windowsControl");
+                throw new ArgumentNullException(nameof(windowsControl));
             }
             if (parentWindow == null)
             {
-                throw new ArgumentNullException("parentWindow");
+                throw new ArgumentNullException(nameof(parentWindow));
             }
 
             WindowHandle = IntPtr.Zero;
@@ -135,11 +135,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         #region Public Properties
 
-        private string _title = string.Empty;
+        private string? _title = string.Empty;
         /// <summary>
         /// Title for the window shown as the taskbar thumbnail.
         /// </summary>
-        public string Title
+        public string? Title
         {
             get => _title;
             set
@@ -152,12 +152,12 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
         }
 
-        private string _tooltip = string.Empty;
+        private string? _tooltip = string.Empty;
         /// <summary>
         /// Tooltip to be shown for this thumbnail on the taskbar. 
         /// By default this is full title of the window shown on the taskbar.
         /// </summary>
-        public string Tooltip
+        public string? Tooltip
         {
             get => _tooltip;
             set
@@ -174,7 +174,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// Sets the window icon for this thumbnail preview
         /// </summary>
         /// <param name="icon">System.Drawing.Icon for the window/control associated with this preview</param>
-        public void SetWindowIcon(Icon icon)
+        public void SetWindowIcon(Icon? icon)
         {
             Icon = icon;
 
@@ -220,7 +220,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         internal IntPtr CurrentHBitmap { get; set; }
 
-        internal Icon Icon { get; private set; }
+        internal Icon? Icon { get; private set; }
 
         /// <summary>
         /// Override the thumbnail and peek bitmap. 
@@ -347,50 +347,50 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <summary>
         /// This event is raised when the Title property changes.
         /// </summary>
-        public event EventHandler TitleChanged;
+        public event EventHandler? TitleChanged;
 
         /// <summary>
         /// This event is raised when the Tooltip property changes.
         /// </summary>
-        public event EventHandler TooltipChanged;
+        public event EventHandler? TooltipChanged;
 
         /// <summary>
         /// The event that occurs when a tab is closed on the taskbar thumbnail preview.
         /// </summary>
-        public event EventHandler<TabbedThumbnailClosedEventArgs> TabbedThumbnailClosed;
+        public event EventHandler<TabbedThumbnailClosedEventArgs>? TabbedThumbnailClosed;
 
         /// <summary>
         /// The event that occurs when a tab is maximized via the taskbar thumbnail preview (context menu).
         /// </summary>
-        public event EventHandler<TabbedThumbnailEventArgs> TabbedThumbnailMaximized;
+        public event EventHandler<TabbedThumbnailEventArgs>? TabbedThumbnailMaximized;
 
         /// <summary>
         /// The event that occurs when a tab is minimized via the taskbar thumbnail preview (context menu).
         /// </summary>
-        public event EventHandler<TabbedThumbnailEventArgs> TabbedThumbnailMinimized;
+        public event EventHandler<TabbedThumbnailEventArgs>? TabbedThumbnailMinimized;
 
         /// <summary>
         /// The event that occurs when a tab is activated (clicked) on the taskbar thumbnail preview.
         /// </summary>
-        public event EventHandler<TabbedThumbnailEventArgs> TabbedThumbnailActivated;
+        public event EventHandler<TabbedThumbnailEventArgs>? TabbedThumbnailActivated;
 
         /// <summary>
         /// The event that occurs when a thumbnail or peek bitmap is requested by the user.
         /// </summary>
-        public event EventHandler<TabbedThumbnailBitmapRequestedEventArgs> TabbedThumbnailBitmapRequested;
+        public event EventHandler<TabbedThumbnailBitmapRequestedEventArgs>? TabbedThumbnailBitmapRequested;
 
 
         internal void OnTabbedThumbnailMaximized()
         {
             if (TabbedThumbnailMaximized != null)
             {
-                TabbedThumbnailMaximized(this, GetTabbedThumbnailEventArgs());
+                TabbedThumbnailMaximized(this, GetTabbedThumbnailEventArgs()!);
             }
             else
             {
                 // No one is listening to these events.
                 // Forward the message to the main window
-                CoreNativeMethods.SendMessage(ParentWindowHandle, WindowMessage.SystemCommand, new(TabbedThumbnailNativeMethods.ScMaximize), IntPtr.Zero);
+                CoreNativeMethods.SendMessage(ParentWindowHandle, WindowMessage.SystemCommand, new IntPtr(TabbedThumbnailNativeMethods.ScMaximize), IntPtr.Zero);
             }
         }
 
@@ -398,13 +398,13 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             if (TabbedThumbnailMinimized != null)
             {
-                TabbedThumbnailMinimized(this, GetTabbedThumbnailEventArgs());
+                TabbedThumbnailMinimized(this, GetTabbedThumbnailEventArgs()!);
             }
             else
             {
                 // No one is listening to these events.
                 // Forward the message to the main window
-                CoreNativeMethods.SendMessage(ParentWindowHandle, WindowMessage.SystemCommand, new(TabbedThumbnailNativeMethods.ScMinimize), IntPtr.Zero);
+                CoreNativeMethods.SendMessage(ParentWindowHandle, WindowMessage.SystemCommand, new IntPtr(TabbedThumbnailNativeMethods.ScMinimize), IntPtr.Zero);
             }
 
         }
@@ -420,9 +420,9 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 var closingEvent = GetTabbedThumbnailClosingEventArgs();
 
-                closedHandler(this, closingEvent);
+                closedHandler(this, closingEvent!);
 
-                if (closingEvent.Cancel) { return false; }                
+                if (closingEvent!.Cancel) { return false; }
             }
             else
             {
@@ -431,7 +431,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             }
 
             // Remove it from the internal list as well as the taskbar
-            TaskbarManager.Instance.TabbedThumbnail.RemoveThumbnailPreview(this);
+            TaskbarManager.Instance.TabbedThumbnail?.RemoveThumbnailPreview(this);
             return true;
         }
 
@@ -439,13 +439,13 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             if (TabbedThumbnailActivated != null)
             {
-                TabbedThumbnailActivated(this, GetTabbedThumbnailEventArgs());
+                TabbedThumbnailActivated(this, GetTabbedThumbnailEventArgs()!);
             }
             else
             {
                 // No one is listening to these events.
                 // Forward the message to the main window
-                CoreNativeMethods.SendMessage(ParentWindowHandle, WindowMessage.ActivateApplication, new(1), new(Thread.CurrentThread.GetHashCode()));
+                CoreNativeMethods.SendMessage(ParentWindowHandle, WindowMessage.ActivateApplication, new IntPtr(1), new IntPtr(Thread.CurrentThread.GetHashCode()));
             }
         }
 
@@ -453,48 +453,48 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             if (TabbedThumbnailBitmapRequested != null)
             {
-                TabbedThumbnailBitmapRequestedEventArgs eventArgs = null;
+                TabbedThumbnailBitmapRequestedEventArgs? eventArgs = null;
 
                 if (WindowHandle != IntPtr.Zero)
                 {
-                    eventArgs = new(WindowHandle);
+                    eventArgs = new TabbedThumbnailBitmapRequestedEventArgs(WindowHandle);
                 }
                 else if (WindowsControl != null)
                 {
-                    eventArgs = new(WindowsControl);
+                    eventArgs = new TabbedThumbnailBitmapRequestedEventArgs(WindowsControl);
                 }
 
-                TabbedThumbnailBitmapRequested(this, eventArgs);
+                TabbedThumbnailBitmapRequested(this, eventArgs!);
             }
         }
 
-        private TabbedThumbnailClosedEventArgs GetTabbedThumbnailClosingEventArgs()
+        private TabbedThumbnailClosedEventArgs? GetTabbedThumbnailClosingEventArgs()
         {
-            TabbedThumbnailClosedEventArgs eventArgs = null;
+            TabbedThumbnailClosedEventArgs? eventArgs = null;
 
             if (WindowHandle != IntPtr.Zero)
             {
-                eventArgs = new(WindowHandle);
+                eventArgs = new TabbedThumbnailClosedEventArgs(WindowHandle);
             }
             else if (WindowsControl != null)
             {
-                eventArgs = new(WindowsControl);
+                eventArgs = new TabbedThumbnailClosedEventArgs(WindowsControl);
             }
 
             return eventArgs;
         }
 
-        private TabbedThumbnailEventArgs GetTabbedThumbnailEventArgs()
+        private TabbedThumbnailEventArgs? GetTabbedThumbnailEventArgs()
         {
-            TabbedThumbnailEventArgs eventArgs = null;
+            TabbedThumbnailEventArgs? eventArgs = null;
 
             if (WindowHandle != IntPtr.Zero)
             {
-                eventArgs = new(WindowHandle);
+                eventArgs = new TabbedThumbnailEventArgs(WindowHandle);
             }
             else if (WindowsControl != null)
             {
-                eventArgs = new(WindowsControl);
+                eventArgs = new TabbedThumbnailEventArgs(WindowsControl);
             }
 
             return eventArgs;

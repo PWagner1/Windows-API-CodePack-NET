@@ -23,7 +23,7 @@
         /// </summary>
         /// <param name="message"></param>
         /// <param name="innerException"></param>
-        public PropertySystemException(string message, Exception innerException)
+        public PropertySystemException(string message, Exception? innerException)
             : base(message, innerException)
         {
         }
@@ -41,8 +41,8 @@
         /// <param name="info"></param>
         /// <param name="context"></param>
         protected PropertySystemException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
+            SerializationInfo info,
+            StreamingContext context)
             : base(info, context)
         {
         }

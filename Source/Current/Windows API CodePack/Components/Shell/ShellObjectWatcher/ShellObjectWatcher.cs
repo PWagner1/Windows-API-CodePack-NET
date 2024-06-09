@@ -38,7 +38,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             if (_context == null)
             {
-                _context = new();
+                _context = new SynchronizationContext();
                 SynchronizationContext.SetSynchronizationContext(_context);
             }
 
