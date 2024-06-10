@@ -146,7 +146,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 }
 
                 // Create our search condition and set the various properties.
-                condition = new(nativeCondition);
+                condition = new SearchCondition(nativeCondition);
             }
             finally
             {
@@ -178,7 +178,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             if (string.IsNullOrEmpty(canonicalName))
             {
-                throw new ArgumentException(LocalizedMessages.SearchConditionFactoryInvalidProperty, "propertyKey");
+                throw new ArgumentException(LocalizedMessages.SearchConditionFactoryInvalidProperty, nameof(propertyKey));
             }
 
             return CreateLeafCondition(canonicalName, value, operation);
@@ -204,7 +204,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             if (string.IsNullOrEmpty(canonicalName))
             {
-                throw new ArgumentException(LocalizedMessages.SearchConditionFactoryInvalidProperty, "propertyKey");
+                throw new ArgumentException(LocalizedMessages.SearchConditionFactoryInvalidProperty, nameof(propertyKey));
             }
             return CreateLeafCondition(canonicalName, value, operation);
         }
@@ -229,7 +229,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             if (string.IsNullOrEmpty(canonicalName))
             {
-                throw new ArgumentException(LocalizedMessages.SearchConditionFactoryInvalidProperty, "propertyKey");
+                throw new ArgumentException(LocalizedMessages.SearchConditionFactoryInvalidProperty, nameof(propertyKey));
             }
             return CreateLeafCondition(canonicalName, value, operation);
         }
@@ -254,7 +254,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             if (string.IsNullOrEmpty(canonicalName))
             {
-                throw new ArgumentException(LocalizedMessages.SearchConditionFactoryInvalidProperty, "propertyKey");
+                throw new ArgumentException(LocalizedMessages.SearchConditionFactoryInvalidProperty, nameof(propertyKey));
             }
             return CreateLeafCondition(canonicalName, value, operation);
         }
@@ -279,7 +279,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             if (string.IsNullOrEmpty(canonicalName))
             {
-                throw new ArgumentException(LocalizedMessages.SearchConditionFactoryInvalidProperty, "propertyKey");
+                throw new ArgumentException(LocalizedMessages.SearchConditionFactoryInvalidProperty, nameof(propertyKey));
             }
             return CreateLeafCondition(canonicalName, value, operation);
         }
@@ -328,7 +328,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 }
             }
 
-            return new(result);
+            return new SearchCondition(result);
         }
 
         /// <summary>
@@ -343,7 +343,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             if (conditionToBeNegated == null)
             {
-                throw new ArgumentNullException("conditionToBeNegated");
+                throw new ArgumentNullException(nameof(conditionToBeNegated));
             }
 
             // Same as the native "IConditionFactory:MakeNot" method
@@ -364,7 +364,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 }
             }
 
-            return new(result);
+            return new SearchCondition(result);
         }
 
         /// <summary>
@@ -393,7 +393,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             if (string.IsNullOrEmpty(query))
             {
-                throw new ArgumentNullException("query");
+                throw new ArgumentNullException(nameof(query));
             }
 
             IQueryParserManager nativeQueryParserManager = (IQueryParserManager)new QueryParserManagerCoClass();
@@ -441,7 +441,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     }
                 }
 
-                searchCondition = new(result);
+                searchCondition = new SearchCondition(result);
                 return searchCondition;
             }
             catch

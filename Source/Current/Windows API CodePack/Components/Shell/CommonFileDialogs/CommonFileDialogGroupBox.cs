@@ -49,7 +49,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
         /// <summary>
         /// Initializes the item collection for this class.
         /// </summary>
-        private void Initialize() => _items = new();
+        private void Initialize() => _items = new Collection<DialogControl>();
 
         /// <summary>
         /// Attach the GroupBox control to the dialog object

@@ -9,12 +9,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
     {
         #region Private Members
 
-        private StockIconIdentifier identifier = StockIconIdentifier.Application;
-        private StockIconSize currentSize = StockIconSize.Large;
-        private bool linkOverlay;
-        private bool selected;
-        private bool invalidateIcon = true;
-        private IntPtr hIcon = IntPtr.Zero;
+        private StockIconIdentifier _identifier;
+        private StockIconSize _currentSize = StockIconSize.Large;
+        private bool _linkOverlay;
+        private bool _selected;
+        private bool _invalidateIcon;
+        private IntPtr _hIcon = IntPtr.Zero;
 
         #endregion
 
@@ -27,8 +27,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="id">A value that identifies the icon represented by this instance.</param>
         public StockIcon(StockIconIdentifier id)
         {
-            identifier = id;
-            invalidateIcon = true;
+            _identifier = id;
+            _invalidateIcon = true;
         }
 
         /// <summary>
@@ -40,11 +40,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="isSelected">A bool value that indicates whether the icon is in a selected state.</param>
         public StockIcon(StockIconIdentifier id, StockIconSize size, bool isLinkOverlay, bool isSelected)
         {
-            identifier = id;
-            linkOverlay = isLinkOverlay;
-            selected = isSelected;
-            currentSize = size;
-            invalidateIcon = true;
+            _identifier = id;
+            _linkOverlay = isLinkOverlay;
+            _selected = isSelected;
+            _currentSize = size;
+            _invalidateIcon = true;
         }
 
         #endregion
@@ -57,11 +57,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <value>A <see cref="System.Boolean"/> value.</value>
         public bool Selected
         {
-            get => selected;
+            get => _selected;
             set
             {
-                selected = value;
-                invalidateIcon = true;
+                _selected = value;
+                _invalidateIcon = true;
             }
         }
 
@@ -71,11 +71,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <value>A <see cref="System.Boolean"/> value.</value>
         public bool LinkOverlay
         {
-            get => linkOverlay;
+            get => _linkOverlay;
             set
             {
-                linkOverlay = value;
-                invalidateIcon = true;
+                _linkOverlay = value;
+                _invalidateIcon = true;
             }
         }
 
@@ -85,11 +85,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <value>A <see cref="Microsoft.WindowsAPICodePack.Shell.StockIconSize"/> value.</value>
         public StockIconSize CurrentSize
         {
-            get => currentSize;
+            get => _currentSize;
             set
             {
-                currentSize = value;
-                invalidateIcon = true;
+                _currentSize = value;
+                _invalidateIcon = true;
             }
         }
 
@@ -98,51 +98,51 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// </summary>
         public StockIconIdentifier Identifier
         {
-            get => identifier;
+            get => _identifier;
             set
             {
-                identifier = value;
-                invalidateIcon = true;
+                _identifier = value;
+                _invalidateIcon = true;
             }
         }
 
         /// <summary>
         /// Gets the icon image in <see cref="System.Drawing.Bitmap"/> format. 
         /// </summary>
-        public Bitmap Bitmap
+        public Bitmap? Bitmap
         {
             get
             {
                 UpdateHIcon();
 
-                return hIcon != IntPtr.Zero ? Bitmap.FromHicon(hIcon) : null;
+                return _hIcon != IntPtr.Zero ? Bitmap.FromHicon(_hIcon) : null;
             }
         }
 
         /// <summary>
         /// Gets the icon image in <see cref="System.Windows.Media.Imaging.BitmapSource"/> format. 
         /// </summary>
-        public BitmapSource BitmapSource
+        public BitmapSource? BitmapSource
         {
             get
             {
                 UpdateHIcon();
 
-                return (hIcon != IntPtr.Zero) ?
-                    Imaging.CreateBitmapSourceFromHIcon(hIcon, Int32Rect.Empty, null) : null;
+                return (_hIcon != IntPtr.Zero) ?
+                    Imaging.CreateBitmapSourceFromHIcon(_hIcon, Int32Rect.Empty, null) : null;
             }
         }
 
         /// <summary>
         /// Gets the icon image in <see cref="System.Drawing.Icon"/> format.
         /// </summary>
-        public Icon Icon
+        public Icon? Icon
         {
             get
             {
                 UpdateHIcon();
 
-                return hIcon != IntPtr.Zero ? Icon.FromHandle(hIcon) : null;
+                return _hIcon != IntPtr.Zero ? Icon.FromHandle(_hIcon) : null;
             }
         }
 
@@ -152,14 +152,14 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         private void UpdateHIcon()
         {
-            if (invalidateIcon)
+            if (_invalidateIcon)
             {
-                if (hIcon != IntPtr.Zero)
-                    CoreNativeMethods.DestroyIcon(hIcon);
+                if (_hIcon != IntPtr.Zero)
+                    CoreNativeMethods.DestroyIcon(_hIcon);
 
-                hIcon = GetHIcon();
+                _hIcon = GetHIcon();
 
-                invalidateIcon = false;
+                _invalidateIcon = false;
             }
         }
 
@@ -194,10 +194,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             // Create a StockIconInfo structure to pass to the native method.
             StockIconsNativeMethods.StockIconInfo info = new();
-            info.StuctureSize = (UInt32)Marshal.SizeOf(typeof(StockIconsNativeMethods.StockIconInfo));
+            info.StuctureSize = (uint)Marshal.SizeOf(typeof(StockIconsNativeMethods.StockIconInfo));
 
             // Pass the struct to the native method
-            HResult hr = StockIconsNativeMethods.SHGetStockIconInfo(identifier, flags, ref info);
+            HResult hr = StockIconsNativeMethods.SHGetStockIconInfo(_identifier, flags, ref info);
 
             // If we get an error, return null as the icon requested might not be supported
             // on the current system
@@ -208,7 +208,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                     throw new InvalidOperationException(
                         string.Format(CultureInfo.InvariantCulture,
                         LocalizedMessages.StockIconInvalidGuid,
-                        identifier));
+                        _identifier));
                 }
 
                 return IntPtr.Zero;
@@ -234,8 +234,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
 
             // Unmanaged resources
-            if (hIcon != IntPtr.Zero)
-                CoreNativeMethods.DestroyIcon(hIcon);
+            if (_hIcon != IntPtr.Zero)
+                CoreNativeMethods.DestroyIcon(_hIcon);
         }
 
         /// <summary>

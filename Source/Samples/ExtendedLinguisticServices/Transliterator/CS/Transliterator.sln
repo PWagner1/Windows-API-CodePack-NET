@@ -1,0 +1,52 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.34909.67
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transliterator", "Transliterator.csproj", "{24435C75-34D7-48A7-A5C5-248782EABB93}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "..\..\..\..\Current\Windows API CodePack\Components\Core\Core.csproj", "{F858E5AE-9B69-49ED-BC5B-89C64F681D4D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedLinguisticServices", "..\..\..\..\Current\Windows API CodePack\Components\ExtendedLinguisticServices\ExtendedLinguisticServices.csproj", "{3E3BCE3B-8BFA-4145-AAFF-50097696C3EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shell", "..\..\..\..\Current\Windows API CodePack\Components\Shell\Shell.csproj", "{1647B213-8E5B-402F-8CA1-ED5F1D58D845}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		CodeAnalysisDebug|Any CPU = CodeAnalysisDebug|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24435C75-34D7-48A7-A5C5-248782EABB93}.CodeAnalysisDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24435C75-34D7-48A7-A5C5-248782EABB93}.CodeAnalysisDebug|Any CPU.Build.0 = Debug|Any CPU
+		{24435C75-34D7-48A7-A5C5-248782EABB93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24435C75-34D7-48A7-A5C5-248782EABB93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24435C75-34D7-48A7-A5C5-248782EABB93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24435C75-34D7-48A7-A5C5-248782EABB93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F858E5AE-9B69-49ED-BC5B-89C64F681D4D}.CodeAnalysisDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F858E5AE-9B69-49ED-BC5B-89C64F681D4D}.CodeAnalysisDebug|Any CPU.Build.0 = Debug|Any CPU
+		{F858E5AE-9B69-49ED-BC5B-89C64F681D4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F858E5AE-9B69-49ED-BC5B-89C64F681D4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F858E5AE-9B69-49ED-BC5B-89C64F681D4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F858E5AE-9B69-49ED-BC5B-89C64F681D4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E3BCE3B-8BFA-4145-AAFF-50097696C3EF}.CodeAnalysisDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E3BCE3B-8BFA-4145-AAFF-50097696C3EF}.CodeAnalysisDebug|Any CPU.Build.0 = Debug|Any CPU
+		{3E3BCE3B-8BFA-4145-AAFF-50097696C3EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E3BCE3B-8BFA-4145-AAFF-50097696C3EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E3BCE3B-8BFA-4145-AAFF-50097696C3EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E3BCE3B-8BFA-4145-AAFF-50097696C3EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1647B213-8E5B-402F-8CA1-ED5F1D58D845}.CodeAnalysisDebug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1647B213-8E5B-402F-8CA1-ED5F1D58D845}.CodeAnalysisDebug|Any CPU.Build.0 = Debug|Any CPU
+		{1647B213-8E5B-402F-8CA1-ED5F1D58D845}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1647B213-8E5B-402F-8CA1-ED5F1D58D845}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1647B213-8E5B-402F-8CA1-ED5F1D58D845}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1647B213-8E5B-402F-8CA1-ED5F1D58D845}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BFBF02E1-554D-49BE-99B7-B3A142418D3F}
+	EndGlobalSection
+EndGlobal

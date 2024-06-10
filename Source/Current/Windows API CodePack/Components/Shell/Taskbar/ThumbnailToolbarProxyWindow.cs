@@ -19,11 +19,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         {
             if (windowHandle == IntPtr.Zero)
             {
-                throw new ArgumentException(LocalizedMessages.CommonFileDialogInvalidHandle, "windowHandle");
+                throw new ArgumentException(LocalizedMessages.CommonFileDialogInvalidHandle, nameof(windowHandle));
             }
             if (buttons != null && buttons.Length == 0)
             {
-                throw new ArgumentException(LocalizedMessages.ThumbnailToolbarManagerNullEmptyArray, "buttons");
+                throw new ArgumentException(LocalizedMessages.ThumbnailToolbarManagerNullEmptyArray, nameof(buttons));
             }
 
             _internalWindowHandle = windowHandle;
@@ -32,7 +32,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             // Set the window handle on the buttons (for future updates)
             if (_thumbnailButtons != null)
             {
-                Array.ForEach(_thumbnailButtons, new(UpdateHandle));
+                Array.ForEach(_thumbnailButtons, UpdateHandle);
             }
 
             // Assign the window handle (coming from the user) to this native window
@@ -42,20 +42,19 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         internal ThumbnailToolbarProxyWindow(UIElement? windowsControl, ThumbnailToolBarButton[]? buttons)
         {
-            if (windowsControl == null) { throw new ArgumentNullException("windowsControl"); }
             if (buttons != null && buttons.Length == 0)
             {
-                throw new ArgumentException(LocalizedMessages.ThumbnailToolbarManagerNullEmptyArray, "buttons");
+                throw new ArgumentException(LocalizedMessages.ThumbnailToolbarManagerNullEmptyArray, nameof(buttons));
             }
 
             _internalWindowHandle = IntPtr.Zero;
-            WindowsControl = windowsControl;
+            WindowsControl = windowsControl ?? throw new ArgumentNullException(nameof(windowsControl));
             _thumbnailButtons = buttons;
 
             // Set the window handle on the buttons (for future updates)
             if (_thumbnailButtons != null)
             {
-                Array.ForEach(_thumbnailButtons, new(UpdateHandle));
+                Array.ForEach(_thumbnailButtons, UpdateHandle);
             }
         }
 
@@ -67,7 +66,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
         protected override void WndProc(ref Message m)
         {
-            bool handled = false;
+            bool handled;
 
             handled = TaskbarWindowManager.DispatchMessage(ref m, TaskbarWindow);
 

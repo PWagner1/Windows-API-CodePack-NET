@@ -5,9 +5,6 @@
 // ReSharper disable InlineOutVariableDeclaration
 // ReSharper disable RedundantAssignment
 // ReSharper disable MergeConditionalExpression
-#pragma warning disable IDE0034
-#pragma warning disable CS8618
-#pragma warning disable CS8600
 
 namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 {
@@ -183,7 +180,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <summary>
         /// Gets the default user interface (UI) column width for this property.
         /// </summary>
-        public uint DefaultColumWidth
+        public uint DefaultColumnWidth
         {
             get
             {
@@ -247,17 +244,17 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                         uint count;
                         nativeList.GetCount(out count);
-                        guid = new(ShellIIDGuid.IPropertyEnumType);
+                        guid = new Guid(ShellIIDGuid.IPropertyEnumType);
 
                         for (uint i = 0; i < count; i++)
                         {
                             IPropertyEnumType nativeEnumType;
                             nativeList.GetAt(i, ref guid, out nativeEnumType);
-                            propEnumTypeList.Add(new(nativeEnumType));
+                            propEnumTypeList.Add(new ShellPropertyEnumType(nativeEnumType));
                         }
                     }
 
-                    _propertyEnumTypes = new(propEnumTypeList);
+                    _propertyEnumTypes = new ReadOnlyCollection<ShellPropertyEnumType>(propEnumTypeList);
                 }
 
                 return _propertyEnumTypes;
@@ -416,10 +413,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <returns>The sort description for this property.</returns>
         /// <remarks>The string retrieved by this method is determined by flags set in the 
         /// <c>sortDescription</c> attribute of the <c>labelInfo</c> element in the property's .propdesc file.</remarks>
-        public string GetSortDescriptionLabel(bool descending)
+        public string? GetSortDescriptionLabel(bool descending)
         {
             IntPtr ptr = IntPtr.Zero;
-            string label = string.Empty;
+            string? label = string.Empty;
 
             if (NativePropertyDescription != null)
             {

@@ -40,7 +40,7 @@
 
 #region CA1811 - Potentially uncalled code
 [assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-[assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "Microsoft.WindowsAPICodePack.Shell.PropertySystem.PropVariantNativeMethods.#InitPropVariantFromPropVariantVectorElem(MS.WindowsAPICodePack.Internal.PropVariant,System.UInt32,MS.WindowsAPICodePack.Internal.PropVariant)")]
+[assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "Microsoft.WindowsAPICodePack.Shell.PropertySystem.PropVariantNativeMethods.#InitPropVariantFromPropVariantVectorElem(MS.WindowsAPICodePack.Internal.PropVariant,System.uint,MS.WindowsAPICodePack.Internal.PropVariant)")]
 [assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "Microsoft.WindowsAPICodePack.Dialogs.DialogsDefaults.#get_Caption()")]
 [assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "Microsoft.WindowsAPICodePack.Dialogs.DialogsDefaults.#get_Content()")]
 [assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "MS.WindowsAPICodePack.Internal.CoreErrorHelper.#HResultFromWin32(System.Int32)")]
@@ -54,12 +54,12 @@
 [assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "Microsoft.WindowsAPICodePack.Dialogs.NativeTaskDialog.#get_SelectedRadioButtonId()")]
 [assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "Microsoft.WindowsAPICodePack.Dialogs.TaskDialogNativeMethods+IconUnion.#get_MainIcon()")]
 [assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "MS.WindowsAPICodePack.Internal.CoreNativeMethods.#SendMessage(System.IntPtr,MS.WindowsAPICodePack.Internal.WindowMessage,System.IntPtr,System.IntPtr)")]
-[assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "MS.WindowsAPICodePack.Internal.CoreNativeMethods.#SendMessage(System.IntPtr,System.UInt32,System.IntPtr,System.String)")]
-[assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "MS.WindowsAPICodePack.Internal.CoreNativeMethods.#SendMessage(System.IntPtr,System.UInt32,System.Int32,System.String)")]
+[assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "MS.WindowsAPICodePack.Internal.CoreNativeMethods.#SendMessage(System.IntPtr,System.uint,System.IntPtr,System.String)")]
+[assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "MS.WindowsAPICodePack.Internal.CoreNativeMethods.#SendMessage(System.IntPtr,System.uint,System.Int32,System.String)")]
 [assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "MS.WindowsAPICodePack.Internal.CoreNativeMethods.#GetLoWord(System.Int64)")]
 [assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "MS.WindowsAPICodePack.Internal.CoreNativeMethods.#GetHiWord(System.Int64,System.Int32)")]
 [assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "MS.WindowsAPICodePack.Internal.CoreNativeMethods.#PostMessage(System.IntPtr,MS.WindowsAPICodePack.Internal.WindowMessage,System.IntPtr,System.IntPtr)")]
-[assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "MS.WindowsAPICodePack.Internal.CoreNativeMethods.#SendMessage(System.IntPtr,System.UInt32,System.Int32&,System.Text.StringBuilder)")]
+[assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "MS.WindowsAPICodePack.Internal.CoreNativeMethods.#SendMessage(System.IntPtr,System.uint,System.Int32&,System.Text.StringBuilder)")]
 [assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "MS.WindowsAPICodePack.Internal.CoreErrorHelper.#Matches(System.Int32,System.Int32)")]
 #endregion
 

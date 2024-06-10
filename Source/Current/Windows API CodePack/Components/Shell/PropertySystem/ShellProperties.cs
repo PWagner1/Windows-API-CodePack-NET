@@ -23,7 +23,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// </summary>
         /// <param name="key">The property key.</param>
         /// <returns>An IShellProperty.</returns>
-        public IShellProperty GetProperty(PropertyKey key)
+        public IShellProperty? GetProperty(PropertyKey key)
         {
             return CreateTypedProperty(key);
         }
@@ -34,7 +34,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// </summary>
         /// <param name="canonicalName">The canonical name.</param>
         /// <returns>An IShellProperty.</returns>
-        public IShellProperty GetProperty(string? canonicalName)
+        public IShellProperty? GetProperty(string? canonicalName)
         {
             return CreateTypedProperty(canonicalName);
         }
@@ -46,10 +46,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <typeparam name="T">The type of property to retrieve.</typeparam>
         /// <param name="key">The property key.</param>
         /// <returns>A strongly-typed ShellProperty for the given property key.</returns>
-        public ShellProperty<T> GetProperty<T>(PropertyKey key)
-        {
-            return CreateTypedProperty(key) as ShellProperty<T>;
-        }
+        public ShellProperty<T>? GetProperty<T>(PropertyKey key) => CreateTypedProperty(key) as ShellProperty<T>;
 
         /// <summary>
         /// Returns a strongly typed property available in the default property collection using 
@@ -73,7 +70,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             {
                 if (_propertySystem == null)
                 {
-                    _propertySystem = new(ParentShellObject);
+                    _propertySystem = new PropertySystem(ParentShellObject);
                 }
 
                 return _propertySystem;
@@ -89,7 +86,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             {
                 if (_defaultPropertyCollection == null)
                 {
-                    _defaultPropertyCollection = new(ParentShellObject);
+                    _defaultPropertyCollection = new ShellPropertyCollection(ParentShellObject);
                 }
 
                 return _defaultPropertyCollection;
@@ -105,7 +102,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// and dispose the writer</remarks>
         public ShellPropertyWriter GetPropertyWriter()
         {
-            return new(ParentShellObject);
+            return new ShellPropertyWriter(ParentShellObject);
         }
 
         internal IShellProperty CreateTypedProperty<T>(PropertyKey propKey)
@@ -114,12 +111,12 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             return new ShellProperty<T>(propKey, desc, ParentShellObject);
         }
 
-        internal IShellProperty CreateTypedProperty(PropertyKey propKey)
+        internal IShellProperty? CreateTypedProperty(PropertyKey propKey)
         {
             return ShellPropertyFactory.CreateShellProperty(propKey, ParentShellObject);
         }
 
-        internal IShellProperty CreateTypedProperty(string? canonicalName)
+        internal IShellProperty? CreateTypedProperty(string? canonicalName)
         {
             // Otherwise, call the native PropertyStore method
             PropertyKey propKey;

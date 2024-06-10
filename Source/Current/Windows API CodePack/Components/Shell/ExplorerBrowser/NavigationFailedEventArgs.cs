@@ -6,7 +6,7 @@
 public class NavigationFailedEventArgs : EventArgs
 {
     /// <summary>
-    /// The location the the browser would have navigated to.
+    /// The location the browser would have navigated to.
     /// </summary>
     public ShellObject? FailedLocation { get; set; }
 }

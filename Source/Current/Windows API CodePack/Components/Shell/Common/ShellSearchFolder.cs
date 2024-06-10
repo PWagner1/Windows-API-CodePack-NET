@@ -138,7 +138,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <exception cref="System.ArgumentException">If one of the given canonical names is invalid.</exception>
         public void SetStacks(params string?[] canonicalNames)
         {
-            if (canonicalNames == null) { throw new ArgumentNullException("canonicalNames"); }
+            if (canonicalNames == null) { throw new ArgumentNullException(nameof(canonicalNames)); }
             List<PropertyKey> propertyKeyList = new();
 
             foreach (string? prop in canonicalNames)
@@ -149,7 +149,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                 if (!CoreErrorHelper.Succeeded(result))
                 {
-                    throw new ArgumentException(LocalizedMessages.ShellInvalidCanonicalName, "canonicalNames", Marshal.GetExceptionForHR(result));
+                    throw new ArgumentException(LocalizedMessages.ShellInvalidCanonicalName, nameof(canonicalNames), Marshal.GetExceptionForHR(result));
                 }
 
                 propertyKeyList.Add(propKey);

@@ -1,5 +1,5 @@
 ﻿using Message = Microsoft.WindowsAPICodePack.Shell.Interop.Message;
-#pragma warning disable CS8602
+
 
 namespace Microsoft.WindowsAPICodePack.Shell
 {
@@ -27,7 +27,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                         notifyStruct.item1, ref guid, out nativeShellItem)))
                     {
                         string? name;
-                        nativeShellItem.GetDisplayName(ShellNativeMethods.ShellItemDesignNameOptions.FileSystemPath,
+                        nativeShellItem!.GetDisplayName(ShellNativeMethods.ShellItemDesignNameOptions.FileSystemPath,
                             out name);
                         ItemName = name;
 
@@ -46,7 +46,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                         notifyStruct.item2, ref guid, out nativeShellItem)))
                     {
                         string? name;
-                        nativeShellItem.GetDisplayName(ShellNativeMethods.ShellItemDesignNameOptions.FileSystemPath,
+                        nativeShellItem!.GetDisplayName(ShellNativeMethods.ShellItemDesignNameOptions.FileSystemPath,
                             out name);
                         ItemName2 = name;
 

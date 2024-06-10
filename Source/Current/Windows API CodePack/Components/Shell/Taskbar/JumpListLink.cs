@@ -4,7 +4,7 @@
 // ReSharper disable UseNameofExpression
 // ReSharper disable InconsistentNaming
 // ReSharper disable SuspiciousTypeConversion.Global
-#pragma warning disable CS8618
+
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
     /// <summary>
@@ -79,12 +79,12 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <summary>
         /// Gets or sets the object's arguments (passed to the command line).
         /// </summary>
-        public string Arguments { get; set; }
+        public string? Arguments { get; set; }
 
         /// <summary>
         /// Gets or sets the object's working directory.
         /// </summary>
-        public string WorkingDirectory { get; set; }
+        public string? WorkingDirectory { get; set; }
 
         /// <summary>
         /// Gets or sets the show command of the lauched application.

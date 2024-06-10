@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>net462;net47;net471;net472;net48;net481;net6.0-windows;net8.0-windows;net9.0-windows</TargetFrameworks>
+		<OutputType>Exe</OutputType>
+		<RootNamespace>
+		</RootNamespace>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<AssemblyTitle>ExtendedLinguisticServices</AssemblyTitle>
+		<Description>Extended Linguistic Services Samples</Description>
+		<Company>Microsoft</Company>
+		<Product>Microsoft Windows API Code Pack for .NET Framework</Product>
+		<Copyright>Copyright © Microsoft 2009</Copyright>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<NoWarn>42353,42354,42355</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DefineDebug>false</DefineDebug>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<NoWarn>42353,42354,42355</NoWarn>
+	</PropertyGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\..\..\..\Current\Windows API CodePack\Components\Core\Core.csproj" />
+	  <ProjectReference Include="..\..\..\..\Current\Windows API CodePack\Components\ExtendedLinguisticServices\ExtendedLinguisticServices.csproj" />
+	</ItemGroup>
+</Project>

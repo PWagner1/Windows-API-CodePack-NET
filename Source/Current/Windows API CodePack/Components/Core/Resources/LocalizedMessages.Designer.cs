@@ -196,6 +196,15 @@ namespace Microsoft.WindowsAPICodePack.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Default Button cannot be changed while dialog is showing..
+        /// </summary>
+        internal static string DefaultButtonCannotBeChanged {
+            get {
+                return ResourceManager.GetString("DefaultButtonCannotBeChanged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Dialog cannot have more than one control with the same name..
         /// </summary>
         internal static string DialogCollectionCannotHaveDuplicateNames {

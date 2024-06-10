@@ -1,6 +1,5 @@
 // Copyright (c) Microsoft Corporation.  All rights reserved.
 
-#pragma warning disable CA2013
 namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
 {
 
@@ -10,8 +9,8 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
     /// </summary>
     public struct MappingResultState
     {
-        private int _hResult;
-        private string _errorMessage;
+        private readonly int _hResult;
+        private readonly string _errorMessage;
 
         internal MappingResultState(int hResult, string errorMessage)
         {
@@ -60,8 +59,8 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
             // ReSharper disable MergeCastWithTypeCheck
             // ReSharper disable ConvertIfStatementToReturnStatement
             if (obj is MappingResultState)
-                // ReSharper restore ConvertIfStatementToReturnStatement
-                // ReSharper restore MergeCastWithTypeCheck
+            // ReSharper restore ConvertIfStatementToReturnStatement
+            // ReSharper restore MergeCastWithTypeCheck
             {
                 return Equals((MappingResultState)obj);
             }

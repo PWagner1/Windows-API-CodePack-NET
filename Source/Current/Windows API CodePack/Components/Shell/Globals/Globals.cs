@@ -25,6 +25,7 @@ global using System.Reflection;
 global using System.Runtime.CompilerServices;
 global using System.Runtime.InteropServices;
 global using System.Runtime.InteropServices.ComTypes;
+global using System.Runtime.Serialization;
 global using System.Security;
 global using System.Security.Cryptography;
 global using System.Text;

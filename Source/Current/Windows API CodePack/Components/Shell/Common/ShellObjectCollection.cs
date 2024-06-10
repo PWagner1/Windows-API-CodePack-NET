@@ -53,7 +53,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             IShellItemArray? shellItemArray;
             Guid iid = new(ShellIIDGuid.IShellItemArray);
             ShellNativeMethods.SHCreateShellItemArrayFromDataObject(dataObject, ref iid, out shellItemArray);
-            return new(shellItemArray, true);
+            return new ShellObjectCollection(shellItemArray, true);
         }
 
         /// <summary>
@@ -316,10 +316,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <param name="arrayIndex">The index into the array at which copying will commence.</param>
         public void CopyTo(ShellObject?[] array, int arrayIndex)
         {
-            if (array == null) { throw new ArgumentNullException("array"); }
+            if (array == null) { throw new ArgumentNullException(nameof(array)); }
             if (array.Length < arrayIndex + _content.Count)
             {
-                throw new ArgumentException(LocalizedMessages.ShellObjectCollectionArrayTooSmall, "array");
+                throw new ArgumentException(LocalizedMessages.ShellObjectCollectionArrayTooSmall, nameof(array));
             }
 
             for (int index = 0; index < _content.Count; index++)

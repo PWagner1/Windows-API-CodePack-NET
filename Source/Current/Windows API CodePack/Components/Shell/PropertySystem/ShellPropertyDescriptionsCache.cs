@@ -12,17 +12,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         private readonly IDictionary<PropertyKey, ShellPropertyDescription?> _propsDictionary;
         private static ShellPropertyDescriptionsCache? _cacheInstance;
 
-        public static ShellPropertyDescriptionsCache? Cache
-        {
-            get
-            {
-                if (_cacheInstance == null)
-                {
-                    _cacheInstance = new();
-                }
-                return _cacheInstance;
-            }
-        }
+        public static ShellPropertyDescriptionsCache Cache => _cacheInstance ??= new ShellPropertyDescriptionsCache();
 
         public ShellPropertyDescription? GetPropertyDescription(PropertyKey key)
         {
@@ -30,7 +20,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             {
                 if (!_propsDictionary.ContainsKey(key))
                 {
-                    _propsDictionary.Add(key, new(key));
+                    _propsDictionary.Add(key, new ShellPropertyDescription(key));
                 }
                 return _propsDictionary[key];
             }

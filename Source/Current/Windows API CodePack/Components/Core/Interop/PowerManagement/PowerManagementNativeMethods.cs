@@ -140,8 +140,8 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         [StructLayout(LayoutKind.Sequential)]
         public struct BatteryReportingScale
         {
-            public UInt32 Granularity;
-            public UInt32 Capacity;
+            public uint Granularity;
+            public uint Capacity;
         }
 
         public enum SystemPowerState
@@ -180,21 +180,21 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
         }
 
         [DllImport("powrprof.dll")]
-        internal static extern UInt32 CallNtPowerInformation(
+        internal static extern uint CallNtPowerInformation(
              PowerInformationLevel informationLevel,
              IntPtr inputBuffer,
-             UInt32 inputBufferSize,
+             uint inputBufferSize,
              out SystemPowerCapabilities outputBuffer,
-             UInt32 outputBufferSize
+             uint outputBufferSize
         );
 
         [DllImport("powrprof.dll")]
-        internal static extern UInt32 CallNtPowerInformation(
+        internal static extern uint CallNtPowerInformation(
              PowerInformationLevel informationLevel,
              IntPtr inputBuffer,
-             UInt32 inputBufferSize,
+             uint inputBufferSize,
              out SystemBatteryState outputBuffer,
-             UInt32 outputBufferSize
+             uint outputBufferSize
         );
 
         /// <summary>

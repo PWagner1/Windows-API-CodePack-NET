@@ -1,4 +1,5 @@
 ﻿
+// ReSharper disable BitwiseOperatorOnEnumWithoutFlags
 namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 {
 
@@ -18,10 +19,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <param name="propKey">PropertyKey</param>
         /// <param name="shellObject">Shell object from which to get property</param>
         /// <returns>ShellProperty matching type of value in property.</returns>
-        public static IShellProperty CreateShellProperty(PropertyKey propKey, ShellObject? shellObject)
-        {
-            return GenericCreateShellProperty(propKey, shellObject);
-        }
+        public static IShellProperty CreateShellProperty(PropertyKey propKey, ShellObject? shellObject) => GenericCreateShellProperty(propKey, shellObject);
 
         /// <summary>
         /// Creates a generic ShellProperty.
@@ -29,19 +27,16 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         /// <param name="propKey">PropertyKey</param>
         /// <param name="store">IPropertyStore from which to get property</param>
         /// <returns>ShellProperty matching type of value in property.</returns>
-        public static IShellProperty CreateShellProperty(PropertyKey propKey, IPropertyStore? store)
-        {
-            return GenericCreateShellProperty(propKey, store);
-        }
+        public static IShellProperty CreateShellProperty(PropertyKey propKey, IPropertyStore? store) => GenericCreateShellProperty(propKey, store);
 
         private static IShellProperty GenericCreateShellProperty<T>(PropertyKey propKey, T thirdArg)
         {
             Type thirdType = (thirdArg is ShellObject) ? typeof(ShellObject) : typeof(T);
 
-            ShellPropertyDescription? propDesc = ShellPropertyDescriptionsCache.Cache?.GetPropertyDescription(propKey);
+            ShellPropertyDescription? propDesc = ShellPropertyDescriptionsCache.Cache.GetPropertyDescription(propKey);
 
             // Get the generic type
-            Type type = typeof(ShellProperty<>).MakeGenericType(VarEnumToSystemType(propDesc.VarEnumType));
+            Type type = typeof(ShellProperty<>).MakeGenericType(VarEnumToSystemType(propDesc!.VarEnumType)!);
 
             // The hash for the function is based off the generic type and which type (constructor) we're using.
             int hash = GetTypeHash(type, thirdType);
@@ -52,7 +47,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             {
                 if (_storeCache.TryGetValue(hash, out var ctor))
                 {
-                    return ctor(propKey, propDesc, thirdArg);
+                    return ctor(propKey, propDesc, thirdArg!);
                 }
 
                 Type[] argTypes = { typeof(PropertyKey), typeof(ShellPropertyDescription), thirdType };
@@ -61,41 +56,41 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
                 _storeCache.Add(hash, ctor);
 
-                return ctor(propKey, propDesc, thirdArg);
+                return ctor(propKey, propDesc, thirdArg!);
             }
         }
 
         /// <summary>
         /// Converts VarEnum to its associated .net Type.
         /// </summary>
-        /// <param name="VarEnumType">VarEnum value</param>
+        /// <param name="varEnumType">VarEnum value</param>
         /// <returns>Associated .net equivelent.</returns>
         [SuppressMessage("Microsoft.Maintainability", "CA1502:AvoidExcessiveComplexity")]
-        public static Type? VarEnumToSystemType(VarEnum VarEnumType)
+        public static Type VarEnumToSystemType(VarEnum varEnumType)
         {
-            switch (VarEnumType)
+            switch (varEnumType)
             {
                 case (VarEnum.VT_EMPTY):
                 case (VarEnum.VT_NULL):
-                    return typeof(Object);
+                    return typeof(object);
                 case (VarEnum.VT_UI1):
-                    return typeof(Byte?);
+                    return typeof(byte?);
                 case (VarEnum.VT_I2):
-                    return typeof(Int16?);
+                    return typeof(short?);
                 case (VarEnum.VT_UI2):
-                    return typeof(UInt16?);
+                    return typeof(ushort?);
                 case (VarEnum.VT_I4):
-                    return typeof(Int32?);
+                    return typeof(int?);
                 case (VarEnum.VT_UI4):
-                    return typeof(UInt32?);
+                    return typeof(uint?);
                 case (VarEnum.VT_I8):
-                    return typeof(Int64?);
+                    return typeof(long?);
                 case (VarEnum.VT_UI8):
-                    return typeof(UInt64?);
+                    return typeof(ulong?);
                 case (VarEnum.VT_R8):
-                    return typeof(Double?);
+                    return typeof(double?);
                 case (VarEnum.VT_BOOL):
-                    return typeof(Boolean?);
+                    return typeof(bool?);
                 case (VarEnum.VT_FILETIME):
                     return typeof(DateTime?);
                 case (VarEnum.VT_CLSID):
@@ -103,31 +98,31 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 case (VarEnum.VT_CF):
                     return typeof(IntPtr?);
                 case (VarEnum.VT_BLOB):
-                    return typeof(Byte[]);
+                    return typeof(byte[]);
                 case (VarEnum.VT_LPWSTR):
-                    return typeof(String);
+                    return typeof(string);
                 case (VarEnum.VT_UNKNOWN):
                     return typeof(IntPtr?);
                 case (VarEnum.VT_STREAM):
                     return typeof(IStream);
-                case (VarEnum.VT_VECTOR | VarEnum.VT_UI1):
-                    return typeof(Byte[]);
+                case (VarEnum.VT_UI1 | VarEnum.VT_VECTOR):
+                    return typeof(byte[]);
                 case (VarEnum.VT_VECTOR | VarEnum.VT_I2):
-                    return typeof(Int16[]);
+                    return typeof(short[]);
                 case (VarEnum.VT_VECTOR | VarEnum.VT_UI2):
-                    return typeof(UInt16[]);
+                    return typeof(ushort[]);
                 case (VarEnum.VT_VECTOR | VarEnum.VT_I4):
-                    return typeof(Int32[]);
+                    return typeof(int[]);
                 case (VarEnum.VT_VECTOR | VarEnum.VT_UI4):
-                    return typeof(UInt32[]);
+                    return typeof(uint[]);
                 case (VarEnum.VT_VECTOR | VarEnum.VT_I8):
-                    return typeof(Int64[]);
+                    return typeof(long[]);
                 case (VarEnum.VT_VECTOR | VarEnum.VT_UI8):
-                    return typeof(UInt64[]);
+                    return typeof(ulong[]);
                 case (VarEnum.VT_VECTOR | VarEnum.VT_R8):
-                    return typeof(Double[]);
+                    return typeof(double[]);
                 case (VarEnum.VT_VECTOR | VarEnum.VT_BOOL):
-                    return typeof(Boolean[]);
+                    return typeof(bool[]);
                 case (VarEnum.VT_VECTOR | VarEnum.VT_FILETIME):
                     return typeof(DateTime[]);
                 case (VarEnum.VT_VECTOR | VarEnum.VT_CLSID):
@@ -135,9 +130,9 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 case (VarEnum.VT_VECTOR | VarEnum.VT_CF):
                     return typeof(IntPtr[]);
                 case (VarEnum.VT_VECTOR | VarEnum.VT_LPWSTR):
-                    return typeof(String[]);
+                    return typeof(string[]);
                 default:
-                    return typeof(Object);
+                    return typeof(object);
             }
         }
 
@@ -149,12 +144,12 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             int typeHash = GetTypeHash(argTypes);
 
             // Finds the correct constructor by matching the hash of the types.
-            ConstructorInfo ctorInfo = type.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
+            ConstructorInfo? ctorInfo = type.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
                 .FirstOrDefault(x => typeHash == GetTypeHash(x.GetParameters().Select(a => a.ParameterType)));
 
             if (ctorInfo == null)
             {
-                throw new ArgumentException(LocalizedMessages.ShellPropertyFactoryConstructorNotFound, "type");
+                throw new ArgumentException(LocalizedMessages.ShellPropertyFactoryConstructorNotFound, nameof(type));
             }
 
             var key = System.Linq.Expressions.Expression.Parameter(argTypes[0], "propKey");

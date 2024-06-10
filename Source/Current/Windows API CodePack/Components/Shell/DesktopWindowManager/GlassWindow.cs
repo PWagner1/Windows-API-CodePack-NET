@@ -77,8 +77,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                     // calculate size of element relative to nonclient area
                     GeneralTransform transform = element.TransformToAncestor(this);
-                    Point topLeftFrame = transform.Transform(new(0, 0));
-                    Point bottomRightFrame = transform.Transform(new(
+                    Point topLeftFrame = transform.Transform(new Point(0, 0));
+                    Point bottomRightFrame = transform.Transform(new Point(
                         element.ActualWidth + nonClientSize.Width,
                         element.ActualHeight + nonClientSize.Height));
 
@@ -117,7 +117,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 if (AeroGlassCompositionChanged != null)
                 {
                     AeroGlassCompositionChanged.Invoke(this,
-                        new(AeroGlassCompositionEnabled));
+                        new AeroGlassCompositionChangedEventArgs(AeroGlassCompositionEnabled));
                 }
 
                 handled = true;

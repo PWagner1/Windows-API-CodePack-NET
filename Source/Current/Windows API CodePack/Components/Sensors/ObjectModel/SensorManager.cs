@@ -25,7 +25,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <returns>A list of sensors of the specified category ID.</returns>
         public static SensorList<Sensor?> GetSensorsByCategoryId(Guid category)
         {
-            ISensorCollection? sensorCollection = null;
+            ISensorCollection? sensorCollection;
             HResult hr = _sensorManager.GetSensorsByCategory(category, out sensorCollection);
             if (hr == HResult.ElementNotFound)
                 throw new SensorPlatformException(LocalizedMessages.SensorsNotFound);
@@ -40,7 +40,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <returns>A list of sensors of the spefified type ID.</returns>
         public static SensorList<Sensor?> GetSensorsByTypeId(Guid typeId)
         {
-            ISensorCollection? sensorCollection = null;
+            ISensorCollection? sensorCollection;
             HResult hr = _sensorManager.GetSensorsByType(typeId, out sensorCollection);
             if (hr == HResult.ElementNotFound)
             {
@@ -74,7 +74,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
                 return NativeSensorCollectionToSensorCollection<T>(nativeSensorCollection);
             }
 
-            return new();
+            return [];
         }
 
         /// <summary>
@@ -85,7 +85,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <returns>A particular sensor.</returns>        
         public static T? GetSensorBySensorId<T>(Guid sensorId) where T : Sensor
         {
-            ISensor? nativeSensor = null;
+            ISensor? nativeSensor;
             HResult hr = _sensorManager.GetSensorByID(sensorId, out nativeSensor);
             if (hr == HResult.ElementNotFound)
             {
@@ -110,7 +110,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         {
             if (sensors == null || sensors.Count == 0)
             {
-                throw new ArgumentException(LocalizedMessages.SensorManagerEmptySensorsCollection, "sensors");
+                throw new ArgumentException(LocalizedMessages.SensorManagerEmptySensorsCollection, nameof(sensors));
             }
 
             ISensorCollection sensorCollection = new SensorCollection();
@@ -146,12 +146,12 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// <summary>
         /// .NET type -> type GUID.
         /// </summary>      
-        private static Dictionary<Type, Guid> _sensorTypeToGuid = new();
+        private static readonly Dictionary<Type, Guid> _sensorTypeToGuid = new();
 
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static SensorManager()
         {
-            CoreHelpers.ThrowIfNotWin7();
+            CoreHelpers.ThrowIfNotWin7OrHigher();
 
             BuildSensorTypeMap();
             Thread.MemoryBarrier();
@@ -160,16 +160,16 @@ namespace Microsoft.WindowsAPICodePack.Sensors
 
         internal static SensorList<TS?> NativeSensorCollectionToSensorCollection<TS>(ISensorCollection? nativeCollection) where TS : Sensor
         {
-            SensorList<TS?> sensors = new();
+            SensorList<TS?> sensors = [];
 
             if (nativeCollection != null)
             {
-                uint sensorCount = 0;
+                uint sensorCount;
                 nativeCollection.GetCount(out sensorCount);
 
                 for (uint i = 0; i < sensorCount; i++)
                 {
-                    ISensor? iSensor = null;
+                    ISensor? iSensor;
                     nativeCollection.GetAt(i, out iSensor);
                     TS? sensor = GetSensorWrapperInstance<TS>(iSensor);
                     if (sensor != null)

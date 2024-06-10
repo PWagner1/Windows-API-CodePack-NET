@@ -50,13 +50,13 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 // Check for positive numbers
                 if (value < 0)
                 {
-                    throw new ArgumentException(LocalizedMessages.TaskDialogProgressBarMinValueGreaterThanZero, "value");
+                    throw new ArgumentException(LocalizedMessages.TaskDialogProgressBarMinValueGreaterThanZero, nameof(value));
                 }
 
                 // Check if min / max differ
                 if (value >= Maximum)
                 {
-                    throw new ArgumentException(LocalizedMessages.TaskDialogProgressBarMinValueLessThanMax, "value");
+                    throw new ArgumentException(LocalizedMessages.TaskDialogProgressBarMinValueLessThanMax, nameof(value));
                 }
 
                 _minimum = value;
@@ -76,7 +76,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 // Check if min / max differ
                 if (value < Minimum)
                 {
-                    throw new ArgumentException(LocalizedMessages.TaskDialogProgressBarMaxValueGreaterThanMin, "value");
+                    throw new ArgumentException(LocalizedMessages.TaskDialogProgressBarMaxValueGreaterThanMin, nameof(value));
                 }
                 _maximum = value;
                 ApplyPropertyChange("Maximum");
@@ -94,7 +94,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 // Check for positive numbers
                 if (value < Minimum || value > Maximum)
                 {
-                    throw new ArgumentException(LocalizedMessages.TaskDialogProgressBarValueInRange, "value");
+                    throw new ArgumentException(LocalizedMessages.TaskDialogProgressBarValueInRange, nameof(value));
                 }
                 _value = value;
                 ApplyPropertyChange("Value");

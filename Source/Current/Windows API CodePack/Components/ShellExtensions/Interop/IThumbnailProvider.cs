@@ -15,5 +15,5 @@ interface IThumbnailProvider
     /// <param name="bitmapHandle"></param>
     /// <param name="bitmapType"></param>
     [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#"), SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#")]
-    void GetThumbnail(uint squareLength, [Out] out IntPtr bitmapHandle, [Out] out UInt32 bitmapType);        
+    void GetThumbnail(uint squareLength, [Out] out IntPtr bitmapHandle, [Out] out uint bitmapType);        
 }

@@ -87,7 +87,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
             {
                 if (string.IsNullOrEmpty(name))
                 {
-                    throw new ArgumentException(LocalizedMessages.DialogControlCollectionEmptyName, "name");
+                    throw new ArgumentException(LocalizedMessages.DialogControlCollectionEmptyName, nameof(name));
                 }
 
                 foreach (T? control in Items)
@@ -101,11 +101,15 @@ namespace Microsoft.WindowsAPICodePack.Dialogs.Controls
                     }
                     else if ((groupBox = control as CommonFileDialogGroupBox) != null)
                     {
-#pragma warning disable CS8602
-                        foreach (T? subControl in groupBox.Items)
-#pragma warning restore CS8602
+                        if (groupBox.Items != null)
                         {
-                            if (subControl != null && subControl.Name == name) { return subControl; }
+                            foreach (T? subControl in groupBox.Items)
+                            {
+                                if (subControl != null && subControl.Name == name)
+                                {
+                                    return subControl;
+                                }
+                            }
                         }
                     }
                 }

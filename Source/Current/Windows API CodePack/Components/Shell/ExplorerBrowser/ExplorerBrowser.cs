@@ -56,7 +56,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 }
 
                 _shellItemsArray = GetItemsArray();
-                _itemsCollection = new(_shellItemsArray, true);
+                _itemsCollection = new ShellObjectCollection(_shellItemsArray, true);
 
                 return _itemsCollection;
             }
@@ -83,7 +83,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 }
 
                 _selectedShellItemsArray = GetSelectedItemsArray();
-                _selectedItemsCollection = new(_selectedShellItemsArray, true);
+                _selectedItemsCollection = new ShellObjectCollection(_selectedShellItemsArray, true);
 
                 return _selectedItemsCollection;
             }
@@ -123,7 +123,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         {
             if (shellObject == null)
             {
-                throw new ArgumentNullException("shellObject");
+                throw new ArgumentNullException(nameof(shellObject));
             }
 
             if (ExplorerBrowserControl == null)
@@ -233,9 +233,9 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         public ExplorerBrowser()
             : base()
         {
-            NavigationOptions = new(this);
-            ContentOptions = new(this);
-            NavigationLog = new(this);
+            NavigationOptions = new ExplorerBrowserNavigationOptions(this);
+            ContentOptions = new ExplorerBrowserContentOptions(this);
+            NavigationLog = new ExplorerBrowserNavigationLog(this);
         }
 
         #endregion
@@ -290,7 +290,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
 
             if (DesignMode == false)
             {
-                ExplorerBrowserControl = new();
+                ExplorerBrowserControl = new ExplorerBrowserClass();
 
                 // hooks up IExplorerPaneVisibility and ICommDlgBrowser event notifications
                 ExplorerBrowserNativeMethods.IUnknown_SetSite(ExplorerBrowserControl, this);
@@ -301,7 +301,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                     out EventsCookie);
 
                 // sets up ExplorerBrowser view connection point events
-                _viewEvents = new(this);
+                _viewEvents = new ExplorerBrowserViewEvents(this);
 
                 NativeRect rect = new();
                 rect.Top = ClientRectangle.Top;
@@ -396,7 +396,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         {
             HResult hr = HResult.Ok;
 
-            if (guidService.CompareTo(new(ExplorerBrowserIIDGuid.IExplorerPaneVisibility)) == 0)
+            if (guidService.CompareTo(new Guid(ExplorerBrowserIIDGuid.IExplorerPaneVisibility)) == 0)
             {
                 // Responding to this SID allows us to control the visibility of the 
                 // explorer browser panes
@@ -404,9 +404,9 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                     Marshal.GetComInterfaceForObject(this, typeof(IExplorerPaneVisibility));
                 hr = HResult.Ok;
             }
-            else if (guidService.CompareTo(new(ExplorerBrowserIIDGuid.ICommDlgBrowser)) == 0)
+            else if (guidService.CompareTo(new Guid(ExplorerBrowserIIDGuid.ICommDlgBrowser)) == 0)
             {
-                if (riid.CompareTo(new(ExplorerBrowserIIDGuid.ICommDlgBrowser)) == 0)
+                if (riid.CompareTo(new Guid(ExplorerBrowserIIDGuid.ICommDlgBrowser)) == 0)
                 {
                     ppvObject = Marshal.GetComInterfaceForObject(this, typeof(ICommDlgBrowser3));
                     hr = HResult.Ok;
@@ -420,7 +420,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 //    ppvObject = Marshal.GetComInterfaceForObject(this, typeof(ICommDlgBrowser3));
                 //    hr = HResult.Ok;                    
                 //}
-                else if (riid.CompareTo(new(ExplorerBrowserIIDGuid.ICommDlgBrowser3)) == 0)
+                else if (riid.CompareTo(new Guid(ExplorerBrowserIIDGuid.ICommDlgBrowser3)) == 0)
                 {
                     ppvObject = Marshal.GetComInterfaceForObject(this, typeof(ICommDlgBrowser3));
                     hr = HResult.Ok;

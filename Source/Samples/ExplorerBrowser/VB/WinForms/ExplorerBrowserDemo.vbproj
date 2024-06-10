@@ -1,0 +1,85 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>net462;net47;net471;net472;net48;net481;net6.0-windows;net8.0-windows;net9.0-windows</TargetFrameworks>
+		<OutputType>WinExe</OutputType>
+		<RootNamespace>
+		</RootNamespace>
+		<AssemblyName>ExplorerBrowser</AssemblyName>
+		<PublishUrl>publish\</PublishUrl>
+		<Install>true</Install>
+		<InstallFrom>Disk</InstallFrom>
+		<UpdateEnabled>false</UpdateEnabled>
+		<UpdateMode>Foreground</UpdateMode>
+		<UpdateInterval>7</UpdateInterval>
+		<UpdateIntervalUnits>Days</UpdateIntervalUnits>
+		<UpdatePeriodically>false</UpdatePeriodically>
+		<UpdateRequired>false</UpdateRequired>
+		<MapFileExtensions>true</MapFileExtensions>
+		<ApplicationRevision>0</ApplicationRevision>
+		<ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+		<IsWebBootstrapper>false</IsWebBootstrapper>
+		<UseApplicationTrust>false</UseApplicationTrust>
+		<BootstrapperEnabled>true</BootstrapperEnabled>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<UseWindowsForms>true</UseWindowsForms>
+		<UseWPF>true</UseWPF>
+		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+		<AssemblyTitle>ExplorerBrowser</AssemblyTitle>
+		<Description>ExplorerBrowser Demo</Description>
+		<Company>Microsoft</Company>
+		<Product>Microsoft Windows API Code Pack for .NET Framework</Product>
+		<Copyright>Copyright © Microsoft 2009</Copyright>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+		<UseVSHostingProcess>true</UseVSHostingProcess>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<NoWarn>42353,42354,42355</NoWarn>
+	</PropertyGroup>
+	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+		<DefineDebug>false</DefineDebug>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<NoWarn>42353,42354,42355</NoWarn>
+	</PropertyGroup>
+	<ItemGroup>
+		<Reference Update="System.Core">
+			<RequiredTargetFramework>3.5</RequiredTargetFramework>
+		</Reference>
+		<Reference Update="System.Xml.Linq">
+			<RequiredTargetFramework>3.5</RequiredTargetFramework>
+		</Reference>
+		<Reference Update="WindowsFormsIntegration">
+			<RequiredTargetFramework>3.0</RequiredTargetFramework>
+		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="ExplorerBrowserTestForm.Designer.vb">
+			<DependentUpon>ExplorerBrowserTestForm.vb</DependentUpon>
+		</Compile>
+		<Compile Update="My Project\Resources.Designer.vb">
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+		</Compile>
+		<Compile Update="My Project\Settings.Designer.vb">
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Settings.settings</DependentUpon>
+			<DesignTimeSharedInput>True</DesignTimeSharedInput>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+			<Visible>False</Visible>
+			<ProductName>.NET Framework 3.5 SP1</ProductName>
+			<Install>true</Install>
+		</BootstrapperPackage>
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\..\..\Current\Windows API CodePack\Components\Core\Core.csproj" />
+		<ProjectReference Include="..\..\..\..\Current\Windows API CodePack\Components\Shell\Shell.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+	</ItemGroup>
+</Project>

@@ -31,7 +31,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.Interop
         /// <param name="bitmapHandle"></param>
         /// <param name="bitmapType"></param>
         [SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "2#"), SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "1#")]
-        void GetThumbnail(uint squareLength, out IntPtr bitmapHandle, out UInt32 bitmapType);
+        void GetThumbnail(uint squareLength, out IntPtr bitmapHandle, out uint bitmapType);
     }
 
     /// <summary>

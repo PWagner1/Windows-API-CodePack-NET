@@ -1,6 +1,10 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable UsePatternMatching
+
+using Point = System.Windows.Point;
+using Size = System.Drawing.Size;
+
 namespace Microsoft.WindowsAPICodePack.Taskbar
 {
     /// <summary>
@@ -32,7 +36,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
                 if (realWindowSize == System.Drawing.Size.Empty)
                 {
-                    realWindowSize = new(200, 200);
+                    realWindowSize = new Size(200, 200);
                 }
 
                 System.Drawing.Size size = (bitmapSize == System.Drawing.Size.Empty) ?
@@ -43,7 +47,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                 {
 
 
-                    targetBitmap = new(size.Width, size.Height);
+                    targetBitmap = new Bitmap(size.Width, size.Height);
 
                     using (Graphics targetGr = Graphics.FromImage(targetBitmap))
                     {
@@ -95,7 +99,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             if (host != null)
             {
                 IntPtr handle = host.Handle;
-                return GrabWindowBitmap(handle, new(width, height));
+                return GrabWindowBitmap(handle, new Size(width, height));
             }
 
             Rect bounds = VisualTreeHelper.GetDescendantBounds(element);
@@ -113,7 +117,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             using (DrawingContext ctx = dv.RenderOpen())
             {
                 VisualBrush vb = new(element);
-                ctx.DrawRectangle(vb, null, new(new(), bounds.Size));
+                ctx.DrawRectangle(vb, null, new Rect(new Point(), bounds.Size));
             }
 
             renderTarget.Render(dv);
@@ -127,7 +131,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             {
                 bmpe.Save(fl);
                 fl.Position = 0;
-                bmp = new(fl);
+                bmp = new Bitmap(fl);
             }
 
             return (Bitmap)bmp.GetThumbnailImage(width, height, null, IntPtr.Zero);

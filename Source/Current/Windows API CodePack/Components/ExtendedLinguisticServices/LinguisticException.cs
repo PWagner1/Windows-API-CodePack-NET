@@ -24,7 +24,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         public LinguisticException() { }
 
-        internal LinguisticException(UInt32 hResult)
+        internal LinguisticException(uint hResult)
             : base((int)hResult)
         {
             HResult = (int)hResult;

@@ -1,5 +1,6 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
+// ReSharper disable InconsistentNaming
 #pragma warning disable CS8605
 namespace Microsoft.WindowsAPICodePack.Shell
 {
@@ -53,7 +54,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 if (folders != IntPtr.Zero) { Marshal.FreeCoTaskMem(folders); }
             }
 
-            return new(foldersList);
+            return new ReadOnlyCollection<IKnownFolder?>(foldersList);
         }
 
         private static IKnownFolder? GetKnownFolder(Guid guid)
@@ -625,7 +626,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                CoreHelpers.ThrowIfNotWin7();
+                CoreHelpers.ThrowIfNotWin7OrHigher();
                 return GetKnownFolder(FolderIdentifiers.UserProgramFiles);
             }
         }
@@ -637,7 +638,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                CoreHelpers.ThrowIfNotWin7();
+                CoreHelpers.ThrowIfNotWin7OrHigher();
                 return GetKnownFolder(FolderIdentifiers.UserProgramFilesCommon);
             }
         }
@@ -649,7 +650,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                CoreHelpers.ThrowIfNotWin7();
+                CoreHelpers.ThrowIfNotWin7OrHigher();
                 return GetKnownFolder(FolderIdentifiers.Ringtones);
             }
         }
@@ -661,7 +662,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                CoreHelpers.ThrowIfNotWin7();
+                CoreHelpers.ThrowIfNotWin7OrHigher();
                 return GetKnownFolder(FolderIdentifiers.PublicRingtones);
             }
         }
@@ -673,7 +674,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                CoreHelpers.ThrowIfNotWin7();
+                CoreHelpers.ThrowIfNotWin7OrHigher();
                 return GetKnownFolder(FolderIdentifiers.UsersLibraries);
             }
         }
@@ -685,7 +686,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                CoreHelpers.ThrowIfNotWin7();
+                CoreHelpers.ThrowIfNotWin7OrHigher();
                 return GetKnownFolder(FolderIdentifiers.DocumentsLibrary);
             }
         }
@@ -697,7 +698,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                CoreHelpers.ThrowIfNotWin7();
+                CoreHelpers.ThrowIfNotWin7OrHigher();
                 return GetKnownFolder(FolderIdentifiers.MusicLibrary);
             }
         }
@@ -709,7 +710,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                CoreHelpers.ThrowIfNotWin7();
+                CoreHelpers.ThrowIfNotWin7OrHigher();
                 return GetKnownFolder(FolderIdentifiers.PicturesLibrary);
             }
         }
@@ -721,7 +722,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                CoreHelpers.ThrowIfNotWin7();
+                CoreHelpers.ThrowIfNotWin7OrHigher();
                 return GetKnownFolder(FolderIdentifiers.VideosLibrary);
             }
         }
@@ -733,7 +734,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                CoreHelpers.ThrowIfNotWin7();
+                CoreHelpers.ThrowIfNotWin7OrHigher();
                 return GetKnownFolder(FolderIdentifiers.RecordedTVLibrary);
             }
         }
@@ -745,7 +746,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                CoreHelpers.ThrowIfNotWin7();
+                CoreHelpers.ThrowIfNotWin7OrHigher();
                 return GetKnownFolder(FolderIdentifiers.OtherUsers);
             }
         }
@@ -757,7 +758,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                CoreHelpers.ThrowIfNotWin7();
+                CoreHelpers.ThrowIfNotWin7OrHigher();
                 return GetKnownFolder(FolderIdentifiers.DeviceMetadataStore);
             }
         }
@@ -769,7 +770,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                CoreHelpers.ThrowIfNotWin7();
+                CoreHelpers.ThrowIfNotWin7OrHigher();
                 return GetKnownFolder(FolderIdentifiers.Libraries);
             }
         }
@@ -781,7 +782,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                CoreHelpers.ThrowIfNotWin7();
+                CoreHelpers.ThrowIfNotWin7OrHigher();
                 return GetKnownFolder(FolderIdentifiers.UserPinned);
             }
         }
@@ -793,7 +794,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                CoreHelpers.ThrowIfNotWin7();
+                CoreHelpers.ThrowIfNotWin7OrHigher();
                 return GetKnownFolder(FolderIdentifiers.ImplicitAppShortcuts);
             }
         }

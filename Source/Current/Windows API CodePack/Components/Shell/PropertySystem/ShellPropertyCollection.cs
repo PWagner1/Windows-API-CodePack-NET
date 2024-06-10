@@ -77,28 +77,23 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             PropertyKey propKey;
 
             // Populate the property collection
-            nativePropertyStore.GetCount(out propertyCount);
+            nativePropertyStore!.GetCount(out propertyCount);
             for (uint i = 0; i < propertyCount; i++)
             {
                 nativePropertyStore.GetAt(i, out propKey);
 
-                if (ParentShellObject != null)
-                {
-                    Items.Add(ParentShellObject.Properties.CreateTypedProperty(propKey));
-                }
-                else
-                {
-                    Items.Add(CreateTypedProperty(propKey, NativePropertyStore));
-                }
+                Items.Add(ParentShellObject != null
+                    ? ParentShellObject.Properties?.CreateTypedProperty(propKey)!
+                    : CreateTypedProperty(propKey, NativePropertyStore)!);
             }
         }
 
-        internal static IPropertyStore? CreateDefaultPropertyStore(ShellObject? shellObj)
+        internal static IPropertyStore CreateDefaultPropertyStore(ShellObject? shellObj)
         {
-            IPropertyStore? nativePropertyStore = null;
+            IPropertyStore? nativePropertyStore;
 
-            Guid guid = new(ShellIIDGuid.IPropertyStore);
-            int hr = shellObj.NativeShellItem2.GetPropertyStore(
+            Guid guid = new Guid(ShellIIDGuid.IPropertyStore);
+            int hr = shellObj!.NativeShellItem2!.GetPropertyStore(
                    ShellNativeMethods.GetPropertyStoreOptions.BestEffort,
                    ref guid,
                    out nativePropertyStore);
@@ -128,7 +123,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             if (string.IsNullOrEmpty(canonicalName))
             {
-                throw new ArgumentException(LocalizedMessages.PropertyCollectionNullCanonicalName, "canonicalName");
+                throw new ArgumentException(LocalizedMessages.PropertyCollectionNullCanonicalName, nameof(canonicalName));
             }
 
             return Items.Any(p => p.CanonicalName == canonicalName);
@@ -160,10 +155,10 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             {
                 if (string.IsNullOrEmpty(canonicalName))
                 {
-                    throw new ArgumentException(LocalizedMessages.PropertyCollectionNullCanonicalName, "canonicalName");
+                    throw new ArgumentException(LocalizedMessages.PropertyCollectionNullCanonicalName, nameof(canonicalName));
                 }
 
-                IShellProperty prop = Items.FirstOrDefault(p => p.CanonicalName == canonicalName);
+                IShellProperty? prop = Items.FirstOrDefault(p => p.CanonicalName == canonicalName);
                 if (prop == null)
                 {
                     throw new IndexOutOfRangeException(LocalizedMessages.PropertyCollectionCanonicalInvalidIndex);
@@ -184,7 +179,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         {
             get
             {
-                IShellProperty prop = Items.FirstOrDefault(p => p.PropertyKey == key);
+                IShellProperty? prop = Items.FirstOrDefault(p => p.PropertyKey == key);
                 if (prop != null) return prop;
 
                 throw new IndexOutOfRangeException(LocalizedMessages.PropertyCollectionInvalidIndex);
@@ -196,7 +191,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
         // TODO - ShellProperties.cs also has a similar class that is used for creating
         // a ShellObject specific IShellProperty. These 2 methods should be combined or moved to a 
         // common location.
-        internal static IShellProperty CreateTypedProperty(PropertyKey propKey, IPropertyStore? nativePropertyStore)
+        internal static IShellProperty? CreateTypedProperty(PropertyKey propKey, IPropertyStore? nativePropertyStore)
         {
             return ShellPropertyFactory.CreateShellProperty(propKey, nativePropertyStore);
         }

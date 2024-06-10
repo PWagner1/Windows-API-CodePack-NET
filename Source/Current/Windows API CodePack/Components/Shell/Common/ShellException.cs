@@ -63,8 +63,8 @@
         /// <param name="info"></param>
         /// <param name="context"></param>
         protected ShellException(
-            System.Runtime.Serialization.SerializationInfo info,
-            System.Runtime.Serialization.StreamingContext context)
+            SerializationInfo info,
+            StreamingContext context)
             : base(info, context)
         {
         }

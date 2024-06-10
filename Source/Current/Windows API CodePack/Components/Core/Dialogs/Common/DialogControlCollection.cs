@@ -90,7 +90,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             {
                 if (string.IsNullOrEmpty(name))
                 {
-                    throw new ArgumentException(LocalizedMessages.DialogCollectionControlNameNull, "name");
+                    throw new ArgumentException(LocalizedMessages.DialogCollectionControlNameNull, nameof(name));
                 }
 
                 return Items.FirstOrDefault(x => x.Name == name) ?? null;

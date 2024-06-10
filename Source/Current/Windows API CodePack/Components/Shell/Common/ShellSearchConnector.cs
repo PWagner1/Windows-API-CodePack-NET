@@ -12,12 +12,12 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         internal ShellSearchConnector()
         {
-            CoreHelpers.ThrowIfNotWin7();
+            CoreHelpers.ThrowIfNotWin7OrHigher();
         }
 
         internal ShellSearchConnector(IShellItem2? shellItem)
             : this()
-        {            
+        {
             nativeShellItem = shellItem;
         }
 
@@ -26,8 +26,8 @@ namespace Microsoft.WindowsAPICodePack.Shell
         /// <summary>
         /// Indicates whether this feature is supported on the current platform.
         /// </summary>
-        new public static bool IsPlatformSupported =>
+        public new static bool IsPlatformSupported =>
             // We need Windows 7 onwards ...
-            CoreHelpers.RunningOnWin7;
+            CoreHelpers.RunningOnWin7OrHigher;
     }
 }

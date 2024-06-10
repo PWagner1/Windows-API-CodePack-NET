@@ -70,7 +70,7 @@ internal interface IShellItem2 : IShellItem
     HResult GetString([In] ref PropertyKey key, [MarshalAs(UnmanagedType.LPWStr)] out string ppsz);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-    void GetUInt32([In] ref PropertyKey key, out uint pui);
+    void Getuint([In] ref PropertyKey key, out uint pui);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     void GetUInt64([In] ref PropertyKey key, out ulong pull);

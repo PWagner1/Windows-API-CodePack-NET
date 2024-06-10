@@ -11,7 +11,7 @@
 
 [assembly: SuppressMessage("Microsoft.Design", "CA2210:AssembliesShouldHaveValidStrongNames")]
 
-[assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "Microsoft.WindowsAPICodePack.ShellExtensions.Interop.NativeColorRef.#set_Dword(System.UInt32)")]
+[assembly: SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope = "member", Target = "Microsoft.WindowsAPICodePack.ShellExtensions.Interop.NativeColorRef.#set_Dword(System.uint)")]
 
 [assembly: SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Scope = "member", Target = "Microsoft.WindowsAPICodePack.ShellExtensions.PreviewHandler.#Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IPreviewHandler.DoPreview()")]
 
@@ -49,7 +49,7 @@
 [assembly: SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Scope = "member", Target = "Microsoft.WindowsAPICodePack.ShellExtensions.PreviewHandler.#Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IPreviewHandler.DoPreview()", Justification = "Exception is handled later")]
 
 // All link demand related warnings suppressed.
-[assembly: SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands", Scope = "member", Target = "Microsoft.WindowsAPICodePack.ShellExtensions.ThumbnailProvider.#Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IThumbnailProvider.GetThumbnail(System.UInt32,System.IntPtr&,System.UInt32&)")]
+[assembly: SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands", Scope = "member", Target = "Microsoft.WindowsAPICodePack.ShellExtensions.ThumbnailProvider.#Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IThumbnailProvider.GetThumbnail(System.uint,System.IntPtr&,System.uint&)")]
 [assembly: SuppressMessage("Microsoft.Security", "CA2122:DoNotIndirectlyExposeMethodsWithLinkDemands", Scope = "member", Target = "Microsoft.WindowsAPICodePack.ShellExtensions.WpfPreviewHandler.#Initialize()")]
 
 [assembly: SuppressMessage("Microsoft.Design", "CA1033:InterfaceMethodsShouldBeCallableByChildTypes", Scope = "member", Justification = "Interfaces are implemented explicitly because they are native COM interfaces, we do not want child types to call them.", Target = "Microsoft.WindowsAPICodePack.ShellExtensions.ThumbnailProvider.#System.Runtime.InteropServices.ICustomQueryInterface.GetInterface(System.Guid&,System.IntPtr&)")]

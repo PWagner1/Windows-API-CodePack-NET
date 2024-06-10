@@ -12,7 +12,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             uint retval = PowerManagementNativeMethods.CallNtPowerInformation(
               PowerManagementNativeMethods.PowerInformationLevel.SystemPowerCapabilities,
               IntPtr.Zero, 0, out powerCap,
-              (UInt32)Marshal.SizeOf(typeof(PowerManagementNativeMethods.SystemPowerCapabilities))
+              (uint)Marshal.SizeOf(typeof(PowerManagementNativeMethods.SystemPowerCapabilities))
               );
 
             if (retval == CoreNativeMethods.StatusAccessDenied)
@@ -30,7 +30,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             uint retval = PowerManagementNativeMethods.CallNtPowerInformation(
               PowerManagementNativeMethods.PowerInformationLevel.SystemBatteryState,
               IntPtr.Zero, 0, out batteryState,
-              (UInt32)Marshal.SizeOf(typeof(PowerManagementNativeMethods.SystemBatteryState))
+              (uint)Marshal.SizeOf(typeof(PowerManagementNativeMethods.SystemBatteryState))
               );
 
             if (retval == CoreNativeMethods.StatusAccessDenied)

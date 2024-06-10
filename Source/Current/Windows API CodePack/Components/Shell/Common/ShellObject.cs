@@ -149,7 +149,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 if (_properties == null)
                 {
-                    _properties = new(this);
+                    _properties = new ShellProperties(this);
                 }
                 return _properties;
             }
@@ -308,7 +308,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                if (_thumbnail == null) { _thumbnail = new(this); }
+                if (_thumbnail == null) { _thumbnail = new ShellThumbnail(this); }
                 return _thumbnail;
             }
         }

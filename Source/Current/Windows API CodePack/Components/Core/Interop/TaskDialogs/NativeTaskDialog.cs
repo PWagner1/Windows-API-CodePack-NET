@@ -3,7 +3,7 @@
 // ReSharper disable SuggestVarOrType_BuiltInTypes
 // ReSharper disable SuggestVarOrType_SimpleTypes
 // ReSharper disable StringLiteralTypo
-#pragma warning disable CS8602, CS0472, CS8073
+
 namespace Microsoft.WindowsAPICodePack.Dialogs
 {
     /// <summary>
@@ -18,12 +18,12 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
     /// </remarks>
     internal class NativeTaskDialog : IDisposable
     {
-        private TaskDialogNativeMethods.TaskDialogConfiguration _nativeDialogConfig;
-        private NativeTaskDialogSettings _settings;
+        private readonly TaskDialogNativeMethods.TaskDialogConfiguration _nativeDialogConfig;
+        private readonly NativeTaskDialogSettings _settings;
         private IntPtr _hWndDialog;
-        private TaskDialog _outerDialog;
+        private readonly TaskDialog _outerDialog;
 
-        private IntPtr[] _updatedStrings = new IntPtr[Enum.GetNames(typeof(TaskDialogNativeMethods.TaskDialogElements)).Length];
+        private readonly IntPtr[]? _updatedStrings = new IntPtr[Enum.GetNames(typeof(TaskDialogNativeMethods.TaskDialogElements)).Length];
         private IntPtr _buttonArray, _radioButtonArray;
 
         // Flag tracks whether our first radio 
@@ -39,7 +39,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             _settings = settings;
 
             // Wireup dialog proc message loop for this instance.
-            _nativeDialogConfig.callback = new(DialogProc);
+            _nativeDialogConfig.callback = DialogProc;
 
             ShowState = DialogShowState.PreShow;
 
@@ -200,8 +200,6 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                     return HandleTick((int)wparam);
                 case TaskDialogNativeMethods.TaskDialogNotifications.Destroyed:
                     return PerformDialogCleanup();
-                default:
-                    break;
             }
             return (int)HResult.Ok;
         }
@@ -432,14 +430,14 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             AssertCurrentlyShowing();
             SendMessageHelper(
-                TaskDialogNativeMethods.TaskDialogMessages.EnableButton, buttonId, enabled == true ? 1 : 0);
+                TaskDialogNativeMethods.TaskDialogMessages.EnableButton, buttonId, enabled ? 1 : 0);
         }
 
         internal void UpdateRadioButtonEnabled(int buttonId, bool enabled)
         {
             AssertCurrentlyShowing();
             SendMessageHelper(TaskDialogNativeMethods.TaskDialogMessages.EnableRadioButton,
-                buttonId, enabled == true ? 1 : 0);
+                buttonId, enabled ? 1 : 0);
         }
 
         internal void AssertCurrentlyShowing()
@@ -465,10 +463,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 new IntPtr(lparam));
         }
 
-        private bool IsOptionSet(TaskDialogNativeMethods.TaskDialogOptions flag)
-        {
-            return ((_nativeDialogConfig.taskDialogFlags & flag) == flag);
-        }
+        private bool IsOptionSet(TaskDialogNativeMethods.TaskDialogOptions flag) => ((_nativeDialogConfig.taskDialogFlags & flag) == flag);
 
         // Allocates a new string on the unmanaged heap, 
         // and stores the pointer so we can free it later.
@@ -476,7 +471,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         private IntPtr MakeNewString(string? text, TaskDialogNativeMethods.TaskDialogElements element)
         {
             IntPtr newStringPtr = Marshal.StringToHGlobalUni(text);
-            _updatedStrings[(int)element] = newStringPtr;
+            _updatedStrings![(int)element] = newStringPtr;
             return newStringPtr;
         }
 
@@ -489,7 +484,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         private void FreeOldString(TaskDialogNativeMethods.TaskDialogElements element)
         {
             int elementIndex = (int)element;
-            if (_updatedStrings[elementIndex] != IntPtr.Zero)
+            if (_updatedStrings![elementIndex] != IntPtr.Zero)
             {
                 Marshal.FreeHGlobal(_updatedStrings[elementIndex]);
                 _updatedStrings[elementIndex] = IntPtr.Zero;
@@ -528,13 +523,13 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         private static IntPtr AllocateAndMarshalButtons(TaskDialogNativeMethods.TaskDialogButton[]? buttons)
         {
             int sizeOfButton = Marshal.SizeOf(typeof(TaskDialogNativeMethods.TaskDialogButton));
-            IntPtr initialPtr = Marshal.AllocHGlobal(sizeOfButton * buttons.Length);
+            IntPtr initialPtr = Marshal.AllocHGlobal(sizeOfButton * buttons!.Length);
             IntPtr currentPtr = initialPtr;
 
             foreach (TaskDialogNativeMethods.TaskDialogButton button in buttons)
             {
                 Marshal.StructureToPtr(button, currentPtr, false);
-                currentPtr = new(currentPtr.ToInt64() + sizeOfButton);
+                currentPtr = new IntPtr(currentPtr.ToInt64() + sizeOfButton);
             }
 
             return initialPtr;

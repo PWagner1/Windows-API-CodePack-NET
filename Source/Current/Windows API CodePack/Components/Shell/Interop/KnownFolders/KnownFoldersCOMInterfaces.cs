@@ -74,7 +74,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         [MethodImpl(MethodImplOptions.InternalCall,
             MethodCodeType = MethodCodeType.Runtime)]
         void GetFolderIds([Out] out IntPtr folders,
-          [Out] out UInt32 count);
+          [Out] out uint count);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall,
@@ -134,7 +134,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             MethodCodeType = MethodCodeType.Runtime)]
         public virtual extern void GetFolderIds(
             [Out] out IntPtr folders,
-            [Out] out UInt32 count);
+            [Out] out uint count);
 
         [PreserveSig]
         [MethodImpl(MethodImplOptions.InternalCall,

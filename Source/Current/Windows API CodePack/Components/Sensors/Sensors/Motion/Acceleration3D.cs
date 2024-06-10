@@ -12,7 +12,7 @@ public class Acceleration3D
     /// <param name="report">The sensor report to evaluate.</param>
     public Acceleration3D(SensorReport? report)
     {
-        if (report == null) { throw new ArgumentNullException("report"); }
+        if (report == null) { throw new ArgumentNullException(nameof(report)); }
 
         if (report.Values != null)
         {
