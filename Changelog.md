@@ -1,3 +1,11 @@
+01/07/2024
+
+Version 8.0.5
+- Resolved [#16](https://github.com/Wagnerp/Windows-API-CodePack-NET/issues/16), Useless System.Net.Http
+- Fix NuGet descriptions
+
+=========
+
 10/06/2024
 
 Version 8.0.4

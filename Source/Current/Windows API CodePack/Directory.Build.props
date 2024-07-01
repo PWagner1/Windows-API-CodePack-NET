@@ -13,6 +13,8 @@
 
 		<None Include="../../../../Assets/Documents/Licenses/License.md" Link="License.md" Pack="true" PackagePath="/" />
 
+		<None Include="../../../../README.md" Link="Readme.md" Pack="true" PackagePath="/" />
+
 		<!--<None Include="../../../../Assets/Documents/Readme/Readme.md" Link="Readme.md" Pack="true" PackagePath="/" />-->
 	</ItemGroup>
 
