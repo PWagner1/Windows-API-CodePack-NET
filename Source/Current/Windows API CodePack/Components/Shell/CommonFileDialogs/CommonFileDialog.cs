@@ -3,7 +3,7 @@
 // ReSharper disable SuggestVarOrType_BuiltInTypes
 // ReSharper disable RedundantAssignment
 // ReSharper disable SuspiciousTypeConversion.Global
-#pragma warning disable CS8600, CS8602, CS8604
+
 namespace Microsoft.WindowsAPICodePack.Dialogs
 {
     /// <summary>
@@ -25,8 +25,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 }
             }
         }
-        private readonly Collection<string?> _filenames;
-        internal readonly Collection<IShellItem?> Items;
+        private readonly Collection<string> _filenames;
+        internal readonly Collection<IShellItem> Items;
         internal DialogShowState ShowState = DialogShowState.PreShow;
 
         private IFileDialog? _nativeDialog;
@@ -382,14 +382,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
                 string? returnFilename = _filenames[0];
 
-                // "If extension is a null reference (Nothing in Visual 
-                // Basic), the returned string contains the specified 
-                // path with its extension removed."  Since we do not want 
-                // to remove any existing extension, make sure the 
-                // DefaultExtension property is NOT null.
-
-                // if we should, and there is one to set...
-                if (!string.IsNullOrEmpty(DefaultExtension))
+                // Only apply the DefaultExtension if the filename does not already have an extension
+                if (!string.IsNullOrEmpty(DefaultExtension) && string.IsNullOrEmpty(Path.GetExtension(returnFilename)))
                 {
                     returnFilename = Path.ChangeExtension(returnFilename, DefaultExtension);
                 }
@@ -606,7 +600,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
 
             // Show dialog.
             ShowState = DialogShowState.Showing;
-            int hresult = _nativeDialog.Show(_parentWindow);
+            int hresult = _nativeDialog!.Show(_parentWindow);
             ShowState = DialogShowState.Closed;
 
             // Create return information.
