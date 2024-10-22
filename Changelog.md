@@ -1,3 +1,11 @@
+22/10/2024
+
+Version 8.0.6
+- Resolved [#18](https://github.com/PWagner1/Windows-API-CodePack-NET/issues/18), `CommonFileDialog.FileName` property changes extension back to default
+- New `.editorconfig` configuration
+
+=========
+
 01/07/2024
 
 Version 8.0.5
