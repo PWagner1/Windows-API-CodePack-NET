@@ -92,12 +92,10 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
             IntPtr pServices = originalPtr;
             for (int i = 0; i < services.Length; ++i)
             {
-                Guid guid = (Guid)Marshal.PtrToStructure(
-                    (IntPtr)((UInt64)pServices + InteropTools.OffsetOfGuidInService), InteropTools.TypeOfGuid);
-                IntPtr cachedValue;
-#pragma warning disable CS8602
-                _guidToService.TryGetValue(guid, out cachedValue);
-#pragma warning restore CS8602
+                Guid myGuid = (Guid)Marshal.PtrToStructure(
+                                    (IntPtr)((ulong)pServices + InteropTools.OffsetOfGuidInService), InteropTools.TypeOfGuid);
+                Guid guid = myGuid;
+                _guidToService!.TryGetValue(guid, out IntPtr cachedValue);
                 if (cachedValue == IntPtr.Zero)
                 {
                     _guidToService.Add(guid, pServices);
@@ -106,13 +104,13 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
                 }
                 System.Diagnostics.Debug.Assert(cachedValue != IntPtr.Zero, "Cached value is NULL");
                 services[i] = cachedValue;
-                pServices = (IntPtr)((UInt64)pServices + InteropTools.SizeOfService);
+                pServices = (IntPtr)((ulong)pServices + InteropTools.SizeOfService);
             }
             if (addedToCache)
             {
                 // This means that at least one of the services was stored in the cache.
                 // So we must keep the original pointer in our cleanup list.
-                if (_servicePointers != null) _servicePointers.Add(originalPtr);
+                _servicePointers?.Add(originalPtr);
             }
         }
 
@@ -123,16 +121,16 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
             {
                 // First, remove the original pointer from the cleanup list.
                 // The caller of RegisterServices() will take care of freeing it.
-                if (_servicePointers != null) _servicePointers.Remove(pServices);
+                _servicePointers?.Remove(pServices);
                 // Then, attempt to recover the state of the _guidToService Dictionary.
                 // This should not fail.
                 for (int i = 0; i < length; ++i)
                 {
                     Guid guid = (Guid)Marshal.PtrToStructure(
-                        (IntPtr)((UInt64)pServices + InteropTools.OffsetOfGuidInService),
+                        (IntPtr)((ulong)pServices + InteropTools.OffsetOfGuidInService),
                         InteropTools.TypeOfGuid);
-                    if (_guidToService != null) _guidToService.Remove(guid);
-                    pServices = (IntPtr)((UInt64)pServices + InteropTools.SizeOfService);
+                    _guidToService?.Remove(guid);
+                    pServices = (IntPtr)((ulong)pServices + InteropTools.SizeOfService);
                 }
                 succeeded = true;
             }
