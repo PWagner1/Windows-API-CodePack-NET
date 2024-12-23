@@ -15,10 +15,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             private readonly Hashtable _hashTable = new Hashtable();
 
             /// <inheritdoc />
-            internal PropertySystem(ShellObject? parent = null)
-            {
-                _shellObjectParent = parent;
-            }
+            internal PropertySystem(ShellObject? parent = null) => _shellObjectParent = parent;
 
             #region Properties
 
@@ -10612,6 +10609,28 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             }
 
             /// <summary>
+            /// <para>Name:     System.RecordedTV.EpisodeNumber -- PKEY_RecordedTV_EpisodeName</para>
+            /// <para>Description: Example: "Nowhere to Hyde"
+            ///</para>
+            /// <para>Type:     String -- VT_LPWSTR  (For variants: VT_BSTR)</para>
+            /// <para>FormatID: {6D748DE2-8D38-4CC3-AC60-F009B057C557}, 2</para>
+            /// </summary>
+            public ShellProperty<int?> EpisodeNumber
+            {
+                get
+                {
+                    PropertyKey key = SystemProperties.System.Media.EpisodeNumber;
+
+                    if (!_hashTable.Contains(key))
+                    {
+                        _hashTable.Add(key, _shellObjectParent!.Properties!.CreateTypedProperty<int>(key));
+                    }
+
+                    return (ShellProperty<int?>)_hashTable[key];
+                }
+            }
+
+            /// <summary>
             /// <para>Name:     System.Media.FrameCount -- PKEY_Media_FrameCount</para>
             /// <para>Description: Indicates the frame count for the image.
             ///</para>
@@ -14660,7 +14679,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 
 
             private readonly ShellObject? _shellObjectParent;
-            private readonly Hashtable _hashTable = new Hashtable();
+            private readonly Hashtable _hashTable = new();
 
             internal PropertySystemRecordedTV(ShellObject? parent)
             {

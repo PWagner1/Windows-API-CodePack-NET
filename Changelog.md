@@ -1,3 +1,11 @@
+27/10/2024
+
+Version 8.0.7
+- Implemented [#20](https://github.com/PWagner1/Windows-API-CodePack-NET/issues/20), Add `System.RecordedTV.EpisodeNumber`
+- More `null` checking
+
+=========
+
 22/10/2024
 
 Version 8.0.6

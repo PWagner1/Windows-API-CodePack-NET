@@ -7932,6 +7932,26 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                 }
 
                 /// <summary>
+                /// <para>Name:     System.Media.EpisodeNumber -- PKEY_Media_EpisodeNumber</para>
+                /// <para>Description: Example: "1"
+                ///</para>
+                /// <para>Type:     UInt32 -- VT_UI4</para>
+                /// <para>FormatID: {6D748DE2-8D38-4CC3-AC60-F009B057C557}, 2</para>
+                /// <para>Description System.Media.EpisodeNumber
+                ///  A 1 based monotonically incremented number that corresponds to the episode of the show
+                ///  </para>
+                /// </summary>
+                /// 
+                public static PropertyKey EpisodeNumber
+                {
+                    get
+                    {
+                        PropertyKey key = new PropertyKey(new Guid("{64440492-4C8B-11D1-8B70-080036B11A03}"), 100);
+                        return key;
+                    }
+                }
+
+                /// <summary>
                 /// <para>Name:     System.Media.FrameCount -- PKEY_Media_FrameCount</para>
                 /// <para>Description: Indicates the frame count for the image.
                 ///</para>

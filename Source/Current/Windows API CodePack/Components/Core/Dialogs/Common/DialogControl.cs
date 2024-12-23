@@ -127,9 +127,8 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// <summary>
         /// Serves as a hash function for a particular type. 
         /// </summary>
-        /// <returns>An <see cref="System.Int32"/> hash code for this control.</returns>
+        /// <returns>An <see cref="System.int"/> hash code for this control.</returns>
 
         public override int GetHashCode() => Name == null ? ToString().GetHashCode() : Name.GetHashCode();
-#pragma warning restore CS8602
     }
 }
