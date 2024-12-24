@@ -1,3 +1,10 @@
+24/12/2024
+
+Version 8.0.8
+- Implemented [#21](https://github.com/PWagner1/Windows-API-CodePack-NET/issues/21), Enhance the `OnViewEnumerationComplete` Event of the `ExplorerBrowser` Control 
+
+=========
+
 27/10/2024
 
 Version 8.0.7

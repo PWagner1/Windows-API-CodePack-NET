@@ -7951,6 +7951,8 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                     }
                 }
 
+                public static PropertyKey SeasonNumber => new PropertyKey(new Guid("{64440492-4C8B-11D1-8B70-080036B11A03}"), 101);
+
                 /// <summary>
                 /// <para>Name:     System.Media.FrameCount -- PKEY_Media_FrameCount</para>
                 /// <para>Description: Indicates the frame count for the image.
