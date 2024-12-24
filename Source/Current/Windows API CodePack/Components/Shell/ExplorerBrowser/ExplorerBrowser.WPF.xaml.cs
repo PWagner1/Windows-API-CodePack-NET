@@ -22,7 +22,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
 
         private readonly ObservableCollection<ShellObject> _selectedItems;
         private readonly ObservableCollection<ShellObject> _items;
-        private readonly ObservableCollection<ShellObject?> _navigationLog;
+        private readonly ObservableCollection<ShellObject> _navigationLog;
         private readonly DispatcherTimer _dtClrUpdater = new();
 
         private ShellObject? _initialNavigationTarget;
@@ -71,11 +71,11 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
             Loaded += ExplorerBrowser_Loaded;
         }
 
-        void ExplorerBrowserControl_ViewSelectedItemChanged(object sender, EventArgs e)
+        void ExplorerBrowserControl_ViewSelectedItemChanged(object? sender, EventArgs e)
         {
         }
 
-        void ExplorerBrowserControl_ViewEnumerationComplete(object sender, EventArgs e)
+        void ExplorerBrowserControl_ViewEnumerationComplete(object? sender, EventArgs e)
         {
             _itemsChanged.Set();
             _selectionChanged.Set();
@@ -112,7 +112,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void UpdateDependencyPropertiesFromClrpRoperties(object sender, EventArgs e)
+        void UpdateDependencyPropertiesFromClrpRoperties(object? sender, EventArgs e)
         {
             AlignLeft = ExplorerBrowserControl.ContentOptions.AlignLeft;
             AutoArrange = ExplorerBrowserControl.ContentOptions.AutoArrange;
@@ -180,12 +180,15 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="args"></param>
-        void NavigationLogChanged(object sender, NavigationLogEventArgs args)
+        void NavigationLogChanged(object? sender, NavigationLogEventArgs args)
         {
             _navigationLog.Clear();
             foreach (ShellObject? obj in ExplorerBrowserControl.NavigationLog.Locations)
             {
-                _navigationLog.Add(obj);
+                if (obj != null)
+                {
+                    _navigationLog.Add(obj);
+                }
             }
         }
 
@@ -194,13 +197,13 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void SelectionChanged(object sender, EventArgs e)
+        void SelectionChanged(object? sender, EventArgs e)
         {
             _selectionChanged.Set();
         }
 
         // Synchronize ItemsCollection to dependency collection
-        void ItemsChanged(object sender, EventArgs e)
+        void ItemsChanged(object? sender, EventArgs e)
         {
             _itemsChanged.Set();
         }

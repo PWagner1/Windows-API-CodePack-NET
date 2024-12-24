@@ -1,7 +1,5 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-using System.Drawing.Drawing2D;
-
 using Application = System.Windows.Forms.Application;
 using Brushes = System.Drawing.Brushes;
 using Color = System.Drawing.Color;
@@ -24,7 +22,14 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         ICommDlgBrowser3,
         IMessageFilter
     {
-        #region properties
+        #region Instance Fields
+
+        private int? _totalItemsCache;
+        private bool _enumerationCompleteFired;
+
+        #endregion
+
+        #region Properties
         /// <summary>
         /// Options that control how the ExplorerBrowser navigates
         /// </summary>
@@ -792,19 +797,11 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
             {
                 try
                 {
-                    HResult hr = iFv2.ItemCount((uint)ShellViewGetItemObject.AllView, out itemsCount);
-
-                    if (hr != HResult.Ok &&
-                        hr != HResult.ElementNotFound &&
-                        hr != HResult.Fail)
-                    {
-                        throw new CommonControlException(LocalizedMessages.ExplorerBrowserItemCount, hr);
-                    }
+                    iFv2.ItemCount((uint)ShellViewGetItemObject.AllView, out itemsCount);
                 }
                 finally
                 {
                     Marshal.ReleaseComObject(iFv2);
-                    iFv2 = null;
                 }
             }
 
@@ -876,20 +873,70 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         #endregion
 
         #region view event forwarding
-        internal void FireSelectionChanged()
+
+        /// <summary>
+        /// Checks if all items in the view have been fully enumerated.
+        /// </summary>
+        private bool IsEnumerationComplete()
         {
-            if (SelectionChanged != null)
+            try
             {
-                SelectionChanged(this, EventArgs.Empty);
+                if (_totalItemsCache == null)
+                {
+                    _totalItemsCache = GetTotalItemCount();
+                    System.Diagnostics.Debug.WriteLine($"Total items determined: {_totalItemsCache}");
+                }
+
+                var enumeratedItems = GetItemsCount();
+                System.Diagnostics.Debug.WriteLine($"Enumerated items: {enumeratedItems}/{_totalItemsCache}");
+
+                return _totalItemsCache != null && enumeratedItems == _totalItemsCache;
+            }
+            catch
+            {
+                // Log or handle the exception as needed
+                return false; // Fail-safe assumption
             }
         }
 
-        internal void FireContentChanged()
+        /// <summary>
+        /// Fires the ViewEnumerationComplete event only if all items are fully enumerated.
+        /// </summary>
+        internal void FireContentEnumerationCompleteIfDone()
         {
-            if (ItemsChanged != null)
+            if (IsEnumerationComplete() && !_enumerationCompleteFired)
             {
-                ItemsChanged.Invoke(this, EventArgs.Empty);
+                _enumerationCompleteFired = true;
+                FireContentEnumerationComplete();
             }
+        }
+
+        /// <summary>
+        /// Retrieves the total number of items in the view.
+        /// </summary>
+        private int? GetTotalItemCount()
+        {
+            var ifV2 = GetFolderView2();
+            if (ifV2 == null) return null;
+
+            try
+            {
+                ifV2.ItemCount((uint)ShellViewGetItemObject.AllView, out var totalItems);
+                return totalItems;
+            }
+            finally
+            {
+                Marshal.ReleaseComObject(ifV2);
+            }
+        }
+
+        /// <summary>
+        /// Resets the enumeration state, useful for starting new navigation or refreshing content.
+        /// </summary>
+        internal void ResetEnumerationState()
+        {
+            _totalItemsCache = null;
+            _enumerationCompleteFired = false;
         }
 
         internal void FireContentEnumerationComplete()
@@ -897,6 +944,26 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
             if (ViewEnumerationComplete != null)
             {
                 ViewEnumerationComplete.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        /// <summary>
+        /// Updates the existing FireContentChanged method to ensure enumeration completeness.
+        /// </summary>
+        internal void FireContentChanged()
+        {
+            ItemsChanged?.Invoke(this, EventArgs.Empty);
+
+            // Add enumeration check after content change
+            FireContentEnumerationCompleteIfDone();
+        }
+
+
+        internal void FireSelectionChanged()
+        {
+            if (SelectionChanged != null)
+            {
+                SelectionChanged(this, EventArgs.Empty);
             }
         }
 
