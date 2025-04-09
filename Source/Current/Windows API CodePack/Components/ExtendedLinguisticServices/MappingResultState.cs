@@ -43,26 +43,16 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         /// <param name="obj">Object to compare.</param>
         /// <returns>True if obj is equal to this instance, false otherwise.</returns>
+        /// <summary>
+        /// Compares an Object for value equality.
+        /// </summary>
+        /// <param name="obj">Object to compare.</param>
+        /// <returns>True if obj is equal to this instance, false otherwise.</returns>
         public override bool Equals(object? obj)
         {
-            if (obj == null)
+            if (obj is MappingResultState state)
             {
-                return false;
-            }
-
-            // ReSharper disable once ReferenceEqualsWithValueType
-            if (ReferenceEquals(obj, this))
-            {
-                return true;
-            }
-
-            // ReSharper disable MergeCastWithTypeCheck
-            // ReSharper disable ConvertIfStatementToReturnStatement
-            if (obj is MappingResultState)
-            // ReSharper restore ConvertIfStatementToReturnStatement
-            // ReSharper restore MergeCastWithTypeCheck
-            {
-                return Equals((MappingResultState)obj);
+                return Equals(state);
             }
 
             return false;

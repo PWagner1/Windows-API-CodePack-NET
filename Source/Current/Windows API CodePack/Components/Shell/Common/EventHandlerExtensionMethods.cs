@@ -10,7 +10,7 @@
         /// </summary>
         /// <param name="eventHandler">EventHandler to raise</param>
         /// <param name="sender">Event sender</param>
-        public static void SafeRaise(this EventHandler? eventHandler, object sender)
+        public static void SafeRaise(this EventHandler? eventHandler, object? sender)
         {
             if (eventHandler != null)
             {
@@ -25,7 +25,7 @@
         /// <param name="eventHandler">EventHandler&lt;T&gt; to raise</param>
         /// <param name="sender">Event sender</param>
         /// <param name="args">Event args</param>
-        public static void SafeRaise<T>(this EventHandler<T>? eventHandler, object sender, T args) where T : EventArgs
+        public static void SafeRaise<T>(this EventHandler<T>? eventHandler, object? sender, T args) where T : EventArgs
         {
             if (eventHandler != null)
             {
@@ -38,7 +38,7 @@
         /// </summary>
         /// <param name="eventHandler">EventHandler&lt;EventArgs&gt; to raise</param>
         /// <param name="sender">Event sender</param>
-        public static void SafeRaise(this EventHandler<EventArgs> eventHandler, object sender)
+        public static void SafeRaise(this EventHandler<EventArgs> eventHandler, object? sender)
         {
             SafeRaise(eventHandler, sender, EventArgs.Empty);
         }

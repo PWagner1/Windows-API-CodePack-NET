@@ -1,3 +1,12 @@
+xx-xx-2025
+
+Version 8.0.9
+
+- Upgrade `sln` file to `slnx` format
+- More `null` checking
+- 
+=========
+
 24/12/2024
 
 Version 8.0.8

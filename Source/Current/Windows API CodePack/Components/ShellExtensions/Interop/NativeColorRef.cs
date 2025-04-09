@@ -1,7 +1,8 @@
-﻿namespace Microsoft.WindowsAPICodePack.ShellExtensions.Interop;
-
-[StructLayout(LayoutKind.Sequential)]
-internal struct NativeColorRef
+﻿namespace Microsoft.WindowsAPICodePack.ShellExtensions.Interop
 {
-    public uint Dword { get; set; }
+    [StructLayout(LayoutKind.Sequential)]
+    internal struct NativeColorRef
+    {
+        public uint Dword { get; set; }
+    }
 }

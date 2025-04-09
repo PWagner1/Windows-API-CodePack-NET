@@ -60,7 +60,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 Listener.MessageReceived += MessageReceived;
             }
 
-            private void MessageReceived(object sender, WindowMessageEventArgs e)
+            private void MessageReceived(object? sender, WindowMessageEventArgs e)
             {
                 Action<WindowMessageEventArgs> action;
                 if (Callbacks.TryGetValue(e.Message.Msg, out action))

@@ -9,6 +9,7 @@ namespace MS.WindowsAPICodePack.Internal
     /// </summary>    
     [ComVisible(true)]
     [ClassInterface(ClassInterfaceType.AutoDual)]
+    [Obsolete(@"ClassInterfaceType.AutoDual is marked as obsolete.")]
     public class ExplorerBrowserViewEvents : IDisposable
     {
         #region implementation

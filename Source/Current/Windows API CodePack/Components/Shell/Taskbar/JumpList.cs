@@ -354,10 +354,9 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                     ref TaskbarNativeMethods.TaskbarGuids.Unknown,
                     out item);
 
-                IShellItem? shellItem = item as IShellItem;
                 IShellLinkW? shellLink;
                 // Process item
-                if (shellItem != null)
+                if (item is IShellItem shellItem)
                 {
                     removedItemsArray.Add(RemoveCustomCategoryItem(shellItem)!);
                 }
@@ -448,12 +447,11 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
                     foreach (IJumpListItem link in category.JumpListItems)
                     {
                         JumpListItem? listItem = link as JumpListItem;
-                        JumpListLink? listLink = link as JumpListLink;
                         if (listItem != null)
                         {
                             categoryContent.AddObject(listItem.NativeShellItem);
                         }
-                        else if (listLink != null)
+                        else if (link is JumpListLink listLink)
                         {
                             categoryContent.AddObject(listLink.NativeShellLink);
                         }
@@ -509,8 +507,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             foreach (JumpListTask task in _userTasks)
             {
                 JumpListSeparator? seperator;
-                JumpListLink? link = task as JumpListLink;
-                if (link != null)
+                if (task is JumpListLink link)
                 {
                     taskContent.AddObject(link.NativeShellLink);
                 }

@@ -32,6 +32,7 @@
         /// </summary>
         /// <param name="info">SerializationInfo for the exception.</param>
         /// <param name="context">StreamingContext for the exception.</param>
+        [Obsolete("This constructor is not intended to be used directly. It is used by the .NET Framework for serialization purposes.")]
         protected PowerManagerException(
             System.Runtime.Serialization.SerializationInfo info,
             System.Runtime.Serialization.StreamingContext context)

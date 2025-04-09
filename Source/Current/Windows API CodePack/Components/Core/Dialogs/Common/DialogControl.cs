@@ -129,6 +129,5 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         /// <returns>An <see cref="System.int"/> hash code for this control.</returns>
 
-        public override int GetHashCode() => Name == null ? ToString().GetHashCode() : Name.GetHashCode();
-    }
+        public override int GetHashCode() => Name == null ? base.GetHashCode() : Name.GetHashCode(); }
 }

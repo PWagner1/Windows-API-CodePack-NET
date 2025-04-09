@@ -41,6 +41,7 @@
         /// </summary>
         /// <param name="info">Serialization info from which to create exception.</param>
         /// <param name="context">Streaming context from which to create exception.</param>
+        [Obsolete("This API supports obsolete formatter-based serialization. It should not be called or extended by application code.")]
         protected ApplicationRecoveryException(
             System.Runtime.Serialization.SerializationInfo info, 
             System.Runtime.Serialization.StreamingContext context)

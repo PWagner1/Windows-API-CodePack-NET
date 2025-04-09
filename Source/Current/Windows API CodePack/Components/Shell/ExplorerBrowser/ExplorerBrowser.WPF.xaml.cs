@@ -87,7 +87,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void ExplorerBrowser_Loaded(object sender, RoutedEventArgs e)
+        void ExplorerBrowser_Loaded(object? sender, RoutedEventArgs e)
         {
             // setup timer to update dependency properties from CLR properties of WinForms ExplorerBrowser object
             _dtClrUpdater.Tick += UpdateDependencyPropertiesFromClrpRoperties;

@@ -135,7 +135,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             }
         }
 
-        internal override void PopulateWithFileNames(Collection<string?> names)
+        internal override void PopulateWithFileNames(Collection<string> names)
         {
             IShellItemArray resultsArray;
             uint count;
@@ -149,7 +149,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             }
         }
 
-        internal override void PopulateWithIShellItems(Collection<IShellItem?> items)
+        internal override void PopulateWithIShellItems(Collection<IShellItem> items)
         {
             IShellItemArray resultsArray;
             uint count;
@@ -159,7 +159,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             items.Clear();
             for (int i = 0; i < count; i++)
             {
-                items.Add(GetShellItemAt(resultsArray, i));
+                items.Add(GetShellItemAt(resultsArray, i)!);
             }
         }
 

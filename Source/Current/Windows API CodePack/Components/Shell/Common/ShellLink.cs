@@ -54,7 +54,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 {
                     if (Properties!.System != null)
                     {
-                        _internalTargetLocation = Properties.System.Link.TargetParsingPath.Value;
+                        _internalTargetLocation = Properties.System.Link.TargetParsingPath?.Value;
                     }
                 }
                 return _internalTargetLocation;
@@ -69,7 +69,10 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 {
                     if (Properties!.System != null)
                     {
-                        Properties.System.Link.TargetParsingPath.Value = _internalTargetLocation;
+                        if (Properties.System.Link.TargetParsingPath != null)
+                        {
+                            Properties.System.Link.TargetParsingPath.Value = _internalTargetLocation;
+                        }
                     }
                 }
             }
@@ -87,11 +90,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
         {
             get
             {
-                if (NativeShellItem2 != null)
-                {
-                    return Properties!.System!.Title.Value;
-                }
-                return null;
+                return NativeShellItem2 != null ? Properties!.System!.Title?.Value : null;
             }
             set
             {
@@ -102,7 +101,11 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
                 if (NativeShellItem2 != null)
                 {
-                    Properties!.System!.Title.Value = value;
+                    ShellProperty<string>? shellProperty = Properties!.System!.Title;
+                    if (shellProperty != null)
+                    {
+                        shellProperty.Value = value;
+                    }
                 }
             }
         }
@@ -117,7 +120,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 if (string.IsNullOrEmpty(_internalArguments) && NativeShellItem2 != null)
                 {
-                    _internalArguments = Properties!.System!.Link.Arguments.Value;
+                    _internalArguments = Properties!.System!.Link.Arguments?.Value;
                 }
 
                 return _internalArguments;
@@ -134,7 +137,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             {
                 if (string.IsNullOrEmpty(_internalComments) && NativeShellItem2 != null)
                 {
-                    _internalComments = Properties!.System!.Comment.Value;
+                    _internalComments = Properties!.System!.Comment?.Value;
                 }
 
                 return _internalComments;

@@ -92,8 +92,9 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
             IntPtr pServices = originalPtr;
             for (int i = 0; i < services.Length; ++i)
             {
-                Guid myGuid = (Guid)Marshal.PtrToStructure(
-                                    (IntPtr)((ulong)pServices + InteropTools.OffsetOfGuidInService), InteropTools.TypeOfGuid);
+                Guid myGuid = Marshal.PtrToStructure<Guid>(
+                    (IntPtr)((ulong)pServices + InteropTools.OffsetOfGuidInService));
+
                 Guid guid = myGuid;
                 _guidToService!.TryGetValue(guid, out IntPtr cachedValue);
                 if (cachedValue == IntPtr.Zero)
@@ -126,9 +127,9 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
                 // This should not fail.
                 for (int i = 0; i < length; ++i)
                 {
-                    Guid guid = (Guid)Marshal.PtrToStructure(
-                        (IntPtr)((ulong)pServices + InteropTools.OffsetOfGuidInService),
-                        InteropTools.TypeOfGuid);
+                    Guid guid = Marshal.PtrToStructure<Guid>(
+                        (IntPtr)((ulong)pServices + InteropTools.OffsetOfGuidInService));
+
                     _guidToService?.Remove(guid);
                     pServices = (IntPtr)((ulong)pServices + InteropTools.SizeOfService);
                 }

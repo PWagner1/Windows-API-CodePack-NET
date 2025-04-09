@@ -112,9 +112,9 @@ namespace Microsoft.WindowsAPICodePack.Controls
             _parent.NavigationFailed += OnNavigationFailed;
         }
 
-        private void OnNavigationFailed(object sender, NavigationFailedEventArgs args) => _pendingNavigation = null;
+        private void OnNavigationFailed(object? sender, NavigationFailedEventArgs args) => _pendingNavigation = null;
 
-        private void OnNavigationComplete(object sender, NavigationCompleteEventArgs args)
+        private void OnNavigationComplete(object? sender, NavigationCompleteEventArgs args)
         {
             NavigationLogEventArgs eventArgs = new();
             bool oldCanNavigateBackward = CanNavigateBackward;

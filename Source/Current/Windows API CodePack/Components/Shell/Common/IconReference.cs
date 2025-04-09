@@ -56,10 +56,15 @@ namespace Microsoft.WindowsAPICodePack.Shell
             }
 
             _moduleName = refParams[0];
-            if (refParams != null)
+            if (!string.IsNullOrEmpty(refParams[1]))
             {
                 ResourceId = int.Parse(refParams[1], CultureInfo.InvariantCulture);
             }
+            else
+            {
+                throw new ArgumentException(LocalizedMessages.InvalidReferencePath, nameof(refParams));
+            }
+
 
             _referencePath = refPath;
         }
@@ -106,7 +111,15 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 }
 
                 ModuleName = refParams[0];
-                ResourceId = int.Parse(refParams[1], CultureInfo.InvariantCulture);
+                if (refParams != null && !string.IsNullOrEmpty(refParams[1]))
+                {
+                    ResourceId = int.Parse(refParams[1], CultureInfo.InvariantCulture);
+                }
+                else
+                {
+                    throw new ArgumentException(LocalizedMessages.InvalidReferencePath, nameof(refParams));
+                }
+
 
                 _referencePath = value;
             }

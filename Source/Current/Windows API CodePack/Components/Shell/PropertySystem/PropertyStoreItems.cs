@@ -1,9 +1,10 @@
-namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem;
-
-/// <summary>
-/// Base class for all the strongly-typed properties
-/// </summary>
-public abstract class PropertyStoreItems
+namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 {
-    // Left empty for base class
+    /// <summary>
+    /// Base class for all the strongly-typed properties
+    /// </summary>
+    public abstract class PropertyStoreItems
+    {
+        // Left empty for base class
+    }
 }

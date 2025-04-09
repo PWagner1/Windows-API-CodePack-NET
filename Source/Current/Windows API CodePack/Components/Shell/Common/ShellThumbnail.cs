@@ -241,7 +241,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
             // Use IShellItemImageFactory to get an icon
             // Options passed in: Resize to fit
-            var hr = (_shellItemNative as IShellItemImageFactory).GetImage(nativeSize, CalculateFlags(), out hbitmap);
+            var hr = ((_shellItemNative as IShellItemImageFactory)!).GetImage(nativeSize, CalculateFlags(), out hbitmap);
 
             if (hr == HResult.Ok) { return hbitmap; }
             else if ((uint)hr == 0x8004B200 && FormatOption == ShellThumbnailFormatOption.ThumbnailOnly)

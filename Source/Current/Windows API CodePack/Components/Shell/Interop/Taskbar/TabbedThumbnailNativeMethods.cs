@@ -35,13 +35,13 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         [DllImport("dwmapi.dll")]
         internal static extern int DwmSetIconicLivePreviewBitmap(
             IntPtr hwnd,
-            IntPtr hbitmap,
+            IntPtr? hbitmap,
             ref NativePoint ptClient,
             uint flags);
 
         [DllImport("dwmapi.dll")]
         internal static extern int DwmSetIconicLivePreviewBitmap(
-            IntPtr hwnd, IntPtr hbitmap, IntPtr ptClient, uint flags);
+            IntPtr hwnd, IntPtr? hbitmap, IntPtr ptClient, uint flags);
 
         [DllImport("dwmapi.dll", PreserveSig = true)]
         internal static extern int DwmSetWindowAttribute(
@@ -120,7 +120,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// <param name="bitmap">The thumbnail bitmap.</param>
         /// <param name="displayFrame">Whether to display a standard window
         /// frame around the bitmap.</param>
-        internal static void SetPeekBitmap(IntPtr hwnd, IntPtr bitmap, bool displayFrame)
+        internal static void SetPeekBitmap(IntPtr hwnd, IntPtr? bitmap, bool displayFrame)
         {
             int rc = DwmSetIconicLivePreviewBitmap(
                 hwnd,
@@ -144,7 +144,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
         /// displayed as "remembered" by the DWM.</param>
         /// <param name="displayFrame">Whether to display a standard window
         /// frame around the bitmap.</param>
-        internal static void SetPeekBitmap(IntPtr hwnd, IntPtr bitmap, System.Drawing.Point offset, bool displayFrame)
+        internal static void SetPeekBitmap(IntPtr hwnd, IntPtr? bitmap, System.Drawing.Point offset, bool displayFrame)
         {
             var nativePoint = new NativePoint(offset.X, offset.Y);
             int rc = DwmSetIconicLivePreviewBitmap(

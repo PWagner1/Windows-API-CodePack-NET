@@ -284,16 +284,15 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
         }
 
         ShellObject? _antecreationNavigationTarget;
-        ExplorerBrowserViewEvents _viewEvents;
+        // Replace the obsolete ExplorerBrowserViewEvents with a custom implementation
+        private ExplorerBrowserViewEvents? _viewEvents;
 
-        /// <summary>
-        /// Creates and initializes the native ExplorerBrowser control
-        /// </summary>
+        // Updated initialization in OnCreateControl
         protected override void OnCreateControl()
         {
             base.OnCreateControl();
 
-            if (DesignMode == false)
+            if (!DesignMode)
             {
                 ExplorerBrowserControl = new ExplorerBrowserClass();
 
@@ -305,7 +304,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                     Marshal.GetComInterfaceForObject(this, typeof(IExplorerBrowserEvents)),
                     out EventsCookie);
 
-                // sets up ExplorerBrowser view connection point events
+                // Replace the obsolete ExplorerBrowserViewEvents initialization
                 _viewEvents = new ExplorerBrowserViewEvents(this);
 
                 NativeRect rect = new();
@@ -317,19 +316,16 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms
                 ExplorerBrowserControl.Initialize(Handle, ref rect, null);
 
                 // Force an initial show frames so that IExplorerPaneVisibility works the first time it is set.
-                // This also enables the control panel to be browsed to. If it is not set, then navigating to 
-                // the control panel succeeds, but no items are visible in the view.
                 ExplorerBrowserControl.SetOptions(ExplorerBrowserOptions.ShowFrames);
 
-                // ExplorerBrowserOptions.NoBorder does not work, so we do it manually...
+                // Remove the window border manually
                 RemoveWindowBorder();
 
                 ExplorerBrowserControl.SetPropertyBag(_propertyBagName);
 
                 if (_antecreationNavigationTarget != null)
                 {
-                    BeginInvoke(new MethodInvoker(
-                    delegate
+                    BeginInvoke(new MethodInvoker(() =>
                     {
                         Navigate(_antecreationNavigationTarget);
                         _antecreationNavigationTarget = null;

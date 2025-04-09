@@ -36,6 +36,7 @@ namespace Microsoft.WindowsAPICodePack.ExtendedLinguisticServices
         /// </summary>
         /// <param name="info">The <see cref="System.Runtime.Serialization.SerializationInfo">SerializationInfo</see> associated with this exception.</param>
         /// <param name="context">A <see cref="System.Runtime.Serialization.StreamingContext">StreamingContext</see> that represents the context of this exception.</param>
+        [Obsolete("This constructor is obsolete and should not be used.")]
         protected LinguisticException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

@@ -1,36 +1,37 @@
-﻿namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem;
-
-/// <summary>
-/// Describes the particular wordings of sort offerings.
-/// </summary>
-/// <remarks>
-/// Note that the strings shown are English versions only; 
-/// localized strings are used for other locales.
-/// </remarks>
-public enum PropertySortDescription
+﻿namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 {
     /// <summary>
-    /// The default ascending or descending property sort, "Sort going up", "Sort going down".
+    /// Describes the particular wordings of sort offerings.
     /// </summary>
-    General,
+    /// <remarks>
+    /// Note that the strings shown are English versions only; 
+    /// localized strings are used for other locales.
+    /// </remarks>
+    public enum PropertySortDescription
+    {
+        /// <summary>
+        /// The default ascending or descending property sort, "Sort going up", "Sort going down".
+        /// </summary>
+        General,
 
-    /// <summary>
-    /// The alphabetical sort, "A on top", "Z on top".
-    /// </summary>
-    AToZ,
+        /// <summary>
+        /// The alphabetical sort, "A on top", "Z on top".
+        /// </summary>
+        AToZ,
 
-    /// <summary>
-    /// The numerical sort, "Lowest on top", "Highest on top".
-    /// </summary>
-    LowestToHighest,
+        /// <summary>
+        /// The numerical sort, "Lowest on top", "Highest on top".
+        /// </summary>
+        LowestToHighest,
 
-    /// <summary>
-    /// The size sort, "Smallest on top", "Largest on top".
-    /// </summary>
-    SmallestToBiggest,
+        /// <summary>
+        /// The size sort, "Smallest on top", "Largest on top".
+        /// </summary>
+        SmallestToBiggest,
 
-    /// <summary>
-    /// The chronological sort, "Oldest on top", "Newest on top".
-    /// </summary>
-    OldestToNewest,
+        /// <summary>
+        /// The chronological sort, "Oldest on top", "Newest on top".
+        /// </summary>
+        OldestToNewest,
+    }
 }

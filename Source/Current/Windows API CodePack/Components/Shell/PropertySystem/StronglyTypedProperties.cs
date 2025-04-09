@@ -4393,7 +4393,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                         _hashTable.Add(key, _shellObjectParent?.Properties?.CreateTypedProperty<UInt64[]>(key));
                     }
 
-                    return (ShellProperty<UInt64[]>)_hashTable[key];
+                    return _hashTable[key] as ShellProperty<UInt64[]>;
                 }
             }
             #endregion
@@ -10615,7 +10615,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
             /// <para>Type:     String -- VT_LPWSTR  (For variants: VT_BSTR)</para>
             /// <para>FormatID: {6D748DE2-8D38-4CC3-AC60-F009B057C557}, 2</para>
             /// </summary>
-            public ShellProperty<int?> EpisodeNumber
+            public ShellProperty<int?>? EpisodeNumber
             {
                 get
                 {
@@ -10626,7 +10626,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                         _hashTable.Add(key, _shellObjectParent!.Properties!.CreateTypedProperty<int>(key));
                     }
 
-                    return (ShellProperty<int?>)_hashTable[key];
+                    return _hashTable[key] as ShellProperty<int?>;
                 }
             }
 

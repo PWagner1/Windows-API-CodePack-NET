@@ -9,7 +9,7 @@ namespace ScratchProject
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object? sender, EventArgs e)
         {
             CommonOpenFileDialog cofd = new CommonOpenFileDialog();
 
@@ -19,7 +19,7 @@ namespace ScratchProject
             cofd.ShowDialog();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object? sender, EventArgs e)
         {
             using (var dlg = new CommonSaveFileDialog())
             {
@@ -32,7 +32,7 @@ namespace ScratchProject
 
                 if (dlg.ShowDialog() == CommonFileDialogResult.Ok)
                 {
-                    string wrongFileName = dlg.FileName; // value is "test.docx", WRONG
+                    string? wrongFileName = dlg.FileName; // value is "test.docx", WRONG
                 }
             }
         }

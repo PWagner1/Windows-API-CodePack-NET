@@ -64,7 +64,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
             JumpListItems.CollectionChanged += OnJumpListCollectionChanged!;
         }
 
-        internal void OnJumpListCollectionChanged(object sender, NotifyCollectionChangedEventArgs args)
+        internal void OnJumpListCollectionChanged(object? sender, NotifyCollectionChangedEventArgs args)
         {
             CollectionChanged(this, args);
         }

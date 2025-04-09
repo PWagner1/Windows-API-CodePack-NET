@@ -558,7 +558,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
 
         [DllImport("gdi32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
-        internal static extern bool DeleteObject(IntPtr hObject);
+        internal static extern bool DeleteObject(IntPtr? hObject);
 
         #endregion
 

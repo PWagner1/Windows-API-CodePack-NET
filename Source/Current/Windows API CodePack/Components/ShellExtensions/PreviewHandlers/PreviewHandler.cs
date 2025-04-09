@@ -178,8 +178,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
 
         void IInitializeWithStream.Initialize(IStream? stream, AccessModes fileMode)
         {
-            IPreviewFromStream preview = this as IPreviewFromStream;
-            if (preview == null)
+            if (this is not IPreviewFromStream preview)
             {
                 throw new InvalidOperationException(
                     string.Format(CultureInfo.InvariantCulture,
@@ -198,8 +197,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
 
         void IInitializeWithItem.Initialize(IShellItem? shellItem, AccessModes accessMode)
         {
-            IPreviewFromShellObject preview = this as IPreviewFromShellObject;
-            if (preview == null)
+            if (this is not IPreviewFromShellObject preview)
             {
                 throw new InvalidOperationException(
                     string.Format(CultureInfo.InvariantCulture,
@@ -218,8 +216,7 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions
 
         void IInitializeWithFile.Initialize(string filePath, AccessModes fileMode)
         {
-            IPreviewFromFile? preview = this as IPreviewFromFile;
-            if (preview == null)
+            if (this is not IPreviewFromFile preview)
             {
                 throw new InvalidOperationException(
                     string.Format(CultureInfo.InvariantCulture,

@@ -21,7 +21,7 @@ namespace Microsoft.WindowsAPICodePack.Controls.WindowsPresentationFoundation
             button.Click += button_Click;
         }
 
-        void button_Click(object sender, RoutedEventArgs e)
+        void button_Click(object? sender, RoutedEventArgs e)
         {
             e.Source = this;
             if (Click != null)

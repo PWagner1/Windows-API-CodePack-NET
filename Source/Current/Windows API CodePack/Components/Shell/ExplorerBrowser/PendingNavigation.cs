@@ -1,16 +1,17 @@
-﻿namespace Microsoft.WindowsAPICodePack.Controls;
-
-/// <summary>
-/// A navigation traversal request
-/// </summary>
-internal class PendingNavigation
+﻿namespace Microsoft.WindowsAPICodePack.Controls
 {
-    internal PendingNavigation(ShellObject? location, int index)
+    /// <summary>
+    /// A navigation traversal request
+    /// </summary>
+    internal class PendingNavigation
     {
-        Location = location;
-        Index = index;
-    }
+        internal PendingNavigation(ShellObject? location, int index)
+        {
+            Location = location;
+            Index = index;
+        }
 
-    internal ShellObject? Location { get; set; }
-    internal int Index { get; set; }
+        internal ShellObject? Location { get; set; }
+        internal int Index { get; set; }
+    }
 }

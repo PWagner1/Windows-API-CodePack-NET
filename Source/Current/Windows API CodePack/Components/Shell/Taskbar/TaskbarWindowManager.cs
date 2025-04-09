@@ -364,7 +364,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar
 
                 // capture the bitmap for the given control
                 // If the user has already specified us a bitmap to use, use that.
-                IntPtr hBitmap = taskbarWindow.TabbedThumbnail.CurrentHBitmap == IntPtr.Zero ? GrabBitmap(taskbarWindow, realWindowSize) : taskbarWindow.TabbedThumbnail.CurrentHBitmap;
+                IntPtr? hBitmap = taskbarWindow.TabbedThumbnail.CurrentHBitmap == IntPtr.Zero ? GrabBitmap(taskbarWindow, realWindowSize) : taskbarWindow.TabbedThumbnail.CurrentHBitmap;
 
                 // If we have a valid parent window handle,
                 // calculate the offset so we can place the "peek" bitmap

@@ -454,7 +454,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         {
             // Be sure to at least assert here - 
             // messages to invalid handles often just disappear silently
-            Debug.Assert(_hWndDialog != null, "HWND for dialog is null during SendMessage");
+            Debug.Assert(_hWndDialog != IntPtr.Zero, "HWND for dialog is null during SendMessage");
 
             return (int)CoreNativeMethods.SendMessage(
                 _hWndDialog,

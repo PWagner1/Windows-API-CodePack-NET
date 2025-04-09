@@ -1,7 +1,6 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable InconsistentNaming
-#pragma warning disable CS8605
 namespace Microsoft.WindowsAPICodePack.Shell
 {
     /// <summary>
@@ -38,14 +37,14 @@ namespace Microsoft.WindowsAPICodePack.Shell
                         // Read the current pointer
                         IntPtr current = new(folders.ToInt64() + (Marshal.SizeOf(typeof(Guid)) * i));
 
-                        // Convert to Guid
-                        Guid knownFolderId = (Guid)Marshal.PtrToStructure(current, typeof(Guid));
+                        // Convert to Guid safely by checking for null
+                        if (Marshal.PtrToStructure(current, typeof(Guid)) is Guid knownFolderId)
+                        {
+                            IKnownFolder? kf = KnownFolderHelper.FromKnownFolderIdInternal(knownFolderId);
 
-                        IKnownFolder? kf = KnownFolderHelper.FromKnownFolderIdInternal(knownFolderId);
-
-                        // Add to our collection if it's not null (some folders might not exist on the system
-                        // or we could have an exception that resulted in the null return from above method call
-                        if (kf != null) { foldersList.Add(kf); }
+                            // Add to our collection if it's not null
+                            if (kf != null) { foldersList.Add(kf); }
+                        }
                     }
                 }
             }

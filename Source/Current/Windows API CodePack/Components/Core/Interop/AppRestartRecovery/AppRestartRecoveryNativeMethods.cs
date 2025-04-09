@@ -18,8 +18,7 @@ namespace Microsoft.WindowsAPICodePack.ApplicationServices
             ApplicationRecoveryInProgress(out _);
 
             GCHandle handle = GCHandle.FromIntPtr(parameter);
-            RecoveryData? data = handle.Target as RecoveryData;
-            if (data != null)
+            if (handle.Target is RecoveryData data)
             {
                 data.Invoke();
             }

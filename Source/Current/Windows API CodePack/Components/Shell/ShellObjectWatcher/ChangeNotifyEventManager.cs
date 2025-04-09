@@ -76,7 +76,7 @@ namespace Microsoft.WindowsAPICodePack.Shell
             _events.Clear();
         }
 
-        public void Invoke(object sender, ShellObjectChangeTypes changeType, EventArgs? args)
+        public void Invoke(object? sender, ShellObjectChangeTypes changeType, EventArgs? args)
         {
             // Removes FromInterrupt flag if pressent
             changeType = changeType & ~ShellObjectChangeTypes.FromInterrupt;

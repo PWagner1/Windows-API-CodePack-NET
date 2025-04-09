@@ -205,7 +205,7 @@ namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
                         LocalizedMessages.ShellPropertyWrongType, ValueType.Name));
                 }
 
-                if (value is Nullable)
+                if (value is null)
                 {
                     Type t = typeof(T);
                     PropertyInfo? pi = t.GetProperty("HasValue");

@@ -14,6 +14,7 @@ namespace Microsoft.WindowsAPICodePack.Sensors
         /// </summary>
         /// <param name="info">The System.Runtime.Serialization.SerializationInfo associated with this exception.</param>
         /// <param name="context">A System.Runtime.Serialization.StreamingContext that represents the context of this exception.</param>
+        [Obsolete("This constructor is obsolete and should not be used.")]
         protected SensorPlatformException(SerializationInfo info, StreamingContext context)
             : base(info, context)
         {

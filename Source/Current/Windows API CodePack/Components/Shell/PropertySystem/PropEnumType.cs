@@ -1,27 +1,28 @@
-﻿namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem;
-
-/// <summary>
-/// Property Enumeration Types
-/// </summary>
-public enum PropEnumType
+﻿namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 {
     /// <summary>
-    /// Use DisplayText and either RangeMinValue or RangeSetValue.
+    /// Property Enumeration Types
     /// </summary>
-    DiscreteValue = 0,
+    public enum PropEnumType
+    {
+        /// <summary>
+        /// Use DisplayText and either RangeMinValue or RangeSetValue.
+        /// </summary>
+        DiscreteValue = 0,
 
-    /// <summary>
-    /// Use DisplayText and either RangeMinValue or RangeSetValue
-    /// </summary>
-    RangedValue = 1,
+        /// <summary>
+        /// Use DisplayText and either RangeMinValue or RangeSetValue
+        /// </summary>
+        RangedValue = 1,
 
-    /// <summary>
-    /// Use DisplayText
-    /// </summary>
-    DefaultValue = 2,
+        /// <summary>
+        /// Use DisplayText
+        /// </summary>
+        DefaultValue = 2,
 
-    /// <summary>
-    /// Use Value or RangeMinValue
-    /// </summary>
-    EndRange = 3
-};
+        /// <summary>
+        /// Use Value or RangeMinValue
+        /// </summary>
+        EndRange = 3
+    };
+}

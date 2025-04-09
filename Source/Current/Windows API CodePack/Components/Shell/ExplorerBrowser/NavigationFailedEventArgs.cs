@@ -1,12 +1,13 @@
-﻿namespace Microsoft.WindowsAPICodePack.Controls;
-
-/// <summary>
-/// Event argument for the NavigatinoFailed event
-/// </summary>
-public class NavigationFailedEventArgs : EventArgs
+﻿namespace Microsoft.WindowsAPICodePack.Controls
 {
     /// <summary>
-    /// The location the browser would have navigated to.
+    /// Event argument for the NavigatinoFailed event
     /// </summary>
-    public ShellObject? FailedLocation { get; set; }
+    public class NavigationFailedEventArgs : EventArgs
+    {
+        /// <summary>
+        /// The location the browser would have navigated to.
+        /// </summary>
+        public ShellObject? FailedLocation { get; set; }
+    }
 }

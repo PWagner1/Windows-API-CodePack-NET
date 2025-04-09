@@ -18,7 +18,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
         /// </summary>
         public CommonFileDialogFilter()
         {
-            _extensions = new Collection<string>();
+            _extensions = new Collection<string?>();
         }
 
         /// <summary>

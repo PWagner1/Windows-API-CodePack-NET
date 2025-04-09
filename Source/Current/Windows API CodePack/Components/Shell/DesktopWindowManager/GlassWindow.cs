@@ -62,10 +62,9 @@ namespace Microsoft.WindowsAPICodePack.Shell
             if (AeroGlassCompositionEnabled && element != null)
             {
                 // calculate total size of window nonclient area
-                HwndSource? hwndSource = PresentationSource.FromVisual(this) as HwndSource;
                 NativeRect windowRect;
                 NativeRect clientRect;
-                if (hwndSource != null)
+                if (PresentationSource.FromVisual(this) is HwndSource hwndSource)
                 {
                     DesktopWindowManagerNativeMethods.GetWindowRect(hwndSource.Handle, out windowRect);
                     DesktopWindowManagerNativeMethods.GetClientRect(hwndSource.Handle, out clientRect);

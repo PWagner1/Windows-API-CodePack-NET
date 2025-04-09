@@ -1,11 +1,10 @@
 ﻿namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 {
-
     /// <summary>
     /// An exception thrown when an error occurs while dealing with the Property System API.
     /// </summary>
     [Serializable]
-    public class PropertySystemException : ExternalException
+    public class PropertySystemException : Exception
     {
         /// <summary>
         /// Default constructor.
@@ -13,7 +12,7 @@
         public PropertySystemException() { }
 
         /// <summary>
-        /// Initializes an excpetion with a custom message.
+        /// Initializes an exception with a custom message.
         /// </summary>
         /// <param name="message"></param>
         public PropertySystemException(string message) : base(message) { }
@@ -33,7 +32,8 @@
         /// </summary>
         /// <param name="message"></param>
         /// <param name="errorCode"></param>
-        public PropertySystemException(string message, int errorCode) : base(message, errorCode) { }
+        public PropertySystemException(string message, int errorCode)
+            : base($"{message} (Error Code: {errorCode})") { }
 
         /// <summary>
         /// Initializes an exception from serialization info and a context.
@@ -46,6 +46,5 @@
             : base(info, context)
         {
         }
-
     }
 }

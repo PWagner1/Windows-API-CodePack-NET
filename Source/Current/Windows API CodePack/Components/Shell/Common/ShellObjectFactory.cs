@@ -125,7 +125,13 @@ namespace Microsoft.WindowsAPICodePack.Shell
                 object padlock = new();
                 lock (padlock)
                 {
+                    if (nativeShellItem2 == null)
+                    {
+                        throw new ArgumentNullException(nameof(nativeShellItem2), @"nativeShellItem2 cannot be null.");
+                    }
+
                     var unknown = Marshal.GetIUnknownForObject(nativeShellItem2);
+
 
                     ThreadPool.QueueUserWorkItem(obj =>
                     {

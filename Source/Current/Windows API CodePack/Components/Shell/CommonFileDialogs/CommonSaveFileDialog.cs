@@ -245,8 +245,7 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
             return _saveDialogCoClass;
         }
 
-        internal override void PopulateWithFileNames(
-            Collection<string?> names)
+        internal override void PopulateWithFileNames(Collection<string> names)
         {
             IShellItem? item;
             _saveDialogCoClass.GetResult(out item);
@@ -256,10 +255,10 @@ namespace Microsoft.WindowsAPICodePack.Dialogs
                 throw new InvalidOperationException(LocalizedMessages.SaveFileNullItem);
             }
             names.Clear();
-            names.Add(GetFileNameFromShellItem(item));
+            names.Add(GetFileNameFromShellItem(item)!);
         }
 
-        internal override void PopulateWithIShellItems(Collection<IShellItem?> items)
+        internal override void PopulateWithIShellItems(Collection<IShellItem> items)
         {
             IShellItem? item;
             _saveDialogCoClass.GetResult(out item);

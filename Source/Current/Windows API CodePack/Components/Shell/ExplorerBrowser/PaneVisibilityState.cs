@@ -1,20 +1,21 @@
-﻿namespace Microsoft.WindowsAPICodePack.Controls;
-
-/// <summary>
-/// Indicates the visibility state of an ExplorerBrowser pane
-/// </summary>
-public enum PaneVisibilityState
+﻿namespace Microsoft.WindowsAPICodePack.Controls
 {
     /// <summary>
-    /// Allow the explorer browser to determine if this pane is displayed.
+    /// Indicates the visibility state of an ExplorerBrowser pane
     /// </summary>
-    DoNotCare,
-    /// <summary>
-    /// Hide the pane
-    /// </summary>
-    Hide,
-    /// <summary>
-    /// Show the pane
-    /// </summary>
-    Show
+    public enum PaneVisibilityState
+    {
+        /// <summary>
+        /// Allow the explorer browser to determine if this pane is displayed.
+        /// </summary>
+        DoNotCare,
+        /// <summary>
+        /// Hide the pane
+        /// </summary>
+        Hide,
+        /// <summary>
+        /// Show the pane
+        /// </summary>
+        Show
+    }
 }

@@ -8,7 +8,7 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="CommonFileDialogSelectionChangedEventArgs"/> class.
         /// </summary>
-        public CommonFileDialogSelectionChangedEventArgs(string folder, string fileName)
+        public CommonFileDialogSelectionChangedEventArgs(string? folder, string fileName)
         {
             Folder = folder;
             FileName = fileName;
@@ -22,7 +22,7 @@
         /// <value>
         /// The name of the selected folder.
         /// </value>
-        public string Folder { get; }
+        public string? Folder { get; }
 
 
 
