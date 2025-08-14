@@ -1,103 +1,102 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-namespace Microsoft.WindowsAPICodePack.Shell
+namespace Microsoft.WindowsAPICodePack.Shell;
+
+class ShellFolderItems : IEnumerator<ShellObject>
 {
-    class ShellFolderItems : IEnumerator<ShellObject>
+    #region Private Fields
+
+    private IEnumIDList? _nativeEnumIdList;
+    private ShellObject? _currentItem;
+    readonly ShellContainer _nativeShellFolder;
+
+    #endregion
+
+    #region Internal Constructor
+
+    internal ShellFolderItems(ShellContainer nativeShellFolder)
     {
-        #region Private Fields
+        _nativeShellFolder = nativeShellFolder;
 
-        private IEnumIDList? _nativeEnumIdList;
-        private ShellObject? _currentItem;
-        readonly ShellContainer _nativeShellFolder;
+        HResult hr = nativeShellFolder!.NativeShellFolder!.EnumObjects(
+            IntPtr.Zero,
+            ShellNativeMethods.ShellFolderEnumerationOptions.Folders | ShellNativeMethods.ShellFolderEnumerationOptions.NonFolders,
+            out _nativeEnumIdList);
 
-        #endregion
 
-        #region Internal Constructor
-
-        internal ShellFolderItems(ShellContainer nativeShellFolder)
+        if (!CoreErrorHelper.Succeeded(hr))
         {
-            _nativeShellFolder = nativeShellFolder;
-
-            HResult hr = nativeShellFolder!.NativeShellFolder!.EnumObjects(
-                IntPtr.Zero,
-                ShellNativeMethods.ShellFolderEnumerationOptions.Folders | ShellNativeMethods.ShellFolderEnumerationOptions.NonFolders,
-                out _nativeEnumIdList);
-
-
-            if (!CoreErrorHelper.Succeeded(hr))
+            if (hr == HResult.Canceled)
             {
-                if (hr == HResult.Canceled)
-                {
-                    throw new FileNotFoundException();
-                }
-                else
-                {
-                    throw new ShellException(hr);
-                }
+                throw new FileNotFoundException();
             }
-
-
+            else
+            {
+                throw new ShellException(hr);
+            }
         }
 
-        #endregion
 
-        #region IEnumerator<ShellObject> Members
+    }
+
+    #endregion
+
+    #region IEnumerator<ShellObject> Members
 
 #pragma warning disable CS8766
-        public ShellObject? Current => _currentItem;
+    public ShellObject? Current => _currentItem;
 #pragma warning restore CS8766
 
-        #endregion
+    #endregion
 
-        #region IDisposable Members
+    #region IDisposable Members
 
-        public void Dispose()
+    public void Dispose()
+    {
+        if (_nativeEnumIdList != null)
         {
-            if (_nativeEnumIdList != null)
-            {
-                Marshal.ReleaseComObject(_nativeEnumIdList);
-                _nativeEnumIdList = null;
-            }
+            Marshal.ReleaseComObject(_nativeEnumIdList);
+            _nativeEnumIdList = null;
         }
-
-        #endregion
-
-        #region IEnumerator Members
-
-        object? IEnumerator.Current => _currentItem;
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public bool MoveNext()
-        {
-            if (_nativeEnumIdList == null) { return false; }
-
-            IntPtr item;
-            uint numItemsReturned;
-            uint itemsRequested = 1;
-            HResult hr = _nativeEnumIdList.Next(itemsRequested, out item, out numItemsReturned);
-
-            if (numItemsReturned < itemsRequested || hr != HResult.Ok) { return false; }
-
-            _currentItem = ShellObjectFactory.Create(item, _nativeShellFolder);
-
-            return true;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public void Reset()
-        {
-            if (_nativeEnumIdList != null)
-            {
-                _nativeEnumIdList.Reset();
-            }
-        }
-
-
-        #endregion
     }
+
+    #endregion
+
+    #region IEnumerator Members
+
+    object? IEnumerator.Current => _currentItem;
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <returns></returns>
+    public bool MoveNext()
+    {
+        if (_nativeEnumIdList == null) { return false; }
+
+        IntPtr item;
+        uint numItemsReturned;
+        uint itemsRequested = 1;
+        HResult hr = _nativeEnumIdList.Next(itemsRequested, out item, out numItemsReturned);
+
+        if (numItemsReturned < itemsRequested || hr != HResult.Ok) { return false; }
+
+        _currentItem = ShellObjectFactory.Create(item, _nativeShellFolder);
+
+        return true;
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    public void Reset()
+    {
+        if (_nativeEnumIdList != null)
+        {
+            _nativeEnumIdList.Reset();
+        }
+    }
+
+
+    #endregion
 }
