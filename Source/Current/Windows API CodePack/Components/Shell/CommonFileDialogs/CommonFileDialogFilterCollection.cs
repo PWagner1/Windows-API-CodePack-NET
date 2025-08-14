@@ -1,25 +1,26 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
-namespace Microsoft.WindowsAPICodePack.Dialogs;
-
-/// <summary>
-/// Provides a strongly typed collection for file dialog filters.
-/// </summary>
-public class CommonFileDialogFilterCollection : Collection<CommonFileDialogFilter>
+namespace Microsoft.WindowsAPICodePack.Dialogs
 {
-    // Make the default constructor internal so users can't instantiate this 
-    // collection by themselves.
-    internal CommonFileDialogFilterCollection() { }
-
-    internal ShellNativeMethods.FilterSpec[] GetAllFilterSpecs()
+    /// <summary>
+    /// Provides a strongly typed collection for file dialog filters.
+    /// </summary>
+    public class CommonFileDialogFilterCollection : Collection<CommonFileDialogFilter>
     {
-        ShellNativeMethods.FilterSpec[] filterSpecs = new ShellNativeMethods.FilterSpec[Count];
+        // Make the default constructor internal so users can't instantiate this 
+        // collection by themselves.
+        internal CommonFileDialogFilterCollection() { }
 
-        for (int i = 0; i < Count; i++)
+        internal ShellNativeMethods.FilterSpec[] GetAllFilterSpecs()
         {
-            filterSpecs[i] = this[i].GetFilterSpec();
-        }
+            ShellNativeMethods.FilterSpec[] filterSpecs = new ShellNativeMethods.FilterSpec[Count];
 
-        return filterSpecs;
+            for (int i = 0; i < Count; i++)
+            {
+                filterSpecs[i] = this[i].GetFilterSpec();
+            }
+
+            return filterSpecs;
+        }
     }
 }

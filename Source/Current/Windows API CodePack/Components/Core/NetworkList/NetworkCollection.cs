@@ -3,50 +3,51 @@
 // ReSharper disable LoopCanBeConvertedToQuery
 
 #pragma warning disable CS8600, CS8604
-namespace Microsoft.WindowsAPICodePack.Net;
-
-/// <summary>
-/// An enumerable collection of <see cref="Network"/> objects.
-/// </summary>
-public class NetworkCollection : IEnumerable<Network>
+namespace Microsoft.WindowsAPICodePack.Net
 {
-    #region Private Fields
-
-    IEnumerable _networkEnumerable;
-
-    #endregion // Private Fields
-
-    internal NetworkCollection(IEnumerable networkEnumerable) => _networkEnumerable = networkEnumerable;
-
-    #region IEnumerable<Network> Members
-
     /// <summary>
-    /// Returns the strongly typed enumerator for this collection.
+    /// An enumerable collection of <see cref="Network"/> objects.
     /// </summary>
-    /// <returns>An <see cref="System.Collections.Generic.IEnumerator{T}"/>  object.</returns>
-    public IEnumerator<Network> GetEnumerator()
+    public class NetworkCollection : IEnumerable<Network>
     {
-        foreach (INetwork network in _networkEnumerable)
+        #region Private Fields
+
+        IEnumerable _networkEnumerable;
+
+        #endregion // Private Fields
+
+        internal NetworkCollection(IEnumerable networkEnumerable) => _networkEnumerable = networkEnumerable;
+
+        #region IEnumerable<Network> Members
+
+        /// <summary>
+        /// Returns the strongly typed enumerator for this collection.
+        /// </summary>
+        /// <returns>An <see cref="System.Collections.Generic.IEnumerator{T}"/>  object.</returns>
+        public IEnumerator<Network> GetEnumerator()
         {
-            yield return new(network);
+            foreach (INetwork network in _networkEnumerable)
+            {
+                yield return new(network);
+            }
         }
-    }
 
-    #endregion
+        #endregion
 
-    #region IEnumerable Members
+        #region IEnumerable Members
 
-    /// <summary>
-    /// Returns the enumerator for this collection.
-    /// </summary>
-    ///<returns>An <see cref="System.Collections.IEnumerator"/> object.</returns> 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        foreach (INetwork network in _networkEnumerable)
+        /// <summary>
+        /// Returns the enumerator for this collection.
+        /// </summary>
+        ///<returns>An <see cref="System.Collections.IEnumerator"/> object.</returns> 
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            yield return new Network(network);
+            foreach (INetwork network in _networkEnumerable)
+            {
+                yield return new Network(network);
+            }
         }
-    }
 
-    #endregion
+        #endregion
+    }
 }

@@ -1,3 +1,4 @@
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.34909.67
@@ -9,8 +10,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "..\..\..\Current\Windows API CodePack\Components\Core\Core.csproj", "{8AB12AD9-4D2A-4E61-B888-3EC42CD3F3E7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shell", "..\..\..\Current\Windows API CodePack\Components\Shell\Shell.csproj", "{7BDFC289-2242-4D61-BAE8-083983A13081}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExplorerBrowserSearchDemo", "WinForms\ExplorerBrowserSearchDemo.csproj", "{C5EE44E9-CDF0-DC41-70F8-67AF3EAB8EA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,12 +42,6 @@ Global
 		{7BDFC289-2242-4D61-BAE8-083983A13081}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BDFC289-2242-4D61-BAE8-083983A13081}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BDFC289-2242-4D61-BAE8-083983A13081}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5EE44E9-CDF0-DC41-70F8-67AF3EAB8EA9}.CodeAnalysisDebug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5EE44E9-CDF0-DC41-70F8-67AF3EAB8EA9}.CodeAnalysisDebug|Any CPU.Build.0 = Debug|Any CPU
-		{C5EE44E9-CDF0-DC41-70F8-67AF3EAB8EA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5EE44E9-CDF0-DC41-70F8-67AF3EAB8EA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5EE44E9-CDF0-DC41-70F8-67AF3EAB8EA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5EE44E9-CDF0-DC41-70F8-67AF3EAB8EA9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

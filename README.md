@@ -1,7 +1,6 @@
 # Microsoft Windows API Codepack
 
 =========================
-
 License
 -------
 

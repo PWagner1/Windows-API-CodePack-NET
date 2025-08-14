@@ -2,37 +2,39 @@
 
 using Size = System.Drawing.Size;
 
-namespace Microsoft.WindowsAPICodePack.Shell;
-
-internal static class WindowUtilities
+namespace Microsoft.WindowsAPICodePack.Shell
 {
-    internal static System.Drawing.Point GetParentOffsetOfChild(IntPtr hwnd, IntPtr hwndParent)
+
+    internal static class WindowUtilities
     {
-        var childScreenCoord = new NativePoint();
+        internal static System.Drawing.Point GetParentOffsetOfChild(IntPtr hwnd, IntPtr hwndParent)
+        {
+            var childScreenCoord = new NativePoint();
 
-        TabbedThumbnailNativeMethods.ClientToScreen(hwnd, ref childScreenCoord);
+            TabbedThumbnailNativeMethods.ClientToScreen(hwnd, ref childScreenCoord);
 
-        var parentScreenCoord = new NativePoint();
+            var parentScreenCoord = new NativePoint();
 
-        TabbedThumbnailNativeMethods.ClientToScreen(hwndParent, ref parentScreenCoord);
+            TabbedThumbnailNativeMethods.ClientToScreen(hwndParent, ref parentScreenCoord);
 
-        System.Drawing.Point offset = new(
-            childScreenCoord.X - parentScreenCoord.X,
-            childScreenCoord.Y - parentScreenCoord.Y);
+            System.Drawing.Point offset = new(
+                childScreenCoord.X - parentScreenCoord.X,
+                childScreenCoord.Y - parentScreenCoord.Y);
 
-        return offset;
-    }
+            return offset;
+        }
 
-    internal static System.Drawing.Size GetNonClientArea(IntPtr hwnd)
-    {
-        var c = new NativePoint();
+        internal static System.Drawing.Size GetNonClientArea(IntPtr hwnd)
+        {
+            var c = new NativePoint();
 
-        TabbedThumbnailNativeMethods.ClientToScreen(hwnd, ref c);
+            TabbedThumbnailNativeMethods.ClientToScreen(hwnd, ref c);
 
-        var r = new NativeRect();
+            var r = new NativeRect();
 
-        TabbedThumbnailNativeMethods.GetWindowRect(hwnd, ref r);
+            TabbedThumbnailNativeMethods.GetWindowRect(hwnd, ref r);
 
-        return new Size(c.X - r.Left, c.Y - r.Top);
+            return new Size(c.X - r.Left, c.Y - r.Top);
+        }
     }
 }

@@ -1,58 +1,59 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 #pragma warning disable CS8604
-namespace Microsoft.WindowsAPICodePack.Shell;
-
-internal class EnumUnknownClass : IEnumUnknown
+namespace Microsoft.WindowsAPICodePack.Shell
 {
-    readonly List<ICondition?> _conditionList = new();
-    int _current = -1;
-
-    internal EnumUnknownClass(ICondition?[] conditions)
+    internal class EnumUnknownClass : IEnumUnknown
     {
-        _conditionList.AddRange(conditions);
-    }
+        readonly List<ICondition?> _conditionList = new();
+        int _current = -1;
 
-    #region IEnumUnknown Members
-
-    public HResult Next(uint requestedNumber, ref IntPtr buffer, ref uint fetchedNumber)
-    {
-        _current++;
-
-        if (_current < _conditionList.Count)
+        internal EnumUnknownClass(ICondition?[] conditions)
         {
-            buffer = Marshal.GetIUnknownForObject(_conditionList[_current]);
-            fetchedNumber = 1;
-            return HResult.Ok;
+            _conditionList.AddRange(conditions);
         }
 
-        return HResult.False;
-    }
+        #region IEnumUnknown Members
 
-    public HResult Skip(uint number)
-    {
-        int temp = _current + (int)number;
-
-        if (temp > (_conditionList.Count - 1))
+        public HResult Next(uint requestedNumber, ref IntPtr buffer, ref uint fetchedNumber)
         {
+            _current++;
+
+            if (_current < _conditionList.Count)
+            {
+                buffer = Marshal.GetIUnknownForObject(_conditionList[_current]);
+                fetchedNumber = 1;
+                return HResult.Ok;
+            }
+
             return HResult.False;
         }
 
-        _current = temp;
-        return HResult.Ok;
-    }
+        public HResult Skip(uint number)
+        {
+            int temp = _current + (int)number;
 
-    public HResult Reset()
-    {
-        _current = -1;
-        return HResult.Ok;
-    }
+            if (temp > (_conditionList.Count - 1))
+            {
+                return HResult.False;
+            }
 
-    public HResult Clone(out IEnumUnknown result)
-    {
-        result = new EnumUnknownClass(_conditionList.ToArray());
-        return HResult.Ok;
-    }
+            _current = temp;
+            return HResult.Ok;
+        }
 
-    #endregion
+        public HResult Reset()
+        {
+            _current = -1;
+            return HResult.Ok;
+        }
+
+        public HResult Clone(out IEnumUnknown result)
+        {
+            result = new EnumUnknownClass(_conditionList.ToArray());
+            return HResult.Ok;
+        }
+
+        #endregion
+    }
 }
