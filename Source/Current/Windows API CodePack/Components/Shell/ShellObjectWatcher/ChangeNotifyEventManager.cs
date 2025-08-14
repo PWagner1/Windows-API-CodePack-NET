@@ -1,104 +1,103 @@
 ﻿// ReSharper disable AssignNullToNotNullAttribute
 #pragma warning disable CS8600
-namespace Microsoft.WindowsAPICodePack.Shell
+namespace Microsoft.WindowsAPICodePack.Shell;
+
+internal class ChangeNotifyEventManager
 {
-    internal class ChangeNotifyEventManager
+    #region Change order
+    private static readonly ShellObjectChangeTypes[] _changeOrder = {
+        ShellObjectChangeTypes.ItemCreate,
+        ShellObjectChangeTypes.ItemRename,
+        ShellObjectChangeTypes.ItemDelete,
+
+        ShellObjectChangeTypes.AttributesChange,
+
+        ShellObjectChangeTypes.DirectoryCreate,
+        ShellObjectChangeTypes.DirectoryDelete,
+        ShellObjectChangeTypes.DirectoryContentsUpdate,
+        ShellObjectChangeTypes.DirectoryRename,
+
+        ShellObjectChangeTypes.Update,
+
+        ShellObjectChangeTypes.MediaInsert,
+        ShellObjectChangeTypes.MediaRemove,
+        ShellObjectChangeTypes.DriveAdd,
+        ShellObjectChangeTypes.DriveRemove,
+        ShellObjectChangeTypes.NetShare,
+        ShellObjectChangeTypes.NetUnshare,
+
+        ShellObjectChangeTypes.ServerDisconnect,
+        ShellObjectChangeTypes.SystemImageUpdate,
+
+        ShellObjectChangeTypes.AssociationChange,
+        ShellObjectChangeTypes.FreeSpace,
+
+        ShellObjectChangeTypes.DiskEventsMask,
+        ShellObjectChangeTypes.GlobalEventsMask,
+        ShellObjectChangeTypes.AllEventsMask
+    };
+    #endregion
+
+    private readonly Dictionary<ShellObjectChangeTypes, Delegate> _events = new();
+
+    public void Register(ShellObjectChangeTypes changeType, Delegate handler)
     {
-        #region Change order
-        private static readonly ShellObjectChangeTypes[] _changeOrder = {
-            ShellObjectChangeTypes.ItemCreate,
-            ShellObjectChangeTypes.ItemRename,
-            ShellObjectChangeTypes.ItemDelete,
-
-            ShellObjectChangeTypes.AttributesChange,
-
-            ShellObjectChangeTypes.DirectoryCreate,
-            ShellObjectChangeTypes.DirectoryDelete,
-            ShellObjectChangeTypes.DirectoryContentsUpdate,
-            ShellObjectChangeTypes.DirectoryRename,
-
-            ShellObjectChangeTypes.Update,
-
-            ShellObjectChangeTypes.MediaInsert,
-            ShellObjectChangeTypes.MediaRemove,
-            ShellObjectChangeTypes.DriveAdd,
-            ShellObjectChangeTypes.DriveRemove,
-            ShellObjectChangeTypes.NetShare,
-            ShellObjectChangeTypes.NetUnshare,
-
-            ShellObjectChangeTypes.ServerDisconnect,
-            ShellObjectChangeTypes.SystemImageUpdate,
-
-            ShellObjectChangeTypes.AssociationChange,
-            ShellObjectChangeTypes.FreeSpace,
-
-            ShellObjectChangeTypes.DiskEventsMask,
-            ShellObjectChangeTypes.GlobalEventsMask,
-            ShellObjectChangeTypes.AllEventsMask
-        };
-        #endregion
-
-        private readonly Dictionary<ShellObjectChangeTypes, Delegate> _events = new();
-
-        public void Register(ShellObjectChangeTypes changeType, Delegate handler)
+        Delegate del;
+        if (!_events.TryGetValue(changeType, out del))
         {
-            Delegate del;
-            if (!_events.TryGetValue(changeType, out del))
+            _events.Add(changeType, handler);
+        }
+        else
+        {
+            del = Delegate.Combine(del, handler);
+            _events[changeType] = del;
+        }
+    }
+
+    public void Unregister(ShellObjectChangeTypes changeType, Delegate handler)
+    {
+        Delegate del;
+        if (_events.TryGetValue(changeType, out del))
+        {
+            del = Delegate.Remove(del, handler);
+            if (del == null) // It's a bug in .NET if del is non-null and has an empty invocation list.
             {
-                _events.Add(changeType, handler);
+                _events.Remove(changeType);
             }
             else
             {
-                del = Delegate.Combine(del, handler);
                 _events[changeType] = del;
             }
         }
+    }
 
-        public void Unregister(ShellObjectChangeTypes changeType, Delegate handler)
+    public void UnregisterAll()
+    {
+        _events.Clear();
+    }
+
+    public void Invoke(object? sender, ShellObjectChangeTypes changeType, EventArgs? args)
+    {
+        // Removes FromInterrupt flag if pressent
+        changeType = changeType & ~ShellObjectChangeTypes.FromInterrupt;
+
+        Delegate del;
+        foreach (var change in _changeOrder.Where(x => (x & changeType) != 0))
         {
-            Delegate del;
-            if (_events.TryGetValue(changeType, out del))
+            if (_events.TryGetValue(change, out del))
             {
-                del = Delegate.Remove(del, handler);
-                if (del == null) // It's a bug in .NET if del is non-null and has an empty invocation list.
-                {
-                    _events.Remove(changeType);
-                }
-                else
-                {
-                    _events[changeType] = del;
-                }
+                del.DynamicInvoke(sender, args);
             }
         }
+    }
 
-        public void UnregisterAll()
+    public ShellObjectChangeTypes RegisteredTypes
+    {
+        get
         {
-            _events.Clear();
-        }
-
-        public void Invoke(object sender, ShellObjectChangeTypes changeType, EventArgs? args)
-        {
-            // Removes FromInterrupt flag if pressent
-            changeType = changeType & ~ShellObjectChangeTypes.FromInterrupt;
-
-            Delegate del;
-            foreach (var change in _changeOrder.Where(x => (x & changeType) != 0))
-            {
-                if (_events.TryGetValue(change, out del))
-                {
-                    del.DynamicInvoke(sender, args);
-                }
-            }
-        }
-
-        public ShellObjectChangeTypes RegisteredTypes
-        {
-            get
-            {
-                return _events.Keys.Aggregate<ShellObjectChangeTypes, ShellObjectChangeTypes>(
-                    ShellObjectChangeTypes.None,
-                    (accumulator, changeType) => (changeType | accumulator));
-            }
+            return _events.Keys.Aggregate<ShellObjectChangeTypes, ShellObjectChangeTypes>(
+                ShellObjectChangeTypes.None,
+                (accumulator, changeType) => (changeType | accumulator));
         }
     }
 }
