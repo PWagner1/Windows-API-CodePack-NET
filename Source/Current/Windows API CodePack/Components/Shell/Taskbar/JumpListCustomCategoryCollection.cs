@@ -1,127 +1,126 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-namespace Microsoft.WindowsAPICodePack.Taskbar
+namespace Microsoft.WindowsAPICodePack.Taskbar;
+
+/// <summary>
+/// Represents a collection of custom categories
+/// </summary>
+internal class JumpListCustomCategoryCollection
+    : ICollection<JumpListCustomCategory>, INotifyCollectionChanged
 {
+    private readonly List<JumpListCustomCategory> _categories = new();
+
     /// <summary>
-    /// Represents a collection of custom categories
+    /// Event to trigger anytime this collection is modified
     /// </summary>
-    internal class JumpListCustomCategoryCollection
-        : ICollection<JumpListCustomCategory>, INotifyCollectionChanged
+    public event NotifyCollectionChangedEventHandler? CollectionChanged = delegate { };
+
+    /// <summary>
+    /// Determines if this collection is read-only
+    /// </summary>
+    public bool IsReadOnly { get; set; }
+
+    /// <summary>
+    /// The number of items in this collection
+    /// </summary>
+    public int Count => _categories.Count;
+
+    /// <summary>
+    /// Add the specified category to this collection
+    /// </summary>
+    /// <param name="category">Category to add</param>
+    public void Add(JumpListCustomCategory category)
     {
-        private readonly List<JumpListCustomCategory> _categories = new();
-
-        /// <summary>
-        /// Event to trigger anytime this collection is modified
-        /// </summary>
-        public event NotifyCollectionChangedEventHandler? CollectionChanged = delegate { };
-
-        /// <summary>
-        /// Determines if this collection is read-only
-        /// </summary>
-        public bool IsReadOnly { get; set; }
-
-        /// <summary>
-        /// The number of items in this collection
-        /// </summary>
-        public int Count => _categories.Count;
-
-        /// <summary>
-        /// Add the specified category to this collection
-        /// </summary>
-        /// <param name="category">Category to add</param>
-        public void Add(JumpListCustomCategory category)
+        if (category == null)
         {
-            if (category == null)
-            {
-                throw new ArgumentNullException(nameof(category));
-            }
-            _categories.Add(category);
+            throw new ArgumentNullException(nameof(category));
+        }
+        _categories.Add(category);
 
+        // Trigger CollectionChanged event
+        CollectionChanged?.Invoke(
+            this,
+            new NotifyCollectionChangedEventArgs(
+                NotifyCollectionChangedAction.Add,
+                category));
+
+        // Make sure that a collection changed event is fire if this category
+        // or it's corresponding jumplist is modified
+        category.CollectionChanged += CollectionChanged;
+        category.JumpListItems.CollectionChanged += CollectionChanged;
+    }
+
+    /// <summary>
+    /// Remove the specified category from this collection
+    /// </summary>
+    /// <param name="category">Category item to remove</param>
+    /// <returns>True if item was removed.</returns>
+    public bool Remove(JumpListCustomCategory category)
+    {
+        bool removed = _categories.Remove(category);
+
+        if (removed)
+        {
             // Trigger CollectionChanged event
             CollectionChanged?.Invoke(
                 this,
                 new NotifyCollectionChangedEventArgs(
-                    NotifyCollectionChangedAction.Add,
-                    category));
-
-            // Make sure that a collection changed event is fire if this category
-            // or it's corresponding jumplist is modified
-            category.CollectionChanged += CollectionChanged;
-            category.JumpListItems.CollectionChanged += CollectionChanged;
+                    NotifyCollectionChangedAction.Remove,
+                    0));
         }
 
-        /// <summary>
-        /// Remove the specified category from this collection
-        /// </summary>
-        /// <param name="category">Category item to remove</param>
-        /// <returns>True if item was removed.</returns>
-        public bool Remove(JumpListCustomCategory category)
-        {
-            bool removed = _categories.Remove(category);
+        return removed;
+    }
 
-            if (removed)
-            {
-                // Trigger CollectionChanged event
-                CollectionChanged?.Invoke(
-                    this,
-                    new NotifyCollectionChangedEventArgs(
-                        NotifyCollectionChangedAction.Remove,
-                        0));
-            }
+    /// <summary>
+    /// Clear all items from the collection
+    /// </summary>
+    public void Clear()
+    {
+        _categories.Clear();
 
-            return removed;
-        }
+        CollectionChanged?.Invoke(
+            this,
+            new NotifyCollectionChangedEventArgs(
+                NotifyCollectionChangedAction.Reset));
+    }
 
-        /// <summary>
-        /// Clear all items from the collection
-        /// </summary>
-        public void Clear()
-        {
-            _categories.Clear();
+    /// <summary>
+    /// Determine if this collection contains the specified item
+    /// </summary>
+    /// <param name="category">Category to search for</param>
+    /// <returns>True if category was found</returns>
+    public bool Contains(JumpListCustomCategory category)
+    {
+        return _categories.Contains(category);
+    }
 
-            CollectionChanged?.Invoke(
-                this,
-                new NotifyCollectionChangedEventArgs(
-                    NotifyCollectionChangedAction.Reset));
-        }
+    /// <summary>
+    /// Copy this collection to a compatible one-dimensional array,
+    /// starting at the specified index of the target array
+    /// </summary>
+    /// <param name="array">Array to copy to</param>
+    /// <param name="index">Index of target array to start copy</param>
+    public void CopyTo(JumpListCustomCategory[] array, int index)
+    {
+        _categories.CopyTo(array, index);
+    }
 
-        /// <summary>
-        /// Determine if this collection contains the specified item
-        /// </summary>
-        /// <param name="category">Category to search for</param>
-        /// <returns>True if category was found</returns>
-        public bool Contains(JumpListCustomCategory category)
-        {
-            return _categories.Contains(category);
-        }
+    /// <summary>
+    /// Returns an enumerator that iterates through this collection.
+    /// </summary>
+    /// <returns>Enumerator to iterate through this collection.</returns>
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return _categories.GetEnumerator();
+    }
 
-        /// <summary>
-        /// Copy this collection to a compatible one-dimensional array,
-        /// starting at the specified index of the target array
-        /// </summary>
-        /// <param name="array">Array to copy to</param>
-        /// <param name="index">Index of target array to start copy</param>
-        public void CopyTo(JumpListCustomCategory[] array, int index)
-        {
-            _categories.CopyTo(array, index);
-        }
-
-        /// <summary>
-        /// Returns an enumerator that iterates through this collection.
-        /// </summary>
-        /// <returns>Enumerator to iterate through this collection.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return _categories.GetEnumerator();
-        }
-
-        /// <summary>
-        /// Returns an enumerator that iterates through this collection.
-        /// </summary>
-        /// <returns>Enumerator to iterate through this collection.</returns>
-        IEnumerator<JumpListCustomCategory> IEnumerable<JumpListCustomCategory>.GetEnumerator()
-        {
-            return _categories.GetEnumerator();
-        }
+    /// <summary>
+    /// Returns an enumerator that iterates through this collection.
+    /// </summary>
+    /// <returns>Enumerator to iterate through this collection.</returns>
+    IEnumerator<JumpListCustomCategory> IEnumerable<JumpListCustomCategory>.GetEnumerator()
+    {
+        return _categories.GetEnumerator();
     }
 }

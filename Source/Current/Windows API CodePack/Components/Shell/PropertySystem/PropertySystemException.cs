@@ -1,51 +1,49 @@
-﻿namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
+﻿namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem;
+
+/// <summary>
+/// An exception thrown when an error occurs while dealing with the Property System API.
+/// </summary>
+[Serializable]
+public class PropertySystemException : Exception
 {
+    /// <summary>
+    /// Default constructor.
+    /// </summary>
+    public PropertySystemException() { }
 
     /// <summary>
-    /// An exception thrown when an error occurs while dealing with the Property System API.
+    /// Initializes an exception with a custom message.
     /// </summary>
-    [Serializable]
-    public class PropertySystemException : ExternalException
+    /// <param name="message"></param>
+    public PropertySystemException(string message) : base(message) { }
+
+    /// <summary>
+    /// Initializes an exception with custom message and inner exception.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="innerException"></param>
+    public PropertySystemException(string message, Exception? innerException)
+        : base(message, innerException)
     {
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public PropertySystemException() { }
+    }
 
-        /// <summary>
-        /// Initializes an excpetion with a custom message.
-        /// </summary>
-        /// <param name="message"></param>
-        public PropertySystemException(string message) : base(message) { }
+    /// <summary>
+    /// Initializes an exception with custom message and error code.
+    /// </summary>
+    /// <param name="message"></param>
+    /// <param name="errorCode"></param>
+    public PropertySystemException(string message, int errorCode)
+        : base($"{message} (Error Code: {errorCode})") { }
 
-        /// <summary>
-        /// Initializes an exception with custom message and inner exception.
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="innerException"></param>
-        public PropertySystemException(string message, Exception? innerException)
-            : base(message, innerException)
-        {
-        }
-
-        /// <summary>
-        /// Initializes an exception with custom message and error code.
-        /// </summary>
-        /// <param name="message"></param>
-        /// <param name="errorCode"></param>
-        public PropertySystemException(string message, int errorCode) : base(message, errorCode) { }
-
-        /// <summary>
-        /// Initializes an exception from serialization info and a context.
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
-        protected PropertySystemException(
-            SerializationInfo info,
-            StreamingContext context)
-            : base(info, context)
-        {
-        }
-
+    /// <summary>
+    /// Initializes an exception from serialization info and a context.
+    /// </summary>
+    /// <param name="info"></param>
+    /// <param name="context"></param>
+    protected PropertySystemException(
+        SerializationInfo info,
+        StreamingContext context)
+        : base(info, context)
+    {
     }
 }

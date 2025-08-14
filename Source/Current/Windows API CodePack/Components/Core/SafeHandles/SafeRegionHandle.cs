@@ -1,26 +1,25 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-namespace MS.WindowsAPICodePack.Internal
+namespace MS.WindowsAPICodePack.Internal;
+
+/// <summary>
+/// Safe Region Handle
+/// </summary>
+public class SafeRegionHandle : ZeroInvalidHandle
 {
     /// <summary>
-    /// Safe Region Handle
+    /// Release the handle
     /// </summary>
-    public class SafeRegionHandle : ZeroInvalidHandle
+    /// <returns>true if handled is release successfully, false otherwise</returns>
+    protected override bool ReleaseHandle()
     {
-        /// <summary>
-        /// Release the handle
-        /// </summary>
-        /// <returns>true if handled is release successfully, false otherwise</returns>
-        protected override bool ReleaseHandle()
+        if (CoreNativeMethods.DeleteObject(handle))
         {
-            if (CoreNativeMethods.DeleteObject(handle))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

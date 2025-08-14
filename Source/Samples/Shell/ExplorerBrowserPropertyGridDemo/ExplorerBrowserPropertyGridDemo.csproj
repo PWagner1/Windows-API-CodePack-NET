@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Current\Windows API CodePack\Components\Shell\ExplorerBrowser\ExplorerBrowser.csproj" />
+    <ProjectReference Include="..\..\..\Current\Windows API CodePack\Components\Shell\ShellCommon\ShellCommon.csproj" />
+    <ProjectReference Include="..\..\..\Current\Windows API CodePack\Components\Core\Core.csproj" />
+  </ItemGroup>
+
+</Project>
