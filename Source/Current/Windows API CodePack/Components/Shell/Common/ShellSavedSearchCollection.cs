@@ -1,15 +1,16 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-namespace Microsoft.WindowsAPICodePack.Shell;
-
-/// <summary>
-/// Represents a saved search
-/// </summary>
-public class ShellSavedSearchCollection : ShellSearchCollection
+namespace Microsoft.WindowsAPICodePack.Shell
 {
-    internal ShellSavedSearchCollection(IShellItem2? shellItem)
-        : base(shellItem)
+    /// <summary>
+    /// Represents a saved search
+    /// </summary>
+    public class ShellSavedSearchCollection : ShellSearchCollection
     {
-        CoreHelpers.ThrowIfNotVista();
+        internal ShellSavedSearchCollection(IShellItem2? shellItem)
+            : base(shellItem)
+        {
+            CoreHelpers.ThrowIfNotVista();
+        }
     }
 }

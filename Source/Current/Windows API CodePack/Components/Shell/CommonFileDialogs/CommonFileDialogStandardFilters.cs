@@ -1,59 +1,60 @@
 //Copyright (c) Microsoft Corporation.  All rights reserved.
 
-namespace Microsoft.WindowsAPICodePack.Dialogs;
-
-/// <summary>
-/// Defines the class of commonly used file filters.
-/// </summary>
-public static class CommonFileDialogStandardFilters
+namespace Microsoft.WindowsAPICodePack.Dialogs
 {
-    private static CommonFileDialogFilter? _textFilesFilter;
     /// <summary>
-    /// Gets a value that specifies the filter for *.txt files.
+    /// Defines the class of commonly used file filters.
     /// </summary>
-    public static CommonFileDialogFilter? TextFiles
+    public static class CommonFileDialogStandardFilters
     {
-        get
+        private static CommonFileDialogFilter? _textFilesFilter;
+        /// <summary>
+        /// Gets a value that specifies the filter for *.txt files.
+        /// </summary>
+        public static CommonFileDialogFilter? TextFiles
         {
-            if (_textFilesFilter == null)
+            get
             {
-                _textFilesFilter = new CommonFileDialogFilter(LocalizedMessages.CommonFiltersText, "*.txt");
+                if (_textFilesFilter == null)
+                {
+                    _textFilesFilter = new CommonFileDialogFilter(LocalizedMessages.CommonFiltersText, "*.txt");
+                }
+                return _textFilesFilter;
             }
-            return _textFilesFilter;
-        }
-    }
-
-    private static CommonFileDialogFilter? _pictureFilesFilter;
-    /// <summary>
-    /// Gets a value that specifies the filter for picture files.
-    /// </summary>
-    public static CommonFileDialogFilter? PictureFiles
-    {
-        get
-        {
-            if (_pictureFilesFilter == null)
-            {
-                _pictureFilesFilter = new CommonFileDialogFilter(LocalizedMessages.CommonFiltersPicture,
-                    "*.bmp, *.jpg, *.jpeg, *.png, *.ico");
-            }
-            return _pictureFilesFilter;
         }
 
-    }
-    private static CommonFileDialogFilter? _officeFilesFilter;
-    /// <summary>
-    /// Gets a value that specifies the filter for Microsoft Office files.
-    /// </summary>
-    public static CommonFileDialogFilter? OfficeFiles
-    {
-        get
+        private static CommonFileDialogFilter? _pictureFilesFilter;
+        /// <summary>
+        /// Gets a value that specifies the filter for picture files.
+        /// </summary>
+        public static CommonFileDialogFilter? PictureFiles
         {
-            if (_officeFilesFilter == null)
+            get
             {
-                _officeFilesFilter = new CommonFileDialogFilter(LocalizedMessages.CommonFiltersOffice,
-                    "*.doc, *.docx, *.xls, *.xlsx, *.ppt, *.pptx");
+                if (_pictureFilesFilter == null)
+                {
+                    _pictureFilesFilter = new CommonFileDialogFilter(LocalizedMessages.CommonFiltersPicture,
+                        "*.bmp, *.jpg, *.jpeg, *.png, *.ico");
+                }
+                return _pictureFilesFilter;
             }
-            return _officeFilesFilter;
+
+        }
+        private static CommonFileDialogFilter? _officeFilesFilter;
+        /// <summary>
+        /// Gets a value that specifies the filter for Microsoft Office files.
+        /// </summary>
+        public static CommonFileDialogFilter? OfficeFiles
+        {
+            get
+            {
+                if (_officeFilesFilter == null)
+                {
+                    _officeFilesFilter = new CommonFileDialogFilter(LocalizedMessages.CommonFiltersOffice,
+                        "*.doc, *.docx, *.xls, *.xlsx, *.ppt, *.pptx");
+                }
+                return _officeFilesFilter;
+            }
         }
     }
 }

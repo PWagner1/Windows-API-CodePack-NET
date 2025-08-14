@@ -1,7 +1,8 @@
 ﻿#pragma warning disable CS8600, CS8603
-namespace Microsoft.WindowsAPICodePack.Shell;
-
-internal static class IntPtrExtensions
+namespace Microsoft.WindowsAPICodePack.Shell
 {
-    public static T MarshalAs<T>(this IntPtr ptr) => (T)Marshal.PtrToStructure(ptr, typeof(T));
+    internal static class IntPtrExtensions
+    {
+        public static T MarshalAs<T>(this IntPtr ptr) => (T)Marshal.PtrToStructure(ptr, typeof(T));
+    }
 }

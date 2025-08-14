@@ -1,30 +1,31 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-namespace MS.WindowsAPICodePack.Internal;
-
-/// <summary>
-/// Safe Window Handle
-/// </summary>
-public class SafeWindowHandle : ZeroInvalidHandle
+namespace MS.WindowsAPICodePack.Internal
 {
     /// <summary>
-    /// Release the handle
+    /// Safe Window Handle
     /// </summary>
-    /// <returns>true if handled is release successfully, false otherwise</returns>
-    protected override bool ReleaseHandle()
+    public class SafeWindowHandle : ZeroInvalidHandle
     {
-        if (IsInvalid)
+        /// <summary>
+        /// Release the handle
+        /// </summary>
+        /// <returns>true if handled is release successfully, false otherwise</returns>
+        protected override bool ReleaseHandle()
         {
-            return true;
-        }
+            if (IsInvalid)
+            {
+                return true;
+            }
 
-        if (CoreNativeMethods.DestroyWindow(handle) != 0)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
+            if (CoreNativeMethods.DestroyWindow(handle) != 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
