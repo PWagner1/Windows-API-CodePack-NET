@@ -1,35 +1,34 @@
-﻿namespace Microsoft.WindowsAPICodePack.Sensors
+﻿namespace Microsoft.WindowsAPICodePack.Sensors;
+
+/// <summary>
+/// Defines the data passed to the SensorsChangedHandler.
+/// </summary>
+public class SensorsChangedEventArgs : EventArgs
 {
+    private SensorAvailabilityChange _change;
+    private Guid _sensorId;
+
     /// <summary>
-    /// Defines the data passed to the SensorsChangedHandler.
+    /// The type of change. 
     /// </summary>
-    public class SensorsChangedEventArgs : EventArgs
+    public SensorAvailabilityChange Change
     {
-        private SensorAvailabilityChange _change;
-        private Guid _sensorId;
+        get => _change;
+        set => _change = value;
+    }
 
-        /// <summary>
-        /// The type of change. 
-        /// </summary>
-        public SensorAvailabilityChange Change
-        {
-            get => _change;
-            set => _change = value;
-        }
+    /// <summary>
+    /// The ID of the sensor that changed.
+    /// </summary>
+    public Guid SensorId
+    {
+        get => _sensorId;
+        set => _sensorId = value;
+    }
 
-        /// <summary>
-        /// The ID of the sensor that changed.
-        /// </summary>
-        public Guid SensorId
-        {
-            get => _sensorId;
-            set => _sensorId = value;
-        }
-
-        internal SensorsChangedEventArgs(Guid sensorId, SensorAvailabilityChange change)
-        {
-            SensorId = sensorId;
-            Change = change;
-        }
+    internal SensorsChangedEventArgs(Guid sensorId, SensorAvailabilityChange change)
+    {
+        SensorId = sensorId;
+        Change = change;
     }
 }

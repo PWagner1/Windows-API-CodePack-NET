@@ -4,7 +4,9 @@ Version 8.0.9
 
 - Upgrade `sln` file to `slnx` format
 - More `null` checking
-- 
+- Removed support for .NET 6
+- Implemented [#14](https://github.com/PWagner1/Windows-API-CodePack-NET/issues/14), How to perform a search with `ExplorerBrowser`
+
 =========
 
 24/12/2024

@@ -1,10 +1,9 @@
-﻿namespace Microsoft.WindowsAPICodePack.ShellExtensions.Interop
+﻿namespace Microsoft.WindowsAPICodePack.ShellExtensions.Interop;
+
+internal enum SetWindowPositionInsertAfter
 {
-    internal enum SetWindowPositionInsertAfter
-    {
-        NoTopMost = -2,
-        TopMost = -1,
-        Top = 0,
-        Bottom = 1
-    }
+    NoTopMost = -2,
+    TopMost = -1,
+    Top = 0,
+    Bottom = 1
 }

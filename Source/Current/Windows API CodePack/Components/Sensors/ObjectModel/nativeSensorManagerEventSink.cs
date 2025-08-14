@@ -1,22 +1,21 @@
-﻿namespace Microsoft.WindowsAPICodePack.Sensors
-{
-    internal class nativeSensorManagerEventSink : ISensorManagerEvents
-    {
-        #region nativeISensorManagerEvents Members
+﻿namespace Microsoft.WindowsAPICodePack.Sensors;
 
-        public void OnSensorEnter(ISensor nativeSensor, NativeSensorState state)
+internal class nativeSensorManagerEventSink : ISensorManagerEvents
+{
+    #region nativeISensorManagerEvents Members
+
+    public void OnSensorEnter(ISensor nativeSensor, NativeSensorState state)
+    {
+        if (state == NativeSensorState.Ready)
         {
-            if (state == NativeSensorState.Ready)
+            Guid sensorId;
+            HResult hr = nativeSensor.GetID(out sensorId);
+            if (hr == HResult.Ok)
             {
-                Guid sensorId;
-                HResult hr = nativeSensor.GetID(out sensorId);
-                if (hr == HResult.Ok)
-                {
-                    SensorManager.OnSensorsChanged(sensorId, SensorAvailabilityChange.Addition);
-                }
+                SensorManager.OnSensorsChanged(sensorId, SensorAvailabilityChange.Addition);
             }
         }
-
-        #endregion
     }
+
+    #endregion
 }

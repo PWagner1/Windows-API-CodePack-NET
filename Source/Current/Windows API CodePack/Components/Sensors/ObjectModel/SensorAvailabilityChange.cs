@@ -1,17 +1,16 @@
-﻿namespace Microsoft.WindowsAPICodePack.Sensors
+﻿namespace Microsoft.WindowsAPICodePack.Sensors;
+
+/// <summary>
+/// Specifies the types of change in sensor availability.
+/// </summary>
+public enum SensorAvailabilityChange
 {
     /// <summary>
-    /// Specifies the types of change in sensor availability.
+    /// A sensor has been added.
     /// </summary>
-    public enum SensorAvailabilityChange
-    {
-        /// <summary>
-        /// A sensor has been added.
-        /// </summary>
-        Addition,
-        /// <summary>
-        /// A sensor has been removed.
-        /// </summary>
-        Removal
-    }
+    Addition,
+    /// <summary>
+    /// A sensor has been removed.
+    /// </summary>
+    Removal
 }

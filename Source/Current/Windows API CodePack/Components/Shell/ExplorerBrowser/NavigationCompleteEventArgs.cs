@@ -1,13 +1,12 @@
-﻿namespace Microsoft.WindowsAPICodePack.Controls
+﻿namespace Microsoft.WindowsAPICodePack.Controls;
+
+/// <summary>
+/// Event argument for The NavigationComplete event
+/// </summary>
+public class NavigationCompleteEventArgs : EventArgs
 {
     /// <summary>
-    /// Event argument for The NavigationComplete event
+    /// The new location of the explorer browser
     /// </summary>
-    public class NavigationCompleteEventArgs : EventArgs
-    {
-        /// <summary>
-        /// The new location of the explorer browser
-        /// </summary>
-        public ShellObject? NewLocation { get; set; }
-    }
+    public ShellObject? NewLocation { get; set; }
 }
