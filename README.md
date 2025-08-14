@@ -1,13 +1,6 @@
-Microsoft Windows API Codepack
+# Microsoft Windows API Codepack
+
 =========================
-
-README
-======
-
-## Current Version
-
-
-
 License
 -------
 
