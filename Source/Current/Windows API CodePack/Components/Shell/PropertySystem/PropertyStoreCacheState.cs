@@ -1,28 +1,29 @@
 ﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
 
-namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem;
-
-#region Property System Enumerations
-
-/// <summary>
-/// Property store cache state
-/// </summary>
-public enum PropertyStoreCacheState
+namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem
 {
-    /// <summary>
-    /// Contained in file, not updated.
-    /// </summary>
-    Normal = 0,
+    #region Property System Enumerations
 
     /// <summary>
-    /// Not contained in file.
+    /// Property store cache state
     /// </summary>
-    NotInSource = 1,
+    public enum PropertyStoreCacheState
+    {
+        /// <summary>
+        /// Contained in file, not updated.
+        /// </summary>
+        Normal = 0,
 
-    /// <summary>
-    /// Contained in file, has been updated since file was consumed.
-    /// </summary>
-    Dirty = 2
+        /// <summary>
+        /// Not contained in file.
+        /// </summary>
+        NotInSource = 1,
+
+        /// <summary>
+        /// Contained in file, has been updated since file was consumed.
+        /// </summary>
+        Dirty = 2
+    }
+
+    #endregion
 }
-
-#endregion
