@@ -71,10 +71,7 @@ public class ShellObjectWatcher : IDisposable
         if (Running) { return; }
 
         #region Registration
-        ShellNativeMethods.SHChangeNotifyEntry entry = new();
-        entry.recursively = _recursive;
-
-        entry.pIdl = _shellObject.Pidl;
+        ShellNativeMethods.SHChangeNotifyEntry entry = new() { recursively = _recursive, pIdl = _shellObject.Pidl };
 
         _registrationId = ShellNativeMethods.SHChangeNotifyRegister(
             _listenerHandle,

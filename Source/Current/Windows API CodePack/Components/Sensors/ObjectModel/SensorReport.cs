@@ -40,9 +40,7 @@ public class SensorReport
         long lTimeStamp = (((long)ftTimeStamp.dwHighDateTime) << 32) + (long)ftTimeStamp.dwLowDateTime;
         DateTime timeStamp = DateTime.FromFileTime(lTimeStamp);
 
-        SensorReport sensorReport = new();
-        sensorReport._originator = originator;
-        sensorReport._timeStamp = timeStamp;
+        SensorReport sensorReport = new() { _originator = originator, _timeStamp = timeStamp };
         if (originator != null)
         {
             sensorReport._sensorData = SensorData.FromNativeReport(originator.InternalObject, iReport);

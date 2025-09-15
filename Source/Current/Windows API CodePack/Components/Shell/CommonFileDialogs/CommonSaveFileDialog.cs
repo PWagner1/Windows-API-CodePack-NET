@@ -245,7 +245,7 @@ public sealed class CommonSaveFileDialog : CommonFileDialog
         return _saveDialogCoClass;
     }
 
-    internal override void PopulateWithFileNames(Collection<string?> names)
+    internal override void PopulateWithFileNames(Collection<string?>? names)
     {
         IShellItem? item;
         _saveDialogCoClass.GetResult(out item);

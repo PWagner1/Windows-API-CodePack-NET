@@ -60,11 +60,13 @@ public class GlassForm : Form
             Rectangle clientScreen = RectangleToScreen(ClientRectangle);
             Rectangle controlScreen = control.RectangleToScreen(control.ClientRectangle);
 
-            Margins margins = new();
-            margins.LeftWidth = controlScreen.Left - clientScreen.Left;
-            margins.RightWidth = clientScreen.Right - controlScreen.Right;
-            margins.TopHeight = controlScreen.Top - clientScreen.Top;
-            margins.BottomHeight = clientScreen.Bottom - controlScreen.Bottom;
+            Margins margins = new()
+            {
+                LeftWidth = controlScreen.Left - clientScreen.Left,
+                RightWidth = clientScreen.Right - controlScreen.Right,
+                TopHeight = controlScreen.Top - clientScreen.Top,
+                BottomHeight = clientScreen.Bottom - controlScreen.Bottom
+            };
 
             // Extend the Frame into client area
             DesktopWindowManagerNativeMethods.DwmExtendFrameIntoClientArea(Handle, ref margins);

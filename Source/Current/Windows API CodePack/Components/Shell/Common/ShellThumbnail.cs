@@ -235,13 +235,18 @@ public class ShellThumbnail
         IntPtr hbitmap = IntPtr.Zero;
 
         // Create a size structure to pass to the native method
-        CoreNativeMethods.Size nativeSize = new();
-        nativeSize.Width = Convert.ToInt32(size.Width);
-        nativeSize.Height = Convert.ToInt32(size.Height);
+        CoreNativeMethods.Size nativeSize = new() { Width = Convert.ToInt32(size.Width), Height = Convert.ToInt32(size.Height) };
 
         // Use IShellItemImageFactory to get an icon
         // Options passed in: Resize to fit
-        var hr = ((_shellItemNative as IShellItemImageFactory)!).GetImage(nativeSize, CalculateFlags(), out hbitmap);
+        var imageFactory = _shellItemNative as IShellItemImageFactory;
+        
+        if (imageFactory == null)
+        {
+            throw new InvalidOperationException("ShellItem does not implement IShellItemImageFactory or is null.");
+        }
+
+        var hr = imageFactory.GetImage(nativeSize, CalculateFlags(), out hbitmap);
 
         if (hr == HResult.Ok) { return hbitmap; }
         else if ((uint)hr == 0x8004B200 && FormatOption == ShellThumbnailFormatOption.ThumbnailOnly)

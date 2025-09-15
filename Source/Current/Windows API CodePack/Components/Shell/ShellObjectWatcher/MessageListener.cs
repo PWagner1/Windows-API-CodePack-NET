@@ -77,11 +77,7 @@ internal class MessageListener : IDisposable
 
     private static void RegisterWindowClass()
     {
-        WindowClassEx classEx = new();
-        classEx.ClassName = MessageWindowClassName;
-        classEx.WndProc = wndProc;
-
-        classEx.Size = (uint)Marshal.SizeOf(typeof(WindowClassEx));
+        WindowClassEx classEx = new() { ClassName = MessageWindowClassName, WndProc = wndProc, Size = (uint)Marshal.SizeOf(typeof(WindowClassEx)) };
 
         var atom = ShellObjectWatcherNativeMethods.RegisterClassEx(ref classEx);
         if (atom == 0)

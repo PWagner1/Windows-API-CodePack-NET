@@ -99,7 +99,7 @@ public sealed class ExplorerBrowser :
     /// <summary>
     /// The name of the property bag used to persist changes to the ExplorerBrowser's view state.
     /// </summary>
-    public string PropertyBagName
+    public string? PropertyBagName
     {
         get => _propertyBagName;
         set
@@ -257,7 +257,7 @@ public sealed class ExplorerBrowser :
     /// Applies sorting to search results based on the SearchResultSortOrder property.
     /// </summary>
     /// <param name="searchCondition">The base search condition to apply sorting to.</param>
-    private void ApplySearchResultSorting(SearchCondition searchCondition)
+    private void ApplySearchResultSorting(SearchCondition? searchCondition)
     {
         // This is a placeholder for future implementation
         // The actual sorting would be applied when creating the ShellSearchFolder
@@ -309,8 +309,7 @@ public sealed class ExplorerBrowser :
             {
                 if ((hr == HResult.ResourceInUse || hr == HResult.Canceled) && NavigationFailed != null)
                 {
-                    NavigationFailedEventArgs args = new();
-                    args.FailedLocation = shellObject;
+                    NavigationFailedEventArgs args = new() { FailedLocation = shellObject };
                     NavigationFailed(this, args);
                 }
                 else
@@ -377,7 +376,7 @@ public sealed class ExplorerBrowser :
             );
 
             // Apply search result sorting if specified
-            if (SearchResultSortOrder != SearchResultSortOrder.Relevance)
+            if (SearchOptions.SearchResultSortOrder != SearchResultSortOrder.Relevance)
             {
                 // Apply sorting based on the selected order
                 ApplySearchResultSorting(searchCondition);
@@ -402,7 +401,7 @@ public sealed class ExplorerBrowser :
     /// <param name="searchScope">The scope where to perform the search.</param>
     /// <exception cref="System.ArgumentNullException">Thrown when searchCondition or searchScope is null.</exception>
     /// <exception cref="System.Runtime.InteropServices.COMException">Thrown when search fails for any other reason.</exception>
-    public void Search(SearchCondition searchCondition, ShellContainer searchScope)
+    public void Search(SearchCondition? searchCondition, ShellContainer searchScope)
     {
         if (searchCondition == null)
         {
@@ -617,17 +616,17 @@ public sealed class ExplorerBrowser :
     /// <summary>
     /// Fires when the SelectedItems collection changes. 
     /// </summary>
-    public event EventHandler SelectionChanged;
+    public event EventHandler? SelectionChanged;
 
     /// <summary>
     /// Fires when the Items colection changes. 
     /// </summary>
-    public event EventHandler ItemsChanged;
+    public event EventHandler? ItemsChanged;
 
     /// <summary>
     /// Fires when a navigation has been initiated, but is not yet complete.
     /// </summary>
-    public event EventHandler<NavigationPendingEventArgs> NavigationPending;
+    public event EventHandler<NavigationPendingEventArgs>? NavigationPending;
 
     /// <summary>
     /// Fires when a navigation has been 'completed': no NavigationPending listener 
@@ -635,24 +634,24 @@ public sealed class ExplorerBrowser :
     /// will be populated with new items asynchronously, and ItemsChanged will be 
     /// fired to reflect this some time later.
     /// </summary>
-    public event EventHandler<NavigationCompleteEventArgs> NavigationComplete;
+    public event EventHandler<NavigationCompleteEventArgs>? NavigationComplete;
 
     /// <summary>
     /// Fires when either a NavigationPending listener cancels the navigation, or
     /// if the operating system determines that navigation is not possible.
     /// </summary>
-    public event EventHandler<NavigationFailedEventArgs> NavigationFailed;
+    public event EventHandler<NavigationFailedEventArgs>? NavigationFailed;
 
     /// <summary>
     /// Fires when the ExplorerBorwser view has finished enumerating files.
     /// </summary>
-    public event EventHandler ViewEnumerationComplete;
+    public event EventHandler? ViewEnumerationComplete;
 
     /// <summary>
     /// Fires when the item selected in the view has changed (i.e., a rename ).
     /// This is not the same as SelectionChanged.
     /// </summary>
-    public event EventHandler ViewSelectedItemChanged;
+    public event EventHandler? ViewSelectedItemChanged;
 
     #endregion
 
@@ -665,10 +664,10 @@ public sealed class ExplorerBrowser :
     internal uint EventsCookie;
 
     // name of the property bag that contains the view state options of the browser
-    string _propertyBagName = typeof(ExplorerBrowser).FullName;
+    string? _propertyBagName = typeof(ExplorerBrowser).FullName;
 
     /// <summary>
-    /// Initializes the ExplorerBorwser WinForms wrapper.
+    /// Initializes the ExplorerBrowser WinForms wrapper.
     /// </summary>
     public ExplorerBrowser()
         : base()
@@ -742,11 +741,10 @@ public sealed class ExplorerBrowser :
             // Replace the obsolete ExplorerBrowserViewEvents initialization
             _viewEvents = new ExplorerBrowserViewEvents(this);
 
-            NativeRect rect = new();
-            rect.Top = ClientRectangle.Top;
-            rect.Left = ClientRectangle.Left;
-            rect.Right = ClientRectangle.Right;
-            rect.Bottom = ClientRectangle.Bottom;
+            NativeRect rect = new()
+            {
+                Top = ClientRectangle.Top, Left = ClientRectangle.Left, Right = ClientRectangle.Right, Bottom = ClientRectangle.Bottom
+            };
 
             ExplorerBrowserControl.Initialize(Handle, ref rect, null);
 
@@ -779,11 +777,10 @@ public sealed class ExplorerBrowser :
     {
         if (ExplorerBrowserControl != null)
         {
-            NativeRect rect = new();
-            rect.Top = ClientRectangle.Top;
-            rect.Left = ClientRectangle.Left;
-            rect.Right = ClientRectangle.Right;
-            rect.Bottom = ClientRectangle.Bottom;
+            NativeRect rect = new()
+            {
+                Top = ClientRectangle.Top, Left = ClientRectangle.Left, Right = ClientRectangle.Right, Bottom = ClientRectangle.Bottom
+            };
 
             IntPtr ptr = IntPtr.Zero;
             ExplorerBrowserControl.SetRect(ref ptr, rect);
@@ -801,7 +798,7 @@ public sealed class ExplorerBrowser :
         if (ExplorerBrowserControl != null)
         {
             // unhook events
-            _viewEvents.DisconnectFromView();
+            _viewEvents?.DisconnectFromView();
             ExplorerBrowserControl.Unadvise(EventsCookie);
             ExplorerBrowserNativeMethods.IUnknown_SetSite(ExplorerBrowserControl, null);
 
@@ -951,11 +948,10 @@ public sealed class ExplorerBrowser :
 
         if (NavigationPending != null)
         {
-            NavigationPendingEventArgs args = new();
-
-            // For some special items (like network machines), ShellObject.FromIDList
-            // might return null
-            args.PendingLocation = ShellObjectFactory.Create(pidlFolder);
+            NavigationPendingEventArgs args = new() {
+                // For some special items (like network machines), ShellObject.FromIDList
+                // might return null
+                PendingLocation = ShellObjectFactory.Create(pidlFolder) };
 
             if (args.PendingLocation != null)
             {
@@ -975,7 +971,7 @@ public sealed class ExplorerBrowser :
 
     HResult IExplorerBrowserEvents.OnViewCreated(object psv)
     {
-        _viewEvents.ConnectToView((IShellView)psv);
+        _viewEvents?.ConnectToView((IShellView)psv);
 
         return HResult.Ok;
     }
@@ -987,8 +983,7 @@ public sealed class ExplorerBrowser :
 
         if (NavigationComplete != null)
         {
-            NavigationCompleteEventArgs args = new();
-            args.NewLocation = ShellObjectFactory.Create(pidlFolder);
+            NavigationCompleteEventArgs args = new() { NewLocation = ShellObjectFactory.Create(pidlFolder) };
             NavigationComplete(this, args);
         }
         return HResult.Ok;
@@ -998,8 +993,7 @@ public sealed class ExplorerBrowser :
     {
         if (NavigationFailed != null)
         {
-            NavigationFailedEventArgs args = new();
-            args.FailedLocation = ShellObjectFactory.Create(pidlFolder);
+            NavigationFailedEventArgs args = new() { FailedLocation = ShellObjectFactory.Create(pidlFolder) };
             NavigationFailed(this, args);
         }
         return HResult.Ok;

@@ -1,3 +1,10 @@
+19/09/2025
+
+Version 8.0.10
+* Resolved [#30](https://github.com/PWagner1/Windows-API-CodePack-NET/issues/30), Can't marshall in latest update
+
+=========
+
 15/08/2025
 
 Version 8.0.9

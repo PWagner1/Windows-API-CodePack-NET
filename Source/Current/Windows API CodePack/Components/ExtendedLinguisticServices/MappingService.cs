@@ -43,8 +43,7 @@ public class MappingService
             try
             {
                 guidPtr = Marshal.AllocHGlobal(InteropTools.SizeOfGuid);
-                Win32EnumOptions enumOptions = new Win32EnumOptions();
-                enumOptions._size = InteropTools.SizeOfWin32EnumOptions;
+                Win32EnumOptions enumOptions = new Win32EnumOptions { _size = InteropTools.SizeOfWin32EnumOptions };
                 Marshal.StructureToPtr(serviceIdentifier, guidPtr, false);
                 enumOptions._pGuid = guidPtr;
                 var hResult = Win32NativeMethods.MappingGetServices(ref enumOptions, ref servicePointer, ref serviceCount);

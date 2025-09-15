@@ -65,11 +65,13 @@ public abstract class WpfPreviewHandler : PreviewHandler, IDisposable
         {
             ThrowIfNoControl();
 
-            HwndSourceParameters p = new();
-            p.WindowStyle = (int)(WindowStyles.Child | WindowStyles.Visible | WindowStyles.ClipSiblings);
-            p.ParentWindow = _parentHandle;
-            p.Width = Math.Abs(_bounds.Left - _bounds.Right);
-            p.Height = Math.Abs(_bounds.Top - _bounds.Bottom);
+            HwndSourceParameters p = new()
+            {
+                WindowStyle = (int)(WindowStyles.Child | WindowStyles.Visible | WindowStyles.ClipSiblings),
+                ParentWindow = _parentHandle,
+                Width = Math.Abs(_bounds.Left - _bounds.Right),
+                Height = Math.Abs(_bounds.Top - _bounds.Bottom)
+            };
 
             _source = new(p);
             _source.CompositionTarget.BackgroundColor = Brushes.WhiteSmoke.Color;

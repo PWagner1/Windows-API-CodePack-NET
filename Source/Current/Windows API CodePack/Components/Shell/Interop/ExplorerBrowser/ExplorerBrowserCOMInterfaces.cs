@@ -141,7 +141,7 @@ internal class ExplorerBrowserClass : IExplorerBrowser
     public virtual extern void SetRect([In, Out] ref IntPtr phdwp, NativeRect rcBrowser);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
-    public virtual extern void SetPropertyBag([MarshalAs(UnmanagedType.LPWStr)] string pszPropertyBag);
+    public virtual extern void SetPropertyBag([MarshalAs(UnmanagedType.LPWStr)] string? pszPropertyBag);
 
     [MethodImpl(MethodImplOptions.InternalCall, MethodCodeType = MethodCodeType.Runtime)]
     public virtual extern void SetEmptyText([MarshalAs(UnmanagedType.LPWStr)] string pszEmptyText);

@@ -75,7 +75,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
     // specific COM coclass (e.g. FileOpenDialog or FileSaveDialog).
     internal abstract void InitializeNativeFileDialog();
     internal abstract IFileDialog? GetNativeFileDialog();
-    internal abstract void PopulateWithFileNames(Collection<string?> names);
+    internal abstract void PopulateWithFileNames(Collection<string?>? names);
     internal abstract void PopulateWithIShellItems(Collection<IShellItem> shellItems);
     internal abstract void CleanUpNativeFileDialog();
     internal abstract ShellNativeMethods.FileOpenOptions GetDerivedOptionFlags(ShellNativeMethods.FileOpenOptions flags);
@@ -627,7 +627,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
             // Populate filenames if user didn't cancel.
             if (_filenames != null)
             {
-                PopulateWithFileNames(_filenames);
+                PopulateWithFileNames(_filenames!);
             }
 
             // Populate the actual IShellItems
