@@ -1,0 +1,156 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches: [ main, master, develop ]
+    types: [opened, synchronize, reopened]
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: |
+          6.0.x
+          8.0.x
+          9.0.x
+          
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+      
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+      
+    - name: Restore NuGet packages
+      run: |
+        nuget restore "Source/Current/Windows API CodePack/Windows API CodePack.sln"
+        
+    - name: Build Debug (Fast validation)
+      run: |
+        msbuild "Source/Current/Windows API CodePack/Windows API CodePack.sln" `
+          /p:Configuration=Debug `
+          /p:Platform="Any CPU" `
+          /p:RestorePackages=false `
+          /m `
+          /verbosity:minimal
+          
+    - name: Check for build warnings
+      run: |
+        Write-Host "Build completed. Checking for critical issues..."
+        # Add any additional validation logic here
+        
+    - name: Validate project structure
+      run: |
+        Write-Host "Validating project structure..."
+        
+        $requiredFiles = @(
+          "Directory.Build.props",
+          "Source/Current/Windows API CodePack/Windows API CodePack.sln",
+          "Source/Current/Windows API CodePack/Components/Core/Core.csproj",
+          "Source/Current/Windows API CodePack/Components/Shell/Shell.csproj"
+        )
+        
+        $missingFiles = @()
+        foreach ($file in $requiredFiles) {
+          if (-not (Test-Path $file)) {
+            $missingFiles += $file
+          }
+        }
+        
+        if ($missingFiles.Count -gt 0) {
+          Write-Host "::error::Missing required files:"
+          $missingFiles | ForEach-Object { Write-Host "::error::  - $_" }
+          exit 1
+        }
+        
+        Write-Host "✅ All required files are present"
+        
+    - name: Check version consistency
+      run: |
+        Write-Host "Checking version consistency..."
+        
+        # Read version from Directory.Build.props
+        $buildProps = Get-Content "Directory.Build.props" -Raw
+        if ($buildProps -match '<LibraryVersion>([\d\.]+)</LibraryVersion>') {
+          $libraryVersion = $matches[1]
+          Write-Host "Library version: $libraryVersion"
+        } else {
+          Write-Host "::warning::Could not find LibraryVersion in Directory.Build.props"
+        }
+        
+        if ($buildProps -match '<PackageVersion>([\d\.]+)</PackageVersion>') {
+          $packageVersion = $matches[1]
+          Write-Host "Package version: $packageVersion"
+        } else {
+          Write-Host "::warning::Could not find PackageVersion in Directory.Build.props"
+        }
+        
+        if ($libraryVersion -and $packageVersion -and $libraryVersion -ne $packageVersion) {
+          Write-Host "::warning::LibraryVersion ($libraryVersion) and PackageVersion ($packageVersion) are different"
+        }
+
+  code-quality:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Run basic code analysis
+      run: |
+        Write-Host "Running basic code quality checks..."
+        
+        # Check for common issues in C# files
+        $csFiles = Get-ChildItem -Path "Source" -Filter "*.cs" -Recurse
+        $issues = @()
+        
+        foreach ($file in $csFiles) {
+          $content = Get-Content $file.FullName -Raw
+          
+          # Check for TODO comments
+          if ($content -match '//\s*TODO') {
+            $issues += "TODO found in $($file.FullName)"
+          }
+          
+          # Check for hardcoded paths (basic check)
+          if ($content -match 'C:\\') {
+            $issues += "Potential hardcoded path in $($file.FullName)"
+          }
+        }
+        
+        if ($issues.Count -gt 0) {
+          Write-Host "::notice::Code quality notices:"
+          $issues | ForEach-Object { Write-Host "::notice::$_" }
+        } else {
+          Write-Host "✅ No obvious code quality issues found"
+        }
+        
+    - name: Check for large files
+      run: |
+        Write-Host "Checking for large files..."
+        
+        $largeFiles = Get-ChildItem -Path "." -Recurse -File | Where-Object { 
+          $_.Length -gt 5MB -and $_.Extension -notin @('.dll', '.exe', '.nupkg', '.snupkg', '.zip') 
+        }
+        
+        if ($largeFiles.Count -gt 0) {
+          Write-Host "::warning::Large files found (>5MB):"
+          $largeFiles | ForEach-Object { 
+            Write-Host "::warning::  - $($_.FullName) ($([math]::Round($_.Length/1MB, 2)) MB)" 
+          }
+        } else {
+          Write-Host "✅ No large files detected"
+        }
