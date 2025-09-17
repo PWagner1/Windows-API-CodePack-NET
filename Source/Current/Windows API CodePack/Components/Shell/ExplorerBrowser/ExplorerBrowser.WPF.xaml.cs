@@ -1427,7 +1427,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     /// <summary>
     /// Gets whether the current view is showing search results.
     /// </summary>
-    public bool IsShowingSearchResults => ExplorerBrowserControl?.IsShowingSearchResults ?? false;
+    public bool IsShowingSearchResults => ExplorerBrowserControl?.SearchState.IsShowingSearchResults ?? false;
 
     #endregion
 

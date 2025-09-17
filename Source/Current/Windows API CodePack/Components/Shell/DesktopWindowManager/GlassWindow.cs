@@ -81,11 +81,13 @@ public class GlassWindow : Window
                     element.ActualHeight + nonClientSize.Height));
 
                 // Create a margin structure
-                Margins margins = new();
-                margins.LeftWidth = (int)topLeftFrame.X;
-                margins.RightWidth = (int)(ActualWidth - bottomRightFrame.X);
-                margins.TopHeight = (int)(topLeftFrame.Y);
-                margins.BottomHeight = (int)(ActualHeight - bottomRightFrame.Y);
+                Margins margins = new()
+                {
+                    LeftWidth = (int)topLeftFrame.X,
+                    RightWidth = (int)(ActualWidth - bottomRightFrame.X),
+                    TopHeight = (int)(topLeftFrame.Y),
+                    BottomHeight = (int)(ActualHeight - bottomRightFrame.Y)
+                };
 
                 // Extend the Frame into client area
                 DesktopWindowManagerNativeMethods.DwmExtendFrameIntoClientArea(windowHandle, ref margins);

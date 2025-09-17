@@ -15,7 +15,12 @@ public partial class ShellProperties
         private readonly Hashtable _hashTable = new Hashtable();
 
         /// <inheritdoc />
-        internal PropertySystem(ShellObject? parent = null) => _shellObjectParent = parent;
+        internal PropertySystem(ShellObject? parent = null)
+        {
+            _shellObjectParent = parent;
+            _hashTable = new Hashtable();
+            internalPropertySystemDevice = new PropertySystemDevice(parent);
+        }
 
         #region Properties
 

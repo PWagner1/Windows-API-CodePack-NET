@@ -23,10 +23,12 @@ public class ExplorerBrowserNavigationLog
         _locations.Clear();
         _currentLocationIndex = -1;
 
-        NavigationLogEventArgs args = new();
-        args.LocationsChanged = true;
-        args.CanNavigateBackwardChanged = (oldCanNavigateBackward != CanNavigateBackward);
-        args.CanNavigateForwardChanged = (oldCanNavigateForward != CanNavigateForward);
+        NavigationLogEventArgs args = new()
+        {
+            LocationsChanged = true,
+            CanNavigateBackwardChanged = (oldCanNavigateBackward != CanNavigateBackward),
+            CanNavigateForwardChanged = (oldCanNavigateForward != CanNavigateForward)
+        };
         if (NavigationLogChanged != null)
         {
             NavigationLogChanged(this, args);

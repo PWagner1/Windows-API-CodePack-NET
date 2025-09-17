@@ -296,7 +296,7 @@ public static class SearchConditionFactory
     /// condition tree would typically benefit from setting this parameter to TRUE. </param>
     /// <param name="conditionNodes">Array of subconditions</param>
     /// <returns>New SearchCondition based on the operation</returns>
-    public static SearchCondition CreateAndOrCondition(SearchConditionType conditionType, bool simplify, params SearchCondition[]? conditionNodes)
+    public static SearchCondition CreateAndOrCondition(SearchConditionType conditionType, bool simplify, params SearchCondition?[]? conditionNodes)
     {
         // Same as the native "IConditionFactory:MakeAndOr" method
         IConditionFactory nativeConditionFactory = (IConditionFactory)new ConditionFactoryCoClass();
@@ -308,9 +308,9 @@ public static class SearchConditionFactory
             List<ICondition?> conditionList = new();
             if (conditionNodes != null)
             {
-                foreach (SearchCondition c in conditionNodes)
+                foreach (SearchCondition? c in conditionNodes)
                 {
-                    conditionList.Add(c.NativeSearchCondition);
+                    conditionList.Add(c?.NativeSearchCondition);
                 }
             }
 

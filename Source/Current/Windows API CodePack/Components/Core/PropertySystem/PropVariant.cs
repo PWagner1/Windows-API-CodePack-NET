@@ -697,9 +697,10 @@ public sealed class PropVariant : IDisposable
     private static System.Runtime.InteropServices.ComTypes.FILETIME DateTimeToFileTime(DateTime value)
     {
         long hFt = value.ToFileTime();
-        System.Runtime.InteropServices.ComTypes.FILETIME ft = new();
-        ft.dwLowDateTime = (int)(hFt & 0xFFFFFFFF);
-        ft.dwHighDateTime = (int)(hFt >> 32);
+        System.Runtime.InteropServices.ComTypes.FILETIME ft = new()
+        {
+            dwLowDateTime = (int)(hFt & 0xFFFFFFFF), dwHighDateTime = (int)(hFt >> 32)
+        };
         return ft;
     }
 

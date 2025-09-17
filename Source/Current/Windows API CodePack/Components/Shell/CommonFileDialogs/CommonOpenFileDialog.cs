@@ -135,17 +135,17 @@ public sealed class CommonOpenFileDialog : CommonFileDialog
         }
     }
 
-    internal override void PopulateWithFileNames(Collection<string?> names)
+    internal override void PopulateWithFileNames(Collection<string?>? names)
     {
         IShellItemArray resultsArray;
         uint count;
 
         _openDialogCoClass!.GetResults(out resultsArray);
         resultsArray.GetCount(out count);
-        names.Clear();
+        names?.Clear();
         for (int i = 0; i < count; i++)
         {
-            names.Add(GetFileNameFromShellItem(GetShellItemAt(resultsArray, i)));
+            names?.Add(GetFileNameFromShellItem(GetShellItemAt(resultsArray, i)));
         }
     }
 

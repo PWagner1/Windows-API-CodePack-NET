@@ -403,11 +403,13 @@ public class TabbedThumbnailManager
             return;
         }
 
-        NativeRect rect = new();
-        rect.Left = clippingRectangle.Value.Left;
-        rect.Top = clippingRectangle.Value.Top;
-        rect.Right = clippingRectangle.Value.Right;
-        rect.Bottom = clippingRectangle.Value.Bottom;
+        NativeRect rect = new()
+        {
+            Left = clippingRectangle.Value.Left,
+            Top = clippingRectangle.Value.Top,
+            Right = clippingRectangle.Value.Right,
+            Bottom = clippingRectangle.Value.Bottom
+        };
 
         IntPtr rectPtr = Marshal.AllocCoTaskMem(Marshal.SizeOf(rect));
         try
