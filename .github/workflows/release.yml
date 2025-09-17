@@ -1,0 +1,187 @@
+name: Release and Publish
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., 8.0.10)'
+        required: true
+        type: string
+      publish_to_nuget:
+        description: 'Publish to NuGet.org'
+        required: true
+        type: boolean
+        default: false
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  release:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: |
+          6.0.x
+          8.0.x
+          9.0.x
+          
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+      
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+      
+    - name: Update version (manual trigger)
+      if: github.event_name == 'workflow_dispatch'
+      run: |
+        $version = "${{ github.event.inputs.version }}"
+        Write-Host "Updating version to: $version"
+        
+        # Update Directory.Build.props
+        $buildPropsPath = "Directory.Build.props"
+        $buildPropsContent = Get-Content $buildPropsPath -Raw
+        $buildPropsContent = $buildPropsContent -replace '<LibraryVersion>[\d\.]+</LibraryVersion>', "<LibraryVersion>$version</LibraryVersion>"
+        $buildPropsContent = $buildPropsContent -replace '<PackageVersion>[\d\.]+</PackageVersion>', "<PackageVersion>$version</PackageVersion>"
+        Set-Content -Path $buildPropsPath -Value $buildPropsContent
+        
+        Write-Host "Updated version in Directory.Build.props"
+        
+    - name: Extract version from tag (release trigger)
+      if: github.event_name == 'release'
+      run: |
+        $tagName = "${{ github.event.release.tag_name }}"
+        $version = $tagName -replace '^v', ''
+        Write-Host "Release version: $version"
+        echo "RELEASE_VERSION=$version" >> $env:GITHUB_ENV
+        
+    - name: Restore NuGet packages
+      run: |
+        nuget restore "Source/Current/Windows API CodePack/Windows API CodePack.sln"
+        
+    - name: Build Release
+      run: |
+        msbuild "Source/Current/Windows API CodePack/Windows API CodePack.sln" `
+          /p:Configuration=Release `
+          /p:Platform="Any CPU" `
+          /p:RestorePackages=false `
+          /m `
+          /verbosity:minimal
+          
+    - name: Collect NuGet packages
+      run: |
+        New-Item -ItemType Directory -Force -Path "release-packages"
+        Get-ChildItem -Path "Output/bin/Release" -Filter "*.nupkg" -Recurse | Copy-Item -Destination "release-packages"
+        Get-ChildItem -Path "Output/bin/Release" -Filter "*.snupkg" -Recurse | Copy-Item -Destination "release-packages"
+        
+    - name: List packages to be published
+      run: |
+        Write-Host "Packages ready for release:"
+        Get-ChildItem -Path "release-packages" | ForEach-Object { 
+          Write-Host "  - $($_.Name) ($([math]::Round($_.Length/1KB, 2)) KB)" 
+        }
+        
+    - name: Upload release artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: release-packages
+        path: release-packages/
+        retention-days: 90
+        
+    - name: Publish to NuGet.org
+      if: (github.event_name == 'release') || (github.event_name == 'workflow_dispatch' && github.event.inputs.publish_to_nuget == 'true')
+      run: |
+        if (-not "${{ secrets.NUGET_API_KEY }}") {
+          Write-Host "::warning::NUGET_API_KEY secret not found. Skipping NuGet.org publication."
+          exit 0
+        }
+        
+        Write-Host "Publishing packages to NuGet.org..."
+        Get-ChildItem -Path "release-packages" -Filter "*.nupkg" | ForEach-Object {
+          Write-Host "Publishing $($_.Name)..."
+          dotnet nuget push $_.FullName --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
+        }
+        
+        Write-Host "All packages published successfully!"
+        
+    - name: Publish to GitHub Packages
+      if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
+      run: |
+        Write-Host "Publishing packages to GitHub Packages..."
+        Get-ChildItem -Path "release-packages" -Filter "*.nupkg" | ForEach-Object {
+          Write-Host "Publishing $($_.Name) to GitHub Packages..."
+          dotnet nuget push $_.FullName --api-key "${{ secrets.GITHUB_TOKEN }}" --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --skip-duplicate
+        }
+        
+        Write-Host "All packages published to GitHub Packages!"
+        
+    - name: Create GitHub Release Assets
+      if: github.event_name == 'release'
+      run: |
+        Write-Host "Uploading packages as release assets..."
+        Get-ChildItem -Path "release-packages" | ForEach-Object {
+          gh release upload "${{ github.event.release.tag_name }}" $_.FullName --clobber
+        }
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: Update release notes
+      if: github.event_name == 'release'
+      run: |
+        $releaseNotes = @"
+## Windows API CodePack .NET ${{ github.event.release.tag_name }}
+
+### 📦 NuGet Packages
+
+The following packages have been published:
+
+"@
+        
+        Get-ChildItem -Path "release-packages" -Filter "*.nupkg" | ForEach-Object {
+          $packageName = $_.BaseName -replace '\.[\d\.]+$', ''
+          $releaseNotes += "- [$packageName](https://www.nuget.org/packages/$packageName)`n"
+        }
+        
+        $releaseNotes += @"
+
+### 🚀 Installation
+
+Install via Package Manager Console:
+``````
+Install-Package WindowsAPICodePackCore
+Install-Package WindowsAPICodePackShell
+Install-Package WindowsAPICodePackExtendedLinguisticServices
+Install-Package WindowsAPICodePackSensors
+Install-Package WindowsAPICodePackShellExtensions
+``````
+
+Or via .NET CLI:
+``````
+dotnet add package WindowsAPICodePackCore
+dotnet add package WindowsAPICodePackShell
+``````
+
+### 📋 Supported Frameworks
+
+- .NET Framework 4.6.2, 4.7, 4.7.1, 4.7.2, 4.8, 4.8.1
+- .NET 8.0 (Windows)
+- .NET 9.0 (Windows)
+
+"@
+        
+        # Update the release description
+        gh release edit "${{ github.event.release.tag_name }}" --notes "$releaseNotes"
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

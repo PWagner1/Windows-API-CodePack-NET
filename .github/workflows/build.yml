@@ -1,0 +1,150 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+  workflow_dispatch:
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+        platform: [Any CPU, x64, x86]
+        
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Full history for GitVersion
+        
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: |
+          6.0.x
+          8.0.x
+          9.0.x
+          
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+      
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+      
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v2
+      
+    - name: Restore NuGet packages
+      run: |
+        nuget restore "Source/Current/Windows API CodePack/Windows API CodePack.sln"
+        
+    - name: Build Solution
+      run: |
+        msbuild "Source/Current/Windows API CodePack/Windows API CodePack.sln" `
+          /p:Configuration=${{ matrix.configuration }} `
+          /p:Platform="${{ matrix.platform }}" `
+          /p:RestorePackages=false `
+          /m `
+          /verbosity:minimal
+          
+    - name: Upload build artifacts
+      if: matrix.configuration == 'Release'
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-artifacts-${{ matrix.platform }}-${{ matrix.configuration }}
+        path: |
+          Output/bin/${{ matrix.configuration }}/
+          !Output/bin/${{ matrix.configuration }}/**/*.pdb
+          !Output/bin/${{ matrix.configuration }}/**/obj/
+        retention-days: 7
+
+  package:
+    runs-on: windows-latest
+    needs: build
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: |
+          6.0.x
+          8.0.x
+          9.0.x
+          
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
+      
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+      
+    - name: Restore NuGet packages
+      run: |
+        nuget restore "Source/Current/Windows API CodePack/Windows API CodePack.sln"
+        
+    - name: Build Release
+      run: |
+        msbuild "Source/Current/Windows API CodePack/Windows API CodePack.sln" `
+          /p:Configuration=Release `
+          /p:Platform="Any CPU" `
+          /p:RestorePackages=false `
+          /m `
+          /verbosity:minimal
+          
+    - name: Collect NuGet packages
+      run: |
+        New-Item -ItemType Directory -Force -Path "packages"
+        Get-ChildItem -Path "Output/bin/Release" -Filter "*.nupkg" -Recurse | Copy-Item -Destination "packages"
+        Get-ChildItem -Path "Output/bin/Release" -Filter "*.snupkg" -Recurse | Copy-Item -Destination "packages"
+        
+    - name: Upload NuGet packages
+      uses: actions/upload-artifact@v4
+      with:
+        name: nuget-packages
+        path: packages/
+        retention-days: 30
+        
+    - name: List generated packages
+      run: |
+        Write-Host "Generated NuGet packages:"
+        Get-ChildItem -Path "packages" -Filter "*.nupkg" | ForEach-Object { Write-Host "  - $($_.Name)" }
+        Write-Host "Generated Symbol packages:"
+        Get-ChildItem -Path "packages" -Filter "*.snupkg" | ForEach-Object { Write-Host "  - $($_.Name)" }
+
+  test:
+    runs-on: windows-latest
+    needs: build
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: |
+          6.0.x
+          8.0.x
+          9.0.x
+          
+    # Note: Add test discovery and execution here when test projects are available
+    # Currently the solution doesn't appear to have test projects
+    - name: Run tests (placeholder)
+      run: |
+        Write-Host "No test projects found in the current solution structure."
+        Write-Host "Consider adding test projects to improve code quality and reliability."
