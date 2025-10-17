@@ -1,187 +1,271 @@
-name: Release and Publish
+name: Release
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'v*'
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to release (e.g., 8.0.10)'
+        description: 'Version to release (e.g., 8.0.11)'
         required: true
         type: string
-      publish_to_nuget:
-        description: 'Publish to NuGet.org'
-        required: true
-        type: boolean
+      prerelease:
+        description: 'Mark as prerelease'
+        required: false
         default: false
+        type: boolean
 
 env:
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-  DOTNET_NOLOGO: true
-  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_VERSION: '8.0.x'
+  DOTNET_VERSION_PREVIEW: '9.0.x'
+  SOLUTION_PATH: 'Source/Current/Windows API CodePack/Windows API CodePack.sln'
+  NUGET_SOURCE: 'https://api.nuget.org/v3/index.json'
 
 jobs:
-  release:
+  prepare-release:
+    name: Prepare Release
     runs-on: windows-latest
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      version-with-build: ${{ steps.version.outputs.version-with-build }}
+      build-number: ${{ steps.version.outputs.build-number }}
+      is-prerelease: ${{ steps.version.outputs.is-prerelease }}
+      tag-name: ${{ steps.version.outputs.tag-name }}
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
+    
+    - name: Determine version
+      id: version
+      run: |
+        if ("${{ github.event_name }}" -eq "workflow_dispatch") {
+          $version = "${{ github.event.inputs.version }}"
+          $isPrerelease = "${{ github.event.inputs.prerelease }}" -eq "true"
+        } else {
+          $tagName = "${{ github.ref_name }}"
+          $version = $tagName -replace '^v', ''
+          $isPrerelease = $version -match 'alpha|beta|rc|preview'
+        }
         
+        # Add build number
+        $buildNumber = ${{ github.run_number }}
+        $versionWithBuild = "$version.$buildNumber"
+        
+        $tagName = "v$version"
+        
+        Write-Host "═══════════════════════════════════════════════════════"
+        Write-Host "                  RELEASE INFORMATION"
+        Write-Host "═══════════════════════════════════════════════════════"
+        Write-Host "Version:          $version"
+        Write-Host "Build Number:     $buildNumber"
+        Write-Host "Full Version:     $versionWithBuild"
+        Write-Host "Tag Name:         $tagName"
+        Write-Host "Is Prerelease:    $isPrerelease"
+        Write-Host "═══════════════════════════════════════════════════════"
+        
+        echo "version=$version" >> $env:GITHUB_OUTPUT
+        echo "version-with-build=$versionWithBuild" >> $env:GITHUB_OUTPUT
+        echo "build-number=$buildNumber" >> $env:GITHUB_OUTPUT
+        echo "is-prerelease=$isPrerelease" >> $env:GITHUB_OUTPUT
+        echo "tag-name=$tagName" >> $env:GITHUB_OUTPUT
+      shell: pwsh
+
+  build-and-package:
+    name: Build and Package
+    runs-on: windows-latest
+    needs: prepare-release
+    outputs:
+      version-with-build: ${{ needs.prepare-release.outputs.version-with-build }}
+    
+    strategy:
+      matrix:
+        platform: [Any CPU, x64]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: |
-          6.0.x
-          8.0.x
-          9.0.x
-          
+          ${{ env.DOTNET_VERSION }}
+          ${{ env.DOTNET_VERSION_PREVIEW }}
+    
     - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
-      
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v2
-      
-    - name: Update version (manual trigger)
-      if: github.event_name == 'workflow_dispatch'
+      uses: microsoft/setup-msbuild@v1.3
+    
+    - name: Restore dependencies
       run: |
-        $version = "${{ github.event.inputs.version }}"
-        Write-Host "Updating version to: $version"
-        
-        # Update Directory.Build.props
-        $buildPropsPath = "Directory.Build.props"
-        $buildPropsContent = Get-Content $buildPropsPath -Raw
-        $buildPropsContent = $buildPropsContent -replace '<LibraryVersion>[\d\.]+</LibraryVersion>', "<LibraryVersion>$version</LibraryVersion>"
-        $buildPropsContent = $buildPropsContent -replace '<PackageVersion>[\d\.]+</PackageVersion>', "<PackageVersion>$version</PackageVersion>"
-        Set-Content -Path $buildPropsPath -Value $buildPropsContent
-        
-        Write-Host "Updated version in Directory.Build.props"
-        
-    - name: Extract version from tag (release trigger)
-      if: github.event_name == 'release'
+        dotnet restore "${{ env.SOLUTION_PATH }}" --verbosity normal
+      working-directory: .
+    
+    - name: Build solution
       run: |
-        $tagName = "${{ github.event.release.tag_name }}"
-        $version = $tagName -replace '^v', ''
-        Write-Host "Release version: $version"
-        echo "RELEASE_VERSION=$version" >> $env:GITHUB_ENV
-        
-    - name: Restore NuGet packages
+        dotnet build "${{ env.SOLUTION_PATH }}" `
+          --configuration Release `
+          --platform ${{ matrix.platform }} `
+          --no-restore `
+          --verbosity normal `
+          /p:AssemblyVersion=${{ needs.prepare-release.outputs.version-with-build }} `
+          /p:FileVersion=${{ needs.prepare-release.outputs.version-with-build }} `
+          /p:InformationalVersion=${{ needs.prepare-release.outputs.version-with-build }}+${{ github.sha }}
+      working-directory: .
+    
+    - name: Build C++ DirectX project
       run: |
-        nuget restore "Source/Current/Windows API CodePack/Windows API CodePack.sln"
-        
-    - name: Build Release
+        msbuild "Source/Current/Windows API CodePack/Components/DirectX/DirectX.vcxproj" /p:Configuration=Release /p:Platform=${{ matrix.platform }} /p:PlatformToolset=v143 /verbosity:normal
+      working-directory: .
+    
+    - name: Pack NuGet packages
       run: |
-        msbuild "Source/Current/Windows API CodePack/Windows API CodePack.sln" `
-          /p:Configuration=Release `
-          /p:Platform="Any CPU" `
-          /p:RestorePackages=false `
-          /m `
-          /verbosity:minimal
-          
-    - name: Collect NuGet packages
-      run: |
-        New-Item -ItemType Directory -Force -Path "release-packages"
-        Get-ChildItem -Path "Output/bin/Release" -Filter "*.nupkg" -Recurse | Copy-Item -Destination "release-packages"
-        Get-ChildItem -Path "Output/bin/Release" -Filter "*.snupkg" -Recurse | Copy-Item -Destination "release-packages"
-        
-    - name: List packages to be published
-      run: |
-        Write-Host "Packages ready for release:"
-        Get-ChildItem -Path "release-packages" | ForEach-Object { 
-          Write-Host "  - $($_.Name) ($([math]::Round($_.Length/1KB, 2)) KB)" 
-        }
-        
-    - name: Upload release artifacts
+        dotnet pack "${{ env.SOLUTION_PATH }}" --configuration Release --platform ${{ matrix.platform }} --no-build --verbosity normal --output ./packages
+      working-directory: .
+    
+    - name: Upload packages
       uses: actions/upload-artifact@v4
       with:
-        name: release-packages
-        path: release-packages/
-        retention-days: 90
-        
-    - name: Publish to NuGet.org
-      if: (github.event_name == 'release') || (github.event_name == 'workflow_dispatch' && github.event.inputs.publish_to_nuget == 'true')
+        name: nuget-packages-${{ matrix.platform }}
+        path: packages/
+        retention-days: 30
+
+  publish-nuget:
+    name: Publish to NuGet
+    runs-on: windows-latest
+    needs: [prepare-release, build-and-package]
+    if: github.ref_type == 'tag' || github.event_name == 'workflow_dispatch'
+    
+    steps:
+    - name: Download packages
+      uses: actions/download-artifact@v4
+      with:
+        name: nuget-packages-Any CPU
+        path: ./packages
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    
+    - name: Publish to NuGet
       run: |
-        if (-not "${{ secrets.NUGET_API_KEY }}") {
-          Write-Host "::warning::NUGET_API_KEY secret not found. Skipping NuGet.org publication."
-          exit 0
+        $packages = Get-ChildItem -Path "./packages" -Filter "*.nupkg" | Where-Object { $_.Name -notlike "*symbols*" }
+        foreach ($package in $packages) {
+          Write-Host "Publishing package: $($package.Name)"
+          dotnet nuget push $package.FullName --source ${{ env.NUGET_SOURCE }} --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
         }
-        
-        Write-Host "Publishing packages to NuGet.org..."
-        Get-ChildItem -Path "release-packages" -Filter "*.nupkg" | ForEach-Object {
-          Write-Host "Publishing $($_.Name)..."
-          dotnet nuget push $_.FullName --api-key "${{ secrets.NUGET_API_KEY }}" --source https://api.nuget.org/v3/index.json --skip-duplicate
-        }
-        
-        Write-Host "All packages published successfully!"
-        
-    - name: Publish to GitHub Packages
-      if: github.event_name == 'release' || github.event_name == 'workflow_dispatch'
-      run: |
-        Write-Host "Publishing packages to GitHub Packages..."
-        Get-ChildItem -Path "release-packages" -Filter "*.nupkg" | ForEach-Object {
-          Write-Host "Publishing $($_.Name) to GitHub Packages..."
-          dotnet nuget push $_.FullName --api-key "${{ secrets.GITHUB_TOKEN }}" --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --skip-duplicate
-        }
-        
-        Write-Host "All packages published to GitHub Packages!"
-        
-    - name: Create GitHub Release Assets
-      if: github.event_name == 'release'
-      run: |
-        Write-Host "Uploading packages as release assets..."
-        Get-ChildItem -Path "release-packages" | ForEach-Object {
-          gh release upload "${{ github.event.release.tag_name }}" $_.FullName --clobber
-        }
+      shell: pwsh
       env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Update release notes
-      if: github.event_name == 'release'
+        NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
+
+  create-github-release:
+    name: Create GitHub Release
+    runs-on: windows-latest
+    needs: [prepare-release, build-and-package]
+    if: github.ref_type == 'tag' || github.event_name == 'workflow_dispatch'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Download packages
+      uses: actions/download-artifact@v4
+      with:
+        name: nuget-packages-Any CPU
+        path: ./packages
+    
+    - name: Generate release notes
+      id: release-notes
       run: |
+        $version = "${{ needs.prepare-release.outputs.version }}"
+        $tagName = "${{ needs.prepare-release.outputs.tag-name }}"
+        $isPrerelease = "${{ needs.prepare-release.outputs.is-prerelease }}" -eq "true"
+        
         $releaseNotes = @"
-## Windows API CodePack .NET ${{ github.event.release.tag_name }}
-
-### 📦 NuGet Packages
-
-The following packages have been published:
-
-"@
+        ## Windows API CodePack $version
         
-        Get-ChildItem -Path "release-packages" -Filter "*.nupkg" | ForEach-Object {
-          $packageName = $_.BaseName -replace '\.[\d\.]+$', ''
-          $releaseNotes += "- [$packageName](https://www.nuget.org/packages/$packageName)`n"
-        }
+        ### What's Changed
+        - Updated Windows API CodePack to version $version
+        - Built for .NET Framework 4.6.2-4.8.1 and .NET 8-9
+        - Includes Core, Shell, Sensors, ExtendedLinguisticServices, and ShellExtensions packages
         
-        $releaseNotes += @"
-
-### 🚀 Installation
-
-Install via Package Manager Console:
-``````
-Install-Package WindowsAPICodePackCore
-Install-Package WindowsAPICodePackShell
-Install-Package WindowsAPICodePackExtendedLinguisticServices
-Install-Package WindowsAPICodePackSensors
-Install-Package WindowsAPICodePackShellExtensions
-``````
-
-Or via .NET CLI:
-``````
-dotnet add package WindowsAPICodePackCore
-dotnet add package WindowsAPICodePackShell
-``````
-
-### 📋 Supported Frameworks
-
-- .NET Framework 4.6.2, 4.7, 4.7.1, 4.7.2, 4.8, 4.8.1
-- .NET 8.0 (Windows)
-- .NET 9.0 (Windows)
-
-"@
+        ### Packages Included
         
-        # Update the release description
-        gh release edit "${{ github.event.release.tag_name }}" --notes "$releaseNotes"
+        **Unified Package (All Components):**
+        - WindowsAPICodePack (includes all components below)
+        
+        **Individual Packages:**
+        - WindowsAPICodePackCore
+        - WindowsAPICodePackShell  
+        - WindowsAPICodePackSensors
+        - WindowsAPICodePackExtendedLinguisticServices
+        - WindowsAPICodePackShellExtensions
+        
+        ### Installation
+        
+        **Option 1 - Install everything (Recommended):**
+        ```bash
+        Install-Package WindowsAPICodePack
+        ```
+        
+        **Option 2 - Install individual components:**
+        ```bash
+        Install-Package WindowsAPICodePackCore
+        Install-Package WindowsAPICodePackShell
+        # ... other packages as needed
+        ```
+        
+        ### Requirements
+        - .NET Framework 4.6.2 or later
+        - .NET 8.0 or later
+        - Windows 10/11
+        "@
+        
+        $releaseNotes | Out-File -FilePath "release-notes.md" -Encoding UTF8
+        echo "release-notes-file=release-notes.md" >> $env:GITHUB_OUTPUT
+      shell: pwsh
+    
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
       env:
-        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ needs.prepare-release.outputs.tag-name }}
+        name: Windows API CodePack ${{ needs.prepare-release.outputs.version }}
+        body_path: ${{ steps.release-notes.outputs.release-notes-file }}
+        draft: false
+        prerelease: ${{ needs.prepare-release.outputs.is-prerelease }}
+        files: |
+          packages/*.nupkg
+          packages/*.snupkg
+
+  notify:
+    name: Notify Release
+    runs-on: windows-latest
+    needs: [prepare-release, publish-nuget, create-github-release]
+    if: always() && (needs.publish-nuget.result == 'success' || needs.create-github-release.result == 'success')
+    
+    steps:
+    - name: Notify Success
+      if: needs.publish-nuget.result == 'success' && needs.create-github-release.result == 'success'
+      run: |
+        Write-Host "✅ Release ${{ needs.prepare-release.outputs.version }} published successfully!"
+        Write-Host "📦 NuGet packages published to NuGet.org"
+        Write-Host "🏷️ GitHub release created"
+      shell: pwsh
+    
+    - name: Notify Partial Success
+      if: (needs.publish-nuget.result == 'success' || needs.create-github-release.result == 'success') && (needs.publish-nuget.result != 'success' || needs.create-github-release.result != 'success')
+      run: |
+        Write-Host "⚠️ Release ${{ needs.prepare-release.outputs.version }} completed with warnings"
+        Write-Host "NuGet publish result: ${{ needs.publish-nuget.result }}"
+        Write-Host "GitHub release result: ${{ needs.create-github-release.result }}"
+      shell: pwsh

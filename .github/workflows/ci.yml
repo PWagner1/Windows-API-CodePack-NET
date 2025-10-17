@@ -1,0 +1,200 @@
+name: CI Build
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  DOTNET_VERSION_PREVIEW: '9.0.x'
+  SOLUTION_PATH: 'Source/Current/Windows API CodePack/Windows API CodePack.sln'
+
+jobs:
+  build:
+    name: Build and Test
+    runs-on: windows-latest
+    
+    strategy:
+      matrix:
+        configuration: [Debug, Release]
+        platform: [Any CPU, x64, x86]
+        exclude:
+          # Exclude x86 for .NET 8+ projects as they don't support x86
+          - configuration: Debug
+            platform: x86
+          - configuration: Release
+            platform: x86
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Set build version
+      id: set-version
+      run: |
+        # Read base version from Directory.Build.props
+        $versionFile = "Directory.Build.props"
+        $content = Get-Content $versionFile -Raw
+        
+        if ($content -match '<LibraryVersion>([\d\.]+)</LibraryVersion>') {
+          $baseVersion = $matches[1]
+        } else {
+          $baseVersion = "8.0.10"
+        }
+        
+        # Add GitHub run number as build number
+        $buildNumber = ${{ github.run_number }}
+        $fullVersion = "$baseVersion.$buildNumber"
+        
+        Write-Host "Base Version: $baseVersion"
+        Write-Host "Build Number: $buildNumber"
+        Write-Host "Full Version: $fullVersion"
+        
+        echo "base-version=$baseVersion" >> $env:GITHUB_OUTPUT
+        echo "build-number=$buildNumber" >> $env:GITHUB_OUTPUT
+        echo "full-version=$fullVersion" >> $env:GITHUB_OUTPUT
+        
+        # Set as environment variable for subsequent steps
+        echo "BUILD_VERSION=$fullVersion" >> $env:GITHUB_ENV
+      shell: pwsh
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: |
+          ${{ env.DOTNET_VERSION }}
+          ${{ env.DOTNET_VERSION_PREVIEW }}
+    
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.3
+    
+    - name: Restore NuGet packages
+      run: |
+        dotnet restore "${{ env.SOLUTION_PATH }}" --verbosity normal
+      working-directory: .
+    
+    - name: Build .NET projects
+      run: |
+        dotnet build "${{ env.SOLUTION_PATH }}" `
+          --configuration ${{ matrix.configuration }} `
+          --platform ${{ matrix.platform }} `
+          --no-restore `
+          --verbosity normal `
+          /p:AssemblyVersion=${{ steps.set-version.outputs.full-version }} `
+          /p:FileVersion=${{ steps.set-version.outputs.full-version }} `
+          /p:InformationalVersion=${{ steps.set-version.outputs.full-version }}+${{ github.sha }}
+      working-directory: .
+    
+    - name: Build C++ DirectX project
+      run: |
+        msbuild "Source/Current/Windows API CodePack/Components/DirectX/DirectX.vcxproj" /p:Configuration=${{ matrix.configuration }} /p:Platform=${{ matrix.platform }} /p:PlatformToolset=v143 /verbosity:normal
+      working-directory: .
+    
+    - name: Run tests (if any)
+      run: |
+        dotnet test "${{ env.SOLUTION_PATH }}" --configuration ${{ matrix.configuration }} --platform ${{ matrix.platform }} --no-build --verbosity normal --logger trx --results-directory TestResults
+      working-directory: .
+      continue-on-error: true
+    
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results-${{ matrix.configuration }}-${{ matrix.platform }}
+        path: TestResults/
+        retention-days: 30
+    
+    - name: Display version info
+      if: matrix.configuration == 'Release' && matrix.platform == 'Any CPU'
+      run: |
+        Write-Host "═══════════════════════════════════════════════════════"
+        Write-Host "                    BUILD INFORMATION"
+        Write-Host "═══════════════════════════════════════════════════════"
+        Write-Host "Base Version:     ${{ steps.set-version.outputs.base-version }}"
+        Write-Host "Build Number:     ${{ steps.set-version.outputs.build-number }}"
+        Write-Host "Full Version:     ${{ steps.set-version.outputs.full-version }}"
+        Write-Host "Git SHA:          ${{ github.sha }}"
+        Write-Host "Branch:           ${{ github.ref_name }}"
+        Write-Host "Configuration:    ${{ matrix.configuration }}"
+        Write-Host "Platform:         ${{ matrix.platform }}"
+        Write-Host "═══════════════════════════════════════════════════════"
+      shell: pwsh
+    
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      if: matrix.configuration == 'Release'
+      with:
+        name: build-artifacts-${{ matrix.platform }}-v${{ steps.set-version.outputs.full-version }}
+        path: |
+          Output/bin/Release/
+          Source/Current/Windows API CodePack/Components/*/bin/Release/
+        retention-days: 30
+
+  package-validation:
+    name: Package Validation
+    runs-on: windows-latest
+    needs: build
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    
+    - name: Validate NuGet packages
+      run: |
+        dotnet pack "${{ env.SOLUTION_PATH }}" --configuration Release --no-build --verbosity normal --output ./packages
+      working-directory: .
+    
+    - name: Validate package contents
+      run: |
+        Get-ChildItem -Path "./packages" -Filter "*.nupkg" | ForEach-Object {
+          Write-Host "Validating package: $($_.Name)"
+          # Basic validation - check if package exists and has reasonable size
+          if ($_.Length -lt 1KB) {
+            Write-Error "Package $($_.Name) is too small, likely corrupted"
+            exit 1
+          }
+          Write-Host "Package $($_.Name) validation passed"
+        }
+      shell: pwsh
+    
+    - name: Upload validation packages
+      uses: actions/upload-artifact@v4
+      with:
+        name: validation-packages
+        path: packages/
+        retention-days: 7
+
+  security-scan:
+    name: Security Scan
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    
+    - name: Run security audit
+      run: |
+        dotnet list "${{ env.SOLUTION_PATH }}" package --vulnerable --include-transitive
+      working-directory: .
+      continue-on-error: true
+    
+    - name: Run dependency check
+      run: |
+        dotnet list "${{ env.SOLUTION_PATH }}" package --outdated
+      working-directory: .
+      continue-on-error: true

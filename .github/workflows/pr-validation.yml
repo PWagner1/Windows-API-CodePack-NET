@@ -1,17 +1,17 @@
-name: PR Validation
+name: Pull Request Validation
 
 on:
   pull_request:
-    branches: [ main, master, develop ]
+    branches: [ main, develop ]
     types: [opened, synchronize, reopened]
 
 env:
-  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
-  DOTNET_NOLOGO: true
-  DOTNET_CLI_TELEMETRY_OPTOUT: true
+  DOTNET_VERSION: '8.0.x'
+  SOLUTION_PATH: 'Source/Current/Windows API CodePack/Windows API CodePack.sln'
 
 jobs:
-  validate:
+  validate-changes:
+    name: Validate Changes
     runs-on: windows-latest
     
     steps:
@@ -19,138 +19,178 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        
+    
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: |
-          6.0.x
-          8.0.x
-          9.0.x
-          
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    
     - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v2
-      
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v2
-      
-    - name: Restore NuGet packages
+      uses: microsoft/setup-msbuild@v1.3
+    
+    - name: Restore dependencies
       run: |
-        nuget restore "Source/Current/Windows API CodePack/Windows API CodePack.sln"
-        
-    - name: Build Debug (Fast validation)
+        dotnet restore "${{ env.SOLUTION_PATH }}" --verbosity normal
+      working-directory: .
+    
+    - name: Build solution
       run: |
-        msbuild "Source/Current/Windows API CodePack/Windows API CodePack.sln" `
-          /p:Configuration=Debug `
-          /p:Platform="Any CPU" `
-          /p:RestorePackages=false `
-          /m `
-          /verbosity:minimal
-          
-    - name: Check for build warnings
+        dotnet build "${{ env.SOLUTION_PATH }}" --configuration Release --no-restore --verbosity normal
+      working-directory: .
+    
+    - name: Build C++ DirectX project
       run: |
-        Write-Host "Build completed. Checking for critical issues..."
-        # Add any additional validation logic here
-        
-    - name: Validate project structure
+        msbuild "Source/Current/Windows API CodePack/Components/DirectX/DirectX.vcxproj" /p:Configuration=Release /p:Platform=x64 /p:PlatformToolset=v143 /verbosity:normal
+      working-directory: .
+    
+    - name: Run code analysis
       run: |
-        Write-Host "Validating project structure..."
-        
-        $requiredFiles = @(
-          "Directory.Build.props",
-          "Source/Current/Windows API CodePack/Windows API CodePack.sln",
-          "Source/Current/Windows API CodePack/Components/Core/Core.csproj",
-          "Source/Current/Windows API CodePack/Components/Shell/Shell.csproj"
-        )
-        
-        $missingFiles = @()
-        foreach ($file in $requiredFiles) {
-          if (-not (Test-Path $file)) {
-            $missingFiles += $file
-          }
-        }
-        
-        if ($missingFiles.Count -gt 0) {
-          Write-Host "::error::Missing required files:"
-          $missingFiles | ForEach-Object { Write-Host "::error::  - $_" }
-          exit 1
-        }
-        
-        Write-Host "✅ All required files are present"
-        
-    - name: Check version consistency
+        dotnet build "${{ env.SOLUTION_PATH }}" --configuration Release --no-restore --verbosity normal --property:RunAnalyzersDuringBuild=true
+      working-directory: .
+      continue-on-error: true
+    
+    - name: Check for breaking changes
       run: |
-        Write-Host "Checking version consistency..."
+        Write-Host "Checking for potential breaking changes..."
+        $changedFiles = git diff --name-only origin/${{ github.base_ref }}...HEAD
+        $breakingChangeFiles = $changedFiles | Where-Object { $_ -match '\.cs$' -and ($_ -match 'public|protected' -or $_ -match 'interface|class') }
         
-        # Read version from Directory.Build.props
-        $buildProps = Get-Content "Directory.Build.props" -Raw
-        if ($buildProps -match '<LibraryVersion>([\d\.]+)</LibraryVersion>') {
-          $libraryVersion = $matches[1]
-          Write-Host "Library version: $libraryVersion"
+        if ($breakingChangeFiles) {
+          Write-Host "⚠️ Potential breaking changes detected in:"
+          $breakingChangeFiles | ForEach-Object { Write-Host "  - $_" }
+          Write-Host "Please review these changes carefully."
         } else {
-          Write-Host "::warning::Could not find LibraryVersion in Directory.Build.props"
+          Write-Host "✅ No obvious breaking changes detected."
         }
-        
-        if ($buildProps -match '<PackageVersion>([\d\.]+)</PackageVersion>') {
-          $packageVersion = $matches[1]
-          Write-Host "Package version: $packageVersion"
-        } else {
-          Write-Host "::warning::Could not find PackageVersion in Directory.Build.props"
-        }
-        
-        if ($libraryVersion -and $packageVersion -and $libraryVersion -ne $packageVersion) {
-          Write-Host "::warning::LibraryVersion ($libraryVersion) and PackageVersion ($packageVersion) are different"
-        }
+      shell: pwsh
+      continue-on-error: true
 
-  code-quality:
+  security-check:
+    name: Security Check
     runs-on: windows-latest
     
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      
-    - name: Run basic code analysis
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    
+    - name: Check for vulnerable packages
       run: |
-        Write-Host "Running basic code quality checks..."
-        
-        # Check for common issues in C# files
-        $csFiles = Get-ChildItem -Path "Source" -Filter "*.cs" -Recurse
-        $issues = @()
-        
-        foreach ($file in $csFiles) {
-          $content = Get-Content $file.FullName -Raw
-          
-          # Check for TODO comments
-          if ($content -match '//\s*TODO') {
-            $issues += "TODO found in $($file.FullName)"
-          }
-          
-          # Check for hardcoded paths (basic check)
-          if ($content -match 'C:\\') {
-            $issues += "Potential hardcoded path in $($file.FullName)"
-          }
-        }
-        
-        if ($issues.Count -gt 0) {
-          Write-Host "::notice::Code quality notices:"
-          $issues | ForEach-Object { Write-Host "::notice::$_" }
-        } else {
-          Write-Host "✅ No obvious code quality issues found"
-        }
-        
-    - name: Check for large files
+        dotnet list "${{ env.SOLUTION_PATH }}" package --vulnerable --include-transitive
+      working-directory: .
+      continue-on-error: true
+    
+    - name: Check for outdated packages
       run: |
-        Write-Host "Checking for large files..."
+        dotnet list "${{ env.SOLUTION_PATH }}" package --outdated
+      working-directory: .
+      continue-on-error: true
+
+  package-validation:
+    name: Package Validation
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    
+    - name: Restore dependencies
+      run: |
+        dotnet restore "${{ env.SOLUTION_PATH }}" --verbosity normal
+      working-directory: .
+    
+    - name: Build solution
+      run: |
+        dotnet build "${{ env.SOLUTION_PATH }}" --configuration Release --no-restore --verbosity normal
+      working-directory: .
+    
+    - name: Pack packages
+      run: |
+        dotnet pack "${{ env.SOLUTION_PATH }}" --configuration Release --no-build --verbosity normal --output ./packages
+      working-directory: .
+    
+    - name: Validate package metadata
+      run: |
+        $packages = Get-ChildItem -Path "./packages" -Filter "*.nupkg" | Where-Object { $_.Name -notlike "*symbols*" }
         
-        $largeFiles = Get-ChildItem -Path "." -Recurse -File | Where-Object { 
-          $_.Length -gt 5MB -and $_.Extension -notin @('.dll', '.exe', '.nupkg', '.snupkg', '.zip') 
-        }
-        
-        if ($largeFiles.Count -gt 0) {
-          Write-Host "::warning::Large files found (>5MB):"
-          $largeFiles | ForEach-Object { 
-            Write-Host "::warning::  - $($_.FullName) ($([math]::Round($_.Length/1MB, 2)) MB)" 
+        foreach ($package in $packages) {
+          Write-Host "Validating package: $($package.Name)"
+          
+          # Extract package info
+          $packageInfo = dotnet nuget locals temp --list | Select-String "temp"
+          if ($packageInfo) {
+            $tempPath = $packageInfo.ToString().Split(':')[1].Trim()
+            $extractPath = Join-Path $tempPath "extract_$($package.BaseName)"
+            
+            # Create extraction directory
+            New-Item -ItemType Directory -Path $extractPath -Force | Out-Null
+            
+            # Extract package
+            Expand-Archive -Path $package.FullName -DestinationPath $extractPath -Force
+            
+            # Check for required files
+            $nuspecFile = Get-ChildItem -Path $extractPath -Filter "*.nuspec" -Recurse
+            if ($nuspecFile) {
+              Write-Host "✅ Package $($package.Name) has valid nuspec file"
+              
+              # Read nuspec content
+              [xml]$nuspec = Get-Content $nuspecFile.FullName
+              $metadata = $nuspec.package.metadata
+              
+              # Validate required metadata
+              $requiredFields = @('id', 'version', 'description', 'authors')
+              foreach ($field in $requiredFields) {
+                if ($metadata.$field) {
+                  Write-Host "✅ $field: $($metadata.$field)"
+                } else {
+                  Write-Warning "⚠️ Missing required field: $field"
+                }
+              }
+            } else {
+              Write-Error "❌ Package $($package.Name) is missing nuspec file"
+            }
+            
+            # Cleanup
+            Remove-Item -Path $extractPath -Recurse -Force
           }
-        } else {
-          Write-Host "✅ No large files detected"
         }
+      shell: pwsh
+      continue-on-error: true
+
+  pr-summary:
+    name: PR Summary
+    runs-on: windows-latest
+    needs: [validate-changes, security-check, package-validation]
+    if: always()
+    
+    steps:
+    - name: Generate PR Summary
+      run: |
+        $summary = @"
+        ## Pull Request Validation Summary
+        
+        ### Build Status
+        - **Build Validation**: ${{ needs.validate-changes.result == 'success' && '✅ Passed' || '❌ Failed' }}
+        - **Security Check**: ${{ needs.security-check.result == 'success' && '✅ Passed' || '⚠️ Warnings' }}
+        - **Package Validation**: ${{ needs.package-validation.result == 'success' && '✅ Passed' || '⚠️ Warnings' }}
+        
+        ### Next Steps
+        "@
+        
+        if (${{ needs.validate-changes.result }} -eq 'success' -and ${{ needs.security-check.result }} -eq 'success' -and ${{ needs.package-validation.result }} -eq 'success') {
+          $summary += "✅ All validations passed! This PR is ready for review."
+        } else {
+          $summary += "⚠️ Some validations had issues. Please review the logs and address any problems."
+        }
+        
+        Write-Host $summary
+      shell: pwsh

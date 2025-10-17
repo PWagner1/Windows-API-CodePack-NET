@@ -1,3 +1,13 @@
+17/10/2025
+
+Version 8.0.11
+* Added unified `WindowsAPICodePack` NuGet package containing all components (Core, Shell, Sensors, ExtendedLinguisticServices, ShellExtensions)
+* Implemented automatic build number incrementation using GitHub Actions
+* Enhanced CI/CD workflows with version management
+* Added comprehensive workflow documentation
+
+=========
+
 19/09/2025
 
 Version 8.0.10

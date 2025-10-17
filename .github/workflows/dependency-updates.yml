@@ -1,0 +1,244 @@
+name: Dependency Updates
+
+on:
+  schedule:
+    # Run every Monday at 9 AM UTC
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+    inputs:
+      update_type:
+        description: 'Type of updates to check'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - major
+          - minor
+          - patch
+
+env:
+  DOTNET_VERSION: '8.0.x'
+  SOLUTION_PATH: 'Source/Current/Windows API CodePack/Windows API CodePack.sln'
+
+jobs:
+  check-dependencies:
+    name: Check Dependencies
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    
+    - name: Check for outdated packages
+      id: outdated-packages
+      run: |
+        $outdated = dotnet list "${{ env.SOLUTION_PATH }}" package --outdated --include-transitive
+        $outdated | Out-File -FilePath "outdated-packages.txt" -Encoding UTF8
+        
+        # Count outdated packages
+        $count = ($outdated | Select-String "has the following updates available").Count
+        echo "outdated-count=$count" >> $env:GITHUB_OUTPUT
+        
+        # Check for major updates
+        $majorUpdates = $outdated | Select-String "major"
+        echo "has-major-updates=$($majorUpdates.Count -gt 0)" >> $env:GITHUB_OUTPUT
+      shell: pwsh
+      continue-on-error: true
+    
+    - name: Check for vulnerable packages
+      id: vulnerable-packages
+      run: |
+        $vulnerable = dotnet list "${{ env.SOLUTION_PATH }}" package --vulnerable --include-transitive
+        $vulnerable | Out-File -FilePath "vulnerable-packages.txt" -Encoding UTF8
+        
+        # Count vulnerable packages
+        $count = ($vulnerable | Select-String "has the following vulnerable packages").Count
+        echo "vulnerable-count=$count" >> $env:GITHUB_OUTPUT
+      shell: pwsh
+      continue-on-error: true
+    
+    - name: Upload dependency reports
+      uses: actions/upload-artifact@v4
+      with:
+        name: dependency-reports
+        path: |
+          outdated-packages.txt
+          vulnerable-packages.txt
+        retention-days: 7
+
+  create-issue:
+    name: Create Dependency Update Issue
+    runs-on: windows-latest
+    needs: check-dependencies
+    if: needs.check-dependencies.outputs.outdated-count != '0' || needs.check-dependencies.outputs.vulnerable-count != '0'
+    
+    steps:
+    - name: Download dependency reports
+      uses: actions/download-artifact@v4
+      with:
+        name: dependency-reports
+    
+    - name: Create issue for outdated packages
+      if: needs.check-dependencies.outputs.outdated-count != '0'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const outdatedContent = fs.readFileSync('outdated-packages.txt', 'utf8');
+          
+          const issueBody = `## Dependency Update Report
+          
+          **Generated on:** ${new Date().toISOString()}
+          **Outdated packages:** ${process.env.OUTDATED_COUNT}
+          
+          ### Outdated Packages
+          \`\`\`
+          ${outdatedContent}
+          \`\`\`
+          
+          ### Action Required
+          Please review the outdated packages and update them as needed. Consider:
+          - Testing compatibility with newer versions
+          - Updating to latest stable versions
+          - Addressing any breaking changes
+          
+          ### Labels
+          - dependencies
+          - maintenance
+          `;
+          
+          await github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: `Dependency Updates Available - ${new Date().toLocaleDateString()}`,
+            body: issueBody,
+            labels: ['dependencies', 'maintenance']
+          });
+      env:
+        OUTDATED_COUNT: ${{ needs.check-dependencies.outputs.outdated-count }}
+    
+    - name: Create issue for vulnerable packages
+      if: needs.check-dependencies.outputs.vulnerable-count != '0'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          const vulnerableContent = fs.readFileSync('vulnerable-packages.txt', 'utf8');
+          
+          const issueBody = `## Security Vulnerability Report
+          
+          **Generated on:** ${new Date().toISOString()}
+          **Vulnerable packages:** ${process.env.VULNERABLE_COUNT}
+          
+          ⚠️ **URGENT:** Security vulnerabilities detected!
+          
+          ### Vulnerable Packages
+          \`\`\`
+          ${vulnerableContent}
+          \`\`\`
+          
+          ### Action Required
+          Please immediately review and update the vulnerable packages:
+          - Update to patched versions
+          - Test thoroughly after updates
+          - Consider alternative packages if updates are not available
+          
+          ### Labels
+          - security
+          - urgent
+          - dependencies
+          `;
+          
+          await github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: `🚨 Security Vulnerabilities Detected - ${new Date().toLocaleDateString()}`,
+            body: issueBody,
+            labels: ['security', 'urgent', 'dependencies']
+          });
+      env:
+        VULNERABLE_COUNT: ${{ needs.check-dependencies.outputs.vulnerable-count }}
+
+  update-dependencies:
+    name: Update Dependencies
+    runs-on: windows-latest
+    needs: check-dependencies
+    if: github.event_name == 'workflow_dispatch' && github.event.inputs.update_type != 'all'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+    
+    - name: Update packages
+      run: |
+        $updateType = "${{ github.event.inputs.update_type }}"
+        Write-Host "Updating packages for: $updateType"
+        
+        # Find all project files
+        $projectFiles = Get-ChildItem -Path "Source/Current/Windows API CodePack" -Filter "*.csproj" -Recurse
+        
+        foreach ($project in $projectFiles) {
+          Write-Host "Updating packages in: $($project.FullName)"
+          
+          # Get outdated packages for this project
+          $outdated = dotnet list $project.FullName package --outdated --include-transitive
+          
+          # Extract package names and versions
+          $packages = $outdated | Select-String ">" | ForEach-Object {
+            $line = $_.Line.Trim()
+            if ($line -match '^([^\s]+)\s+([^\s]+)\s+([^\s]+)\s+([^\s]+)') {
+              $packageName = $matches[1]
+              $currentVersion = $matches[2]
+              $latestVersion = $matches[3]
+              $updateType = $matches[4]
+              
+              # Check if this update type matches our criteria
+              if ($updateType -eq "${{ github.event.inputs.update_type }}" -or "${{ github.event.inputs.update_type }}" -eq "all") {
+                Write-Host "Updating $packageName from $currentVersion to $latestVersion ($updateType)"
+                dotnet add $project.FullName package $packageName --version $latestVersion
+              }
+            }
+          }
+        }
+      shell: pwsh
+      continue-on-error: true
+    
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        commit-message: "Update dependencies (${{ github.event.inputs.update_type }} updates)"
+        title: "Update Dependencies - ${{ github.event.inputs.update_type }} updates"
+        body: |
+          ## Dependency Updates
+          
+          This PR updates dependencies with **${{ github.event.inputs.update_type }}** level changes.
+          
+          ### Changes Made
+          - Updated packages to latest versions
+          - Maintained compatibility with existing code
+          
+          ### Testing Required
+          - [ ] Build passes
+          - [ ] All tests pass
+          - [ ] No breaking changes introduced
+          
+          ### Review Checklist
+          - [ ] Review package changes
+          - [ ] Test functionality
+          - [ ] Verify no security issues
+        branch: dependency-updates-${{ github.event.inputs.update_type }}-${{ github.run_number }}
+        delete-branch: true
