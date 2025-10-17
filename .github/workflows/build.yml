@@ -1,10 +1,8 @@
-name: Build and Test
+name: Legacy Build
+# This workflow is deprecated. Please use ci.yml instead.
+# Kept for reference only.
 
 on:
-  push:
-    branches: [ main, master, develop ]
-  pull_request:
-    branches: [ main, master, develop ]
   workflow_dispatch:
 
 env:

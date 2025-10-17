@@ -1,7 +1,7 @@
 # Microsoft Windows API Codepack
 
-[![Build and Test](https://github.com/Wagnerp/Windows-API-CodePack-NET/actions/workflows/build.yml/badge.svg)](https://github.com/Wagnerp/Windows-API-CodePack-NET/actions/workflows/build.yml)
-[![Release and Publish](https://github.com/Wagnerp/Windows-API-CodePack-NET/actions/workflows/release.yml/badge.svg)](https://github.com/Wagnerp/Windows-API-CodePack-NET/actions/workflows/release.yml)
+[![CI Build](https://github.com/Wagnerp/Windows-API-CodePack-NET/actions/workflows/ci.yml/badge.svg)](https://github.com/Wagnerp/Windows-API-CodePack-NET/actions/workflows/ci.yml)
+[![Release](https://github.com/Wagnerp/Windows-API-CodePack-NET/actions/workflows/release.yml/badge.svg)](https://github.com/Wagnerp/Windows-API-CodePack-NET/actions/workflows/release.yml)
 [![NuGet Version](https://img.shields.io/nuget/v/WindowsAPICodePackCore.svg)](https://www.nuget.org/packages/WindowsAPICodePackCore/)
 [![NuGet Downloads](https://img.shields.io/nuget/dt/WindowsAPICodePackCore.svg)](https://www.nuget.org/packages/WindowsAPICodePackCore/)
 

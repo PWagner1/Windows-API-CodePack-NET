@@ -1,0 +1,207 @@
+name: Auto Version Increment
+
+on:
+  push:
+    branches: [ main, develop ]
+  workflow_dispatch:
+    inputs:
+      increment_type:
+        description: 'Version increment type'
+        required: true
+        default: 'patch'
+        type: choice
+        options:
+          - major
+          - minor
+          - patch
+          - build
+
+env:
+  VERSION_FILE: 'Directory.Build.props'
+  TARGETS_FILE: 'Source/Current/Windows API CodePack/Directory.Build.targets'
+
+jobs:
+  increment-version:
+    name: Increment Version
+    runs-on: windows-latest
+    if: ${{ !contains(github.event.head_commit.message, '[skip-version]') }}
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        fetch-depth: 0
+    
+    - name: Setup Git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+    
+    - name: Read current version
+      id: current-version
+      run: |
+        $versionFile = Get-Content "${{ env.VERSION_FILE }}" -Raw
+        
+        if ($versionFile -match '<LibraryVersion>([\d\.]+)</LibraryVersion>') {
+          $currentVersion = $matches[1]
+          Write-Host "Current version: $currentVersion"
+          
+          # Parse version parts
+          $versionParts = $currentVersion.Split('.')
+          $major = [int]$versionParts[0]
+          $minor = [int]$versionParts[1]
+          $patch = if ($versionParts.Count -gt 2) { [int]$versionParts[2] } else { 0 }
+          $build = if ($versionParts.Count -gt 3) { [int]$versionParts[3] } else { 0 }
+          
+          echo "current-version=$currentVersion" >> $env:GITHUB_OUTPUT
+          echo "major=$major" >> $env:GITHUB_OUTPUT
+          echo "minor=$minor" >> $env:GITHUB_OUTPUT
+          echo "patch=$patch" >> $env:GITHUB_OUTPUT
+          echo "build=$build" >> $env:GITHUB_OUTPUT
+        } else {
+          Write-Error "Could not find version in ${{ env.VERSION_FILE }}"
+          exit 1
+        }
+      shell: pwsh
+    
+    - name: Calculate new version
+      id: new-version
+      run: |
+        $major = [int]"${{ steps.current-version.outputs.major }}"
+        $minor = [int]"${{ steps.current-version.outputs.minor }}"
+        $patch = [int]"${{ steps.current-version.outputs.patch }}"
+        $build = [int]"${{ steps.current-version.outputs.build }}"
+        
+        $incrementType = "${{ github.event.inputs.increment_type }}"
+        if (-not $incrementType -or $incrementType -eq "") {
+          # Default to patch increment for automatic pushes
+          $incrementType = "patch"
+        }
+        
+        Write-Host "Increment type: $incrementType"
+        
+        switch ($incrementType) {
+          "major" {
+            $major++
+            $minor = 0
+            $patch = 0
+            $build = 0
+          }
+          "minor" {
+            $minor++
+            $patch = 0
+            $build = 0
+          }
+          "patch" {
+            $patch++
+            $build = 0
+          }
+          "build" {
+            $build++
+          }
+        }
+        
+        # For CI builds, always set build number to GitHub run number
+        $build = ${{ github.run_number }}
+        
+        $newVersion = "$major.$minor.$patch"
+        $newVersionWithBuild = "$major.$minor.$patch.$build"
+        
+        Write-Host "New version: $newVersionWithBuild (base: $newVersion)"
+        
+        echo "version=$newVersion" >> $env:GITHUB_OUTPUT
+        echo "version-with-build=$newVersionWithBuild" >> $env:GITHUB_OUTPUT
+        echo "increment-type=$incrementType" >> $env:GITHUB_OUTPUT
+      shell: pwsh
+    
+    - name: Update version files
+      run: |
+        $newVersion = "${{ steps.new-version.outputs.version }}"
+        $newVersionWithBuild = "${{ steps.new-version.outputs.version-with-build }}"
+        
+        Write-Host "Updating version to: $newVersion (build: $newVersionWithBuild)"
+        
+        # Update Directory.Build.props (root level - base version only)
+        $versionFile = "${{ env.VERSION_FILE }}"
+        $content = Get-Content $versionFile -Raw
+        $content = $content -replace '<LibraryVersion>[\d\.]+</LibraryVersion>', "<LibraryVersion>$newVersion</LibraryVersion>"
+        $content = $content -replace '<PackageVersion>[\d\.]+</PackageVersion>', "<PackageVersion>$newVersion</PackageVersion>"
+        Set-Content -Path $versionFile -Value $content -NoNewline
+        
+        Write-Host "Updated $versionFile"
+        
+        # Update Directory.Build.targets (includes build number)
+        $targetsFile = "${{ env.TARGETS_FILE }}"
+        $content = Get-Content $targetsFile -Raw
+        $content = $content -replace '<AssemblyVersion>[\d\.]+</AssemblyVersion>', "<AssemblyVersion>$newVersionWithBuild</AssemblyVersion>"
+        $content = $content -replace '<FileVersion>[\d\.]+</FileVersion>', "<FileVersion>$newVersionWithBuild</FileVersion>"
+        $content = $content -replace '<PackageVersion>[\d\.]+</PackageVersion>', "<PackageVersion>$newVersion</PackageVersion>"
+        Set-Content -Path $targetsFile -Value $content -NoNewline
+        
+        Write-Host "Updated $targetsFile"
+        
+        # Display changes
+        Write-Host "`nChanges to be committed:"
+        git diff
+      shell: pwsh
+    
+    - name: Commit version changes
+      run: |
+        $newVersion = "${{ steps.new-version.outputs.version }}"
+        $incrementType = "${{ steps.new-version.outputs.increment-type }}"
+        
+        git add "${{ env.VERSION_FILE }}"
+        git add "${{ env.TARGETS_FILE }}"
+        
+        $commitMsg = "chore: bump version to $newVersion ($incrementType) [skip-version]"
+        git commit -m "$commitMsg"
+        
+        Write-Host "Committed version bump: $commitMsg"
+      shell: pwsh
+    
+    - name: Push changes
+      run: |
+        git push origin ${{ github.ref_name }}
+        Write-Host "Version bump pushed successfully"
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Create version tag
+      if: github.ref == 'refs/heads/main' && github.event.inputs.increment_type != 'build'
+      run: |
+        $newVersion = "${{ steps.new-version.outputs.version }}"
+        $tag = "v$newVersion"
+        
+        git tag -a $tag -m "Version $newVersion"
+        git push origin $tag
+        
+        Write-Host "Created and pushed tag: $tag"
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+    - name: Summary
+      run: |
+        $currentVersion = "${{ steps.current-version.outputs.current-version }}"
+        $newVersion = "${{ steps.new-version.outputs.version }}"
+        $newVersionWithBuild = "${{ steps.new-version.outputs.version-with-build }}"
+        
+        Write-Host @"
+        
+        ═══════════════════════════════════════════════════════
+                      VERSION INCREMENT SUMMARY
+        ═══════════════════════════════════════════════════════
+        
+        Previous Version:  $currentVersion
+        New Version:       $newVersion
+        Full Version:      $newVersionWithBuild
+        Increment Type:    ${{ steps.new-version.outputs.increment-type }}
+        Build Number:      ${{ github.run_number }}
+        Branch:            ${{ github.ref_name }}
+        
+        ═══════════════════════════════════════════════════════
+        "@
+      shell: pwsh
+

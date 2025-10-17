@@ -1,0 +1,82 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net462;net47;net471;net472;net48;net481;net8.0-windows;net9.0-windows</TargetFrameworks>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<RootNamespace>Microsoft.WindowsAPICodePack</RootNamespace>
+		<AssemblyName>Microsoft.WindowsAPICodePack</AssemblyName>
+		<UseWindowsForms>True</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Title>WindowsAPICodePack</Title>
+
+		<Description>Complete Windows API Code Pack including Core, Shell, Sensors, Extended Linguistic Services, and Shell Extensions. This unified package contains all components needed for Windows Forms and WPF development with the Windows API Code Pack 1.1, modernized for .NET Framework 4.6.2-4.8.1 and .NET 8-9.</Description>
+
+		<PackageLicenseFile>License.md</PackageLicenseFile>
+
+		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
+
+		<PackageIcon>Windows.png</PackageIcon>
+
+		<PackageProjectUrl>https://github.com/Wagnerp/Windows-API-CodePack-NET</PackageProjectUrl>
+
+		<RepositoryUrl>git</RepositoryUrl>
+
+		<Authors>$(Title)</Authors>
+
+		<PackageId>$(Title)</PackageId>
+
+		<SignAssembly>True</SignAssembly>
+
+		<AssemblyOriginatorKeyFile>WindowsAPICodePack.snk</AssemblyOriginatorKeyFile>
+
+		<IncludeSymbols>True</IncludeSymbols>
+
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+
+		<BaseOutputPath>..\..\..\..\..\Output\bin</BaseOutputPath>
+		
+		<PackageTags>windows;api;shell;taskdialog;vista;win7;win8;win10;win11;sensors;linguistic;explorer</PackageTags>
+	</PropertyGroup>
+
+	<!-- Reference all component projects -->
+	<ItemGroup>
+		<ProjectReference Include="..\Core\Core.csproj" />
+		<ProjectReference Include="..\Shell\Shell.csproj" />
+		<ProjectReference Include="..\Sensors\Sensors.csproj" />
+		<ProjectReference Include="..\ExtendedLinguisticServices\ExtendedLinguisticServices.csproj" />
+		<ProjectReference Include="..\ShellExtensions\ShellExtensions.csproj" />
+	</ItemGroup>
+
+	<!-- Include package assets -->
+	<ItemGroup>
+		<None Update="../../../../../Assets/Documents/Licenses/License.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Update="../../../../../Assets/Icon/PNG/Windows.png">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+		<None Include="Readme.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<!-- Copy the SNK file from Core -->
+	<ItemGroup>
+		<None Include="..\Core\WindowsAPICodePack.snk" Link="WindowsAPICodePack.snk" />
+	</ItemGroup>
+
+</Project>
+

@@ -1,177 +1,226 @@
 # GitHub Actions Workflows
 
-This directory contains GitHub Actions workflows for the Windows API CodePack .NET project.
+This repository includes comprehensive GitHub Actions workflows for building, testing, and releasing the Windows API CodePack project.
 
 ## Workflows Overview
 
-### 🔨 `build.yml` - Build and Test
-**Triggers:** Push to main/master/develop branches, Pull requests, Manual dispatch
+### 1. CI Build (`ci.yml`)
+**Triggers:** Push to main/develop branches, Pull Requests
 
-This workflow:
-- Builds the solution for multiple configurations (Debug/Release) and platforms (Any CPU, x64, x86)
-- Supports all target frameworks (.NET Framework 4.6.2-4.8.1, .NET 8.0-9.0)
-- Handles both managed C# projects and native C++ DirectX project
-- Creates build artifacts for Release builds
-- Generates NuGet packages on main/master branch builds
-- Provides a placeholder for future test execution
+**Features:**
+- Builds all .NET projects (.NET Framework 4.6.2-4.8.1, .NET 8-9)
+- Builds C++ DirectX project (x64, x86 platforms)
+- Runs tests and uploads results
+- Validates NuGet package generation
+- Performs security scans
+- Supports multiple configurations (Debug/Release) and platforms
 
 **Matrix Strategy:**
 - Configuration: Debug, Release
-- Platform: Any CPU, x64, x86
+- Platform: Any CPU, x64, x86 (x86 excluded for .NET 8+)
 
-### 🚀 `release.yml` - Release and Publish
-**Triggers:** Release published, Manual dispatch
+### 2. Release (`release.yml`)
+**Triggers:** Git tags (v*), Manual dispatch
 
-This workflow:
-- Automatically builds and publishes NuGet packages when a GitHub release is created
-- Supports manual version updates via workflow dispatch
-- Publishes to both NuGet.org (if `NUGET_API_KEY` secret is configured) and GitHub Packages
-- Uploads packages as GitHub release assets
-- Automatically updates release notes with package information
+**Features:**
+- Automated version detection from tags
+- Builds and packages all projects
+- Publishes NuGet packages to NuGet.org
+- Creates GitHub releases with release notes
+- Supports prerelease versions
+- Comprehensive error handling and notifications
 
-**Manual Dispatch Options:**
-- `version`: Specify version to release (e.g., "8.0.10")
-- `publish_to_nuget`: Whether to publish to NuGet.org
+**Manual Release:**
+```bash
+# Create a tag
+git tag v8.0.11
+git push origin v8.0.11
 
-### ✅ `pr-validation.yml` - PR Validation
-**Triggers:** Pull request opened/updated
+# Or use workflow dispatch in GitHub UI
+```
 
-This workflow:
-- Performs fast Debug build validation
-- Validates project structure and required files
-- Checks version consistency between configuration files
-- Runs basic code quality checks
-- Identifies large files that might need attention
+### 3. Pull Request Validation (`pr-validation.yml`)
+**Triggers:** Pull Requests to main/develop
+
+**Features:**
+- Validates all changes build successfully
+- Checks for breaking changes
+- Performs security vulnerability scans
+- Validates NuGet package metadata
+- Generates comprehensive PR summary
+
+### 4. Dependency Updates (`dependency-updates.yml`)
+**Triggers:** Weekly schedule (Mondays), Manual dispatch
+
+**Features:**
+- Checks for outdated packages
+- Identifies security vulnerabilities
+- Creates GitHub issues for updates needed
+- Automated dependency updates (manual trigger)
+- Creates PRs for dependency updates
 
 ## Setup Instructions
 
-### Required Secrets
+### 1. Required Secrets
 
-To enable full functionality, configure these repository secrets:
+Add these secrets to your GitHub repository:
 
-1. **`NUGET_API_KEY`** (Optional but recommended)
-   - Your NuGet.org API key for publishing packages
-   - Get from: https://www.nuget.org/account/apikeys
-   - Scope: Push packages
+- `NUGET_API_KEY`: Your NuGet API key for publishing packages
+- `GITHUB_TOKEN`: Automatically provided by GitHub
 
-2. **`GITHUB_TOKEN`** (Automatic)
-   - Automatically provided by GitHub Actions
-   - Used for GitHub Packages publishing and release management
+### 2. Branch Protection Rules
 
-### Setting up Secrets
+Recommended branch protection settings:
 
-1. Go to your repository on GitHub
-2. Navigate to Settings → Secrets and variables → Actions
-3. Click "New repository secret"
-4. Add the secrets mentioned above
+```yaml
+main:
+  required_status_checks:
+    strict: true
+    contexts:
+      - "CI Build"
+      - "Pull Request Validation"
+  enforce_admins: true
+  required_pull_request_reviews:
+    required_approving_review_count: 1
+  restrictions:
+    users: []
+    teams: []
+```
 
-### Branch Protection (Recommended)
+### 3. Workflow Permissions
 
-Consider setting up branch protection rules for `main`/`master`:
+The workflows require these permissions:
+- `actions: write` (for artifacts)
+- `contents: read` (for code checkout)
+- `issues: write` (for dependency update issues)
+- `pull-requests: write` (for PR validation)
 
-1. Go to Settings → Branches
-2. Add a branch protection rule
-3. Enable:
-   - Require a pull request before merging
-   - Require status checks to pass before merging
-   - Select the "build" and "validate" checks
+## Usage Examples
 
-## Package Publishing
+### Creating a Release
 
-### Automatic Publishing (Recommended)
+1. **Automatic Release (Recommended):**
+   ```bash
+   git tag v8.0.11
+   git push origin v8.0.11
+   ```
 
-1. Create a new release on GitHub:
-   - Go to Releases → Create a new release
-   - Create a new tag (e.g., `v8.0.10`)
-   - Add release notes
-   - Publish the release
+2. **Manual Release:**
+   - Go to Actions → Release workflow
+   - Click "Run workflow"
+   - Enter version (e.g., "8.0.11")
+   - Choose prerelease if needed
 
-2. The `release.yml` workflow will automatically:
-   - Build the solution
-   - Generate NuGet packages
-   - Publish to configured package feeds
-   - Update release notes
+### Updating Dependencies
 
-### Manual Publishing
+1. **Check for Updates:**
+   - Workflow runs automatically every Monday
+   - Creates issues for outdated/vulnerable packages
 
-You can also trigger releases manually:
+2. **Manual Update:**
+   - Go to Actions → Dependency Updates workflow
+   - Click "Run workflow"
+   - Choose update type (major/minor/patch/all)
+   - Creates PR with updates
 
-1. Go to Actions → Release and Publish
-2. Click "Run workflow"
-3. Specify the version and publishing options
-4. Run the workflow
+### Validating Pull Requests
 
-## Supported Frameworks
+- Automatically runs on all PRs
+- Provides comprehensive validation report
+- Checks for breaking changes
+- Validates package metadata
 
-The workflows support building for:
+## Workflow Customization
 
-- **.NET Framework:** 4.6.2, 4.7, 4.7.1, 4.7.2, 4.8, 4.8.1
-- **.NET:** 8.0-windows, 9.0-windows
+### Adding New Projects
 
-## Generated Packages
+To add a new .NET project:
 
-The workflows generate these NuGet packages:
+1. Add to solution file
+2. Update `SOLUTION_PATH` in workflows if needed
+3. Ensure project follows naming conventions
 
-- `WindowsAPICodePackCore`
-- `WindowsAPICodePackShell`
-- `WindowsAPICodePackExtendedLinguisticServices`
-- `WindowsAPICodePackSensors`
-- `WindowsAPICodePackShellExtensions`
+### Modifying Build Matrix
 
-Each package includes both the main package (`.nupkg`) and symbol package (`.snupkg`).
+Edit the `strategy.matrix` section in `ci.yml`:
+
+```yaml
+strategy:
+  matrix:
+    configuration: [Debug, Release]
+    platform: [Any CPU, x64, x86]
+    exclude:
+      - configuration: Debug
+        platform: x86
+```
+
+### Customizing Package Publishing
+
+Modify the `publish-nuget` job in `release.yml`:
+
+```yaml
+- name: Publish to NuGet
+  run: |
+    dotnet nuget push *.nupkg --source ${{ env.NUGET_SOURCE }} --api-key ${{ secrets.NUGET_API_KEY }}
+```
 
 ## Troubleshooting
 
-### Build Failures
+### Common Issues
 
-1. Check the build logs in the Actions tab
-2. Verify all required files are present in the repository
-3. Ensure Directory.Build.props has correct version format
+1. **Build Failures:**
+   - Check Visual Studio version compatibility
+   - Verify .NET SDK versions
+   - Review platform-specific build issues
 
-### Publishing Failures
+2. **Package Publishing Issues:**
+   - Verify NuGet API key permissions
+   - Check package version conflicts
+   - Ensure package metadata is complete
 
-1. Verify `NUGET_API_KEY` secret is correctly configured
-2. Check if package versions already exist on NuGet.org
-3. Ensure the API key has sufficient permissions
+3. **C++ Build Issues:**
+   - Verify Visual Studio Build Tools installation
+   - Check Windows SDK version
+   - Review platform toolset compatibility
 
-### DirectX Project Issues
+### Debugging Workflows
 
-The solution includes a native C++ DirectX project that requires:
-- Visual Studio Build Tools with C++ workload
-- Windows SDK
-- The workflow uses MSBuild with appropriate platform configurations
+1. **Enable Debug Logging:**
+   ```yaml
+   - name: Debug step
+     run: |
+       echo "Debug information"
+       dotnet --info
+     env:
+       ACTIONS_STEP_DEBUG: true
+   ```
 
-## Adding Tests
+2. **Check Artifacts:**
+   - Download build artifacts from failed runs
+   - Review logs for specific error messages
 
-To add test execution to the workflows:
-
-1. Add test projects to your solution
-2. Update the `test` job in `build.yml` to discover and run tests
-3. Consider adding test result reporting and code coverage
-
-Example test execution:
-```yaml
-- name: Run tests
-  run: |
-    dotnet test "Source/Current/Windows API CodePack/Windows API CodePack.sln" `
-      --configuration Release `
-      --no-build `
-      --verbosity normal `
-      --logger trx `
-      --results-directory TestResults
-```
-
-## Workflow Status
-
-You can monitor workflow status via:
-- Repository Actions tab
-- Status badges (add to main README.md)
-- Email notifications (configure in GitHub settings)
+3. **Local Testing:**
+   ```bash
+   # Test build locally
+   dotnet build "Windows API CodePack/Windows API CodePack.sln" --configuration Release
+   
+   # Test package generation
+   dotnet pack "Windows API CodePack/Windows API CodePack.sln" --configuration Release
+   ```
 
 ## Contributing
 
-When modifying workflows:
+When contributing to workflows:
+
 1. Test changes in a fork first
-2. Use workflow dispatch for testing
-3. Keep workflows focused and maintainable
-4. Document any new requirements or secrets
+2. Follow YAML best practices
+3. Document any new features
+4. Update this README if needed
+
+## Support
+
+For workflow-related issues:
+- Check GitHub Actions logs
+- Review this documentation
+- Open an issue with detailed error information
+- Include relevant workflow run URLs
