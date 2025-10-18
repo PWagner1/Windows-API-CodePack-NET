@@ -29,9 +29,9 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: |
-          6.0.x
           8.0.x
           9.0.x
+          10.0.x
           
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
@@ -81,9 +81,9 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: |
-          6.0.x
           8.0.x
           9.0.x
+          10.0.x
           
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
@@ -136,9 +136,9 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: |
-          6.0.x
           8.0.x
           9.0.x
+          10.0.x
           
     # Note: Add test discovery and execution here when test projects are available
     # Currently the solution doesn't appear to have test projects

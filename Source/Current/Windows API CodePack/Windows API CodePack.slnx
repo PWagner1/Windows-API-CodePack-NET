@@ -11,6 +11,7 @@
     <Project Path="Components/Sensors/Sensors.csproj" />
     <Project Path="Components/Shell/Shell.csproj" />
     <Project Path="Components/ShellExtensions/ShellExtensions.csproj" />
+    <Project Path="Components/WindowsAPICodePack/WindowsAPICodePack.csproj" />
   </Folder>
   <Folder Name="/Solution Items/">
     <File Path="../../../Assets/Documents/Licenses/License.md" />
@@ -21,6 +22,19 @@
     <File Path=".editorconfig" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Build.targets" />
+  </Folder>
+  <Folder Name="/Solution Items/GitHub/" />
+  <Folder Name="/Solution Items/GitHub/Workflows/">
+    <File Path="../../../.github/workflows/build.yml" />
+    <File Path="../../../.github/workflows/ci.yml" />
+    <File Path="../../../.github/workflows/dependency-updates.yml" />
+    <File Path="../../../.github/workflows/pr-validation.yml" />
+    <File Path="../../../.github/workflows/release.yml" />
+    <File Path="../../../.github/workflows/version-increment.yml" />
+  </Folder>
+  <Folder Name="/Solution Items/Issue Templates/">
+    <File Path="../../../.github/ISSUE_TEMPLATE/bug_report.md" />
+    <File Path="../../../.github/ISSUE_TEMPLATE/feature_request.md" />
   </Folder>
   <Project Path="ScratchProject/ScratchProject.csproj" />
 </Solution>

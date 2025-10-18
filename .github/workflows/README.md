@@ -8,7 +8,7 @@ This repository includes comprehensive GitHub Actions workflows for building, te
 **Triggers:** Push to main/develop branches, Pull Requests
 
 **Features:**
-- Builds all .NET projects (.NET Framework 4.6.2-4.8.1, .NET 8-9)
+- Builds all .NET projects (.NET Framework 4.6.2-4.8.1, .NET 8-10)
 - Builds C++ DirectX project (x64, x86 platforms)
 - Runs tests and uploads results
 - Validates NuGet package generation

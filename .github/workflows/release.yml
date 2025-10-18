@@ -18,7 +18,7 @@ on:
 
 env:
   DOTNET_VERSION: '8.0.x'
-  DOTNET_VERSION_PREVIEW: '9.0.x'
+  DOTNET_VERSION_PREVIEW: '10.0.x'
   SOLUTION_PATH: 'Source/Current/Windows API CodePack/Windows API CodePack.sln'
   NUGET_SOURCE: 'https://api.nuget.org/v3/index.json'
 
@@ -194,7 +194,7 @@ jobs:
         
         ### What's Changed
         - Updated Windows API CodePack to version $version
-        - Built for .NET Framework 4.6.2-4.8.1 and .NET 8-9
+        - Built for .NET Framework 4.6.2-4.8.1 and .NET 8-10
         - Includes Core, Shell, Sensors, ExtendedLinguisticServices, and ShellExtensions packages
         
         ### Packages Included

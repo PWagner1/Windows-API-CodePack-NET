@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net462;net47;net471;net472;net48;net481;net8.0-windows;net9.0-windows</TargetFrameworks>
+		<TargetFrameworks>net462;net47;net471;net472;net48;net481;net8.0-windows;net9.0-windows;net10.0-windows</TargetFrameworks>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -13,15 +13,17 @@
 		<Nullable>enable</Nullable>
 		<AutoGenerateBindingRedirects>True</AutoGenerateBindingRedirects>
 		<LangVersion>latest</LangVersion>
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
 	</PropertyGroup>
 
 	<PropertyGroup>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Title>WindowsAPICodePack</Title>
 
-		<Description>Complete Windows API Code Pack including Core, Shell, Sensors, Extended Linguistic Services, and Shell Extensions. This unified package contains all components needed for Windows Forms and WPF development with the Windows API Code Pack 1.1, modernized for .NET Framework 4.6.2-4.8.1 and .NET 8-9.</Description>
+		<Description>Complete Windows API Code Pack including Core, Shell, Sensors, Extended Linguistic Services, and Shell Extensions. This unified package contains all components needed for Windows Forms and WPF development with the Windows API Code Pack 1.1, modernized for .NET Framework 4.6.2-4.8.1 and .NET 8-10.</Description>
 
 		<PackageLicenseFile>License.md</PackageLicenseFile>
+		<PackageReadmeFile>Readme.md</PackageReadmeFile>
 
 		<PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
 
@@ -48,14 +50,57 @@
 		<PackageTags>windows;api;shell;taskdialog;vista;win7;win8;win10;win11;sensors;linguistic;explorer</PackageTags>
 	</PropertyGroup>
 
-	<!-- Reference all component projects -->
+	<!-- Reference all component projects - include their DLLs in this package -->
 	<ItemGroup>
-		<ProjectReference Include="..\Core\Core.csproj" />
-		<ProjectReference Include="..\Shell\Shell.csproj" />
-		<ProjectReference Include="..\Sensors\Sensors.csproj" />
-		<ProjectReference Include="..\ExtendedLinguisticServices\ExtendedLinguisticServices.csproj" />
-		<ProjectReference Include="..\ShellExtensions\ShellExtensions.csproj" />
+		<ProjectReference Include="..\Core\Core.csproj">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>all</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\Shell\Shell.csproj">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>all</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\Sensors\Sensors.csproj">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>all</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\ExtendedLinguisticServices\ExtendedLinguisticServices.csproj">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>all</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</ProjectReference>
+		<ProjectReference Include="..\ShellExtensions\ShellExtensions.csproj">
+			<ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+			<IncludeAssets>all</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</ProjectReference>
 	</ItemGroup>
+	
+	<!-- Include referenced assemblies and XML docs in the NuGet package -->
+	<PropertyGroup>
+		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);CopyProjectReferencesXmlToPackage</TargetsForTfmSpecificContentInPackage>
+	</PropertyGroup>
+
+	<Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+		<ItemGroup>
+			<!-- Include DLLs from referenced projects -->
+			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
+		</ItemGroup>
+	</Target>
+
+	<Target Name="CopyProjectReferencesXmlToPackage" DependsOnTargets="ResolveReferences">
+		<ItemGroup>
+			<!-- Include XML documentation files from referenced projects -->
+			<_RefXmlFiles Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')->'%(RootDir)%(Directory)%(Filename).xml')" Condition="Exists('%(RootDir)%(Directory)%(Filename).xml')" />
+			<TfmSpecificPackageFile Include="@(_RefXmlFiles)">
+				<PackagePath>lib/$(TargetFramework)/%(Filename)%(Extension)</PackagePath>
+			</TfmSpecificPackageFile>
+		</ItemGroup>
+	</Target>
 
 	<!-- Include package assets -->
 	<ItemGroup>
