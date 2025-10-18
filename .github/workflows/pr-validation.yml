@@ -6,7 +6,7 @@ on:
     types: [opened, synchronize, reopened]
 
 env:
-  DOTNET_VERSION: '8.0.x'
+  DOTNET_VERSION: '10.0.x'
   SOLUTION_PATH: 'Source/Current/Windows API CodePack/Windows API CodePack.sln'
 
 jobs:

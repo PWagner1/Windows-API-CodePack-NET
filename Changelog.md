@@ -1,4 +1,13 @@
-17/10/2025
+19/10/2025
+
+Version 8.0.12
+* Added support for .NET 10
+* Fixed README inclusion in all NuGet packages to comply with NuGet.org requirements
+* Updated package descriptions to reflect .NET 8-10 support
+
+=========
+
+18/10/2025
 
 Version 8.0.11
 * Added unified `WindowsAPICodePack` NuGet package containing all components (Core, Shell, Sensors, ExtendedLinguisticServices, ShellExtensions)

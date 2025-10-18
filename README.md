@@ -6,6 +6,7 @@
 [![NuGet Downloads](https://img.shields.io/nuget/dt/WindowsAPICodePackCore.svg)](https://www.nuget.org/packages/WindowsAPICodePackCore/)
 
 =========================
+
 License
 -------
 
