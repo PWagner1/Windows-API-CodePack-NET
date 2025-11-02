@@ -1,5 +1,11 @@
 namespace Microsoft.WindowsAPICodePack.Dialogs;
 
+/// <summary>
+/// Specifies the default button for a task dialog.
+/// </summary>
+/// <remarks>This enumeration is used to indicate which button in a task dialog is pre-selected  when the dialog
+/// is displayed. The default button is highlighted and can be activated  by pressing the Enter key. If no default
+/// button is specified, the dialog will not  have a pre-selected button.</remarks>
 public enum TaskDialogDefaultButton
 {
     /// <summary>No default button.</summary>

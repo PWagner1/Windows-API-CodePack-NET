@@ -2,6 +2,7 @@
 
 namespace Microsoft.WindowsAPICodePack.Shell;
 
+
 public static class ShellObjectFactory
 {
     /// <summary>
@@ -173,14 +174,30 @@ public static class ShellObjectFactory
             throw new ArgumentNullException(nameof(parsingName));
         }
 
+        // For file system paths, SHCreateItemFromParsingName requires absolute paths.
+        // Convert relative paths to absolute, but preserve shell namespace paths (e.g., ::{GUID})
+        // and absolute URIs as-is.
+        string? normalizedParsingName = parsingName;
+        if (!parsingName.StartsWith("::", StringComparison.Ordinal) && 
+            !Uri.IsWellFormedUriString(parsingName, UriKind.Absolute) &&
+            !Path.IsPathRooted(parsingName))
+        {
+            // This appears to be a relative file system path - convert to absolute
+            normalizedParsingName = ShellHelper.GetAbsolutePath(parsingName);
+        }
+
         // Create a native shellitem from our path
         IShellItem2? nativeShellItem;
         Guid guid = new(ShellIIDGuid.IShellItem2);
-        int retCode = ShellNativeMethods.SHCreateItemFromParsingName(parsingName, IntPtr.Zero, ref guid, out nativeShellItem);
+        int retCode = ShellNativeMethods.SHCreateItemFromParsingName(normalizedParsingName, IntPtr.Zero, ref guid, out nativeShellItem);
 
         if (!CoreErrorHelper.Succeeded(retCode))
         {
-            throw new ShellException(LocalizedMessages.ShellObjectFactoryUnableToCreateItem, Marshal.GetExceptionForHR(retCode));
+            // Include both original and normalized parsing name, and HRESULT for better debugging
+            string errorMessage = normalizedParsingName != parsingName
+                ? $"{LocalizedMessages.ShellObjectFactoryUnableToCreateItem} Parsing Name: '{parsingName}' (normalized: '{normalizedParsingName}'), HRESULT: 0x{retCode:X8}"
+                : $"{LocalizedMessages.ShellObjectFactoryUnableToCreateItem} Parsing Name: '{parsingName}', HRESULT: 0x{retCode:X8}";
+            throw new ShellException(errorMessage, retCode);
         }
         return Create(nativeShellItem);
     }

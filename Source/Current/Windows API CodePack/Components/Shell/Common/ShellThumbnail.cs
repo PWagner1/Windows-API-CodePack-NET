@@ -18,6 +18,11 @@ public class ShellThumbnail
     private readonly IShellItem? _shellItemNative;
 
     /// <summary>
+    /// Parent ShellObject - kept alive to prevent the COM object from being released
+    /// </summary>
+    private readonly ShellObject _parentShellObject;
+
+    /// <summary>
     /// Internal member to keep track of the current size
     /// </summary>
     private System.Windows.Size _currentSize = new(256, 256);
@@ -37,6 +42,7 @@ public class ShellThumbnail
             throw new ArgumentNullException(nameof(shellObject));
         }
 
+        _parentShellObject = shellObject;
         _shellItemNative = shellObject.NativeShellItem;
     }
 

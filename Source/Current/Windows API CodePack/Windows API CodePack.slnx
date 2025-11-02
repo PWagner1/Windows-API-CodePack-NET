@@ -36,5 +36,6 @@
     <File Path="../../../.github/ISSUE_TEMPLATE/bug_report.md" />
     <File Path="../../../.github/ISSUE_TEMPLATE/feature_request.md" />
   </Folder>
+  <Project Path="BugTest/BugTest.csproj" />
   <Project Path="ScratchProject/ScratchProject.csproj" />
 </Solution>

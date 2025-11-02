@@ -4,6 +4,13 @@
 // ReSharper disable InconsistentNaming
 namespace Microsoft.WindowsAPICodePack.ApplicationServices;
 
+/// <summary>
+/// Provides methods for interacting with the Windows Application Restart and Recovery (ARR) APIs. These APIs allow
+/// applications to register for automatic restart and recovery in the event of an unexpected termination.
+/// </summary>
+/// <remarks>This class contains P/Invoke declarations for native Windows functions related to application restart
+/// and recovery. It is intended for internal use and provides low-level access to the ARR functionality. Developers can
+/// use these methods to register recovery callbacks, manage restart behavior, and handle recovery progress.</remarks>
 public static class AppRestartRecoveryNativeMethods
 {
     #region Application Restart and Recovery Definitions

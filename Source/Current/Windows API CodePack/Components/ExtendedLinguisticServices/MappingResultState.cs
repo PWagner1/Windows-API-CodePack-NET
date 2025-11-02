@@ -45,7 +45,6 @@ public struct MappingResultState
     /// <summary>
     /// Compares an Object for value equality.
     /// </summary>
-    /// <param name="obj">Object to compare.</param>
     /// <returns>True if obj is equal to this instance, false otherwise.</returns>
     public override bool Equals(object? obj)
     {
