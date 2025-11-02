@@ -1,9 +1,10 @@
-19/10/2025
+02/11/2025
 
 Version 8.0.12
 * Added support for .NET 10
 * Fixed README inclusion in all NuGet packages to comply with NuGet.org requirements
 * Updated package descriptions to reflect .NET 8-10 support
+* Fixed [#30](https://github.com/PWagner1/Windows-API-CodePack-NET/issues/30), ShellThumbnail COM object marshaling issue - ShellThumbnail now maintains a reference to parent ShellObject to prevent premature COM object release
 
 =========
 
@@ -20,7 +21,7 @@ Version 8.0.11
 19/09/2025
 
 Version 8.0.10
-* Resolved [#30](https://github.com/PWagner1/Windows-API-CodePack-NET/issues/30), Can't marshall in latest update
+* General improvements and bug fixes
 
 =========
 

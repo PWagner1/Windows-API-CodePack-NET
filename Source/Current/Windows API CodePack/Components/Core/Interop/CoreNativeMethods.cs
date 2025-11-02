@@ -266,12 +266,18 @@ public static class CoreNativeMethods
 
     internal const uint StatusAccessDenied = 0xC0000022;
 
-
-
-    public delegate int Wndproc(IntPtr hWnd,
-        uint uMessage,
-        IntPtr wParam,
-        IntPtr lParam);
+    /// <summary>
+    /// Represents a method that processes Windows messages sent to a window.
+    /// </summary>
+    /// <param name="hWnd">A handle to the window receiving the message.</param>
+    /// <param name="uMessage">The message identifier. This specifies the type of message being sent.</param>
+    /// <param name="wParam">Additional message information. The content of this parameter depends on the value of <paramref
+    /// name="uMessage"/>.</param>
+    /// <param name="lParam">Additional message information. The content of this parameter depends on the value of <paramref
+    /// name="uMessage"/>.</param>
+    /// <returns>An integer value that is typically used to indicate the result of processing the message. The meaning of the
+    /// return value depends on the specific message being processed.</returns>
+    public delegate int Wndproc(IntPtr hWnd, uint uMessage, IntPtr wParam, IntPtr lParam);
 
     #endregion
 }

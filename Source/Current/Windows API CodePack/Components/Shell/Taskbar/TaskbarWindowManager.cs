@@ -364,7 +364,7 @@ internal static class TaskbarWindowManager
 
             // capture the bitmap for the given control
             // If the user has already specified us a bitmap to use, use that.
-            IntPtr? hBitmap = taskbarWindow.TabbedThumbnail.CurrentHBitmap == IntPtr.Zero ? GrabBitmap(taskbarWindow, realWindowSize) : taskbarWindow.TabbedThumbnail.CurrentHBitmap;
+            IntPtr hBitmap = taskbarWindow.TabbedThumbnail.CurrentHBitmap == IntPtr.Zero ? GrabBitmap(taskbarWindow, realWindowSize) : taskbarWindow.TabbedThumbnail.CurrentHBitmap;
 
             // If we have a valid parent window handle,
             // calculate the offset so we can place the "peek" bitmap
@@ -465,7 +465,7 @@ internal static class TaskbarWindowManager
                 // Only set the peek bitmap if it's not null. 
                 // If it's null (either we didn't get the bitmap or size was 0),
                 // let DWM handle it
-                if (hBitmap != null)
+                if (hBitmap != IntPtr.Zero)
                 {
                     TabbedThumbnailNativeMethods.SetPeekBitmap(taskbarWindow.WindowToTellTaskbarAbout, hBitmap, taskbarWindow.TabbedThumbnail.DisplayFrameAroundBitmap);
                 }
