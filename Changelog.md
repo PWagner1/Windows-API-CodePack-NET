@@ -1,3 +1,14 @@
+# Changelog
+
+07/12/2025
+
+Version 8.0.14
+* Fixed [#32](https://github.com/PWagner1/Windows-API-CodePack-NET/issues/37), `ShellObjectWatcher` won't Destory
+* Usage of null propagation operator `?.` in several places to improve null safety
+* Alligned binary versions to NuGet package versions
+
+=========
+
 02/11/2025
 
 Version 8.0.12

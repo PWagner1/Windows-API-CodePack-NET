@@ -6,7 +6,7 @@
   </Configurations>
   <Folder Name="/Components/">
     <Project Path="Components/Core/Core.csproj" />
-    <Project Path="Components/DirectX/DirectX.vcxproj" />
+    <Project Path="Components/DirectX/DirectX.vcxproj" Id="3d749320-ed01-45fc-afc8-28e4b640e406" />
     <Project Path="Components/ExtendedLinguisticServices/ExtendedLinguisticServices.csproj" />
     <Project Path="Components/Sensors/Sensors.csproj" />
     <Project Path="Components/Shell/Shell.csproj" />

@@ -85,11 +85,8 @@ public abstract class DialogControl
     {
         Debug.Assert(!string.IsNullOrEmpty(propName), "Property to change was not specified");
 
-        if (HostingDialog != null)
-        {
-            // This will throw if the property change is not allowed.
-            HostingDialog.IsControlPropertyChangeAllowed(propName, this);
-        }
+        // This will throw if the property change is not allowed.
+        HostingDialog?.IsControlPropertyChangeAllowed(propName, this);
     }
 
     ///<summary>
@@ -105,10 +102,7 @@ public abstract class DialogControl
     {
         Debug.Assert(!string.IsNullOrEmpty(propName), "Property changed was not specified");
 
-        if (HostingDialog != null)
-        {
-            HostingDialog.ApplyControlPropertyChange(propName, this);
-        }
+        HostingDialog?.ApplyControlPropertyChange(propName, this);
     }
 
     /// <summary>

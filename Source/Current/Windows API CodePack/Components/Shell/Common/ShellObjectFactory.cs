@@ -2,7 +2,6 @@
 
 namespace Microsoft.WindowsAPICodePack.Shell;
 
-
 public static class ShellObjectFactory
 {
     /// <summary>
@@ -142,10 +141,7 @@ public static class ShellObjectFactory
 
                         new KnownFolderManagerClass().FindFolderFromIDList(pidl, out nativeFolder);
 
-                        if (nativeFolder != null)
-                        {
-                            nativeFolder.GetFolderDefinition(out definition);
-                        }
+                        nativeFolder?.GetFolderDefinition(out definition);
 
                         Monitor.Pulse(padlock);
                     }

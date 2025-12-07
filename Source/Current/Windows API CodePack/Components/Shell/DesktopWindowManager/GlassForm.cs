@@ -97,11 +97,8 @@ public class GlassForm : Form
         if (m.Msg == DWMMessages.WM_DWMCOMPOSITIONCHANGED
             || m.Msg == DWMMessages.WM_DWMNCRENDERINGCHANGED)
         {
-            if (AeroGlassCompositionChanged != null)
-            {
-                AeroGlassCompositionChanged.Invoke(this,
+            AeroGlassCompositionChanged?.Invoke(this,
                     new AeroGlassCompositionChangedEventArgs(AeroGlassCompositionEnabled));
-            }
         }
 
         base.WndProc(ref m);

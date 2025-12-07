@@ -28,7 +28,7 @@ internal static class TaskbarWindowManager
         }
         catch
         {
-            if (temp != null) { temp.Dispose(); }
+            temp?.Dispose();
             throw;
         }
     }
@@ -47,7 +47,7 @@ internal static class TaskbarWindowManager
         }
         catch
         {
-            if (temp != null) { temp.Dispose(); }
+            temp?.Dispose();
             throw;
         }
     }
@@ -750,10 +750,7 @@ internal static class TaskbarWindowManager
         taskbarWindow = preview!.WindowHandle == IntPtr.Zero ? GetTaskbarWindow(preview.WindowsControl, TaskbarProxyWindowType.TabbedThumbnail) : GetTaskbarWindow(preview.WindowHandle, TaskbarProxyWindowType.TabbedThumbnail);
 
         // Update the proxy window for the tabbed thumbnail
-        if (taskbarWindow != null)
-        {
-            taskbarWindow.SetTitle(preview.Title);
-        }
+        taskbarWindow?.SetTitle(preview.Title);
     }
 
     #endregion

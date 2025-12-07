@@ -97,10 +97,7 @@ public class JumpList
     /// </summary>
     public void ClearAllUserTasks()
     {
-        if (_userTasks != null)
-        {
-            _userTasks.Clear();
-        }
+        _userTasks?.Clear();
     }
 
     /// <summary>

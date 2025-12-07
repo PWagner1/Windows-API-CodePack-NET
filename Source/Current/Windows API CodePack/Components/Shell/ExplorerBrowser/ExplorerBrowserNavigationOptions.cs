@@ -36,11 +36,8 @@ public class ExplorerBrowserNavigationOptions
         set
         {
             ExplorerBrowserOptions ebo = (ExplorerBrowserOptions)value;
-            if (_eb.ExplorerBrowserControl != null)
-            {
-                // Always forcing SHOWFRAMES because we handle IExplorerPaneVisibility
-                _eb.ExplorerBrowserControl.SetOptions(ebo | ExplorerBrowserOptions.ShowFrames);
-            }
+            // Always forcing SHOWFRAMES because we handle IExplorerPaneVisibility
+            _eb.ExplorerBrowserControl?.SetOptions(ebo | ExplorerBrowserOptions.ShowFrames);
         }
     }
     #endregion

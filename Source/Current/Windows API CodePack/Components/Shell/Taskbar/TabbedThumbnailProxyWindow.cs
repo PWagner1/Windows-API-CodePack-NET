@@ -73,7 +73,7 @@ internal sealed class TabbedThumbnailProxyWindow : Form, IDisposable
         if (disposing)
         {
             // Dispose managed resources
-            if (TabbedThumbnail != null) { TabbedThumbnail.Dispose(); }
+            TabbedThumbnail?.Dispose();
 
             TabbedThumbnail = null;
 

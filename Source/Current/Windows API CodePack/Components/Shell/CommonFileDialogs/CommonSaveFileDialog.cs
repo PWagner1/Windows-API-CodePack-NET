@@ -122,10 +122,7 @@ public sealed class CommonSaveFileDialog : CommonFileDialog
         IFileSaveDialog? nativeDialog = GetNativeFileDialog() as IFileSaveDialog;
 
         // Get the native IShellItem from ShellObject
-        if (nativeDialog != null)
-        {
-            nativeDialog.SetSaveAsItem(item.NativeShellItem);
-        }
+        nativeDialog?.SetSaveAsItem(item.NativeShellItem);
     }
 
     /// <summary>

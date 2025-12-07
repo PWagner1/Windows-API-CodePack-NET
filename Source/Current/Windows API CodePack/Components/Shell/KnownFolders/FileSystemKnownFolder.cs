@@ -27,10 +27,7 @@ public class FileSystemKnownFolder : ShellFileSystemFolder, IKnownFolder, IDispo
         // Set the native shell item
         // and set it on the base class (ShellObject)
         Guid guid = new(ShellIIDGuid.IShellItem2);
-        if (knownFolderNative != null)
-        {
-            knownFolderNative.GetShellItem(0, ref guid, out nativeShellItem);
-        }
+        knownFolderNative?.GetShellItem(0, ref guid, out nativeShellItem);
     }
 
     #endregion

@@ -46,10 +46,7 @@ public sealed class DialogControlCollection<T> : Collection<T> where T : DialogC
         base.InsertItem(index, control);
 
         // Notify that we've added a control.
-        if (_hostingDialog != null)
-        {
-            _hostingDialog.ApplyCollectionChanged();
-        }
+        _hostingDialog?.ApplyCollectionChanged();
     }
 
     /// <summary>
@@ -74,10 +71,7 @@ public sealed class DialogControlCollection<T> : Collection<T> where T : DialogC
         control.HostingDialog = null;
         base.RemoveItem(index);
 
-        if (_hostingDialog != null)
-        {
-            _hostingDialog.ApplyCollectionChanged();
-        }
+        _hostingDialog?.ApplyCollectionChanged();
     }
 
     /// <summary>

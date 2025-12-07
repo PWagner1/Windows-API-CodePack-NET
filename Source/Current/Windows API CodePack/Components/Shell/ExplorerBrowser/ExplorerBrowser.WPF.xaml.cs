@@ -314,10 +314,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool AutoRefreshSearchResults
     {
         get => ExplorerBrowserControl?.AutoRefreshSearchResults ?? true;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.AutoRefreshSearchResults = value;
-            }
+        set { ExplorerBrowserControl?.AutoRefreshSearchResults = value;
         }
     }
 
@@ -328,10 +325,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public int MaxSearchResults
     {
         get => ExplorerBrowserControl?.MaxSearchResults ?? 0;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.MaxSearchResults = value;
-            }
+        set { ExplorerBrowserControl?.MaxSearchResults = value;
         }
     }
 
@@ -342,10 +336,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool ShowSearchProgress
     {
         get => ExplorerBrowserControl?.ShowSearchProgress ?? true;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.ShowSearchProgress = value;
-            }
+        set { ExplorerBrowserControl?.ShowSearchProgress = value;
         }
     }
 
@@ -356,10 +347,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool CacheSearchResults
     {
         get => ExplorerBrowserControl?.CacheSearchResults ?? true;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.CacheSearchResults = value;
-            }
+        set { ExplorerBrowserControl?.CacheSearchResults = value;
         }
     }
 
@@ -370,10 +358,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public SearchResultSortOrder SearchResultSortOrder
     {
         get => ExplorerBrowserControl?.SearchResultSortOrder ?? SearchResultSortOrder.Relevance;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.SearchResultSortOrder = value;
-            }
+        set { ExplorerBrowserControl?.SearchResultSortOrder = value;
         }
     }
 
@@ -386,12 +371,9 @@ public partial class ExplorerBrowser : UserControl, IDisposable
         get => ExplorerBrowserControl?.GroupSearchResultsByType == SearchResultGrouping.ByFileType;
         set
         {
-            if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.GroupSearchResultsByType = value
+            ExplorerBrowserControl?.GroupSearchResultsByType = value
                     ? SearchResultGrouping.ByFileType
                     : SearchResultGrouping.None;
-            }
         }
     }
 
@@ -402,10 +384,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool ShowFilePreviews
     {
         get => ExplorerBrowserControl?.ShowFilePreviews ?? true;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.ShowFilePreviews = value;
-            }
+        set { ExplorerBrowserControl?.ShowFilePreviews = value;
         }
     }
 
@@ -416,10 +395,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public int SearchResultThumbnailSize
     {
         get => ExplorerBrowserControl?.SearchResultThumbnailSize ?? 96;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.SearchResultThumbnailSize = value;
-            }
+        set { ExplorerBrowserControl?.SearchResultThumbnailSize = value;
         }
     }
 
@@ -430,10 +406,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool EnableIncrementalSearch
     {
         get => ExplorerBrowserControl?.EnableIncrementalSearch ?? false;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.EnableIncrementalSearch = value;
-            }
+        set { ExplorerBrowserControl?.EnableIncrementalSearch = value;
         }
     }
 
@@ -444,10 +417,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public int IncrementalSearchDelay
     {
         get => ExplorerBrowserControl?.IncrementalSearchDelay ?? 500;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.IncrementalSearchDelay = value;
-            }
+        set { ExplorerBrowserControl?.IncrementalSearchDelay = value;
         }
     }
 
@@ -458,10 +428,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool ShowSearchSuggestions
     {
         get => ExplorerBrowserControl?.ShowSearchSuggestions ?? true;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.ShowSearchSuggestions = value;
-            }
+        set { ExplorerBrowserControl?.ShowSearchSuggestions = value;
         }
     }
 
@@ -472,10 +439,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public int MaxSearchSuggestions
     {
         get => ExplorerBrowserControl?.MaxSearchSuggestions ?? 10;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.MaxSearchSuggestions = value;
-            }
+        set { ExplorerBrowserControl?.MaxSearchSuggestions = value;
         }
     }
 
@@ -486,10 +450,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool HighlightSearchTerms
     {
         get => ExplorerBrowserControl?.HighlightSearchTerms ?? true;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.HighlightSearchTerms = value;
-            }
+        set { ExplorerBrowserControl?.HighlightSearchTerms = value;
         }
     }
 
@@ -500,10 +461,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool EnableAdvancedSearchFilters
     {
         get => ExplorerBrowserControl?.EnableAdvancedSearchFilters ?? true;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.EnableAdvancedSearchFilters = value;
-            }
+        set { ExplorerBrowserControl?.EnableAdvancedSearchFilters = value;
         }
     }
 
@@ -514,10 +472,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool RememberSearchHistory
     {
         get => ExplorerBrowserControl?.RememberSearchHistory ?? true;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.RememberSearchHistory = value;
-            }
+        set { ExplorerBrowserControl?.RememberSearchHistory = value;
         }
     }
 
@@ -528,10 +483,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public int MaxSearchHistoryEntries
     {
         get => ExplorerBrowserControl?.MaxSearchHistoryEntries ?? 50;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.MaxSearchHistoryEntries = value;
-            }
+        set { ExplorerBrowserControl?.MaxSearchHistoryEntries = value;
         }
     }
 
@@ -542,10 +494,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool EnableSearchResultExport
     {
         get => ExplorerBrowserControl?.EnableSearchResultExport ?? false;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.EnableSearchResultExport = value;
-            }
+        set { ExplorerBrowserControl?.EnableSearchResultExport = value;
         }
     }
 
@@ -556,10 +505,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool ShowSearchStatistics
     {
         get => ExplorerBrowserControl?.ShowSearchStatistics ?? true;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.ShowSearchStatistics = value;
-            }
+        set { ExplorerBrowserControl?.ShowSearchStatistics = value;
         }
     }
 
@@ -570,10 +516,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool EnableSearchResultSharing
     {
         get => ExplorerBrowserControl?.EnableSearchResultSharing ?? false;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.EnableSearchResultSharing = value;
-            }
+        set { ExplorerBrowserControl?.EnableSearchResultSharing = value;
         }
     }
 
@@ -584,10 +527,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool ShowSearchResultContextMenu
     {
         get => ExplorerBrowserControl?.ShowSearchResultContextMenu ?? true;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.ShowSearchResultContextMenu = value;
-            }
+        set { ExplorerBrowserControl?.ShowSearchResultContextMenu = value;
         }
     }
 
@@ -598,10 +538,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool EnableSearchResultDragDrop
     {
         get => ExplorerBrowserControl?.EnableSearchResultDragDrop ?? true;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.EnableSearchResultDragDrop = value;
-            }
+        set { ExplorerBrowserControl?.EnableSearchResultDragDrop = value;
         }
     }
 
@@ -612,10 +549,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool ShowSearchResultTooltips
     {
         get => ExplorerBrowserControl?.ShowSearchResultTooltips ?? true;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.ShowSearchResultTooltips = value;
-            }
+        set { ExplorerBrowserControl?.ShowSearchResultTooltips = value;
         }
     }
 
@@ -626,10 +560,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool PersistSearchResultSelection
     {
         get => ExplorerBrowserControl?.PersistSearchResultSelection ?? false;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.PersistSearchResultSelection = value;
-            }
+        set { ExplorerBrowserControl?.PersistSearchResultSelection = value;
         }
     }
 
@@ -640,10 +571,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool ShowSearchResultCount
     {
         get => ExplorerBrowserControl?.ShowSearchResultCount ?? true;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.ShowSearchResultCount = value;
-            }
+        set { ExplorerBrowserControl?.ShowSearchResultCount = value;
         }
     }
     /// <summary>
@@ -653,10 +581,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public bool EnableVirtualScrolling
     {
         get => ExplorerBrowserControl?.EnableVirtualScrolling ?? true;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.EnableVirtualScrolling = value;
-            }
+        set { ExplorerBrowserControl?.EnableVirtualScrolling = value;
         }
     }
 
@@ -667,10 +592,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     public int VirtualScrollingPageSize
     {
         get => ExplorerBrowserControl?.VirtualScrollingPageSize ?? 100;
-        set { if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.VirtualScrollingPageSize = value;
-            }
+        set { ExplorerBrowserControl?.VirtualScrollingPageSize = value;
         }
     }
 
@@ -1450,15 +1372,9 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     {
         if (disposed)
         {
-            if (_itemsChanged != null)
-            {
-                _itemsChanged.Close();
-            }
+            _itemsChanged?.Close();
 
-            if (_selectionChanged != null)
-            {
-                _selectionChanged.Close();
-            }
+            _selectionChanged?.Close();
         }
     }
 

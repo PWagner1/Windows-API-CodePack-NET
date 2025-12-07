@@ -385,7 +385,7 @@ public class ShellProperty<T> : IShellProperty
                     NativePropertyStore?.GetValue(ref _propertyKey, propVar);
                 }
 
-                return propVar != null ? propVar.Value : null;
+                return propVar?.Value;
             }
         }
     }

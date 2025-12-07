@@ -23,10 +23,7 @@ internal static class MessageManager
     internal static void RegisterPowerEvent(Guid eventId, EventHandler eventToRegister)
     {
         EnsureInitialized();
-        if (_window != null)
-        {
-            _window.RegisterPowerEvent(eventId, eventToRegister);
-        }
+        _window?.RegisterPowerEvent(eventId, eventToRegister);
     }
 
     /// <summary>
@@ -37,10 +34,7 @@ internal static class MessageManager
     internal static void UnregisterPowerEvent(Guid eventId, EventHandler eventToUnregister)
     {
         EnsureInitialized();
-        if (_window != null)
-        {
-            _window.UnregisterPowerEvent(eventId, eventToUnregister);
-        }
+        _window?.UnregisterPowerEvent(eventId, eventToUnregister);
     }
 
     #endregion
@@ -103,10 +97,7 @@ internal static class MessageManager
                     // ReSharper restore ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
                 {
                     ArrayList? currList = (ArrayList)_eventList[eventId];
-                    if (currList != null)
-                    {
-                        currList.Add(eventToRegister);
-                    }
+                    currList?.Add(eventToRegister);
                 }
             }
             _readerWriterLock.ReleaseWriterLock();
@@ -127,10 +118,7 @@ internal static class MessageManager
             if (_eventList.Contains(eventId))
             {
                 ArrayList currList = (ArrayList)_eventList[eventId];
-                if (currList != null)
-                {
-                    currList.Remove(eventToUnregister);
-                }
+                currList?.Remove(eventToUnregister);
             }
             else
             {
@@ -151,10 +139,7 @@ internal static class MessageManager
             {
                 foreach (EventHandler handler in eventHandlerList)
                 {
-                    if (handler != null)
-                    {
-                        handler.Invoke(null, new());
-                    }
+                    handler?.Invoke(null, new());
                 }
             }
         }

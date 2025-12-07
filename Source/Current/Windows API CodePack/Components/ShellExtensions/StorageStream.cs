@@ -192,10 +192,7 @@ public class StorageStream : Stream, IDisposable
         IntPtr ptr = Marshal.AllocCoTaskMem(sizeof(long));
         try
         {
-            if (_stream != null)
-            {
-                _stream.Seek(offset, (int)origin, ptr);
-            }
+            _stream?.Seek(offset, (int)origin, ptr);
             return Marshal.ReadInt64(ptr);
         }
         finally
@@ -211,10 +208,7 @@ public class StorageStream : Stream, IDisposable
     public override void SetLength(long value)
     {
         ThrowIfDisposed();
-        if (_stream != null)
-        {
-            _stream.SetSize(value);
-        }
+        _stream?.SetSize(value);
     }
 
     /// <summary>
@@ -222,10 +216,7 @@ public class StorageStream : Stream, IDisposable
     /// </summary>
     public override void Flush()
     {
-        if (_stream != null)
-        {
-            _stream.Commit((int)StorageStreamCommitOptions.None);
-        }
+        _stream?.Commit((int)StorageStreamCommitOptions.None);
     }
 
     /// <summary>

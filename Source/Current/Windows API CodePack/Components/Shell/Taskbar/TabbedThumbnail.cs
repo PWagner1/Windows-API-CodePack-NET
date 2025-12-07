@@ -531,7 +531,7 @@ public class TabbedThumbnail : IDisposable
         {
             _taskbarWindow = null;
 
-            if (Icon != null) { Icon.Dispose(); }
+            Icon?.Dispose();
             Icon = null;
 
             _title = null;

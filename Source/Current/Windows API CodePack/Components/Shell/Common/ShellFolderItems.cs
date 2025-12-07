@@ -91,10 +91,7 @@ class ShellFolderItems : IEnumerator<ShellObject>
     /// </summary>
     public void Reset()
     {
-        if (_nativeEnumIdList != null)
-        {
-            _nativeEnumIdList.Reset();
-        }
+        _nativeEnumIdList?.Reset();
     }
 
 

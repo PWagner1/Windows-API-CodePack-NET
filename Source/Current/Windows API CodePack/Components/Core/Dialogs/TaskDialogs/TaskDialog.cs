@@ -78,10 +78,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
             _text = value;
             if (NativeDialogShowing)
             {
-                if (_nativeDialog != null)
-                {
-                    _nativeDialog.UpdateText(_text);
-                }
+                _nativeDialog?.UpdateText(_text);
             }
         }
     }
@@ -99,10 +96,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
             _instructionText = value;
             if (NativeDialogShowing)
             {
-                if (_nativeDialog != null)
-                {
-                    _nativeDialog.UpdateInstruction(_instructionText);
-                }
+                _nativeDialog?.UpdateInstruction(_instructionText);
             }
         }
     }
@@ -134,10 +128,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
             _footerText = value;
             if (NativeDialogShowing)
             {
-                if (_nativeDialog != null)
-                {
-                    _nativeDialog.UpdateFooterText(_footerText);
-                }
+                _nativeDialog?.UpdateFooterText(_footerText);
             }
         }
     }
@@ -169,10 +160,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
             _detailsExpandedText = value;
             if (NativeDialogShowing)
             {
-                if (_nativeDialog != null)
-                {
-                    _nativeDialog.UpdateExpandedText(_detailsExpandedText);
-                }
+                _nativeDialog?.UpdateExpandedText(_detailsExpandedText);
             }
         }
     }
@@ -246,10 +234,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
             _icon = value;
             if (NativeDialogShowing)
             {
-                if (_nativeDialog != null)
-                {
-                    _nativeDialog.UpdateMainIcon(_icon);
-                }
+                _nativeDialog?.UpdateMainIcon(_icon);
             }
         }
     }
@@ -267,10 +252,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
             _footerIcon = value;
             if (NativeDialogShowing)
             {
-                if (_nativeDialog != null)
-                {
-                    _nativeDialog.UpdateFooterIcon(_footerIcon);
-                }
+                _nativeDialog?.UpdateFooterIcon(_footerIcon);
             }
         }
     }
@@ -646,10 +628,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
             throw new InvalidOperationException(LocalizedMessages.TaskDialogCloseNonShowing);
         }
 
-        if (_nativeDialog != null)
-        {
-            _nativeDialog.NativeClose(TaskDialogResult.Cancel);
-        }
+        _nativeDialog?.NativeClose(TaskDialogResult.Cancel);
         // TaskDialog's own cleanup code - 
         // which runs post show - will handle disposal of native dialog.
     }
@@ -666,10 +645,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
             throw new InvalidOperationException(LocalizedMessages.TaskDialogCloseNonShowing);
         }
 
-        if (_nativeDialog != null)
-        {
-            _nativeDialog.NativeClose(closingResult);
-        }
+        _nativeDialog?.NativeClose(closingResult);
         // TaskDialog's own cleanup code - 
         // which runs post show - will handle disposal of native dialog.
     }
@@ -1085,29 +1061,20 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
                     case "State":
                         if (_progressBar != null)
                         {
-                            if (_nativeDialog != null)
-                            {
-                                _nativeDialog.UpdateProgressBarState(_progressBar.State);
-                            }
+                            _nativeDialog?.UpdateProgressBarState(_progressBar.State);
                         }
                         break;
                     case "Value":
                         if (_progressBar != null)
                         {
-                            if (_nativeDialog != null)
-                            {
-                                _nativeDialog.UpdateProgressBarValue(_progressBar.Value);
-                            }
+                            _nativeDialog?.UpdateProgressBarValue(_progressBar.Value);
                         }
                         break;
                     case "Minimum":
                     case "Maximum":
                         if (_progressBar != null)
                         {
-                            if (_nativeDialog != null)
-                            {
-                                _nativeDialog.UpdateProgressBarRange(_progressBar.Minimum, _progressBar.Maximum);
-                            }
+                            _nativeDialog?.UpdateProgressBarRange(_progressBar.Minimum, _progressBar.Maximum);
                         }
                         break;
                     default:
@@ -1120,16 +1087,10 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
                 switch (propertyName)
                 {
                     case "ShowElevationIcon":
-                        if (_nativeDialog != null)
-                        {
-                            _nativeDialog.UpdateElevationIcon(button.Id, button.UseElevationIcon);
-                        }
+                        _nativeDialog?.UpdateElevationIcon(button.Id, button.UseElevationIcon);
                         break;
                     case "Enabled":
-                        if (_nativeDialog != null)
-                        {
-                            _nativeDialog.UpdateButtonEnabled(button.Id, button.Enabled);
-                        }
+                        _nativeDialog?.UpdateButtonEnabled(button.Id, button.Enabled);
                         break;
                     default:
                         Debug.Assert(true, "Unknown property being set");
@@ -1173,7 +1134,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
         // If a custom button was found, 
         // raise the event - if not, it's a standard button, and
         // we don't support custom event handling for the standard buttons
-        if (button != null) { button.RaiseClickEvent(); }
+        button?.RaiseClickEvent();
     }
 
     internal void RaiseHyperlinkClickEvent(string link)
@@ -1255,25 +1216,19 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
     {
         // Reset values that would be considered 
         // 'volatile' in a given instance.
-        if (_progressBar != null)
-        {
-            _progressBar.Reset();
-        }
+        _progressBar?.Reset();
 
         // Clean out sorted control lists - 
         // though we don't of course clear the main controls collection,
         // so the controls are still around; we'll 
         // resort on next show, since the collection may have changed.
-        if (_buttons != null) { _buttons.Clear(); }
-        if (_commandLinks != null) { _commandLinks.Clear(); }
-        if (_radioButtons != null) { _radioButtons.Clear(); }
+        _buttons?.Clear();
+        _commandLinks?.Clear();
+        _radioButtons?.Clear();
         _progressBar = null;
 
         // Have the native dialog clean up the rest.
-        if (_nativeDialog != null)
-        {
-            _nativeDialog.Dispose();
-        }
+        _nativeDialog?.Dispose();
     }
 
 
@@ -1324,17 +1279,10 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
 
             // Clean up unmanaged resources SECOND, NTD counts on 
             // being closed before being disposed.
-            if (_nativeDialog != null)
-            {
-                _nativeDialog.Dispose();
-                _nativeDialog = null;
-            }
-
-            if (_staticDialog != null)
-            {
-                _staticDialog.Dispose();
-                _staticDialog = null;
-            }
+            _nativeDialog?.Dispose();
+            _nativeDialog = null;
+            _staticDialog?.Dispose();
+            _staticDialog = null;
 
 
         }

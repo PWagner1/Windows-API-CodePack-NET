@@ -51,11 +51,8 @@ public sealed class ExplorerBrowser :
                 Marshal.ReleaseComObject(_shellItemsArray);
             }
 
-            if (_itemsCollection != null)
-            {
-                _itemsCollection.Dispose();
-                _itemsCollection = null;
-            }
+            _itemsCollection?.Dispose();
+            _itemsCollection = null;
 
             _shellItemsArray = GetItemsArray();
             _itemsCollection = new ShellObjectCollection(_shellItemsArray, true);
@@ -78,11 +75,8 @@ public sealed class ExplorerBrowser :
                 Marshal.ReleaseComObject(_selectedShellItemsArray);
             }
 
-            if (_selectedItemsCollection != null)
-            {
-                _selectedItemsCollection.Dispose();
-                _selectedItemsCollection = null;
-            }
+            _selectedItemsCollection?.Dispose();
+            _selectedItemsCollection = null;
 
             _selectedShellItemsArray = GetSelectedItemsArray();
             _selectedItemsCollection = new ShellObjectCollection(_selectedShellItemsArray, true);
@@ -105,10 +99,7 @@ public sealed class ExplorerBrowser :
         set
         {
             _propertyBagName = value;
-            if (ExplorerBrowserControl != null)
-            {
-                ExplorerBrowserControl.SetPropertyBag(_propertyBagName);
-            }
+            ExplorerBrowserControl?.SetPropertyBag(_propertyBagName);
         }
     }
 
@@ -1369,10 +1360,7 @@ public sealed class ExplorerBrowser :
 
     internal void FireContentEnumerationComplete()
     {
-        if (ViewEnumerationComplete != null)
-        {
-            ViewEnumerationComplete.Invoke(this, EventArgs.Empty);
-        }
+        ViewEnumerationComplete?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>
@@ -1400,10 +1388,7 @@ public sealed class ExplorerBrowser :
 
     internal void FireSelectedItemChanged()
     {
-        if (ViewSelectedItemChanged != null)
-        {
-            ViewSelectedItemChanged.Invoke(this, EventArgs.Empty);
-        }
+        ViewSelectedItemChanged?.Invoke(this, EventArgs.Empty);
     }
     #endregion
 

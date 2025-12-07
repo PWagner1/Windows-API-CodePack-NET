@@ -56,10 +56,7 @@ public sealed class CommonFileDialogControlCollection<T> : Collection<T> where T
         base.InsertItem(index, control);
 
         // Notify that we've added a control.
-        if (_hostingDialog != null)
-        {
-            _hostingDialog.ApplyCollectionChanged();
-        }
+        _hostingDialog?.ApplyCollectionChanged();
     }
 
     /// <summary>

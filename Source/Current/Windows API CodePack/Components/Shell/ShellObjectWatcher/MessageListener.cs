@@ -1,6 +1,6 @@
 ﻿using Message = Microsoft.WindowsAPICodePack.Shell.Interop.Message;
 // ReSharper disable InconsistentNaming
-#pragma warning disable CS8600, CS8604
+
 namespace Microsoft.WindowsAPICodePack.Shell;
 
 internal class MessageListener : IDisposable
@@ -52,7 +52,7 @@ internal class MessageListener : IDisposable
             if (WindowHandle == IntPtr.Zero)
             {
                 throw new ShellException(LocalizedMessages.MessageListenerCannotCreateWindow,
-                    Marshal.GetExceptionForHR(Marshal.GetHRForLastWin32Error()));
+                                         innerException: Marshal.GetExceptionForHR(errorCode: Marshal.GetHRForLastWin32Error()));
             }
 
             _listeners.Add(WindowHandle, this);
@@ -138,6 +138,8 @@ internal class MessageListener : IDisposable
                 }
                 break;
             case (uint)WindowMessage.Destroy:
+                // Fix for #37: https://github.com/PWagner1/Windows-API-CodePack-NET/issues/37
+                _running = false;
                 break;
             default:
                 MessageListener listener;
