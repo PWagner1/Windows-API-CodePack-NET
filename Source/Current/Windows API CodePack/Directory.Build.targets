@@ -1,18 +1,18 @@
 <Project>
 	<PropertyGroup>
-		<AssemblyVersion>8.0.13.3</AssemblyVersion>
+		<AssemblyVersion>8.0.14</AssemblyVersion>
 
-		<PackageVersion>8.0.13</PackageVersion>
+		<PackageVersion>8.0.14</PackageVersion>
 
-		<FileVersion>8.0.13.3</FileVersion>
+		<FileVersion>8.0.14</FileVersion>
 
 		<LangVersion>preview</LangVersion>
 
 		<AnalysLevel>preview</AnalysLevel>
 
-		<Authors>Microsoft Corporation, Jacob Slusser, Peter William Wagner (aka Wagnerp)</Authors>
+		<Authors>Microsoft Corporation, Jacob Slusser, Peter William Wagner (aka PWagner)</Authors>
 
-		<Description>$(Description) Modifications by Jacob Slusser until 2020. Modified to use .NET Frameworks 4.6.2 - 4.8.1, .NET 8 - 10 and refactoring by Peter William Wagner, (aka Wagnerp) 2023 - 2025.</Description>
+		<Description>$(Description) Modifications by Jacob Slusser until 2020. Modified to use .NET Frameworks 4.6.2 - 4.8.1, .NET 8 - 10 and refactoring by Peter William Wagner, (aka PWagner) 2023 - 2025.</Description>
 
 		<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
 

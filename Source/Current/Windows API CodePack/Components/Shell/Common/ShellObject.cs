@@ -366,10 +366,7 @@ public abstract class ShellObject : IDisposable, IEquatable<ShellObject>
             _parentShellObject = null;
         }
 
-        if (_properties != null)
-        {
-            _properties.Dispose();
-        }
+        _properties?.Dispose();
 
         if (_internalPidl != IntPtr.Zero)
         {

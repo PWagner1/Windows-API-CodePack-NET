@@ -114,11 +114,8 @@ public class GlassWindow : Window
         if (msg == DWMMessages.WM_DWMCOMPOSITIONCHANGED
             || msg == DWMMessages.WM_DWMNCRENDERINGCHANGED)
         {
-            if (AeroGlassCompositionChanged != null)
-            {
-                AeroGlassCompositionChanged.Invoke(this,
+            AeroGlassCompositionChanged?.Invoke(this,
                     new AeroGlassCompositionChangedEventArgs(AeroGlassCompositionEnabled));
-            }
 
             handled = true;
         }

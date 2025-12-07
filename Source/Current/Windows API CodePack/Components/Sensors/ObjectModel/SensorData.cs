@@ -27,10 +27,7 @@ public class SensorData : IDictionary<Guid, IList<object>>
                 using (PropVariant propValue = new())
                 {
                     keyCollection.GetAt(index, out key);
-                    if (valuesCollection != null)
-                    {
-                        valuesCollection.GetValue(ref key, propValue);
-                    }
+                    valuesCollection?.GetValue(ref key, propValue);
 
                     if (data.ContainsKey(key.FormatId))
                     {

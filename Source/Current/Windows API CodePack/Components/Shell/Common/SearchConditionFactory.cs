@@ -446,7 +446,7 @@ public static class SearchConditionFactory
         }
         catch
         {
-            if (searchCondition != null) { searchCondition.Dispose(); }
+            searchCondition?.Dispose();
             throw;
         }
         finally

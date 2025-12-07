@@ -70,7 +70,7 @@ public static class TabbedThumbnailScreenCapture
             }
             catch
             {
-                if (targetBitmap != null) { targetBitmap.Dispose(); }
+                targetBitmap?.Dispose();
                 throw;
             }
         }

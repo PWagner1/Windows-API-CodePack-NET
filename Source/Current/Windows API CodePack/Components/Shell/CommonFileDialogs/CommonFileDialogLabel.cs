@@ -34,10 +34,7 @@ public class CommonFileDialogLabel : CommonFileDialogControl
         Debug.Assert(dialog != null, "CommonFileDialog.Attach: dialog parameter can not be null");
 
         // Add a text control
-        if (dialog != null)
-        {
-            dialog.AddText(Id, Text);
-        }
+        dialog?.AddText(Id, Text);
 
         // Sync unmanaged properties with managed properties
         SyncUnmanagedProperties();

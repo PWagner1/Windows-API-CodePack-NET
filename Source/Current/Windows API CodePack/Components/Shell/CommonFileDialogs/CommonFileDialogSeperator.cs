@@ -16,10 +16,7 @@ public class CommonFileDialogSeparator : CommonFileDialogControl
         Debug.Assert(dialog != null, "CommonFileDialogSeparator.Attach: dialog parameter can not be null");
 
         // Add a separator
-        if (dialog != null)
-        {
-            dialog.AddSeparator(Id);
-        }
+        dialog?.AddSeparator(Id);
 
         // Sync unmanaged properties with managed properties
         SyncUnmanagedProperties();

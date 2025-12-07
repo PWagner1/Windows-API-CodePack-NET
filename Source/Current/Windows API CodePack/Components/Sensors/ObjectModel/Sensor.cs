@@ -301,10 +301,7 @@ public class Sensor : ISensorEvents
             try
             {
                 DataReport = SensorReport.FromNativeReport(this, iReport);
-                if (DataReportChanged != null)
-                {
-                    DataReportChanged.Invoke(this, EventArgs.Empty);
-                }
+                DataReportChanged?.Invoke(this, EventArgs.Empty);
             }
             finally
             {
@@ -643,19 +640,13 @@ public class Sensor : ISensorEvents
 
     void ISensorEvents.OnStateChanged(ISensor sensor, NativeSensorState state)
     {
-        if (StateChanged != null)
-        {
-            StateChanged.Invoke(this, EventArgs.Empty);
-        }
+        StateChanged?.Invoke(this, EventArgs.Empty);
     }
 
     void ISensorEvents.OnDataUpdated(ISensor sensor, ISensorDataReport newData)
     {
         DataReport = SensorReport.FromNativeReport(this, newData);
-        if (DataReportChanged != null)
-        {
-            DataReportChanged.Invoke(this, EventArgs.Empty);
-        }
+        DataReportChanged?.Invoke(this, EventArgs.Empty);
     }
 
     void ISensorEvents.OnEvent(ISensor sensor, Guid eventId, ISensorDataReport newData)

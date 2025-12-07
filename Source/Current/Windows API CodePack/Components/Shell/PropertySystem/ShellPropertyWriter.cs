@@ -243,10 +243,7 @@ public class ShellPropertyWriter : IDisposable
             WritablePropStore = null;
         }
 
-        if (ParentShellObject != null)
-        {
-            ParentShellObject.NativePropertyStore = null;
-        }
+        ParentShellObject?.NativePropertyStore = null;
     }
 
     #endregion

@@ -190,10 +190,7 @@ public static class SensorManager
     /// </summary>
     internal static void OnSensorsChanged(Guid sensorId, SensorAvailabilityChange change)
     {
-        if (SensorsChanged != null)
-        {
-            SensorsChanged.Invoke(new(sensorId, change));
-        }
+        SensorsChanged?.Invoke(new(sensorId, change));
     }
 
     /// <summary>

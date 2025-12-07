@@ -136,10 +136,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
             _title = value;
             if (NativeDialogShowing)
             {
-                if (_nativeDialog != null)
-                {
-                    _nativeDialog.SetTitle(value);
-                }
+                _nativeDialog?.SetTitle(value);
             }
         }
     }
@@ -361,10 +358,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
             {
                 // set the docType combo to match this 
                 // extension. property is a 1-based index.
-                if (dialog != null)
-                {
-                    dialog.SetFileTypeIndex(filtersCounter + 1);
-                }
+                dialog?.SetFileTypeIndex(filtersCounter + 1);
 
                 // we're done, exit for
                 break;
@@ -446,10 +440,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
         }
 
         // Add the shellitem to the places list
-        if (_nativeDialog != null)
-        {
-            _nativeDialog.AddPlace(place.NativeShellItem, (ShellNativeMethods.FileDialogAddPlacement)location);
-        }
+        _nativeDialog?.AddPlace(place.NativeShellItem, (ShellNativeMethods.FileDialogAddPlacement)location);
     }
 
     /// <summary>
@@ -482,10 +473,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
         }
 
         // Add the shellitem to the places list
-        if (_nativeDialog != null)
-        {
-            _nativeDialog.AddPlace(nativeShellItem, (ShellNativeMethods.FileDialogAddPlacement)location);
-        }
+        _nativeDialog?.AddPlace(nativeShellItem, (ShellNativeMethods.FileDialogAddPlacement)location);
     }
 
     // Null = use default directory.

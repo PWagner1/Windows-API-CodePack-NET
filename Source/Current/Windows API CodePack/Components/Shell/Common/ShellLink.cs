@@ -69,10 +69,7 @@ public class ShellLink : ShellObject
             {
                 if (Properties!.System != null)
                 {
-                    if (Properties.System.Link.TargetParsingPath != null)
-                    {
-                        Properties.System.Link.TargetParsingPath.Value = _internalTargetLocation;
-                    }
+                    Properties.System.Link.TargetParsingPath?.Value = _internalTargetLocation;
                 }
             }
         }
@@ -102,10 +99,7 @@ public class ShellLink : ShellObject
             if (NativeShellItem2 != null)
             {
                 ShellProperty<string>? shellProperty = Properties!.System!.Title;
-                if (shellProperty != null)
-                {
-                    shellProperty.Value = value;
-                }
+                shellProperty?.Value = value;
             }
         }
     }

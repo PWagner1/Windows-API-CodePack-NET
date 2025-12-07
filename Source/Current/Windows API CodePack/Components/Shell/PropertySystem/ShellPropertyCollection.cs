@@ -41,10 +41,7 @@ public class ShellPropertyCollection : ReadOnlyCollection<IShellProperty>, IDisp
         }
         catch
         {
-            if (parent != null)
-            {
-                parent.Dispose();
-            }
+            parent?.Dispose();
             throw;
         }
         finally

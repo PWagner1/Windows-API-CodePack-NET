@@ -44,10 +44,7 @@ public class CommonFileDialogTextBox : CommonFileDialogControl
 
         set
         {
-            if (customizedDialog != null)
-            {
-                customizedDialog.SetEditBoxText(Id, value);
-            }
+            customizedDialog?.SetEditBoxText(Id, value);
 
             base.Text = value;
         }

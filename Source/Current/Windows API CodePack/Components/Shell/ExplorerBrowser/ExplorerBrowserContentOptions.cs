@@ -33,10 +33,7 @@ public class ExplorerBrowserContentOptions
         {
             FolderSettings.ViewMode = (FolderViewMode)value;
 
-            if (_eb.ExplorerBrowserControl != null)
-            {
-                _eb.ExplorerBrowserControl.SetFolderSettings(FolderSettings);
-            }
+            _eb.ExplorerBrowserControl?.SetFolderSettings(FolderSettings);
         }
     }
     #endregion
@@ -51,10 +48,7 @@ public class ExplorerBrowserContentOptions
         set
         {
             FolderSettings.Options = (FolderOptions)value | FolderOptions.UseSearchFolders | FolderOptions.NoWebView;
-            if (_eb.ExplorerBrowserControl != null)
-            {
-                _eb.ExplorerBrowserControl.SetFolderSettings(FolderSettings);
-            }
+            _eb.ExplorerBrowserControl?.SetFolderSettings(FolderSettings);
         }
     }
     #endregion
@@ -181,10 +175,7 @@ public class ExplorerBrowserContentOptions
             FolderSettings.Options = FolderSettings.Options & ~(FolderOptions)flag;
         }
 
-        if (_eb.ExplorerBrowserControl != null)
-        {
-            _eb.ExplorerBrowserControl.SetFolderSettings(FolderSettings);
-        }
+        _eb.ExplorerBrowserControl?.SetFolderSettings(FolderSettings);
     }
 
     #endregion
