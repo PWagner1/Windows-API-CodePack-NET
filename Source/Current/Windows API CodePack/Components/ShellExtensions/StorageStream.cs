@@ -16,7 +16,7 @@ public class StorageStream : Stream, IDisposable
     {
         if (stream == null)
         {
-            throw new ArgumentNullException("stream");
+            throw new ArgumentNullException(nameof(stream));
         }
         _isReadOnly = readOnly;
         _stream = stream;
@@ -73,10 +73,10 @@ public class StorageStream : Stream, IDisposable
     {
         ThrowIfDisposed();
 
-        if (buffer == null) { throw new ArgumentNullException("buffer"); }
-        if (offset < 0) { throw new ArgumentOutOfRangeException("offset", LocalizedMessages.StorageStreamOffsetLessThanZero); }
-        if (count < 0) { throw new ArgumentOutOfRangeException("count", LocalizedMessages.StorageStreamCountLessThanZero); }
-        if (offset + count > buffer.Length) { throw new ArgumentException(LocalizedMessages.StorageStreamBufferOverflow, "count"); }
+        if (buffer == null) { throw new ArgumentNullException(nameof(buffer)); }
+        if (offset < 0) { throw new ArgumentOutOfRangeException(nameof(offset), LocalizedMessages.StorageStreamOffsetLessThanZero); }
+        if (count < 0) { throw new ArgumentOutOfRangeException(nameof(count), LocalizedMessages.StorageStreamCountLessThanZero); }
+        if (offset + count > buffer.Length) { throw new ArgumentException(LocalizedMessages.StorageStreamBufferOverflow, nameof(count)); }
 
         int bytesRead = 0;
         if (count > 0)
@@ -120,10 +120,10 @@ public class StorageStream : Stream, IDisposable
         ThrowIfDisposed();
 
         if (_isReadOnly) { throw new InvalidOperationException(LocalizedMessages.StorageStreamIsReadonly); }
-        if (buffer == null) { throw new ArgumentNullException("buffer"); }
-        if (offset < 0) { throw new ArgumentOutOfRangeException("offset", LocalizedMessages.StorageStreamOffsetLessThanZero); }
-        if (count < 0) { throw new ArgumentOutOfRangeException("count", LocalizedMessages.StorageStreamCountLessThanZero); }
-        if (offset + count > buffer.Length) { throw new ArgumentException(LocalizedMessages.StorageStreamBufferOverflow, "count"); }
+        if (buffer == null) { throw new ArgumentNullException(nameof(buffer)); }
+        if (offset < 0) { throw new ArgumentOutOfRangeException(nameof(offset), LocalizedMessages.StorageStreamOffsetLessThanZero); }
+        if (count < 0) { throw new ArgumentOutOfRangeException(nameof(count), LocalizedMessages.StorageStreamCountLessThanZero); }
+        if (offset + count > buffer.Length) { throw new ArgumentException(LocalizedMessages.StorageStreamBufferOverflow, nameof(count)); }
 
         if (count > 0)
         {

@@ -1,4 +1,4 @@
-﻿using IInitializeWithFile = Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IInitializeWithFile;
+using IInitializeWithFile = Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IInitializeWithFile;
 using IInitializeWithItem = Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IInitializeWithItem;
 using IInitializeWithStream = Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IInitializeWithStream;
 using Message = Microsoft.WindowsAPICodePack.Shell.Interop.Message;
@@ -13,11 +13,11 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions;
 
 /// <summary>
 /// This is the base class for all preview handlers and provides their basic functionality.
-/// To create a custom preview handler a class must derive from this, use the <typeparamref name="PreviewHandlerAttribute"/>,
+/// To create a custom preview handler a class must derive from this, use the <see cref="PreviewHandlerAttribute"/>,
 /// and implement 1 or more of the following interfaces: 
-/// <typeparamref name="IPreviewFromStream"/>, 
-/// <typeparamref name="IPreviewFromShellObject"/>, 
-/// <typeparamref name="IPreviewFromFile"/>.   
+/// <see cref="IPreviewFromStream"/>, 
+/// <see cref="IPreviewFromShellObject"/>, 
+/// <see cref="IPreviewFromFile"/>.   
 /// </summary>
 public abstract class PreviewHandler : ICustomQueryInterface, IPreviewHandler, IPreviewHandlerVisuals,
     IOleWindow, IObjectWithSite, IInitializeWithStream, IInitializeWithItem, IInitializeWithFile
@@ -67,13 +67,13 @@ public abstract class PreviewHandler : ICustomQueryInterface, IPreviewHandler, I
     /// <summary>
     /// Called when a request is received to set or change the background color according to the user's preferences.
     /// </summary>
-    /// <param name="color">An int representing the ARGB color</param>
+    /// <param name="argb">An int representing the ARGB color</param>
     protected abstract void SetBackground(int argb);
 
     /// <summary>
     /// Called when a request is received to set or change the foreground color according to the user's preferences.
     /// </summary>
-    /// <param name="color">An int representing the ARGB color</param>
+    /// <param name="argb">An int representing the ARGB color</param>
     protected abstract void SetForeground(int argb);
 
     /// <summary>
@@ -223,7 +223,7 @@ public abstract class PreviewHandler : ICustomQueryInterface, IPreviewHandler, I
                     LocalizedMessages.PreviewHandlerUnsupportedInterfaceCalled,
                     "IPreviewFromFile"));
         }
-        preview.Load(new(filePath));
+        preview.Load(new FileInfo(filePath));
     }
 
     #endregion
@@ -239,7 +239,7 @@ public abstract class PreviewHandler : ICustomQueryInterface, IPreviewHandler, I
         if (registerType != null && registerType.IsSubclassOf(typeof(PreviewHandler)))
         {
             object[] attrs = (object[])registerType.GetCustomAttributes(typeof(PreviewHandlerAttribute), true);
-            if (attrs != null && attrs.Length == 1)
+            if (attrs is { Length: 1 })
             {
                 PreviewHandlerAttribute? attr = attrs[0] as PreviewHandlerAttribute;
                 ThrowIfNotValid(registerType);
@@ -264,7 +264,7 @@ public abstract class PreviewHandler : ICustomQueryInterface, IPreviewHandler, I
         if (registerType != null && registerType.IsSubclassOf(typeof(PreviewHandler)))
         {
             object[] attrs = (object[])registerType.GetCustomAttributes(typeof(PreviewHandlerAttribute), true);
-            if (attrs != null && attrs.Length == 1)
+            if (attrs is { Length: 1 })
             {
                 PreviewHandlerAttribute? attr = attrs[0] as PreviewHandlerAttribute;
                 UnregisterPreviewHandler(registerType.GUID, attr);

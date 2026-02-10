@@ -21,7 +21,7 @@ internal class ThumbnailToolbarProxyWindow : NativeWindow, IDisposable
         {
             throw new ArgumentException(LocalizedMessages.CommonFileDialogInvalidHandle, nameof(windowHandle));
         }
-        if (buttons != null && buttons.Length == 0)
+        if (buttons is { Length: 0 })
         {
             throw new ArgumentException(LocalizedMessages.ThumbnailToolbarManagerNullEmptyArray, nameof(buttons));
         }
@@ -42,7 +42,7 @@ internal class ThumbnailToolbarProxyWindow : NativeWindow, IDisposable
 
     internal ThumbnailToolbarProxyWindow(UIElement? windowsControl, ThumbnailToolBarButton[]? buttons)
     {
-        if (buttons != null && buttons.Length == 0)
+        if (buttons is { Length: 0 })
         {
             throw new ArgumentException(LocalizedMessages.ThumbnailToolbarManagerNullEmptyArray, nameof(buttons));
         }

@@ -145,7 +145,7 @@ public sealed class CommonSaveFileDialog : CommonFileDialog
         // The string we pass to PSGetPropertyDescriptionListFromString must
         // start with "prop:", followed a list of canonical names for each 
         // property that is to collected.
-        if (propertyList != null && propertyList != null && propertyList.Length > 0 && propertyList[0] != null)
+        if (propertyList is not null && propertyList.Length > 0 && propertyList[0] != null)
         {
             StringBuilder sb = new("prop:");
             foreach (PropertyKey key in propertyList)

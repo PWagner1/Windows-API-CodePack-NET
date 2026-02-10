@@ -27,7 +27,7 @@ public static class NetworkListManager
         // Throw PlatformNotSupportedException if the user is not running Vista or beyond
         CoreHelpers.ThrowIfNotVista();
 
-        return new(_manager.GetNetworks(level));
+        return new NetworkCollection(_manager.GetNetworks(level));
     }
 
     /// <summary>
@@ -44,7 +44,7 @@ public static class NetworkListManager
         // Throw PlatformNotSupportedException if the user is not running Vista or beyond
         CoreHelpers.ThrowIfNotVista();
 
-        return new(_manager.GetNetwork(networkId));
+        return new Network(_manager.GetNetwork(networkId));
     }
 
     /// <summary>
@@ -58,7 +58,7 @@ public static class NetworkListManager
         // Throw PlatformNotSupportedException if the user is not running Vista or beyond
         CoreHelpers.ThrowIfNotVista();
 
-        return new(_manager.GetNetworkConnections());
+        return new NetworkConnectionCollection(_manager.GetNetworkConnections());
     }
 
     /// <summary>
@@ -75,7 +75,7 @@ public static class NetworkListManager
         // Throw PlatformNotSupportedException if the user is not running Vista or beyond
         CoreHelpers.ThrowIfNotVista();
 
-        return new(_manager.GetNetworkConnection(networkConnectionId));
+        return new NetworkConnection(_manager.GetNetworkConnection(networkConnectionId));
     }
 
     /// <summary>

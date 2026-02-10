@@ -1,7 +1,10 @@
-﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
+//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 namespace Microsoft.WindowsAPICodePack.Shell;
 
+/// <summary>
+/// Interop declarations and helper types for calling native Windows Shell APIs.
+/// </summary>
 public static class ShellNativeMethods
 {
     #region Shell Enums
@@ -41,16 +44,46 @@ public static class ShellNativeMethods
         Visible = 0x00000002
     }
 
+    /// <summary>
+    /// Options that specify how a Shell item display name is formatted.
+    /// </summary>
     public enum ShellItemDesignNameOptions
     {
+        /// <summary>
+        /// Returns the normal display name of the item.
+        /// </summary>
         Normal = 0x00000000,           // SIGDN_NORMAL
+        /// <summary>
+        /// Returns the parsing name relative to the parent folder in a format suitable for parsing.
+        /// </summary>
         ParentRelativeParsing = unchecked((int)0x80018001),   // SIGDN_INFOLDER | SIGDN_FORPARSING
+        /// <summary>
+        /// Returns the parsing name relative to the desktop in a format suitable for parsing.
+        /// </summary>
         DesktopAbsoluteParsing = unchecked((int)0x80028000),  // SIGDN_FORPARSING
+        /// <summary>
+        /// Returns the editing name relative to the parent folder.
+        /// </summary>
         ParentRelativeEditing = unchecked((int)0x80031001),   // SIGDN_INFOLDER | SIGDN_FOREDITING
+        /// <summary>
+        /// Returns the editing name relative to the desktop.
+        /// </summary>
         DesktopAbsoluteEditing = unchecked((int)0x8004c000),  // SIGDN_FORPARSING | SIGDN_FORADDRESSBAR
+        /// <summary>
+        /// Returns the file system path of the item.
+        /// </summary>
         FileSystemPath = unchecked((int)0x80058000),             // SIGDN_FORPARSING
+        /// <summary>
+        /// Returns the URL of the item.
+        /// </summary>
         Url = unchecked((int)0x80068000),                     // SIGDN_FORPARSING
+        /// <summary>
+        /// Returns the parsing name relative to the parent folder for use in the address bar.
+        /// </summary>
         ParentRelativeForAddressBar = unchecked((int)0x8007c001),     // SIGDN_INFOLDER | SIGDN_FORPARSING | SIGDN_FORADDRESSBAR
+        /// <summary>
+        /// Returns the parsing name relative to the parent folder.
+        /// </summary>
         ParentRelative = unchecked((int)0x80080001)           // SIGDN_INFOLDER
     }
 
@@ -244,6 +277,9 @@ public static class ShellNativeMethods
         Cached = 0x00000002,
     }
 
+    /// <summary>
+    /// File and folder attributes used with Shell APIs such as <c>IShellFolder.GetAttributesOf</c>.
+    /// </summary>
     [Flags]
     public enum ShellFileGetAttributesOptions
     {
@@ -443,20 +479,59 @@ public static class ShellNativeMethods
         PkeyMask = unchecked((int)0x81044000),
     }
 
+    /// <summary>
+    /// Options that control how a Shell folder enumerates the items that it contains.
+    /// </summary>
     [Flags]
     public enum ShellFolderEnumerationOptions : ushort
     {
+        /// <summary>
+        /// The calling application is checking for the existence of child items in the folder.
+        /// </summary>
         CheckingForChildren = 0x0010,
+        /// <summary>
+        /// Include folders in the enumeration.
+        /// </summary>
         Folders = 0x0020,
+        /// <summary>
+        /// Include non-folder items in the enumeration.
+        /// </summary>
         NonFolders = 0x0040,
+        /// <summary>
+        /// Include hidden items in the enumeration.
+        /// </summary>
         IncludeHidden = 0x0080,
+        /// <summary>
+        /// Initialize the enumerator on the first call to Next, rather than at creation time.
+        /// </summary>
         InitializeOnFirstNext = 0x0100,
+        /// <summary>
+        /// The calling application is looking for printer objects.
+        /// </summary>
         NetPrinterSearch = 0x0200,
+        /// <summary>
+        /// Include shareable items in the enumeration.
+        /// </summary>
         Shareable = 0x0400,
+        /// <summary>
+        /// Include storage items in the enumeration.
+        /// </summary>
         Storage = 0x0800,
+        /// <summary>
+        /// Return items that are suitable for navigation.
+        /// </summary>
         NavigationEnum = 0x1000,
+        /// <summary>
+        /// Return items quickly without verifying they exist.
+        /// </summary>
         FastItems = 0x2000,
+        /// <summary>
+        /// Enumerate items as a flat list, ignoring folder structure.
+        /// </summary>
         FlatList = 0x4000,
+        /// <summary>
+        /// Enable asynchronous enumeration.
+        /// </summary>
         EnableAsync = 0x8000
     }
 
@@ -553,6 +628,10 @@ public static class ShellNativeMethods
     [DllImport("shell32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
     internal static extern uint ILGetSize(IntPtr pidl);
 
+    /// <summary>
+    /// Frees an item ID list (PIDL) that was allocated by the Shell.
+    /// </summary>
+    /// <param name="pidl">The PIDL to free.</param>
     [DllImport("shell32.dll", CharSet = CharSet.None)]
     public static extern void ILFree(IntPtr pidl);
 

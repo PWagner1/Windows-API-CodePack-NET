@@ -31,7 +31,7 @@ public class NetworkConnectionCollection : IEnumerable<NetworkConnection>
         {
             foreach (INetworkConnection networkConnection in _networkConnectionEnumerable)
             {
-                yield return new(networkConnection);
+                yield return new NetworkConnection(networkConnection);
             }
         }
     }

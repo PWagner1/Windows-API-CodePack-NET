@@ -237,7 +237,7 @@ internal class NativeTaskDialog : IDisposable
             UpdateProgressBarState(_settings.ProgressBarState);
         }
 
-        if (_settings.ElevatedButtons != null && _settings.ElevatedButtons.Count > 0)
+        if (_settings.ElevatedButtons is { Count: > 0 })
         {
             foreach (int id in _settings.ElevatedButtons)
             {
@@ -512,14 +512,14 @@ internal class NativeTaskDialog : IDisposable
     // marshaling to the unmanaged heap, etc.
     private void MarshalDialogControlStructs()
     {
-        if (_settings.Buttons != null && _settings.Buttons.Length > 0)
+        if (_settings.Buttons is { Length: > 0 })
         {
             _buttonArray = AllocateAndMarshalButtons(_settings.Buttons);
             _settings.NativeConfiguration.buttons = _buttonArray;
             _settings.NativeConfiguration.buttonCount = (uint)_settings.Buttons.Length;
         }
 
-        if (_settings.RadioButtons != null && _settings.RadioButtons.Length > 0)
+        if (_settings.RadioButtons is { Length: > 0 })
         {
             _radioButtonArray = AllocateAndMarshalButtons(_settings.RadioButtons);
             _settings.NativeConfiguration.radioButtons = _radioButtonArray;

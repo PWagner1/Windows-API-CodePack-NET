@@ -771,13 +771,13 @@ public class Sensor : ISensorEvents
         {
             Int64 p = source.ToInt64();
             p += increment;
-            return new(p);
+            return new IntPtr(p);
         }
         else if (IntPtr.Size == 4)
         {
             Int32 p = source.ToInt32();
             p += increment;
-            return new(p);
+            return new IntPtr(p);
         }
         else
         {

@@ -19,7 +19,7 @@ public class MappingAsyncResult : IAsyncResult, IDisposable
     {
         _callerData = callerData;
         _asyncCallback = asyncCallback;
-        _waitHandle = new(false);
+        _waitHandle = new ManualResetEvent(false);
     }
 
     internal AsyncCallback AsyncCallback => _asyncCallback;

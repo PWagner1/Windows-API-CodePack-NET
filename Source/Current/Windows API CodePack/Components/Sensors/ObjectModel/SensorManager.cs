@@ -59,7 +59,7 @@ public static class SensorManager
     public static SensorList<T?> GetSensorsByTypeId<T>() where T : Sensor
     {
         object?[] attrs = typeof(T).GetCustomAttributes(typeof(SensorDescriptionAttribute), true);
-        if (attrs != null && attrs.Length > 0)
+        if (attrs is { Length: > 0 })
         {
             SensorDescriptionAttribute? sda = attrs[0] as SensorDescriptionAttribute;
 
@@ -190,7 +190,7 @@ public static class SensorManager
     /// </summary>
     internal static void OnSensorsChanged(Guid sensorId, SensorAvailabilityChange change)
     {
-        SensorsChanged?.Invoke(new(sensorId, change));
+        SensorsChanged?.Invoke(new SensorsChangedEventArgs(sensorId, change));
     }
 
     /// <summary>
@@ -208,10 +208,10 @@ public static class SensorManager
                 Type[] exportedTypes = asm.GetExportedTypes();
                 foreach (Type t in exportedTypes)
                 {
-                    if (t.IsSubclassOf(typeof(Sensor)) && t.IsPublic && !t.IsAbstract && !t.IsGenericType)
+                    if (t.IsSubclassOf(typeof(Sensor)) && t is { IsPublic: true, IsAbstract: false, IsGenericType: false })
                     {
                         object[] attrs = t.GetCustomAttributes(typeof(SensorDescriptionAttribute), true);
-                        if (attrs != null && attrs.Length > 0)
+                        if (attrs is { Length: > 0 })
                         {
                             SensorDescriptionAttribute sda = (SensorDescriptionAttribute)attrs[0];
                             SensorTypeData stm = new(t, sda);

@@ -59,7 +59,7 @@ internal static class TabbedThumbnailNativeMethods
     [return: MarshalAs(UnmanagedType.Bool)]
     internal static extern bool GetClientRect(IntPtr hwnd, ref NativeRect rect);
 
-    internal static bool GetClientSize(IntPtr hwnd, out System.Drawing.Size size)
+    internal static bool GetClientSize(IntPtr hwnd, out Size size)
     {
         NativeRect rect = new();
         if (!GetClientRect(hwnd, ref rect))

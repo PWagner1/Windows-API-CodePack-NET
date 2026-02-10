@@ -48,7 +48,7 @@ public struct PropertyKey : IEquatable<PropertyKey>
     /// <param name="propertyId">Property identifier (PID)</param>
     public PropertyKey(string formatId, Int32 propertyId)
     {
-        this.formatId = new(formatId);
+        this.formatId = new Guid(formatId);
         this.propertyId = propertyId;
     }
 

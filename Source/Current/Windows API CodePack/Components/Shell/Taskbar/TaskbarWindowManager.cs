@@ -244,7 +244,7 @@ internal static class TaskbarWindowManager
                     Convert.ToInt32(taskbarWindow.TabbedThumbnail.WindowsControl.RenderSize.Height));
             }
 
-            if (realWindowSize.Height == -1 && realWindowSize.Width == -1)
+            if (realWindowSize is { Height: -1, Width: -1 })
             {
                 realWindowSize.Width = realWindowSize.Height = 199;
             }
@@ -389,7 +389,7 @@ internal static class TaskbarWindowManager
                 // let DWM handle it
                 if (hBitmap != IntPtr.Zero)
                 {
-                    if (offset.X >= 0 && offset.Y >= 0)
+                    if (offset is { X: >= 0, Y: >= 0 })
                     {
                         TabbedThumbnailNativeMethods.SetPeekBitmap(
                             taskbarWindow.WindowToTellTaskbarAbout,
@@ -432,7 +432,7 @@ internal static class TaskbarWindowManager
                 // let DWM handle it
                 if (hBitmap != IntPtr.Zero)
                 {
-                    if (offset.X >= 0 && offset.Y >= 0)
+                    if (offset is { X: >= 0, Y: >= 0 })
                     {
                         TabbedThumbnailNativeMethods.SetPeekBitmap(
                             taskbarWindow.WindowToTellTaskbarAbout,

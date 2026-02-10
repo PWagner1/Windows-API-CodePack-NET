@@ -2807,7 +2807,7 @@ public partial class ShellProperties
                     _hashTable.Add(key, _shellObjectParent?.Properties?.CreateTypedProperty<string>(key));
                 }
 
-                return _hashTable[key] as ShellProperty<string?>;
+                return _hashTable[key] as ShellProperty<string>;
             }
         }
 
@@ -2858,7 +2858,7 @@ public partial class ShellProperties
 
 
         #region sub-namespaces
-        private PropertySystemAppUserModel internalPropertySystemAppUserModel;
+        private PropertySystemAppUserModel? internalPropertySystemAppUserModel;
         /// <summary>
         /// System.AppUserModel Properties
         /// </summary>
@@ -2874,7 +2874,7 @@ public partial class ShellProperties
                 return internalPropertySystemAppUserModel;
             }
         }
-        private PropertySystemAudio internalPropertySystemAudio;
+        private PropertySystemAudio? internalPropertySystemAudio;
         /// <summary>
         /// System.Audio Properties
         /// </summary>
@@ -2890,7 +2890,7 @@ public partial class ShellProperties
                 return internalPropertySystemAudio;
             }
         }
-        private PropertySystemCalendar internalPropertySystemCalendar;
+        private PropertySystemCalendar? internalPropertySystemCalendar;
         /// <summary>
         /// System.Calendar Properties
         /// </summary>
@@ -2906,7 +2906,7 @@ public partial class ShellProperties
                 return internalPropertySystemCalendar;
             }
         }
-        private PropertySystemCommunication internalPropertySystemCommunication;
+        private PropertySystemCommunication? internalPropertySystemCommunication;
         /// <summary>
         /// System.Communication Properties
         /// </summary>
@@ -2922,7 +2922,7 @@ public partial class ShellProperties
                 return internalPropertySystemCommunication;
             }
         }
-        private PropertySystemComputer internalPropertySystemComputer;
+        private PropertySystemComputer? internalPropertySystemComputer;
         /// <summary>
         /// System.Computer Properties
         /// </summary>
@@ -2938,7 +2938,7 @@ public partial class ShellProperties
                 return internalPropertySystemComputer;
             }
         }
-        private PropertySystemContact internalPropertySystemContact;
+        private PropertySystemContact? internalPropertySystemContact;
         /// <summary>
         /// System.Contact Properties
         /// </summary>
@@ -2954,7 +2954,7 @@ public partial class ShellProperties
                 return internalPropertySystemContact;
             }
         }
-        private PropertySystemDevice internalPropertySystemDevice;
+        private PropertySystemDevice? internalPropertySystemDevice;
         /// <summary>
         /// System.Device Properties
         /// </summary>
@@ -2970,7 +2970,7 @@ public partial class ShellProperties
                 return internalPropertySystemDevice;
             }
         }
-        private PropertySystemDeviceInterface internalPropertySystemDeviceInterface;
+        private PropertySystemDeviceInterface? internalPropertySystemDeviceInterface;
         /// <summary>
         /// System.DeviceInterface Properties
         /// </summary>
@@ -2986,7 +2986,7 @@ public partial class ShellProperties
                 return internalPropertySystemDeviceInterface;
             }
         }
-        private PropertySystemDevices internalPropertySystemDevices;
+        private PropertySystemDevices? internalPropertySystemDevices;
         /// <summary>
         /// System.Devices Properties
         /// </summary>
@@ -3002,7 +3002,7 @@ public partial class ShellProperties
                 return internalPropertySystemDevices;
             }
         }
-        private PropertySystemDocument internalPropertySystemDocument;
+        private PropertySystemDocument? internalPropertySystemDocument;
         /// <summary>
         /// System.Document Properties
         /// </summary>
@@ -3018,7 +3018,7 @@ public partial class ShellProperties
                 return internalPropertySystemDocument;
             }
         }
-        private PropertySystemDRM internalPropertySystemDRM;
+        private PropertySystemDRM? internalPropertySystemDRM;
         /// <summary>
         /// System.DRM Properties
         /// </summary>
@@ -3034,7 +3034,7 @@ public partial class ShellProperties
                 return internalPropertySystemDRM;
             }
         }
-        private PropertySystemGPS internalPropertySystemGPS;
+        private PropertySystemGPS? internalPropertySystemGPS;
         /// <summary>
         /// System.GPS Properties
         /// </summary>
@@ -3050,7 +3050,7 @@ public partial class ShellProperties
                 return internalPropertySystemGPS;
             }
         }
-        private PropertySystemIdentity internalPropertySystemIdentity;
+        private PropertySystemIdentity? internalPropertySystemIdentity;
         /// <summary>
         /// System.Identity Properties
         /// </summary>
@@ -3066,7 +3066,7 @@ public partial class ShellProperties
                 return internalPropertySystemIdentity;
             }
         }
-        private PropertySystemIdentityProvider internalPropertySystemIdentityProvider;
+        private PropertySystemIdentityProvider? internalPropertySystemIdentityProvider;
         /// <summary>
         /// System.IdentityProvider Properties
         /// </summary>
@@ -3082,7 +3082,7 @@ public partial class ShellProperties
                 return internalPropertySystemIdentityProvider;
             }
         }
-        private PropertySystemImage internalPropertySystemImage;
+        private PropertySystemImage? internalPropertySystemImage;
         /// <summary>
         /// System.Image Properties
         /// </summary>
@@ -3098,7 +3098,7 @@ public partial class ShellProperties
                 return internalPropertySystemImage;
             }
         }
-        private PropertySystemJournal internalPropertySystemJournal;
+        private PropertySystemJournal? internalPropertySystemJournal;
         /// <summary>
         /// System.Journal Properties
         /// </summary>
@@ -3114,7 +3114,7 @@ public partial class ShellProperties
                 return internalPropertySystemJournal;
             }
         }
-        private PropertySystemLayoutPattern internalPropertySystemLayoutPattern;
+        private PropertySystemLayoutPattern? internalPropertySystemLayoutPattern;
         /// <summary>
         /// System.LayoutPattern Properties
         /// </summary>
@@ -3130,7 +3130,7 @@ public partial class ShellProperties
                 return internalPropertySystemLayoutPattern;
             }
         }
-        private PropertySystemLink internalPropertySystemLink;
+        private PropertySystemLink? internalPropertySystemLink;
         /// <summary>
         /// System.Link Properties
         /// </summary>
@@ -3146,7 +3146,7 @@ public partial class ShellProperties
                 return internalPropertySystemLink;
             }
         }
-        private PropertySystemMedia internalPropertySystemMedia;
+        private PropertySystemMedia? internalPropertySystemMedia;
         /// <summary>
         /// System.Media Properties
         /// </summary>
@@ -3162,7 +3162,7 @@ public partial class ShellProperties
                 return internalPropertySystemMedia;
             }
         }
-        private PropertySystemMessage internalPropertySystemMessage;
+        private PropertySystemMessage? internalPropertySystemMessage;
         /// <summary>
         /// System.Message Properties
         /// </summary>
@@ -3178,7 +3178,7 @@ public partial class ShellProperties
                 return internalPropertySystemMessage;
             }
         }
-        private PropertySystemMusic internalPropertySystemMusic;
+        private PropertySystemMusic? internalPropertySystemMusic;
         /// <summary>
         /// System.Music Properties
         /// </summary>
@@ -3194,7 +3194,7 @@ public partial class ShellProperties
                 return internalPropertySystemMusic;
             }
         }
-        private PropertySystemNote internalPropertySystemNote;
+        private PropertySystemNote? internalPropertySystemNote;
         /// <summary>
         /// System.Note Properties
         /// </summary>
@@ -3210,7 +3210,7 @@ public partial class ShellProperties
                 return internalPropertySystemNote;
             }
         }
-        private PropertySystemPhoto internalPropertySystemPhoto;
+        private PropertySystemPhoto? internalPropertySystemPhoto;
         /// <summary>
         /// System.Photo Properties
         /// </summary>
@@ -3226,7 +3226,7 @@ public partial class ShellProperties
                 return internalPropertySystemPhoto;
             }
         }
-        private PropertySystemPropGroup internalPropertySystemPropGroup;
+        private PropertySystemPropGroup? internalPropertySystemPropGroup;
         /// <summary>
         /// System.PropGroup Properties
         /// </summary>
@@ -3242,7 +3242,7 @@ public partial class ShellProperties
                 return internalPropertySystemPropGroup;
             }
         }
-        private PropertySystemPropList internalPropertySystemPropList;
+        private PropertySystemPropList? internalPropertySystemPropList;
         /// <summary>
         /// System.PropList Properties
         /// </summary>
@@ -3258,7 +3258,7 @@ public partial class ShellProperties
                 return internalPropertySystemPropList;
             }
         }
-        private PropertySystemRecordedTV internalPropertySystemRecordedTV;
+        private PropertySystemRecordedTV? internalPropertySystemRecordedTV;
         /// <summary>
         /// System.RecordedTV Properties
         /// </summary>
@@ -3274,7 +3274,7 @@ public partial class ShellProperties
                 return internalPropertySystemRecordedTV;
             }
         }
-        private PropertySystemSearch internalPropertySystemSearch;
+        private PropertySystemSearch? internalPropertySystemSearch;
         /// <summary>
         /// System.Search Properties
         /// </summary>
@@ -3290,7 +3290,7 @@ public partial class ShellProperties
                 return internalPropertySystemSearch;
             }
         }
-        private PropertySystemShell internalPropertySystemShell;
+        private PropertySystemShell? internalPropertySystemShell;
         /// <summary>
         /// System.Shell Properties
         /// </summary>
@@ -3306,7 +3306,7 @@ public partial class ShellProperties
                 return internalPropertySystemShell;
             }
         }
-        private PropertySystemSoftware internalPropertySystemSoftware;
+        private PropertySystemSoftware? internalPropertySystemSoftware;
         /// <summary>
         /// System.Software Properties
         /// </summary>
@@ -3322,7 +3322,7 @@ public partial class ShellProperties
                 return internalPropertySystemSoftware;
             }
         }
-        private PropertySystemSync internalPropertySystemSync;
+        private PropertySystemSync? internalPropertySystemSync;
         /// <summary>
         /// System.Sync Properties
         /// </summary>
@@ -3338,7 +3338,7 @@ public partial class ShellProperties
                 return internalPropertySystemSync;
             }
         }
-        private PropertySystemTask internalPropertySystemTask;
+        private PropertySystemTask? internalPropertySystemTask;
         /// <summary>
         /// System.Task Properties
         /// </summary>
@@ -3354,7 +3354,7 @@ public partial class ShellProperties
                 return internalPropertySystemTask;
             }
         }
-        private PropertySystemVideo internalPropertySystemVideo;
+        private PropertySystemVideo? internalPropertySystemVideo;
         /// <summary>
         /// System.Video Properties
         /// </summary>
@@ -3370,7 +3370,7 @@ public partial class ShellProperties
                 return internalPropertySystemVideo;
             }
         }
-        private PropertySystemVolume internalPropertySystemVolume;
+        private PropertySystemVolume? internalPropertySystemVolume;
         /// <summary>
         /// System.Volume Properties
         /// </summary>
@@ -5941,7 +5941,7 @@ public partial class ShellProperties
 
 
         #region sub-namespaces
-        private PropertyContactJA internalPropertyContactJA;
+        private PropertyContactJA? internalPropertyContactJA;
         /// <summary>
         /// Contact.JA Properties
         /// </summary>
@@ -7237,7 +7237,7 @@ public partial class ShellProperties
 
 
         #region sub-namespaces
-        private PropertyDevicesNotifications internalPropertyDevicesNotifications;
+        private PropertyDevicesNotifications? internalPropertyDevicesNotifications;
         /// <summary>
         /// Devices.Notifications Properties
         /// </summary>

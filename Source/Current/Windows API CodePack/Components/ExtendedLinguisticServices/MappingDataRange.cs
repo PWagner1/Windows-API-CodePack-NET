@@ -100,7 +100,7 @@ public class MappingDataRange
     /// <returns>A formatted version of this <see cref="MappingDataRange">MappingDataRange</see>.</returns>
     public T FormatData<T>(IMappingFormatter<T> formatter)
     {
-        if (formatter == null) { throw new ArgumentNullException("formatter"); }
+        if (formatter == null) { throw new ArgumentNullException(nameof(formatter)); }
         return formatter.Format(this);
     }
 }

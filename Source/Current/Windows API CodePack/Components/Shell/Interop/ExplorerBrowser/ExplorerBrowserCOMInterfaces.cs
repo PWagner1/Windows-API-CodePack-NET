@@ -64,6 +64,7 @@ internal enum FolderViewMode
     Last = 8
 }
 
+[Flags]
 internal enum ExplorerPaneState
 {
     DoNotCare = 0x00000000,

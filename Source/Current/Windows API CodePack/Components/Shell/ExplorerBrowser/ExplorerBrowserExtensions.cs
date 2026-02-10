@@ -1,15 +1,24 @@
-﻿using IConditionFactory = Microsoft.WindowsAPICodePack.Shell.IConditionFactory;
+using IConditionFactory = Microsoft.WindowsAPICodePack.Shell.IConditionFactory;
 using ISearchFolderItemFactory = Microsoft.WindowsAPICodePack.Shell.Interop.ISearchFolderItemFactory;
 
 namespace Microsoft.WindowsAPICodePack.Controls.WindowsForms;
 
+/// <summary>
+/// Extension methods for the <see cref="ExplorerBrowser"/> WinForms control.
+/// </summary>
 public static class ExplorerBrowserExtensions
 {
+    /// <summary>
+    /// Navigates the specified <see cref="ExplorerBrowser"/> to a simple filename search within the given known folder.
+    /// </summary>
+    /// <param name="browser">The explorer browser to navigate.</param>
+    /// <param name="searchQuery">The search text to use for matching file names.</param>
+    /// <param name="searchScope">The known folder to search within.</param>
     public static void NavigateToSearch(this ExplorerBrowser browser, string searchQuery, IKnownFolder searchScope)
     {
         if (string.IsNullOrWhiteSpace(searchQuery))
         {
-            throw new ArgumentException("Search query must not be empty.", nameof(searchQuery));
+            throw new ArgumentException(@"Search query must not be empty.", nameof(searchQuery));
         }
 
         if (searchScope == null)

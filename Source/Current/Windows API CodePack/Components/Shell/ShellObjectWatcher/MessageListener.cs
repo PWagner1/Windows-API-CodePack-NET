@@ -1,4 +1,4 @@
-﻿using Message = Microsoft.WindowsAPICodePack.Shell.Interop.Message;
+using Message = Microsoft.WindowsAPICodePack.Shell.Interop.Message;
 // ReSharper disable InconsistentNaming
 
 namespace Microsoft.WindowsAPICodePack.Shell;
@@ -51,8 +51,9 @@ internal class MessageListener : IDisposable
 
             if (WindowHandle == IntPtr.Zero)
             {
+                var exception = Marshal.GetExceptionForHR(Marshal.GetHRForLastWin32Error());
                 throw new ShellException(LocalizedMessages.MessageListenerCannotCreateWindow,
-                                         innerException: Marshal.GetExceptionForHR(errorCode: Marshal.GetHRForLastWin32Error()));
+                                         innerException: exception ?? new COMException("Failed to create window"));
             }
 
             _listeners.Add(WindowHandle, this);
@@ -82,8 +83,9 @@ internal class MessageListener : IDisposable
         var atom = ShellObjectWatcherNativeMethods.RegisterClassEx(ref classEx);
         if (atom == 0)
         {
+            var exception = Marshal.GetExceptionForHR(Marshal.GetHRForLastWin32Error());
             throw new ShellException(LocalizedMessages.MessageListenerClassNotRegistered,
-                Marshal.GetExceptionForHR(Marshal.GetHRForLastWin32Error()));
+                exception ?? new COMException("Failed to register window class"));
         }
         _atom = atom;
     }
@@ -142,8 +144,7 @@ internal class MessageListener : IDisposable
                 _running = false;
                 break;
             default:
-                MessageListener listener;
-                if (_listeners.TryGetValue(hwnd, out listener))
+                if (_listeners.TryGetValue(hwnd, out MessageListener? listener) && listener != null)
                 {
                     Message message = new(hwnd, msg, wparam, lparam, 0, new NativePoint());
                     listener.MessageReceived.SafeRaise(listener, new WindowMessageEventArgs(message));

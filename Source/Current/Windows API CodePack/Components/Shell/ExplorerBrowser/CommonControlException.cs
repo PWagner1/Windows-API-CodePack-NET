@@ -1,4 +1,4 @@
-﻿namespace Microsoft.WindowsAPICodePack.Controls;
+namespace Microsoft.WindowsAPICodePack.Controls;
 
 /// <summary>
 /// An exception thrown when an error occurs while dealing with Control objects.
@@ -12,7 +12,7 @@ public class CommonControlException : COMException
     public CommonControlException() { }
 
     /// <summary>
-    /// Initializes an excpetion with a custom message.
+    /// Initializes an exception with a custom message.
     /// </summary>
     /// <param name="message"></param>
     public CommonControlException(string message) : base(message) { }
@@ -46,9 +46,11 @@ public class CommonControlException : COMException
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
+#pragma warning disable SYSLIB0051 // Type or member is obsolete - required for serialization compatibility
     protected CommonControlException(SerializationInfo info, StreamingContext context)
         : base(info, context)
     {
     }
+#pragma warning restore SYSLIB0051
 
 }

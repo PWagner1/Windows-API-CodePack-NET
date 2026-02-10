@@ -621,7 +621,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     {
         ExplorerBrowser? instance = d as ExplorerBrowser;
 
-        if (instance != null && instance.ExplorerBrowserControl.ExplorerBrowserControl != null)
+        if (instance is { ExplorerBrowserControl.ExplorerBrowserControl: not null })
         {
             instance.ExplorerBrowserControl.Navigate((ShellObject)e.NewValue);
         }
@@ -1299,7 +1299,7 @@ public partial class ExplorerBrowser : UserControl, IDisposable
     /// <param name="queryString">The search query in Windows Search format (e.g., "kind:picture AND datemodified:today").</param>
     /// <param name="searchScope">The scope where to perform the search.</param>
     /// <param name="cultureInfo">The culture info for parsing the query. If null, uses CurrentCulture.</param>
-    public void SearchWithQueryString(string queryString, ShellContainer searchScope, System.Globalization.CultureInfo? cultureInfo = null)
+    public void SearchWithQueryString(string queryString, ShellContainer searchScope, CultureInfo? cultureInfo = null)
     {
         ExplorerBrowserControl?.SearchWithQueryString(queryString, searchScope, cultureInfo);
     }

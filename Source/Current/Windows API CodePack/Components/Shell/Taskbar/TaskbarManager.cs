@@ -1,4 +1,4 @@
-﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
+//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
 #pragma warning disable IDE0059
@@ -9,7 +9,9 @@ namespace Microsoft.WindowsAPICodePack.Taskbar;
 /// </summary>
 public class TaskbarManager
 {
-    // Hide the default constructor
+    /// <summary>
+    /// Initializes a new instance of the TaskbarManager class.
+    /// </summary>
     public TaskbarManager() => CoreHelpers.ThrowIfNotWin7OrHigher();
 
     // Best practice recommends defining a private object to lock on
@@ -27,10 +29,7 @@ public class TaskbarManager
             {
                 lock (SyncLock)
                 {
-                    if (_instance == null)
-                    {
-                        _instance = new TaskbarManager();
-                    }
+                    _instance ??= new TaskbarManager();
                 }
             }
 

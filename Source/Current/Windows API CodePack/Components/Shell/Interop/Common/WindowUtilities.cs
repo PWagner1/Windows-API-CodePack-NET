@@ -23,7 +23,7 @@ internal static class WindowUtilities
         return offset;
     }
 
-    internal static System.Drawing.Size GetNonClientArea(IntPtr hwnd)
+    internal static Size GetNonClientArea(IntPtr hwnd)
     {
         var c = new NativePoint();
 

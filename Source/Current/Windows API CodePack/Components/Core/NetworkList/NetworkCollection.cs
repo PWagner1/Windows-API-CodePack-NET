@@ -2,7 +2,6 @@
 
 // ReSharper disable LoopCanBeConvertedToQuery
 
-#pragma warning disable CS8600, CS8604
 namespace Microsoft.WindowsAPICodePack.Net;
 
 /// <summary>
@@ -28,7 +27,7 @@ public class NetworkCollection : IEnumerable<Network>
     {
         foreach (INetwork network in _networkEnumerable)
         {
-            yield return new(network);
+            yield return new Network(network);
         }
     }
 

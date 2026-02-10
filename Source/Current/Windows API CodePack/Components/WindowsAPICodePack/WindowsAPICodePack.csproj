@@ -44,6 +44,10 @@
 		<BaseOutputPath>..\..\..\..\..\Output\bin</BaseOutputPath>
 		
 		<PackageTags>windows;api;shell;taskdialog;vista;win7;win8;win10;win11;sensors;linguistic;explorer</PackageTags>
+		
+		<!-- Suppress NU5128: Empty dependency groups are expected for meta-packages with project references -->
+		<!-- Suppress NU5118: XML files are automatically included by NuGet for DLLs in BuildOutputInPackage -->
+		<NoWarn>$(NoWarn);NU5128;NU5118</NoWarn>
 	</PropertyGroup>
 
 	<!-- Reference all component projects - include their DLLs in this package -->
@@ -75,26 +79,17 @@
 		</ProjectReference>
 	</ItemGroup>
 	
-	<!-- Include referenced assemblies and XML docs in the NuGet package -->
+	<!-- Include referenced assemblies in the NuGet package -->
+	<!-- Note: XML documentation files are automatically included by NuGet for DLLs in BuildOutputInPackage -->
 	<PropertyGroup>
 		<TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
-		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);CopyProjectReferencesXmlToPackage</TargetsForTfmSpecificContentInPackage>
 	</PropertyGroup>
 
 	<Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
 		<ItemGroup>
 			<!-- Include DLLs from referenced projects -->
+			<!-- NuGet will automatically include corresponding XML files -->
 			<BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference'))" />
-		</ItemGroup>
-	</Target>
-
-	<Target Name="CopyProjectReferencesXmlToPackage" DependsOnTargets="ResolveReferences">
-		<ItemGroup>
-			<!-- Include XML documentation files from referenced projects -->
-			<_RefXmlFiles Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')->'%(RootDir)%(Directory)%(Filename).xml')" Condition="Exists('%(RootDir)%(Directory)%(Filename).xml')" />
-			<TfmSpecificPackageFile Include="@(_RefXmlFiles)">
-				<PackagePath>lib/$(TargetFramework)/%(Filename)%(Extension)</PackagePath>
-			</TfmSpecificPackageFile>
 		</ItemGroup>
 	</Target>
 

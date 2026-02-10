@@ -21,7 +21,7 @@ public static class TabbedThumbnailScreenCapture
     /// <param name="windowHandle">The window handle.</param>
     /// <param name="bitmapSize">The requested bitmap size.</param>
     /// <returns>A screen capture of the window.</returns>        
-    public static Bitmap? GrabWindowBitmap(IntPtr windowHandle, System.Drawing.Size bitmapSize)
+    public static Bitmap? GrabWindowBitmap(IntPtr windowHandle, Size bitmapSize)
     {
         if (bitmapSize.Height <= 0 || bitmapSize.Width <= 0) { return null; }
 
@@ -31,15 +31,15 @@ public static class TabbedThumbnailScreenCapture
         {
             windowDC = TabbedThumbnailNativeMethods.GetWindowDC(windowHandle);
 
-            System.Drawing.Size realWindowSize;
+            Size realWindowSize;
             TabbedThumbnailNativeMethods.GetClientSize(windowHandle, out realWindowSize);
 
-            if (realWindowSize == System.Drawing.Size.Empty)
+            if (realWindowSize == Size.Empty)
             {
                 realWindowSize = new Size(200, 200);
             }
 
-            System.Drawing.Size size = (bitmapSize == System.Drawing.Size.Empty) ?
+            Size size = (bitmapSize == Size.Empty) ?
                 realWindowSize : bitmapSize;
 
             Bitmap? targetBitmap = null;
@@ -54,7 +54,7 @@ public static class TabbedThumbnailScreenCapture
                     IntPtr targetDC = targetGr.GetHdc();
                     uint operation = 0x00CC0020 /*SRCCOPY*/;
 
-                    System.Drawing.Size ncArea = WindowUtilities.GetNonClientArea(windowHandle);
+                    Size ncArea = WindowUtilities.GetNonClientArea(windowHandle);
 
                     bool success = TabbedThumbnailNativeMethods.StretchBlt(
                         targetDC, 0, 0, targetBitmap.Width, targetBitmap.Height,

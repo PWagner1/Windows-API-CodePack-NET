@@ -16,17 +16,17 @@ public sealed class PreviewHandlerAttribute : Attribute
     {
         if (name == null)
         {
-            throw new ArgumentNullException("name");
+            throw new ArgumentNullException(nameof(name));
         }
 
         if (extensions == null)
         {
-            throw new ArgumentNullException("extensions");
+            throw new ArgumentNullException(nameof(extensions));
         }
 
         if (appId == null)
         {
-            throw new ArgumentNullException("appId");
+            throw new ArgumentNullException(nameof(appId));
         }
 
         Name = name;

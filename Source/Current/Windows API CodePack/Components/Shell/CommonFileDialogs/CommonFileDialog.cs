@@ -378,7 +378,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
         {
             CheckFileNamesAvailable();
 
-            if (_filenames != null && _filenames.Count > 1)
+            if (_filenames is { Count: > 1 })
             {
                 throw new InvalidOperationException(LocalizedMessages.CommonFileDialogMultipleFiles);
             }
@@ -469,7 +469,8 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
 
         if (!CoreErrorHelper.Succeeded(retCode))
         {
-            throw new CommonControlException(LocalizedMessages.CommonFileDialogCannotCreateShellItem, Marshal.GetExceptionForHR(retCode));
+            var exception = Marshal.GetExceptionForHR(retCode);
+            throw new CommonControlException(LocalizedMessages.CommonFileDialogCannotCreateShellItem, exception ?? new COMException("Failed to create shell item", retCode));
         }
 
         // Add the shellitem to the places list
@@ -635,7 +636,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
     /// <summary>
     /// Default file name.
     /// </summary>
-    public string? DefaultFileName { get; set; }
+    public string? DefaultFileName { get; }
 
     private void InitializeEventSink(IFileDialog? nativeDlg)
     {
@@ -646,7 +647,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
             || SelectionChanged != null
             || FileTypeChanged != null
             || DialogOpening != null
-            || (_controls != null && _controls.Count > 0))
+            || _controls is { Count: > 0 })
         {
             if (nativeDlg == null)
             {
@@ -672,15 +673,15 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
             }
             else if (System.Windows.Forms.Application.OpenForms.Count > 0)
             {
-                if (System.Windows.Forms.Application.OpenForms.Count > 0 && System.Windows.Forms.Application.OpenForms[0] != null)
+                var firstForm = System.Windows.Forms.Application.OpenForms[0];
+                if (firstForm != null)
                 {
-                    _parentWindow = System.Windows.Forms.Application.OpenForms[0].Handle;
+                    _parentWindow = firstForm.Handle;
                 }
                 else
                 {
                     throw new InvalidOperationException("No open forms available to retrieve a handle.");
                 }
-                _parentWindow = System.Windows.Forms.Application.OpenForms[0].Handle;
             }
         }
 
@@ -1135,32 +1136,26 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
 
     #region NativeDialogEventSink Nested Class
 
-    private class NativeDialogEventSink : IFileDialogEvents, IFileDialogControlEvents
+    private class NativeDialogEventSink(CommonFileDialog commonDialog) : IFileDialogEvents, IFileDialogControlEvents
     {
-        private readonly CommonFileDialog _parent;
         private bool _firstFolderChanged = true;
-
-        public NativeDialogEventSink(CommonFileDialog commonDialog)
-        {
-            _parent = commonDialog;
-        }
 
         public uint Cookie { get; set; }
 
         public HResult OnFileOk(IFileDialog pfd)
         {
             CancelEventArgs args = new();
-            _parent.OnFileOk(args);
+            commonDialog.OnFileOk(args);
 
             if (!args.Cancel)
             {
                 // Make sure all custom properties are sync'ed
-                if (_parent.Controls != null)
+                if (commonDialog.Controls != null)
                 {
-                    foreach (CommonFileDialogControl control in _parent.Controls)
+                    foreach (CommonFileDialogControl control in commonDialog.Controls)
                     {
                         CommonFileDialogTextBox? textBox;
-                        CommonFileDialogGroupBox? groupBox; ;
+                        CommonFileDialogGroupBox? groupBox;
 
                         if ((textBox = control as CommonFileDialogTextBox) != null)
                         {
@@ -1195,7 +1190,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
             CommonFileDialogFolderChangeEventArgs args = new(
                 GetFileNameFromShellItem(psiFolder));
 
-            if (!_firstFolderChanged) { _parent.OnFolderChanging(args); }
+            if (!_firstFolderChanged) { commonDialog.OnFolderChanging(args); }
 
             return (args.Cancel ? HResult.False : HResult.Ok);
         }
@@ -1205,11 +1200,11 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
             if (_firstFolderChanged)
             {
                 _firstFolderChanged = false;
-                _parent.OnOpening(EventArgs.Empty);
+                commonDialog.OnOpening(EventArgs.Empty);
             }
             else
             {
-                _parent.OnFolderChanged(EventArgs.Empty);
+                commonDialog.OnFolderChanged(EventArgs.Empty);
             }
         }
 
@@ -1224,7 +1219,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
 
             string? folder = Marshal.PtrToStringAuto(folderPtr);
 
-            _parent.OnSelectionChanged(new CommonFileDialogSelectionChangedEventArgs(folder, text));
+            commonDialog.OnSelectionChanged(new CommonFileDialogSelectionChangedEventArgs(folder, text));
         }
 
         public void OnShareViolation(
@@ -1240,7 +1235,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
 
         public void OnTypeChange(IFileDialog pfd)
         {
-            _parent.OnFileTypeChanged(EventArgs.Empty);
+            commonDialog.OnFileTypeChanged(EventArgs.Empty);
         }
 
         public void OnOverwrite(IFileDialog pfd, IShellItem psi, out ShellNativeMethods.FileDialogEventOverwriteResponse pResponse)
@@ -1252,7 +1247,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
         public void OnItemSelected(IFileDialogCustomize pfdc, int dwIdCtl, int dwIdItem)
         {
             // Find control
-            DialogControl? control = _parent._controls?.GetControlbyId(dwIdCtl);
+            DialogControl? control = commonDialog._controls?.GetControlbyId(dwIdCtl);
 
             ICommonFileDialogIndexedControls? controlInterface;
             CommonFileDialogMenu? menu;
@@ -1282,7 +1277,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
         public void OnButtonClicked(IFileDialogCustomize pfdc, int dwIdCtl)
         {
             // Find control
-            DialogControl? control = _parent._controls?.GetControlbyId(dwIdCtl);
+            DialogControl? control = commonDialog._controls?.GetControlbyId(dwIdCtl);
             // Call corresponding event
             if (control is CommonFileDialogButton button)
             {
@@ -1293,7 +1288,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
         public void OnCheckButtonToggled(IFileDialogCustomize pfdc, int dwIdCtl, bool bChecked)
         {
             // Find control
-            DialogControl? control = _parent._controls?.GetControlbyId(dwIdCtl);
+            DialogControl? control = commonDialog._controls?.GetControlbyId(dwIdCtl);
 
             // Update control and call corresponding event
             if (control is CommonFileDialogCheckBox box)

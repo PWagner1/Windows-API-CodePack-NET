@@ -1,4 +1,4 @@
-﻿namespace Microsoft.WindowsAPICodePack.Shell;
+namespace Microsoft.WindowsAPICodePack.Shell;
 
 /// <summary>
 /// An exception thrown when an error occurs while dealing with ShellObjects.
@@ -61,11 +61,13 @@ public class ShellException : ExternalException
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
+#pragma warning disable SYSLIB0051 // Type or member is obsolete - required for serialization compatibility
     protected ShellException(
         SerializationInfo info,
         StreamingContext context)
         : base(info, context)
     {
     }
+#pragma warning restore SYSLIB0051
 
 }
