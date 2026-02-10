@@ -1,4 +1,4 @@
-﻿using Color = System.Drawing.Color;
+using Color = System.Drawing.Color;
 using TextBox = System.Windows.Forms.TextBox;
 using UserControl = System.Windows.Forms.UserControl;
 #pragma warning disable CS8602
@@ -8,11 +8,11 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions;
 /// <summary>
 /// This is the base class for all WinForms-based preview handlers and provides their basic functionality.
 /// To create a custom preview handler that contains a WinForms user control,
-/// a class must derive from this, use the <typeparamref name="PreviewHandlerAttribute"/>,
+/// a class must derive from this, use the <see cref="PreviewHandlerAttribute"/>,
 /// and implement 1 or more of the following interfaces: 
-/// <typeparamref name="IPreviewFromStream"/>, 
-/// <typeparamref name="IPreviewFromShellObject"/>, 
-/// <typeparamref name="IPreviewFromFile"/>.   
+/// <see cref="IPreviewFromStream"/>, 
+/// <see cref="IPreviewFromShellObject"/>, 
+/// <see cref="IPreviewFromFile"/>.   
 /// </summary>
 public abstract class WinFormsPreviewHandler : PreviewHandler, IDisposable
 {
@@ -21,6 +21,9 @@ public abstract class WinFormsPreviewHandler : PreviewHandler, IDisposable
     /// </summary>
     public UserControl? Control { get; protected set; }
 
+    /// <summary>
+    /// Throws an exception if the control has not been initialized.
+    /// </summary>
     protected void ThrowIfNoControl()
     {
         if (Control == null)
@@ -37,9 +40,9 @@ public abstract class WinFormsPreviewHandler : PreviewHandler, IDisposable
         Justification = "The object remains reachable through the Controls collection which can be disposed at a later time.")]
     protected override void HandleInitializeException(Exception caughtException)
     {
-        if (caughtException == null) { throw new ArgumentNullException("caughtException"); }
+        if (caughtException == null) { throw new ArgumentNullException(nameof(caughtException)); }
 
-        Control = new();
+        Control = new UserControl();
         Control.Controls.Add(new TextBox
         {
             ReadOnly = true,
@@ -50,6 +53,10 @@ public abstract class WinFormsPreviewHandler : PreviewHandler, IDisposable
         });
     }
 
+    /// <summary>
+    /// Updates the bounds of the preview control.
+    /// </summary>
+    /// <param name="bounds">The new bounds for the preview control.</param>
     protected override void UpdateBounds(NativeRect bounds)
     {
         if (Control != null)
@@ -59,28 +66,50 @@ public abstract class WinFormsPreviewHandler : PreviewHandler, IDisposable
         }
     }
 
+    /// <summary>
+    /// Sets focus to the preview control.
+    /// </summary>
     protected override void SetFocus()
     {
         Control?.Focus();
     }
 
+    /// <summary>
+    /// Sets the background color of the preview control.
+    /// </summary>
+    /// <param name="argb">The ARGB color value.</param>
     protected override void SetBackground(int argb)
     {
         Control.BackColor = Color.FromArgb(argb);
     }
 
+    /// <summary>
+    /// Sets the foreground color of the preview control.
+    /// </summary>
+    /// <param name="argb">The ARGB color value.</param>
     protected override void SetForeground(int argb)
     {
         Control.ForeColor = Color.FromArgb(argb);
     }
 
+    /// <summary>
+    /// Sets the font of the preview control.
+    /// </summary>
+    /// <param name="font">The log font to apply.</param>
     protected override void SetFont(LogFont font)
     {
         Control.Font = Font.FromLogFont(font);
     }
 
+    /// <summary>
+    /// Gets the handle of the preview control.
+    /// </summary>
     protected override IntPtr Handle => Control.Handle;
 
+    /// <summary>
+    /// Sets the parent window handle for the preview control.
+    /// </summary>
+    /// <param name="handle">The parent window handle.</param>
     protected override void SetParentHandle(IntPtr handle)
     {
         HandlerNativeMethods.SetParent(Control.Handle, handle);
@@ -88,17 +117,27 @@ public abstract class WinFormsPreviewHandler : PreviewHandler, IDisposable
 
     #region IDisposable Members
 
+    /// <summary>
+    /// Finalizes the preview handler instance.
+    /// </summary>
     ~WinFormsPreviewHandler()
     {
         Dispose(false);
     }
 
+    /// <summary>
+    /// Disposes the preview handler and releases all resources.
+    /// </summary>
     public void Dispose()
     {
         Dispose(true);
         GC.SuppressFinalize(this);
     }
 
+    /// <summary>
+    /// Disposes the preview handler and releases resources.
+    /// </summary>
+    /// <param name="disposing">True if called from Dispose(), false if called from finalizer.</param>
     protected virtual void Dispose(bool disposing)
     {
         if (disposing && Control != null)

@@ -15,7 +15,7 @@ public class NullTerminatedStringFormatter : IMappingFormatter<string>
     /// <returns>The resulting string</returns>
     public string Format(MappingDataRange dataRange)
     {            
-        if (dataRange == null) { throw new ArgumentNullException("dataRange"); }
+        if (dataRange == null) { throw new ArgumentNullException(nameof(dataRange)); }
 
         byte[] data = dataRange.GetData();
         if ((data.Length & 1) != 0)
@@ -45,7 +45,7 @@ public class NullTerminatedStringFormatter : IMappingFormatter<string>
     /// <returns>An array of strings, one per <see cref="MappingDataRange">MappingDataRange</see>.</returns>
     public string[] FormatAll(MappingPropertyBag bag)
     {
-        if (bag == null) { throw new ArgumentNullException("bag"); }
+        if (bag == null) { throw new ArgumentNullException(nameof(bag)); }
 
         MappingDataRange[] dataRanges = bag.GetResultRanges();
         string[] results = new string[dataRanges.Length];

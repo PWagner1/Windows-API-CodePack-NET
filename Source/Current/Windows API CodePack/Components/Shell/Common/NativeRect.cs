@@ -72,7 +72,7 @@ public struct NativeRect
     /// </summary>
     /// <param name="obj">Another NativeRect to compare</param>
     /// <returns>True if this NativeRect is equal to the one provided; false otherwise.</returns>
-    public override bool Equals(object? obj) => (obj != null && obj is NativeRect) ? this == (NativeRect)obj : false;
+    public override bool Equals(object? obj) => obj is NativeRect ? this == (NativeRect)obj : false;
 
     /// <summary>
     /// Creates a hash code for the NativeRect

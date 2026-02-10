@@ -1,4 +1,4 @@
-﻿namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem;
+namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 
 /// <summary>
 /// An exception thrown when an error occurs while dealing with the Property System API.
@@ -40,10 +40,12 @@ public class PropertySystemException : Exception
     /// </summary>
     /// <param name="info"></param>
     /// <param name="context"></param>
+#pragma warning disable SYSLIB0051 // Type or member is obsolete - required for serialization compatibility
     protected PropertySystemException(
         SerializationInfo info,
         StreamingContext context)
         : base(info, context)
     {
     }
+#pragma warning restore SYSLIB0051
 }

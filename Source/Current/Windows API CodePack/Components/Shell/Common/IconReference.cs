@@ -1,4 +1,4 @@
-﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
+//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 // ReSharper disable AssignNullToNotNullAttribute
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
@@ -56,15 +56,8 @@ public struct IconReference
         }
 
         _moduleName = refParams[0];
-        if (!string.IsNullOrEmpty(refParams[1]))
-        {
-            ResourceId = int.Parse(refParams[1], CultureInfo.InvariantCulture);
-        }
-        else
-        {
-            throw new ArgumentException(LocalizedMessages.InvalidReferencePath, nameof(refParams));
-        }
-
+        // refParams[1] is guaranteed to be non-null and non-empty after the check above
+        ResourceId = int.Parse(refParams[1]!, CultureInfo.InvariantCulture);
 
         _referencePath = refPath;
     }
@@ -111,15 +104,8 @@ public struct IconReference
             }
 
             ModuleName = refParams[0];
-            if (refParams != null && !string.IsNullOrEmpty(refParams[1]))
-            {
-                ResourceId = int.Parse(refParams[1], CultureInfo.InvariantCulture);
-            }
-            else
-            {
-                throw new ArgumentException(LocalizedMessages.InvalidReferencePath, nameof(refParams));
-            }
-
+            // refParams[1] is guaranteed to be non-null and non-empty after the check above
+            ResourceId = int.Parse(refParams[1]!, CultureInfo.InvariantCulture);
 
             _referencePath = value;
         }

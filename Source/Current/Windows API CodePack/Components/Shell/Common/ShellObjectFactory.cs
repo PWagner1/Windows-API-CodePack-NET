@@ -2,6 +2,15 @@
 
 namespace Microsoft.WindowsAPICodePack.Shell;
 
+/// <summary>
+/// Provides static methods for creating ShellObject instances from various sources, such as native IShellItem
+/// interfaces, parsing names, or IDList pointers.
+/// </summary>
+/// <remarks>This factory class determines the appropriate ShellObject type to instantiate based on the attributes
+/// of the provided shell item. It supports both file system and non-file system items, including special cases like
+/// Shell Links and Shell Libraries. The class requires the application to be running on Windows Vista or higher;
+/// attempting to use it on unsupported platforms will result in exceptions. Null arguments and invalid parsing names
+/// are also validated and will throw exceptions as appropriate.</remarks>
 public static class ShellObjectFactory
 {
     /// <summary>
@@ -174,7 +183,7 @@ public static class ShellObjectFactory
         // Convert relative paths to absolute, but preserve shell namespace paths (e.g., ::{GUID})
         // and absolute URIs as-is.
         string? normalizedParsingName = parsingName;
-        if (!parsingName.StartsWith("::", StringComparison.Ordinal) && 
+        if (!parsingName!.StartsWith("::", StringComparison.Ordinal) && 
             !Uri.IsWellFormedUriString(parsingName, UriKind.Absolute) &&
             !Path.IsPathRooted(parsingName))
         {

@@ -131,7 +131,7 @@ public sealed class PropVariant : IDisposable
     {
         if (value == null)
         {
-            return new();
+            return new PropVariant();
         }
         else
         {

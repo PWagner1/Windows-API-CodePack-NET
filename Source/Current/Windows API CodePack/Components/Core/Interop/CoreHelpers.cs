@@ -47,7 +47,7 @@ public static class CoreHelpers
     public static bool RunningOnWin7OrHigher =>
         // Verifies that OS version is 6.1 or greater, and the Platform is WinNT.
         Environment.OSVersion.Platform == PlatformID.Win32NT &&
-        Environment.OSVersion.Version.CompareTo(new(6, 1)) >= 0;
+        Environment.OSVersion.Version.CompareTo(new Version(6, 1)) >= 0;
 
     /// <summary>
     /// Throws PlatformNotSupportedException if the application is not running on Windows 7

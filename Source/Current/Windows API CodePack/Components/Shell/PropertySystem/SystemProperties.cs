@@ -1,4 +1,4 @@
-﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
+//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 namespace Microsoft.WindowsAPICodePack.Shell.PropertySystem;
 
@@ -7949,6 +7949,16 @@ public static class SystemProperties
                 }
             }
 
+            /// <summary>
+            /// <para>Name:     System.Media.SeasonNumber -- PKEY_Media_SeasonNumber</para>
+            /// <para>Description: Example: "1"
+            ///</para>
+            /// <para>Type:     UInt32 -- VT_UI4</para>
+            /// <para>FormatID: {64440492-4C8B-11D1-8B70-080036B11A03}, 101</para>
+            /// <para>Description System.Media.SeasonNumber
+            ///  A 1 based monotonically incremented number that corresponds to the season of the show
+            ///  </para>
+            /// </summary>
             public static PropertyKey SeasonNumber => new PropertyKey(new Guid("{64440492-4C8B-11D1-8B70-080036B11A03}"), 101);
 
             /// <summary>

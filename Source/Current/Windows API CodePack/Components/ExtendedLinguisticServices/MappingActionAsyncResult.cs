@@ -17,7 +17,7 @@ public class MappingActionAsyncResult : MappingAsyncResult
         string actionId)
         : base(callerData, asyncCallback)
     {
-        SetResult(bag, new());
+        SetResult(bag, new MappingResultState());
         RangeIndex = rangeIndex;
         ActionId = actionId;
     }

@@ -1,4 +1,4 @@
-﻿// ReSharper disable JoinNullCheckWithUsage
+// ReSharper disable JoinNullCheckWithUsage
 namespace Microsoft.WindowsAPICodePack.ShellExtensions;
 
 /// <summary>    
@@ -17,12 +17,12 @@ public sealed class ThumbnailProviderAttribute : Attribute
     {
         if (name == null)
         {
-            throw new ArgumentNullException("name");
+            throw new ArgumentNullException(nameof(name));
         }
 
         if (extensions == null)
         {
-            throw new ArgumentNullException("extensions");
+            throw new ArgumentNullException(nameof(extensions));
         }
 
         Name = name;
@@ -49,7 +49,7 @@ public sealed class ThumbnailProviderAttribute : Attribute
     /// <summary>
     /// Opts-out of running within the surrogate process DllHost.exe.
     /// This will reduce robustness and security.
-    /// This value should be true if the provider does not implement <typeparamref name="IThumbnailFromStream"/>.
+    /// This value should be true if the provider does not implement <see cref="IThumbnailFromStream"/>.
     /// </summary>
     // Note: The msdn documentation and property name are contradicting.
     // http://msdn.microsoft.com/en-us/library/cc144118(VS.85).aspx
@@ -71,7 +71,7 @@ public sealed class ThumbnailProviderAttribute : Attribute
     public string? TypeOverlay { get; set; }
 
     /// <summary>
-    /// Specifies the <typeparamref name="ThumbnailAdornment"/> for the thumbnail.
+    /// Specifies the <see cref="ThumbnailAdornment"/> for the thumbnail.
     /// <remarks>
     /// Only 32bpp bitmaps support adornments. 
     /// While 24bpp bitmaps will be displayed, their adornments will not.

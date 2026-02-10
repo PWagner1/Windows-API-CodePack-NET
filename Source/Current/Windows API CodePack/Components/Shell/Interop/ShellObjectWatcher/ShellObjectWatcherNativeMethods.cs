@@ -167,7 +167,7 @@ public struct Message
     /// <returns>True if this message is equal argument; false otherwise.</returns>
     public override bool Equals(object? obj)
     {
-        return (obj != null && obj is Message) ? this == (Message)obj : false;
+        return obj is Message ? this == (Message)obj : false;
     }
 
     /// <summary>

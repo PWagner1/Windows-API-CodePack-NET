@@ -1,4 +1,4 @@
-﻿using IInitializeWithFile = Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IInitializeWithFile;
+using IInitializeWithFile = Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IInitializeWithFile;
 using IInitializeWithItem = Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IInitializeWithItem;
 using IInitializeWithStream = Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IInitializeWithStream;
 using IThumbnailProvider = Microsoft.WindowsAPICodePack.ShellExtensions.Interop.IThumbnailProvider;
@@ -14,9 +14,9 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions;
 
 /// <summary>
 /// This is the base class for all thumbnail providers and provides their basic functionality.
-/// To create a custom thumbnail provider a class must derive from this, use the <typeparamref name="ThumbnailProviderAttribute"/>,
+/// To create a custom thumbnail provider a class must derive from this, use the <see cref="ThumbnailProviderAttribute"/>,
 /// and implement 1 or more of the following interfaces: 
-/// <typeparamref name="IThumbnailFromStream"/>, <typeparamref name="IThumbnailFromShellObject"/>, <typeparamref name="IThumbnailFromFile"/>.   
+/// <see cref="IThumbnailFromStream"/>, <see cref="IThumbnailFromShellObject"/>, <see cref="IThumbnailFromFile"/>.   
 /// </summary>
 public abstract class ThumbnailProvider : IThumbnailProvider, ICustomQueryInterface, IDisposable,
     IInitializeWithStream, IInitializeWithItem, IInitializeWithFile
@@ -111,7 +111,7 @@ public abstract class ThumbnailProvider : IThumbnailProvider, ICustomQueryInterf
         if (registerType != null && registerType.IsSubclassOf(typeof(ThumbnailProvider)))
         {
             object[] attributes = registerType.GetCustomAttributes(typeof(ThumbnailProviderAttribute), true);
-            if (attributes != null && attributes.Length == 1)
+            if (attributes is { Length: 1 })
             {
                 ThumbnailProviderAttribute? attribute = attributes[0] as ThumbnailProviderAttribute;
                 ThrowIfInvalid(registerType, attribute);
@@ -192,7 +192,7 @@ public abstract class ThumbnailProvider : IThumbnailProvider, ICustomQueryInterf
         if (registerType != null && registerType.IsSubclassOf(typeof(ThumbnailProvider)))
         {
             object[] attributes = registerType.GetCustomAttributes(typeof(ThumbnailProviderAttribute), true);
-            if (attributes != null && attributes.Length == 1)
+            if (attributes is { Length: 1 })
             {
                 ThumbnailProviderAttribute? attribute = attributes[0] as ThumbnailProviderAttribute;
                 UnregisterThumbnailHandler(registerType.GUID.ToString("B"), attribute);
@@ -259,7 +259,7 @@ public abstract class ThumbnailProvider : IThumbnailProvider, ICustomQueryInterf
 
     void IInitializeWithStream.Initialize(IStream? stream, AccessModes fileMode)
     {
-        _stream = new(stream, fileMode != AccessModes.ReadWrite);
+        _stream = new StorageStream(stream, fileMode != AccessModes.ReadWrite);
     }
 
     #endregion
@@ -277,7 +277,7 @@ public abstract class ThumbnailProvider : IThumbnailProvider, ICustomQueryInterf
 
     void IInitializeWithFile.Initialize(string filePath, AccessModes fileMode)
     {
-        _info = new(filePath);
+        _info = new FileInfo(filePath);
     }
 
     #endregion

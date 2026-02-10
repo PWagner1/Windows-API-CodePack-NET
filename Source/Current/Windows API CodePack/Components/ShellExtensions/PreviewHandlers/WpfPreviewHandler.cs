@@ -1,5 +1,6 @@
-﻿using Brushes = System.Windows.Media.Brushes;
+using Brushes = System.Windows.Media.Brushes;
 using Color = System.Windows.Media.Color;
+using FontFamily = System.Windows.Media.FontFamily;
 using TextBox = System.Windows.Controls.TextBox;
 using UserControl = System.Windows.Controls.UserControl;
 // ReSharper disable ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract
@@ -11,11 +12,11 @@ namespace Microsoft.WindowsAPICodePack.ShellExtensions;
 /// <summary>
 /// This is the base class for all WPF-based preview handlers and provides their basic functionality.
 /// To create a custom preview handler that contains a WPF user control,
-/// a class must derive from this, use the <typeparamref name="PreviewHandlerAttribute"/>,
+/// a class must derive from this, use the <see cref="PreviewHandlerAttribute"/>,
 /// and implement 1 or more of the following interfaces: 
-/// <typeparamref name="IPreviewFromStream"/>, 
-/// <typeparamref name="IPreviewFromShellObject"/>, 
-/// <typeparamref name="IPreviewFromFile"/>.   
+/// <see cref="IPreviewFromStream"/>, 
+/// <see cref="IPreviewFromShellObject"/>, 
+/// <see cref="IPreviewFromFile"/>.   
 /// </summary>
 public abstract class WpfPreviewHandler : PreviewHandler, IDisposable
 {
@@ -48,17 +49,24 @@ public abstract class WpfPreviewHandler : PreviewHandler, IDisposable
         {
             HandlerNativeMethods.SetParent(_source.Handle, _parentHandle);
 
-            HandlerNativeMethods.SetWindowPos(_source.Handle, new((int)SetWindowPositionInsertAfter.Top),
+            HandlerNativeMethods.SetWindowPos(_source.Handle, new IntPtr((int)SetWindowPositionInsertAfter.Top),
                 0, 0, Math.Abs(_bounds.Left - _bounds.Right), Math.Abs(_bounds.Top - _bounds.Bottom), SetWindowPositionOptions.ShowWindow);
         }
     }
 
+    /// <summary>
+    /// Sets the parent window handle for the WPF preview control and updates its placement.
+    /// </summary>
+    /// <param name="handle">The handle of the parent window.</param>
     protected override void SetParentHandle(IntPtr handle)
     {
         _parentHandle = handle;
         UpdatePlacement();
     }
 
+    /// <summary>
+    /// Initializes the WPF preview handler and creates the hosting window for the WPF control.
+    /// </summary>
     protected override void Initialize()
     {
         if (_source == null)
@@ -73,13 +81,16 @@ public abstract class WpfPreviewHandler : PreviewHandler, IDisposable
                 Height = Math.Abs(_bounds.Top - _bounds.Bottom)
             };
 
-            _source = new(p);
+            _source = new HwndSource(p);
             _source.CompositionTarget.BackgroundColor = Brushes.WhiteSmoke.Color;
             _source.RootVisual = (Visual)Control.Content;
         }
         UpdatePlacement();
     }
 
+    /// <summary>
+    /// Gets the window handle for the WPF preview control.
+    /// </summary>
     protected override IntPtr Handle
     {
         get
@@ -94,30 +105,45 @@ public abstract class WpfPreviewHandler : PreviewHandler, IDisposable
         }
     }
 
+    /// <summary>
+    /// Updates the bounding rectangle of the WPF preview control.
+    /// </summary>
+    /// <param name="bounds">The new bounds in screen coordinates.</param>
     protected override void UpdateBounds(NativeRect bounds)
     {
         _bounds = bounds;
         UpdatePlacement();
     }
 
+    /// <summary>
+    /// Handles exceptions that occur during initialization of the WPF preview control.
+    /// </summary>
+    /// <param name="caughtException">The exception that was thrown.</param>
     protected override void HandleInitializeException(Exception? caughtException)
     {
         if (caughtException == null) { return; }
 
-        TextBox? text = new()
+        TextBox text = new()
         {
             IsReadOnly = true,
             MaxLines = 20,
             Text = caughtException.ToString()
         };
-        Control = new() { Content = text };
+        Control = new UserControl { Content = text };
     }
 
+    /// <summary>
+    /// Sets keyboard focus to the WPF preview control.
+    /// </summary>
     protected override void SetFocus()
     {
         Control.Focus();
     }
 
+    /// <summary>
+    /// Sets the background color of the WPF preview control.
+    /// </summary>
+    /// <param name="argb">The ARGB color value.</param>
     protected override void SetBackground(int argb)
     {
         Control.Background = new SolidColorBrush(Color.FromArgb(
@@ -127,6 +153,10 @@ public abstract class WpfPreviewHandler : PreviewHandler, IDisposable
             (byte)(argb & 0xFF))); //b
     }
 
+    /// <summary>
+    /// Sets the foreground (text) color of the WPF preview control.
+    /// </summary>
+    /// <param name="argb">The ARGB color value.</param>
     protected override void SetForeground(int argb)
     {
         Control.Foreground = new SolidColorBrush(Color.FromArgb(
@@ -136,13 +166,17 @@ public abstract class WpfPreviewHandler : PreviewHandler, IDisposable
             (byte)(argb & 0xFF))); //b                 
     }
 
+    /// <summary>
+    /// Sets the font of the WPF preview control based on the specified log font.
+    /// </summary>
+    /// <param name="font">The log font information to apply.</param>
     protected override void SetFont(LogFont font)
     {
-        if (font == null) { throw new ArgumentNullException("font"); }
+        if (font == null) { throw new ArgumentNullException(nameof(font)); }
 
-        Control.FontFamily = new(font.FaceName);
+        Control.FontFamily = new FontFamily(font.FaceName);
         Control.FontSize = font.Height;
-        Control.FontWeight = font.Weight > 0 && font.Weight < 1000 ?
+        Control.FontWeight = font.Weight is > 0 and < 1000 ?
             System.Windows.FontWeight.FromOpenTypeWeight(font.Weight) :
             System.Windows.FontWeights.Normal;
     }

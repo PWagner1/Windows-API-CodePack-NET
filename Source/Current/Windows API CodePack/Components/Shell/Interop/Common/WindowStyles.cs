@@ -1,7 +1,10 @@
-﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
+//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 namespace Microsoft.WindowsAPICodePack.Shell;
 
+/// <summary>
+/// Window style flags used in Windows API calls.
+/// </summary>
 [Flags]
 public enum WindowStyles
 {

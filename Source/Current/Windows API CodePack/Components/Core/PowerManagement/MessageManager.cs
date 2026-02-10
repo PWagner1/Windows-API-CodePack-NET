@@ -51,7 +51,7 @@ internal static class MessageManager
             {
                 // Create a new hidden window to listen
                 // for power management related window messages.
-                _window = new();
+                _window = new PowerRegWindow();
             }
         }
     }
@@ -139,7 +139,7 @@ internal static class MessageManager
             {
                 foreach (EventHandler handler in eventHandlerList)
                 {
-                    handler?.Invoke(null, new());
+                    handler?.Invoke(null, new EventArgs());
                 }
             }
         }

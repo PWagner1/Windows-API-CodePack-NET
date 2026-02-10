@@ -26,7 +26,7 @@ public class TabbedThumbnail : IDisposable
             _taskbarWindow = value;
 
             // If we have a TaskbarWindow assigned, set it's icon
-            if (_taskbarWindow != null && _taskbarWindow.TabbedThumbnailProxyWindow != null)
+            if (_taskbarWindow is { TabbedThumbnailProxyWindow: not null })
             {
                 _taskbarWindow.TabbedThumbnailProxyWindow.Icon = Icon;
             }
@@ -179,7 +179,7 @@ public class TabbedThumbnail : IDisposable
         Icon = icon;
 
         // If we have a TaskbarWindow assigned, set its icon
-        if (TaskbarWindow != null && TaskbarWindow.TabbedThumbnailProxyWindow != null)
+        if (TaskbarWindow is { TabbedThumbnailProxyWindow: not null })
         {
             TaskbarWindow.TabbedThumbnailProxyWindow.Icon = Icon;
         }
@@ -194,7 +194,7 @@ public class TabbedThumbnail : IDisposable
     {
         Icon = iconHandle != IntPtr.Zero ? Icon.FromHandle(iconHandle) : null;
 
-        if (TaskbarWindow != null && TaskbarWindow.TabbedThumbnailProxyWindow != null)
+        if (TaskbarWindow is { TabbedThumbnailProxyWindow: not null })
         {
             TaskbarWindow.TabbedThumbnailProxyWindow.Icon = Icon;
         }

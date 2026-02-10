@@ -146,7 +146,7 @@ public static class PowerManager
     public static BatteryState GetCurrentBatteryState()
     {
         CoreHelpers.ThrowIfNotXp();
-        return new();
+        return new BatteryState();
     }
 
     #region Power System Properties
@@ -270,7 +270,7 @@ public static class PowerManager
             // use .BatteriesAreShortTerm and .SystemBatteriesPresent to check for UPS
             PowerManagementNativeMethods.SystemPowerCapabilities batt = Power.GetSystemPowerCapabilities();
 
-            return (batt.BatteriesAreShortTerm && batt.SystemBatteriesPresent);
+            return batt is { BatteriesAreShortTerm: true, SystemBatteriesPresent: true };
         }
     }
 

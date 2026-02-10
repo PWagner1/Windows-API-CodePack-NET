@@ -60,11 +60,11 @@ public class ThumbnailToolBarManager
 
     private static void VerifyButtons(params ThumbnailToolBarButton[]? buttons)
     {
-        if (buttons != null && buttons.Length == 0)
+        if (buttons is { Length: 0 })
         {
             throw new ArgumentException(LocalizedMessages.ThumbnailToolbarManagerNullEmptyArray, nameof(buttons));
         }
-        if (buttons != null && buttons.Length > 7)
+        if (buttons is { Length: > 7 })
         {
             throw new ArgumentException(LocalizedMessages.ThumbnailToolbarManagerMaxButtons, nameof(buttons));
         }

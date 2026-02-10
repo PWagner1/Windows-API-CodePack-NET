@@ -53,7 +53,7 @@ public struct NativePoint
     /// </summary>
     /// <param name="obj">Another NativePoint to compare</param>
     /// <returns>True if this NativePoint is equal obj; false otherwise.</returns>
-    public override bool Equals(object? obj) => (obj != null && obj is NativePoint) ? this == (NativePoint)obj : false;
+    public override bool Equals(object? obj) => obj is NativePoint ? this == (NativePoint)obj : false;
 
     /// <summary>
     /// Gets a hash code for the NativePoint.

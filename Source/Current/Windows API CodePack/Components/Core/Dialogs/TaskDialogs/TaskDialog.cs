@@ -392,7 +392,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
         CoreHelpers.ThrowIfNotVista();
 
         // Initialize various data structs.
-        _controls = new(this);
+        _controls = new DialogControlCollection<TaskDialogControl>(this);
     }
 
     #endregion
@@ -498,7 +498,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
         {
             // New TaskDialog will automatically pick up defaults when 
             // a new config structure is created as part of ShowCore().
-            _staticDialog = new();
+            _staticDialog = new TaskDialog();
         }
 
         // Set the few relevant properties, 
@@ -538,7 +538,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
             // will be executed by the same thread as the 
             // Show() call before the thread of execution 
             // contines to the end of this method.
-            _nativeDialog = new(settings, this);
+            _nativeDialog = new NativeTaskDialog(settings, this);
             _nativeDialog.NativeShow();
 
             // Build and return dialog result to public API - leaving it
@@ -596,7 +596,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
     // final TaskDialogResult that will be returned from the public API
     private static TaskDialogResult ConstructDialogResult(NativeTaskDialog? native)
     {
-        Debug.Assert(native != null && native.ShowState == DialogShowState.Closed, "dialog result being constructed for unshown dialog.");
+        Debug.Assert(native is { ShowState: DialogShowState.Closed }, "dialog result being constructed for unshown dialog.");
 
         TaskDialogResult result = TaskDialogResult.Cancel;
 
@@ -672,8 +672,8 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
         }
 
         // Other miscellaneous sets.
-        dialogConfig.mainIcon = new((IntPtr)_icon);
-        dialogConfig.footerIcon = new((IntPtr)_footerIcon);
+        dialogConfig.mainIcon = new TaskDialogNativeMethods.IconUnion((IntPtr)_icon);
+        dialogConfig.footerIcon = new TaskDialogNativeMethods.IconUnion((IntPtr)_footerIcon);
         dialogConfig.commonButtons = (TaskDialogNativeMethods.TaskDialogCommonButtons)_standardButtons;
     }
 
@@ -833,7 +833,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
         {
             if (control!.UseElevationIcon)
             {
-                if (settings.ElevatedButtons == null) { settings.ElevatedButtons = new(); }
+                if (settings.ElevatedButtons == null) { settings.ElevatedButtons = new List<int>(); }
                 settings.ElevatedButtons.Add(control.Id);
             }
         }
@@ -881,12 +881,12 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
             }
             else if ((radButton = control as TaskDialogRadioButton) != null)
             {
-                if (_radioButtons == null) { _radioButtons = new(); }
+                if (_radioButtons == null) { _radioButtons = new List<TaskDialogButtonBase?>(); }
                 _radioButtons.Add(radButton);
             }
             else if (buttonBase != null)
             {
-                if (_buttons == null) { _buttons = new(); }
+                if (_buttons == null) { _buttons = new List<TaskDialogButtonBase?>(); }
                 _buttons.Add(buttonBase);
             }
             else if ((progBar = control as TaskDialogProgressBar) != null)
@@ -1051,7 +1051,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
             TaskDialogRadioButton? radioButton;
             if (control is TaskDialogProgressBar)
             {
-                if (_progressBar != null && !_progressBar.HasValidValues)
+                if (_progressBar is { HasValidValues: false })
                 {
                     throw new ArgumentException(LocalizedMessages.TaskDialogProgressBarValueInRange);
                 }
@@ -1142,7 +1142,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
         EventHandler<TaskDialogHyperlinkClickedEventArgs>? handler = HyperlinkClick;
         if (handler != null)
         {
-            handler(this, new(link));
+            handler(this, new TaskDialogHyperlinkClickedEventArgs(link));
         }
     }
 
@@ -1203,7 +1203,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
 
     internal void RaiseTickEvent(int ticks)
     {
-        if (Tick != null) { Tick(this, new(ticks)); }
+        if (Tick != null) { Tick(this, new TaskDialogTickEventArgs(ticks)); }
     }
 
     #endregion
@@ -1267,7 +1267,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
             if (disposing)
             {
                 // Clean up managed resources.
-                if (_nativeDialog != null && _nativeDialog.ShowState == DialogShowState.Showing)
+                if (_nativeDialog is { ShowState: DialogShowState.Showing })
                 {
                     _nativeDialog.NativeClose(TaskDialogResult.Cancel);
                 }

@@ -317,7 +317,7 @@ public class MappingService
     {
         if (asyncCallback == null)
         {
-            throw new ArgumentNullException("asyncCallback");
+            throw new ArgumentNullException(nameof(asyncCallback));
         }
         MappingRecognizeAsyncResult result = new(callerData, asyncCallback, text, length, index, options);
         try
@@ -338,7 +338,7 @@ public class MappingService
     /// <param name="asyncResult">The <see cref="MappingRecognizeAsyncResult">MappingRecognizeAsyncResult</see> object associated with the operation.</param>        
     public static void EndRecognizeText(MappingRecognizeAsyncResult? asyncResult)
     {
-        if (asyncResult != null && !asyncResult.IsCompleted)
+        if (asyncResult is { IsCompleted: false })
         {
             asyncResult.AsyncWaitHandle.WaitOne();
         }
@@ -357,7 +357,7 @@ public class MappingService
     /// This parameter cannot be set to null.</param>
     public static void DoAction(MappingPropertyBag? bag, int rangeIndex, string actionId)
     {
-        if (bag == null) { throw new ArgumentNullException("bag"); }
+        if (bag == null) { throw new ArgumentNullException(nameof(bag)); }
 
         if (rangeIndex < 0)
         {
@@ -434,7 +434,7 @@ public class MappingService
     /// <param name="asyncResult">The MappingActionAsyncResult object associated with the operation.</param>
     public static void EndDoAction(MappingActionAsyncResult? asyncResult)
     {
-        if (asyncResult != null && !asyncResult.IsCompleted)
+        if (asyncResult is { IsCompleted: false })
         {
             asyncResult.AsyncWaitHandle.WaitOne();
         }

@@ -24,7 +24,7 @@ public class ShellSearchFolder : ShellSearchCollection
 
         SearchCondition = searchCondition;
 
-        if (searchScopePath != null && searchScopePath.Length > 0 && searchScopePath[0] != null)
+        if (searchScopePath is { Length: > 0 } && searchScopePath[0] != null)
         {
             SearchScopePaths = searchScopePath.Select(cont => cont.ParsingName);
         }
@@ -42,7 +42,7 @@ public class ShellSearchFolder : ShellSearchCollection
 
         NativeSearchFolderItemFactory = (ISearchFolderItemFactory)new SearchFolderItemFactoryCoClass();
 
-        if (searchScopePath != null && searchScopePath.Length > 0 && searchScopePath[0] != null)
+        if (searchScopePath is { Length: > 0 } && searchScopePath[0] != null)
         {
             SearchScopePaths = searchScopePath;
         }
@@ -172,7 +172,7 @@ public class ShellSearchFolder : ShellSearchCollection
     /// <param name="propertyKeys">Array of property keys on which the folder is stacked.</param>
     public void SetStacks(params PropertyKey[]? propertyKeys)
     {
-        if (propertyKeys != null && propertyKeys.Length > 0)
+        if (propertyKeys is { Length: > 0 })
         {
             NativeSearchFolderItemFactory.SetStacks((uint)propertyKeys.Length, propertyKeys);
         }

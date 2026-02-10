@@ -1,4 +1,4 @@
-﻿//Copyright (c) Microsoft Corporation.  All rights reserved.
+//Copyright (c) Microsoft Corporation.  All rights reserved.
 
 using Application = System.Windows.Forms.Application;
 using Brushes = System.Drawing.Brushes;
@@ -151,22 +151,53 @@ public sealed class ExplorerBrowser :
     [TypeConverter(typeof(ExpandableObjectConverter))]
     public ExplorerBrowserSearchOptions SearchOptions => _searchOptions;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether search results are automatically refreshed.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use the SearchOptions.AutoRefreshSearchResults property instead
+    /// for future development.</remarks>
     // Legacy properties for backward compatibility
     [Obsolete("Use SearchOptions.AutoRefreshSearchResults instead.")]
     public bool AutoRefreshSearchResults { get => SearchOptions.AutoRefreshSearchResults; set => SearchOptions.AutoRefreshSearchResults = value; }
 
+    /// <summary>
+    /// Gets or sets the maximum number of search results to return. This property is obsolete; use
+    /// SearchOptions.MaxSearchResults instead.
+    /// </summary>
+    /// <remarks>This property is provided for backward compatibility and will be removed in future versions.
+    /// It directly maps to the MaxSearchResults property in SearchOptions.</remarks>
     [Obsolete("Use SearchOptions.MaxSearchResults instead.")]
     public int MaxSearchResults { get => SearchOptions.MaxSearchResults; set => SearchOptions.MaxSearchResults = value; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether to display search progress during search operations.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use <see cref="ExplorerBrowserSearchOptions.ShowSearchProgress"/> via <see cref="SearchOptions"/> instead.</remarks>
     [Obsolete("Use SearchOptions.ShowSearchProgress instead.")]
     public bool ShowSearchProgress { get => SearchOptions.ShowSearchProgress; set => SearchOptions.ShowSearchProgress = value; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether search results should be cached.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use <see cref="ExplorerBrowserSearchOptions.CacheSearchResults"/> via <see cref="SearchOptions"/> instead.</remarks>
     [Obsolete("Use SearchOptions.CacheSearchResults instead.")]
     public bool CacheSearchResults { get => SearchOptions.CacheSearchResults; set => SearchOptions.CacheSearchResults = value; }
 
+    /// <summary>
+    /// Gets or sets the order in which search results are sorted. This property is obsolete and should be replaced with
+    /// SearchOptions.SearchResultSortOrder.
+    /// </summary>
+    /// <remarks>This property is marked as obsolete. Use SearchOptions.SearchResultSortOrder instead to
+    /// manage the sorting order of search results.</remarks>
     [Obsolete("Use SearchOptions.SearchResultSortOrder instead.")]
     public SearchResultSortOrder SearchResultSortOrder { get => SearchOptions.SearchResultSortOrder; set => SearchOptions.SearchResultSortOrder = value; }
 
+    /// <summary>
+    /// Gets or sets the grouping strategy for search results. This property is obsolete; use
+    /// SearchOptions.GroupSearchResultsByType instead.
+    /// </summary>
+    /// <remarks>This property is marked as obsolete. Use the GroupSearchResultsByType property of the
+    /// SearchOptions class to configure how search results are grouped.</remarks>
     [Obsolete("Use SearchOptions.GroupSearchResultsByType instead.")]
     public SearchResultGrouping GroupSearchResultsByType
     {
@@ -174,69 +205,176 @@ public sealed class ExplorerBrowser :
         set => SearchOptions.GroupSearchResultsByType = value;
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether file previews are displayed in the search results.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use the ShowFilePreviews property of the SearchOptions object to
+    /// control the display of file previews.</remarks>
     [Obsolete("Use SearchOptions.ShowFilePreviews instead.")]
     public bool ShowFilePreviews { get => SearchOptions.ShowFilePreviews; set => SearchOptions.ShowFilePreviews = value; }
 
+    /// <summary>
+    /// Gets or sets the size, in pixels, of the thumbnail images displayed in search results.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use <see cref="ExplorerBrowserSearchOptions.SearchResultThumbnailSize"/> via <see cref="SearchOptions"/> instead.</remarks>
     [Obsolete("Use SearchOptions.SearchResultThumbnailSize instead.")]
     public int SearchResultThumbnailSize { get => SearchOptions.SearchResultThumbnailSize; set => SearchOptions.SearchResultThumbnailSize = value; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether incremental search is enabled.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use the SearchOptions.EnableIncrementalSearch property
+    /// instead.</remarks>
     [Obsolete("Use SearchOptions.EnableIncrementalSearch instead.")]
     public bool EnableIncrementalSearch { get => SearchOptions.EnableIncrementalSearch; set => SearchOptions.EnableIncrementalSearch = value; }
 
+    /// <summary>
+    /// Gets or sets the delay, in milliseconds, for incremental search operations. This property is obsolete.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use the SearchOptions.IncrementalSearchDelay property to configure
+    /// the incremental search delay in new code.</remarks>
     [Obsolete("Use SearchOptions.IncrementalSearchDelay instead.")]
     public int IncrementalSearchDelay { get => SearchOptions.IncrementalSearchDelay; set => SearchOptions.IncrementalSearchDelay = value; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether search suggestions are displayed during search operations.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use <see cref="ExplorerBrowserSearchOptions.ShowSearchSuggestions"/> via <see cref="SearchOptions"/> instead.</remarks>
     [Obsolete("Use SearchOptions.ShowSearchSuggestions instead.")]
     public bool ShowSearchSuggestions { get => SearchOptions.ShowSearchSuggestions; set => SearchOptions.ShowSearchSuggestions = value; }
 
+    /// <summary>
+    /// Gets or sets the maximum number of search suggestions to display. This property is obsolete; use the
+    /// MaxSearchSuggestions property of the SearchOptions class instead.
+    /// </summary>
+    /// <remarks>This property is retained for backward compatibility and will be removed in a future version.
+    /// It is recommended to transition to SearchOptions.MaxSearchSuggestions to ensure future compatibility.</remarks>
     [Obsolete("Use SearchOptions.MaxSearchSuggestions instead.")]
     public int MaxSearchSuggestions { get => SearchOptions.MaxSearchSuggestions; set => SearchOptions.MaxSearchSuggestions = value; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether search terms are highlighted in the results.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use <see cref="ExplorerBrowserSearchOptions.HighlightSearchTerms"/> via <see cref="SearchOptions"/> instead.</remarks>
     [Obsolete("Use SearchOptions.HighlightSearchTerms instead.")]
     public bool HighlightSearchTerms { get => SearchOptions.HighlightSearchTerms; set => SearchOptions.HighlightSearchTerms = value; }
 
+    /// <summary>
+    /// Gets or sets the color used to highlight search terms in the user interface. This property is obsolete.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use the SearchOptions.SearchTermHighlightColor property instead to
+    /// manage the highlight color for search terms.</remarks>
     [Obsolete("Use SearchOptions.SearchTermHighlightColor instead.")]
     public Color SearchTermHighlightColor { get => SearchOptions.SearchTermHighlightColor; set => SearchOptions.SearchTermHighlightColor = value; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether advanced search filters are enabled. This property is obsolete; use the
+    /// SearchOptions.EnableAdvancedSearchFilters property instead.
+    /// </summary>
+    /// <remarks>This property serves as a wrapper for the SearchOptions.EnableAdvancedSearchFilters property.
+    /// It is recommended to update any usage of this property to the new location to ensure compatibility with future
+    /// releases.</remarks>
     [Obsolete("Use SearchOptions.EnableAdvancedSearchFilters instead.")]
     public bool EnableAdvancedSearchFilters { get => SearchOptions.EnableAdvancedSearchFilters; set => SearchOptions.EnableAdvancedSearchFilters = value; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether to remember the search history.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use the SearchOptions.RememberSearchHistory property
+    /// instead.</remarks>
     [Obsolete("Use SearchOptions.RememberSearchHistory instead.")]
     public bool RememberSearchHistory { get => SearchOptions.RememberSearchHistory; set => SearchOptions.RememberSearchHistory = value; }
 
+    /// <summary>
+    /// Gets or sets the maximum number of entries to retain in the search history. This property is obsolete; use
+    /// SearchOptions.MaxSearchHistoryEntries instead.
+    /// </summary>
+    /// <remarks>This property is provided for backward compatibility and will be removed in future versions.
+    /// It is recommended to use SearchOptions.MaxSearchHistoryEntries for managing search history entries.</remarks>
     [Obsolete("Use SearchOptions.MaxSearchHistoryEntries instead.")]
     public int MaxSearchHistoryEntries { get => SearchOptions.MaxSearchHistoryEntries; set => SearchOptions.MaxSearchHistoryEntries = value; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the export of search results is enabled. This property is obsolete; use
+    /// the SearchOptions.EnableSearchResultExport property instead.
+    /// </summary>
+    /// <remarks>This property serves as a wrapper for the SearchOptions.EnableSearchResultExport property. It
+    /// is recommended to update any usage of this property to the new location to ensure compatibility with future
+    /// releases.</remarks>
     [Obsolete("Use SearchOptions.EnableSearchResultExport instead.")]
     public bool EnableSearchResultExport { get => SearchOptions.EnableSearchResultExport; set => SearchOptions.EnableSearchResultExport = value; }
 
+    /// <summary>
+    /// Gets or sets the default export format for search results. This property is obsolete; use the
+    /// SearchOptions.DefaultExportFormat property instead.
+    /// </summary>
+    /// <remarks>This property is retained for backward compatibility and may be removed in a future release.
+    /// To ensure future compatibility, update your code to use SearchOptions.DefaultExportFormat.</remarks>
     [Obsolete("Use SearchOptions.DefaultExportFormat instead.")]
     public SearchResultExportFormat DefaultExportFormat { get => SearchOptions.DefaultExportFormat; set => SearchOptions.DefaultExportFormat = value; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether search statistics are displayed during search operations.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use <see cref="ExplorerBrowserSearchOptions.ShowSearchStatistics"/> via <see cref="SearchOptions"/> instead.</remarks>
     [Obsolete("Use SearchOptions.ShowSearchStatistics instead.")]
     public bool ShowSearchStatistics { get => SearchOptions.ShowSearchStatistics; set => SearchOptions.ShowSearchStatistics = value; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether search result sharing is enabled.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use <see cref="ExplorerBrowserSearchOptions.EnableSearchResultSharing"/> via <see cref="SearchOptions"/> instead.</remarks>
     [Obsolete("Use SearchOptions.EnableSearchResultSharing instead.")]
     public bool EnableSearchResultSharing { get => SearchOptions.EnableSearchResultSharing; set => SearchOptions.EnableSearchResultSharing = value; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the context menu for search results is displayed.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use <see cref="ExplorerBrowserSearchOptions.ShowSearchResultContextMenu"/> via <see cref="SearchOptions"/> instead.</remarks>
     [Obsolete("Use SearchOptions.ShowSearchResultContextMenu instead.")]
     public bool ShowSearchResultContextMenu { get => SearchOptions.ShowSearchResultContextMenu; set => SearchOptions.ShowSearchResultContextMenu = value; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether drag-and-drop functionality is enabled for search results.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use <see cref="ExplorerBrowserSearchOptions.EnableSearchResultDragDrop"/> via <see cref="SearchOptions"/> instead.</remarks>
     [Obsolete("Use SearchOptions.EnableSearchResultDragDrop instead.")]
     public bool EnableSearchResultDragDrop { get => SearchOptions.EnableSearchResultDragDrop; set => SearchOptions.EnableSearchResultDragDrop = value; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether to show tooltips for search results.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use <see cref="ExplorerBrowserSearchOptions.ShowSearchResultTooltips"/> via <see cref="SearchOptions"/> instead.</remarks>
     [Obsolete("Use SearchOptions.ShowSearchResultTooltips instead.")]
     public bool ShowSearchResultTooltips { get => SearchOptions.ShowSearchResultTooltips; set => SearchOptions.ShowSearchResultTooltips = value; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the search result selection should be persisted across sessions.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use <see cref="ExplorerBrowserSearchOptions.PersistSearchResultSelection"/> via <see cref="SearchOptions"/> instead.</remarks>
     [Obsolete("Use SearchOptions.PersistSearchResultSelection instead.")]
     public bool PersistSearchResultSelection { get => SearchOptions.PersistSearchResultSelection; set => SearchOptions.PersistSearchResultSelection = value; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether to display the count of search results.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use <see cref="ExplorerBrowserSearchOptions.ShowSearchResultCount"/> via <see cref="SearchOptions"/> instead.</remarks>
     [Obsolete("Use SearchOptions.ShowSearchResultCount instead.")]
     public bool ShowSearchResultCount { get => SearchOptions.ShowSearchResultCount; set => SearchOptions.ShowSearchResultCount = value; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether virtual scrolling is enabled for the data display.
+    /// </summary>
+    /// <remarks>This property is obsolete. Use <see cref="ExplorerBrowserSearchOptions.EnableVirtualScrolling"/> via <see cref="SearchOptions"/> instead to
+    /// manage virtual scrolling settings.</remarks>
     [Obsolete("Use SearchOptions.EnableVirtualScrolling instead.")]
     public bool EnableVirtualScrolling { get => SearchOptions.EnableVirtualScrolling; set => SearchOptions.EnableVirtualScrolling = value; }
 
+    /// <summary>
+    /// Gets or sets the page size used for virtual scrolling. This property is obsolete.
+    /// </summary>
+    /// <remarks>This property is no longer recommended for use. Use the
+    /// SearchOptions.VirtualScrollingPageSize property instead to configure the virtual scrolling page size.</remarks>
     [Obsolete("Use SearchOptions.VirtualScrollingPageSize instead.")]
     public int VirtualScrollingPageSize { get => SearchOptions.VirtualScrollingPageSize; set => SearchOptions.VirtualScrollingPageSize = value; }
 
@@ -291,7 +429,7 @@ public sealed class ExplorerBrowser :
 
         if (ExplorerBrowserControl == null)
         {
-            _antecreationNavigationTarget = shellObject;
+            _anteCreationNavigationTarget = shellObject;
         }
         else
         {
@@ -345,7 +483,7 @@ public sealed class ExplorerBrowser :
     {
         if (string.IsNullOrWhiteSpace(searchQuery))
         {
-            throw new ArgumentException("Search query must not be empty.", nameof(searchQuery));
+            throw new ArgumentException(@"Search query must not be empty.", nameof(searchQuery));
         }
 
         if (searchScope == null)
@@ -430,11 +568,11 @@ public sealed class ExplorerBrowser :
     /// <exception cref="System.ArgumentException">Thrown when queryString is null or empty.</exception>
     /// <exception cref="System.ArgumentNullException">Thrown when searchScope is null.</exception>
     /// <exception cref="System.Runtime.InteropServices.COMException">Thrown when search fails for any other reason.</exception>
-    public void SearchWithQueryString(string queryString, ShellContainer searchScope, System.Globalization.CultureInfo? cultureInfo = null)
+    public void SearchWithQueryString(string queryString, ShellContainer searchScope, CultureInfo? cultureInfo = null)
     {
         if (string.IsNullOrWhiteSpace(queryString))
         {
-            throw new ArgumentException("Query string must not be empty.", nameof(queryString));
+            throw new ArgumentException(@"Query string must not be empty.", nameof(queryString));
         }
 
         if (searchScope == null)
@@ -447,7 +585,7 @@ public sealed class ExplorerBrowser :
             // Parse structured query (supports Windows Search syntax)
             var searchCondition = SearchConditionFactory.ParseStructuredQuery(
                 queryString,
-                cultureInfo ?? System.Globalization.CultureInfo.CurrentCulture
+                cultureInfo ?? CultureInfo.CurrentCulture
             );
 
             // Update current search state
@@ -552,12 +690,12 @@ public sealed class ExplorerBrowser :
     {
         if (string.IsNullOrWhiteSpace(propertyName))
         {
-            throw new ArgumentException("Property name must not be empty.", nameof(propertyName));
+            throw new ArgumentException(@"Property name must not be empty.", nameof(propertyName));
         }
 
         if (string.IsNullOrWhiteSpace(propertyValue))
         {
-            throw new ArgumentException("Property value must not be empty.", nameof(propertyValue));
+            throw new ArgumentException(@"Property value must not be empty.", nameof(propertyValue));
         }
 
         if (searchScope == null)
@@ -652,7 +790,7 @@ public sealed class ExplorerBrowser :
     internal ExplorerBrowserClass? ExplorerBrowserControl;
 
     // for the IExplorerBrowserEvents Advise call
-    internal uint EventsCookie;
+    private uint _eventsCookie;
 
     // name of the property bag that contains the view state options of the browser
     string? _propertyBagName = typeof(ExplorerBrowser).FullName;
@@ -661,7 +799,6 @@ public sealed class ExplorerBrowser :
     /// Initializes the ExplorerBrowser WinForms wrapper.
     /// </summary>
     public ExplorerBrowser()
-        : base()
     {
         NavigationOptions = new ExplorerBrowserNavigationOptions(this);
         ContentOptions = new ExplorerBrowserContentOptions(this);
@@ -705,14 +842,17 @@ public sealed class ExplorerBrowser :
             }
         }
 
-        base.OnPaint(e);
+        base.OnPaint(e!);
     }
 
-    ShellObject? _antecreationNavigationTarget;
+    ShellObject? _anteCreationNavigationTarget;
     // Replace the obsolete ExplorerBrowserViewEvents with a custom implementation
+#pragma warning disable CS0618 // Type or member is obsolete
     private ExplorerBrowserViewEvents? _viewEvents;
+#pragma warning restore CS0618 // Type or member is obsolete
 
     // Updated initialization in OnCreateControl
+    /// <inheritdoc />
     protected override void OnCreateControl()
     {
         base.OnCreateControl();
@@ -727,10 +867,12 @@ public sealed class ExplorerBrowser :
             // hooks up IExplorerBrowserEvents event notification
             ExplorerBrowserControl.Advise(
                 Marshal.GetComInterfaceForObject(this, typeof(IExplorerBrowserEvents)),
-                out EventsCookie);
+                out _eventsCookie);
 
             // Replace the obsolete ExplorerBrowserViewEvents initialization
+#pragma warning disable CS0618 // Type or member is obsolete
             _viewEvents = new ExplorerBrowserViewEvents(this);
+#pragma warning restore CS0618 // Type or member is obsolete
 
             NativeRect rect = new()
             {
@@ -747,12 +889,12 @@ public sealed class ExplorerBrowser :
 
             ExplorerBrowserControl.SetPropertyBag(_propertyBagName);
 
-            if (_antecreationNavigationTarget != null)
+            if (_anteCreationNavigationTarget != null)
             {
                 BeginInvoke(new MethodInvoker(() =>
                 {
-                    Navigate(_antecreationNavigationTarget);
-                    _antecreationNavigationTarget = null;
+                    Navigate(_anteCreationNavigationTarget);
+                    _anteCreationNavigationTarget = null;
                 }));
             }
         }
@@ -790,7 +932,7 @@ public sealed class ExplorerBrowser :
         {
             // unhook events
             _viewEvents?.DisconnectFromView();
-            ExplorerBrowserControl.Unadvise(EventsCookie);
+            ExplorerBrowserControl.Unadvise(_eventsCookie);
             ExplorerBrowserNativeMethods.IUnknown_SetSite(ExplorerBrowserControl, null);
 
             // destroy the explorer browser control
@@ -818,7 +960,7 @@ public sealed class ExplorerBrowser :
     HResult IServiceProvider.QueryService(
         ref Guid guidService, ref Guid riid, out IntPtr ppvObject)
     {
-        HResult hr = HResult.Ok;
+        HResult hr;
 
         if (guidService.CompareTo(new Guid(ExplorerBrowserIIDGuid.IExplorerPaneVisibility)) == 0)
         {
@@ -1076,10 +1218,10 @@ public sealed class ExplorerBrowser :
     bool IMessageFilter.PreFilterMessage(ref System.Windows.Forms.Message m)
     {
         HResult hr = HResult.False;
-        if (ExplorerBrowserControl != null)
+        if (ExplorerBrowserControl is IInputObject inputObject)
         {
             // translate keyboard input
-            hr = ((IInputObject)ExplorerBrowserControl).TranslateAcceleratorIO(ref m);
+            hr = inputObject.TranslateAcceleratorIO(ref m);
         }
         return (hr == HResult.Ok);
     }
@@ -1159,7 +1301,7 @@ public sealed class ExplorerBrowser :
             try
             {
                 Guid iidShellItemArray = new(ShellIIDGuid.IShellItemArray);
-                object? oArray = null;
+                object? oArray;
                 HResult hr = iFv2.Items((uint)ShellViewGetItemObject.Selection, ref iidShellItemArray, out oArray);
                 iArray = oArray as IShellItemArray;
                 if (hr != HResult.Ok &&
@@ -1172,7 +1314,6 @@ public sealed class ExplorerBrowser :
             finally
             {
                 Marshal.ReleaseComObject(iFv2);
-                iFv2 = null;
             }
         }
 
@@ -1182,7 +1323,7 @@ public sealed class ExplorerBrowser :
     /// <summary>
     /// Find the native control handle, remove its border style, then ask for a redraw.
     /// </summary>
-    internal void RemoveWindowBorder()
+    private void RemoveWindowBorder()
     {
         // There is an option (EBO_NOBORDER) to avoid showing a border on the native ExplorerBrowser control
         // so we wouldn't have to remove it afterwards, but:
@@ -1256,7 +1397,7 @@ public sealed class ExplorerBrowser :
     /// Gets the items in the ExplorerBrowser as an IShellItemArray
     /// </summary>
     /// <returns></returns>
-    internal IShellItemArray? GetItemsArray()
+    private IShellItemArray? GetItemsArray()
     {
         IShellItemArray? iArray = null;
         IFolderView2? iFv2 = GetFolderView2();
@@ -1300,11 +1441,11 @@ public sealed class ExplorerBrowser :
             if (_totalItemsCache == null)
             {
                 _totalItemsCache = GetTotalItemCount();
-                System.Diagnostics.Debug.WriteLine($"Total items determined: {_totalItemsCache}");
+                Debug.WriteLine($"Total items determined: {_totalItemsCache}");
             }
 
             var enumeratedItems = GetItemsCount();
-            System.Diagnostics.Debug.WriteLine($"Enumerated items: {enumeratedItems}/{_totalItemsCache}");
+            Debug.WriteLine($"Enumerated items: {enumeratedItems}/{_totalItemsCache}");
 
             return _totalItemsCache != null && enumeratedItems == _totalItemsCache;
         }

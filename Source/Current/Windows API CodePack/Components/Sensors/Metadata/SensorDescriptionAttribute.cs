@@ -18,7 +18,7 @@ public sealed class SensorDescriptionAttribute : Attribute
     public SensorDescriptionAttribute(string sensorType)
     {
         // will throw if invalid format
-        _sensorType = new(sensorType);
+        _sensorType = new Guid(sensorType);
     }
 
     /// <summary>
