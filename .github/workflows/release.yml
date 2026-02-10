@@ -106,16 +106,50 @@ jobs:
         dotnet restore "${{ env.SOLUTION_PATH }}" --verbosity normal
       working-directory: .
     
+    - name: Prepare code signing certificate
+      id: prepare-cert
+      if: ${{ secrets.CODESIGN_CERTIFICATE_BASE64 != '' }}
+      run: |
+        $certPath = "${{ runner.temp }}\codesign.pfx"
+        $certBase64 = "${{ secrets.CODESIGN_CERTIFICATE_BASE64 }}"
+        $certBytes = [Convert]::FromBase64String($certBase64)
+        [System.IO.File]::WriteAllBytes($certPath, $certBytes)
+        Write-Host "Certificate prepared at: $certPath"
+        echo "cert-path=$certPath" >> $env:GITHUB_OUTPUT
+      shell: pwsh
+
     - name: Build solution
       run: |
-        dotnet build "${{ env.SOLUTION_PATH }}" `
-          --configuration Release `
-          --platform ${{ matrix.platform }} `
-          --no-restore `
-          --verbosity normal `
-          /p:AssemblyVersion=${{ needs.prepare-release.outputs.version-with-build }} `
-          /p:FileVersion=${{ needs.prepare-release.outputs.version-with-build }} `
-          /p:InformationalVersion=${{ needs.prepare-release.outputs.version-with-build }}+${{ github.sha }}
+        $buildProps = @(
+          "--configuration Release",
+          "--platform ${{ matrix.platform }}",
+          "--no-restore",
+          "--verbosity normal",
+          "/p:AssemblyVersion=${{ needs.prepare-release.outputs.version-with-build }}",
+          "/p:FileVersion=${{ needs.prepare-release.outputs.version-with-build }}",
+          "/p:InformationalVersion=${{ needs.prepare-release.outputs.version-with-build }}+${{ github.sha }}"
+        )
+        
+        # Add Authenticode signing properties if certificate is available
+        $certBase64 = "${{ secrets.CODESIGN_CERTIFICATE_BASE64 }}"
+        if ($certBase64 -ne "") {
+          # Use the certificate path from prepare-cert step, or fallback to temp path
+          $certPath = "${{ steps.prepare-cert.outputs.cert-path }}"
+          if (-not $certPath -or $certPath -eq "") {
+            $certPath = "${{ runner.temp }}\codesign.pfx"
+          }
+          $buildProps += "/p:EnableAuthenticodeSigning=true"
+          $buildProps += "/p:CodeSigningCertificatePath=`"$certPath`""
+          $certPassword = "${{ secrets.CODESIGN_CERTIFICATE_PASSWORD }}"
+          if ($certPassword -ne "") {
+            $buildProps += "/p:CodeSigningCertificatePassword=`"$certPassword`""
+          }
+          Write-Host "Authenticode signing enabled with certificate at: $certPath"
+        } else {
+          Write-Host "Authenticode signing disabled (no certificate provided)"
+        }
+        
+        dotnet build "${{ env.SOLUTION_PATH }}" $buildProps
       working-directory: .
     
     - name: Build C++ DirectX project
