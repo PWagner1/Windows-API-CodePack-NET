@@ -1,5 +1,17 @@
 # Changelog
 
+xx/0x/2026
+
+Version 8.0.15
+* Implemented [#39](https://github.com/PWagner1/Windows-API-CodePack-NET/issues/39), Added Authenticode signing support for DLLs
+* Added MSBuild properties for Authenticode signing configuration (`EnableAuthenticodeSigning`, `CodeSigningCertificatePath`, `CodeSigningCertificatePassword`, `CodeSigningCertificateThumbprint`)
+* Integrated Authenticode signing into GitHub Actions release workflow
+* Added comprehensive documentation for certificate creation and setup
+* Added helper script `.github/workflows/create-codesign-certificate.ps1` for automated certificate creation
+* Signing is optional and disabled by default - builds work without certificates for development
+
+=========
+
 07/12/2025
 
 Version 8.0.14

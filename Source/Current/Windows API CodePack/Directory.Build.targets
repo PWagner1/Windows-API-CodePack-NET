@@ -1,10 +1,10 @@
 <Project>
 	<PropertyGroup>
-		<AssemblyVersion>8.0.15.4</AssemblyVersion>
+		<AssemblyVersion>8.0.15</AssemblyVersion>
 
 		<PackageVersion>8.0.15</PackageVersion>
 
-		<FileVersion>8.0.15.4</FileVersion>
+		<FileVersion>8.0.15</FileVersion>
 
 		<LangVersion>preview</LangVersion>
 
@@ -20,5 +20,55 @@
 
 		<!-- Set the CheckEolTargetFramework property to false to fix the warning -->
 		<CheckEolTargetFramework>false</CheckEolTargetFramework>
+
+		<!-- Authenticode Signing Configuration -->
+		<!-- Set EnableAuthenticodeSigning to true to enable Authenticode signing -->
+		<!-- Set CodeSigningCertificatePath to the path of your .pfx certificate file -->
+		<!-- Set CodeSigningCertificatePassword if your certificate requires a password -->
+		<!-- Alternatively, set CodeSigningCertificateThumbprint to use a certificate from the certificate store -->
+		<EnableAuthenticodeSigning Condition="'$(EnableAuthenticodeSigning)' == ''">false</EnableAuthenticodeSigning>
+		<CodeSigningCertificatePath Condition="'$(CodeSigningCertificatePath)' == ''"></CodeSigningCertificatePath>
+		<CodeSigningCertificatePassword Condition="'$(CodeSigningCertificatePassword)' == ''"></CodeSigningCertificatePassword>
+		<CodeSigningCertificateThumbprint Condition="'$(CodeSigningCertificateThumbprint)' == ''"></CodeSigningCertificateThumbprint>
+		<CodeSigningTimestampUrl Condition="'$(CodeSigningTimestampUrl)' == ''">http://timestamp.digicert.com</CodeSigningTimestampUrl>
 	</PropertyGroup>
+
+	<!-- Authenticode Signing Target -->
+	<Target Name="SignAuthenticode" AfterTargets="AfterBuild" Condition="'$(EnableAuthenticodeSigning)' == 'true' AND '$(OutputType)' == 'Library'">
+		<!-- Find SignTool.exe - use explicit path if provided, otherwise search common locations -->
+		<PropertyGroup>
+			<_SignToolPath Condition="'$(SignToolPath)' != ''">$(SignToolPath)</_SignToolPath>
+			<!-- Try common Windows SDK locations in order of preference -->
+			<_SignToolPath Condition="'$(_SignToolPath)' == '' AND Exists('$(MSBuildProgramFiles32)\Windows Kits\10\bin\10.0.22621.0\x64\signtool.exe')">$(MSBuildProgramFiles32)\Windows Kits\10\bin\10.0.22621.0\x64\signtool.exe</_SignToolPath>
+			<_SignToolPath Condition="'$(_SignToolPath)' == '' AND Exists('$(MSBuildProgramFiles32)\Windows Kits\10\bin\10.0.22000.0\x64\signtool.exe')">$(MSBuildProgramFiles32)\Windows Kits\10\bin\10.0.22000.0\x64\signtool.exe</_SignToolPath>
+			<_SignToolPath Condition="'$(_SignToolPath)' == '' AND Exists('$(MSBuildProgramFiles32)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe')">$(MSBuildProgramFiles32)\Windows Kits\10\bin\10.0.19041.0\x64\signtool.exe</_SignToolPath>
+			<_SignToolPath Condition="'$(_SignToolPath)' == '' AND Exists('$(MSBuildProgramFiles32)\Windows Kits\10\bin\10.0.18362.0\x64\signtool.exe')">$(MSBuildProgramFiles32)\Windows Kits\10\bin\10.0.18362.0\x64\signtool.exe</_SignToolPath>
+			<_SignToolPath Condition="'$(_SignToolPath)' == '' AND Exists('$(MSBuildProgramFiles32)\Windows Kits\10\bin\10.0.17763.0\x64\signtool.exe')">$(MSBuildProgramFiles32)\Windows Kits\10\bin\10.0.17763.0\x64\signtool.exe</_SignToolPath>
+		</PropertyGroup>
+
+		<PropertyGroup Condition="'$(CodeSigningCertificatePath)' != ''">
+			<_SignCommand>"$(_SignToolPath)" sign /f "$(CodeSigningCertificatePath)"</_SignCommand>
+			<_SignCommand Condition="'$(CodeSigningCertificatePassword)' != ''">$(_SignCommand) /p "$(CodeSigningCertificatePassword)"</_SignCommand>
+			<_SignCommand>$(_SignCommand) /t "$(CodeSigningTimestampUrl)" /fd sha256 /tr "$(CodeSigningTimestampUrl)" /td sha256</_SignCommand>
+		</PropertyGroup>
+
+		<PropertyGroup Condition="'$(CodeSigningCertificateThumbprint)' != ''">
+			<_SignCommand>"$(_SignToolPath)" sign /sha1 "$(CodeSigningCertificateThumbprint)"</_SignCommand>
+			<_SignCommand>$(_SignCommand) /t "$(CodeSigningTimestampUrl)" /fd sha256 /tr "$(CodeSigningTimestampUrl)" /td sha256</_SignCommand>
+		</PropertyGroup>
+
+		<Exec 
+			Condition="Exists('$(_SignToolPath)') AND ('$(CodeSigningCertificatePath)' != '' OR '$(CodeSigningCertificateThumbprint)' != '')"
+			Command="$(_SignCommand) &quot;$(TargetPath)&quot;"
+			ContinueOnError="false"
+			IgnoreExitCode="false" />
+
+		<Warning 
+			Condition="!Exists('$(_SignToolPath)')"
+			Text="SignTool not found at $(_SignToolPath). Authenticode signing skipped. Please install Windows SDK or set SignToolPath property." />
+
+		<Warning 
+			Condition="'$(CodeSigningCertificatePath)' == '' AND '$(CodeSigningCertificateThumbprint)' == ''"
+			Text="EnableAuthenticodeSigning is true but neither CodeSigningCertificatePath nor CodeSigningCertificateThumbprint is set. Authenticode signing skipped." />
+	</Target>
 </Project>
