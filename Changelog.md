@@ -1,8 +1,12 @@
 # Changelog
 
-xx/0x/2026
+01/04/2026
 
 Version 8.0.15
+* Fixed [#40](https://github.com/PWagner1/Windows-API-CodePack-NET/issues/40), ExplorerBrowser control now only processes keyboard accelerators when it has focus, preventing Tab key interception for other controls
+* Updated `PreFilterMessage` to check message target and focus state before calling `TranslateAcceleratorIO`
+* Added `IsMessageForExplorerBrowser` helper method to verify message window ownership
+* Added `GetParent` Windows API function to `WindowNativeMethods` for window hierarchy traversal
 * Implemented [#39](https://github.com/PWagner1/Windows-API-CodePack-NET/issues/39), Added Authenticode signing support for DLLs
 * Added MSBuild properties for Authenticode signing configuration (`EnableAuthenticodeSigning`, `CodeSigningCertificatePath`, `CodeSigningCertificatePassword`, `CodeSigningCertificateThumbprint`)
 * Integrated Authenticode signing into GitHub Actions release workflow

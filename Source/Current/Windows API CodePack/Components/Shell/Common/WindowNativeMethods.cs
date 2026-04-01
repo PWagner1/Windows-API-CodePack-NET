@@ -1,4 +1,4 @@
-﻿namespace Microsoft.WindowsAPICodePack.Shell;
+namespace Microsoft.WindowsAPICodePack.Shell;
 
 internal static class WindowNativeMethods
 {
@@ -21,6 +21,14 @@ internal static class WindowNativeMethods
     public static extern int GetWindowLong(IntPtr hWnd, int nIndex);
     [DllImport("user32.dll", CharSet = CharSet.Auto)]
     public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int x, int y, int width, int height, SetWindowPosFlags flags);
+    
+    /// <summary>
+    /// Retrieves the handle to the parent window of the specified window.
+    /// </summary>
+    /// <param name="hWnd">A handle to the window whose parent window handle is to be retrieved.</param>
+    /// <returns>If the window is a child window, the return value is a handle to the parent window. If the window is a top-level window, the return value is IntPtr.Zero.</returns>
+    [DllImport("user32.dll", SetLastError = true)]
+    public static extern IntPtr GetParent(IntPtr hWnd);
 }
 
 internal enum WindowLongFlags

@@ -13,7 +13,7 @@ public struct IconReference
 
     private string? _moduleName;
     private string _referencePath;
-    static private readonly char[] CommaSeparator = new char[] { ',' };
+    private static readonly char[] CommaSeparator = new char[] { ',' };
 
     #endregion
 
