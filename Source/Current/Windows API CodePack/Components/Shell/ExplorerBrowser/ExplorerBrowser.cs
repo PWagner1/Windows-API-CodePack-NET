@@ -1217,13 +1217,66 @@ public sealed class ExplorerBrowser :
 
     bool IMessageFilter.PreFilterMessage(ref System.Windows.Forms.Message m)
     {
-        HResult hr = HResult.False;
+        // Only process keyboard messages
+        if (m.Msg < (int)WindowMessage.KeyFirst || m.Msg > (int)WindowMessage.KeyLast)
+        {
+            return false;
+        }
+
+        // Check if the message is for this control or its child windows
+        if (!IsMessageForExplorerBrowser(m.HWnd))
+        {
+            return false;
+        }
+
+        // Only process if ExplorerBrowser has focus
         if (ExplorerBrowserControl is IInputObject inputObject)
         {
-            // translate keyboard input
-            hr = inputObject.TranslateAcceleratorIO(ref m);
+            // Check if ExplorerBrowser actually has focus before processing
+            HResult focusResult = inputObject.HasFocusIO();
+            if (focusResult != HResult.Ok)
+            {
+                return false;
+            }
+
+            // translate keyboard input only when ExplorerBrowser has focus
+            HResult hr = inputObject.TranslateAcceleratorIO(ref m);
+            return (hr == HResult.Ok);
         }
-        return (hr == HResult.Ok);
+
+        return false;
+    }
+
+    /// <summary>
+    /// Checks if a window handle belongs to this ExplorerBrowser control or its child windows.
+    /// </summary>
+    /// <param name="hwnd">The window handle to check.</param>
+    /// <returns>True if the handle belongs to this control or its children; otherwise, false.</returns>
+    private bool IsMessageForExplorerBrowser(IntPtr hwnd)
+    {
+        if (hwnd == IntPtr.Zero)
+        {
+            return false;
+        }
+
+        // Check if the message is for this control
+        if (hwnd == Handle)
+        {
+            return true;
+        }
+
+        // Check if the message is for a child window of this control
+        IntPtr parent = WindowNativeMethods.GetParent(hwnd);
+        while (parent != IntPtr.Zero)
+        {
+            if (parent == Handle)
+            {
+                return true;
+            }
+            parent = WindowNativeMethods.GetParent(parent);
+        }
+
+        return false;
     }
 
     #endregion
