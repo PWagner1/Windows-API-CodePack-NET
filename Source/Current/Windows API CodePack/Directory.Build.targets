@@ -1,10 +1,10 @@
 <Project>
 	<PropertyGroup>
-		<AssemblyVersion>8.0.17.7</AssemblyVersion>
+		<AssemblyVersion>8.0.15</AssemblyVersion>
 
-		<PackageVersion>8.0.17</PackageVersion>
+		<PackageVersion>8.0.15</PackageVersion>
 
-		<FileVersion>8.0.17.7</FileVersion>
+		<FileVersion>8.0.15</FileVersion>
 
 		<LangVersion>preview</LangVersion>
 
