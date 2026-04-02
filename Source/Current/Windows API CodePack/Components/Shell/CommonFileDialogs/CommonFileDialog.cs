@@ -636,7 +636,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
     /// <summary>
     /// Default file name.
     /// </summary>
-    public string? DefaultFileName { get; }
+    public string? DefaultFileName { get; set; }
 
     private void InitializeEventSink(IFileDialog? nativeDlg)
     {
@@ -823,13 +823,10 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
     }
 
     /// <summary>
-    /// Returns if change to the colleciton is allowed.
+    /// Returns if change to the collection is allowed.
     /// </summary>
     /// <returns>true if collection change is allowed.</returns>
-    public virtual bool IsCollectionChangeAllowed()
-    {
-        return true;
-    }
+    public virtual bool IsCollectionChangeAllowed() => true;
 
     /// <summary>
     /// Applies changes to the collection.
