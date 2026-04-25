@@ -696,7 +696,7 @@ public class Sensor : ISensorEvents
         newEventInterest[interestCount] = eventType;
 
         HResult hr = _nativeISensor.SetEventInterest(newEventInterest, (uint)(interestCount + 1));
-        if (hr != HResult.Ok || hr != null)
+        if (hr != HResult.Ok)
         {
             throw Marshal.GetExceptionForHR((int)hr);
         }
