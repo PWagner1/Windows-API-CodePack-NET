@@ -151,9 +151,9 @@ public class TabbedThumbnailManager
 
         if (taskBarWindow != null)
         {
-            if (TaskbarWindowManager._taskbarWindowList.Contains(taskBarWindow))
+            if (TaskbarWindowManager.TaskbarWindowList.Contains(taskBarWindow))
             {
-                TaskbarWindowManager._taskbarWindowList.Remove(taskBarWindow);
+                TaskbarWindowManager.TaskbarWindowList.Remove(taskBarWindow);
             }
             taskBarWindow.Dispose();
         }
@@ -198,9 +198,9 @@ public class TabbedThumbnailManager
 
         if (taskbarWindow != null)
         {
-            if (TaskbarWindowManager._taskbarWindowList.Contains(taskbarWindow))
+            if (TaskbarWindowManager.TaskbarWindowList.Contains(taskbarWindow))
             {
-                TaskbarWindowManager._taskbarWindowList.Remove(taskbarWindow);
+                TaskbarWindowManager.TaskbarWindowList.Remove(taskbarWindow);
             }
             taskbarWindow.Dispose();
         }

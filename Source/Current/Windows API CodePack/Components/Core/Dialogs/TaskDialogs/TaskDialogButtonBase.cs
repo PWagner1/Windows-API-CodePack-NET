@@ -46,8 +46,8 @@ public abstract class TaskDialogButtonBase : TaskDialogControl
     {
         // Only perform click if the button is enabled.
         if (!_enabled) { return; }
-            
-        if (Click != null) { Click(this, EventArgs.Empty); }
+
+        Click?.Invoke(this, EventArgs.Empty);
     }
 
     private string? _text;

@@ -36,28 +36,26 @@ public class ShellProperty<T> : IShellProperty
     {
         IPropertyStore? store = ShellPropertyCollection.CreateDefaultPropertyStore(ParentShellObject);
 
-        using (PropVariant propVar = new())
+        using PropVariant propVar = new();
+        store.GetValue(ref _propertyKey, propVar);
+
+        if (store != null)
         {
-            store.GetValue(ref _propertyKey, propVar);
+            Marshal.ReleaseComObject(store);
+        }
+        store = null;
 
-            if (store != null)
-            {
-                Marshal.ReleaseComObject(store);
-            }
-            store = null;
+        string? refPath;
+        ((IPropertyDescription2)Description?.NativePropertyDescription!).GetImageReferenceForValue(
+            propVar, out refPath);
 
-            string? refPath;
-            ((IPropertyDescription2)Description?.NativePropertyDescription!).GetImageReferenceForValue(
-                propVar, out refPath);
+        if (refPath == null) { return; }
 
-            if (refPath == null) { return; }
-
-            int index = ShellNativeMethods.PathParseIconLocation(ref refPath);
-            if (refPath != null)
-            {
-                _imageReferencePath = refPath;
-                _imageReferenceIconIndex = index;
-            }
+        int index = ShellNativeMethods.PathParseIconLocation(ref refPath);
+        if (refPath != null)
+        {
+            _imageReferencePath = refPath;
+            _imageReferenceIconIndex = index;
         }
     }
 
@@ -171,27 +169,25 @@ public class ShellProperty<T> : IShellProperty
             // Make sure we load the correct type
             Debug.Assert(ValueType == ShellPropertyFactory.VarEnumToSystemType(Description!.VarEnumType));
 
-            using (PropVariant propVar = new())
+            using PropVariant propVar = new();
+            if (ParentShellObject?.NativePropertyStore! != null)
             {
-                if (ParentShellObject?.NativePropertyStore! != null)
-                {
-                    // If there is a valid property store for this shell object, then use it.
-                    ParentShellObject.NativePropertyStore.GetValue(ref _propertyKey, propVar);
-                }
-                else if (ParentShellObject != null)
-                {
-                    // Use IShellItem2.GetProperty instead of creating a new property store
-                    // The file might be locked. This is probably quicker, and sufficient for what we need
-                    ParentShellObject?.NativeShellItem2!.GetProperty(ref _propertyKey, propVar);
-                }
-                else if (NativePropertyStore != null)
-                {
-                    NativePropertyStore?.GetValue(ref _propertyKey, propVar);
-                }
-
-                //Get the value
-                return propVar.Value != null ? (T)propVar.Value : default(T);
+                // If there is a valid property store for this shell object, then use it.
+                ParentShellObject.NativePropertyStore.GetValue(ref _propertyKey, propVar);
             }
+            else if (ParentShellObject != null)
+            {
+                // Use IShellItem2.GetProperty instead of creating a new property store
+                // The file might be locked. This is probably quicker, and sufficient for what we need
+                ParentShellObject?.NativeShellItem2!.GetProperty(ref _propertyKey, propVar);
+            }
+            else if (NativePropertyStore != null)
+            {
+                NativePropertyStore?.GetValue(ref _propertyKey, propVar);
+            }
+
+            //Get the value
+            return propVar.Value != null ? (T)propVar.Value : default(T);
         }
         set
         {
@@ -227,10 +223,8 @@ public class ShellProperty<T> : IShellProperty
 
             if (ParentShellObject != null)
             {
-                using (ShellPropertyWriter propertyWriter = ParentShellObject?.Properties!.GetPropertyWriter()!)
-                {
-                    propertyWriter.WriteProperty(this, value, AllowSetTruncatedValue);
-                }
+                using ShellPropertyWriter propertyWriter = ParentShellObject?.Properties!.GetPropertyWriter()!;
+                propertyWriter.WriteProperty(this, value, AllowSetTruncatedValue);
             }
             else if (NativePropertyStore != null)
             {
@@ -311,27 +305,25 @@ public class ShellProperty<T> : IShellProperty
 
         IPropertyStore? store = ShellPropertyCollection.CreateDefaultPropertyStore(ParentShellObject);
 
-        using (PropVariant propVar = new())
+        using PropVariant propVar = new();
+        store.GetValue(ref _propertyKey, propVar);
+
+        // Release the Propertystore
+        if (store != null)
         {
-            store.GetValue(ref _propertyKey, propVar);
-
-            // Release the Propertystore
-            if (store != null)
-            {
-                Marshal.ReleaseComObject(store);
-            }
-
-            HResult hr = Description.NativePropertyDescription.FormatForDisplay(propVar, ref format, out formattedString);
-
-            // Sometimes, the value cannot be displayed properly, such as for blobs
-            // or if we get argument exception
-            if (!CoreErrorHelper.Succeeded(hr))
-            {
-                throw new ShellException(hr);
-            }
-
-            return formattedString;
+            Marshal.ReleaseComObject(store);
         }
+
+        HResult hr = Description.NativePropertyDescription.FormatForDisplay(propVar, ref format, out formattedString);
+
+        // Sometimes, the value cannot be displayed properly, such as for blobs
+        // or if we get argument exception
+        if (!CoreErrorHelper.Succeeded(hr))
+        {
+            throw new ShellException(hr);
+        }
+
+        return formattedString;
     }
 
     /// <summary>
@@ -350,10 +342,8 @@ public class ShellProperty<T> : IShellProperty
     /// </summary>
     public void ClearValue()
     {
-        using (PropVariant propVar = new())
-        {
-            StorePropVariantValue(propVar);
-        }
+        using PropVariant propVar = new();
+        StorePropVariantValue(propVar);
     }
 
     /// <summary>
@@ -366,27 +356,25 @@ public class ShellProperty<T> : IShellProperty
     {
         get
         {
-            using (PropVariant propVar = new())
+            using PropVariant propVar = new();
+            if (ParentShellObject != null)
             {
-                if (ParentShellObject != null)
+
+                IPropertyStore? store = ShellPropertyCollection.CreateDefaultPropertyStore(ParentShellObject);
+
+                store.GetValue(ref _propertyKey, propVar);
+
+                if (store != null)
                 {
-
-                    IPropertyStore? store = ShellPropertyCollection.CreateDefaultPropertyStore(ParentShellObject);
-
-                    store.GetValue(ref _propertyKey, propVar);
-
-                    if (store != null)
-                    {
-                        Marshal.ReleaseComObject(store);
-                    }
+                    Marshal.ReleaseComObject(store);
                 }
-                else
-                {
-                    NativePropertyStore?.GetValue(ref _propertyKey, propVar);
-                }
-
-                return propVar?.Value;
             }
+            else
+            {
+                NativePropertyStore?.GetValue(ref _propertyKey, propVar);
+            }
+
+            return propVar?.Value;
         }
     }
 

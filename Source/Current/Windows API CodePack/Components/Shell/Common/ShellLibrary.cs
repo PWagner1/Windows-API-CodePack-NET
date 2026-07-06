@@ -543,10 +543,8 @@ public sealed class ShellLibrary : ShellContainer, IList<ShellFileSystemFolder>
         // Access Violations if called from an MTA thread so we wrap this
         // call up into a Worker thread that performs all operations in a
         // single threaded apartment
-        using (ShellLibrary shellLibrary = Load(libraryName, folderPath, true))
-        {
-            ShowManageLibraryUi(shellLibrary, windowHandle, title, instruction, allowAllLocations);
-        }
+        using ShellLibrary shellLibrary = Load(libraryName, folderPath, true);
+        ShowManageLibraryUi(shellLibrary, windowHandle, title, instruction, allowAllLocations);
     }
 
     /// <summary>
@@ -564,10 +562,8 @@ public sealed class ShellLibrary : ShellContainer, IList<ShellFileSystemFolder>
         // Access Violations if called from an MTA thread so we wrap this
         // call up into a Worker thread that performs all operations in a
         // single threaded apartment
-        using (ShellLibrary shellLibrary = Load(libraryName, true))
-        {
-            ShowManageLibraryUi(shellLibrary, windowHandle, title, instruction, allowAllLocations);
-        }
+        using ShellLibrary shellLibrary = Load(libraryName, true);
+        ShowManageLibraryUi(shellLibrary, windowHandle, title, instruction, allowAllLocations);
     }
 
     /// <summary>
@@ -585,10 +581,8 @@ public sealed class ShellLibrary : ShellContainer, IList<ShellFileSystemFolder>
         // Access Violations if called from an MTA thread so we wrap this
         // call up into a Worker thread that performs all operations in a
         // single threaded apartment
-        using (ShellLibrary shellLibrary = Load(sourceKnownFolder, true))
-        {
-            ShowManageLibraryUi(shellLibrary, windowHandle, title, instruction, allowAllLocations);
-        }
+        using ShellLibrary shellLibrary = Load(sourceKnownFolder, true);
+        ShowManageLibraryUi(shellLibrary, windowHandle, title, instruction, allowAllLocations);
     }
 
     #endregion

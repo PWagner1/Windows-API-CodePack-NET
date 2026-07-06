@@ -333,26 +333,24 @@ public class Sensor : ISensorEvents
     /// <returns>A property value.</returns>        
     public object? GetProperty(PropertyKey propKey)
     {
-        using (PropVariant pv = new())
+        using PropVariant pv = new();
+        HResult hr = _nativeISensor.GetProperty(ref propKey, pv);
+        if (hr != HResult.Ok)
         {
-            HResult hr = _nativeISensor.GetProperty(ref propKey, pv);
-            if (hr != HResult.Ok)
+            Exception e = Marshal.GetExceptionForHR((int)hr);
+            if (hr == HResult.ElementNotFound)
             {
-                Exception e = Marshal.GetExceptionForHR((int)hr);
-                if (hr == HResult.ElementNotFound)
+                throw new ArgumentOutOfRangeException(LocalizedMessages.SensorPropertyNotFound, e);
+            }
+            else
+            {
+                if (e != null)
                 {
-                    throw new ArgumentOutOfRangeException(LocalizedMessages.SensorPropertyNotFound, e);
-                }
-                else
-                {
-                    if (e != null)
-                    {
-                        throw e;
-                    }
+                    throw e;
                 }
             }
-            return pv.Value;
         }
+        return pv.Value;
     }
 
     /// <summary>
@@ -403,11 +401,9 @@ public class Sensor : ISensorEvents
                     for (uint i = 0; i < count; i++)
                     {
                         PropertyKey propKey = new();
-                        using (PropVariant propVal = new())
-                        {
-                            valuesCollection.GetAt(i, ref propKey, propVal);
-                            data.Add(propKey, propVal.Value);
-                        }
+                        using PropVariant propVal = new();
+                        valuesCollection.GetAt(i, ref propKey, propVal);
+                        data.Add(propKey, propVal.Value);
                     }
                 }
                 finally
@@ -517,13 +513,11 @@ public class Sensor : ISensorEvents
                     for (uint i = 0; i < count; i++)
                     {
                         PropertyKey propKey = new();
-                        using (PropVariant propVal = new())
-                        {
-                            valuesCollection.GetAt(i, ref propKey, propVal);
+                        using PropVariant propVal = new();
+                        valuesCollection.GetAt(i, ref propKey, propVal);
 
-                            int idx = propKeyToIdx[propKey];
-                            data[idx] = propVal.Value;
-                        }
+                        int idx = propKeyToIdx[propKey];
+                        data[idx] = propVal.Value;
                     }
                 }
                 finally
@@ -570,10 +564,8 @@ public class Sensor : ISensorEvents
             {
                 // new PropVariant will throw an ArgumentException if the value can 
                 // not be converted to an appropriate PropVariant.
-                using (PropVariant pv = PropVariant.FromObject(value))
-                {
-                    pdv.SetValue(ref propKey, pv);
-                }
+                using PropVariant pv = PropVariant.FromObject(value);
+                pdv.SetValue(ref propKey, pv);
             }
             catch (ArgumentException)
             {
@@ -607,11 +599,9 @@ public class Sensor : ISensorEvents
                 for (uint i = 0; i < count; i++)
                 {
                     PropertyKey propKey = new();
-                    using (PropVariant propVal = new())
-                    {
-                        pdv2.GetAt(i, ref propKey, propVal);
-                        results.Add(propKey, propVal.Value);
-                    }
+                    using PropVariant propVal = new();
+                    pdv2.GetAt(i, ref propKey, propVal);
+                    results.Add(propKey, propVal.Value);
                 }
             }
             finally

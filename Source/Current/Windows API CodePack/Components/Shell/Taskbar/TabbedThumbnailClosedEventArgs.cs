@@ -17,9 +17,4 @@ public class TabbedThumbnailClosedEventArgs : TabbedThumbnailEventArgs
     /// <param name="windowsControl">WPF Control (UIElement) related to the event</param>        
     public TabbedThumbnailClosedEventArgs(UIElement? windowsControl) : base(windowsControl) { }
 
-    /// <summary>
-    /// If set to true, the proxy window will not be removed from the taskbar.
-    /// </summary>
-    public bool Cancel { get; set; }
-
 }

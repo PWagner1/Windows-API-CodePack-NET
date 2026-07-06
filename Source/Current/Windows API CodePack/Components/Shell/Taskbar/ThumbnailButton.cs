@@ -234,7 +234,7 @@ public sealed class ThumbnailToolBarButton : IDisposable
         {
             _win32ThumbButton.Id = Id;
             _win32ThumbButton.Tip = Tooltip;
-            _win32ThumbButton.Icon = Icon != null ? Icon.Handle : IntPtr.Zero;
+            _win32ThumbButton.Icon = Icon?.Handle ?? IntPtr.Zero;
             _win32ThumbButton.Flags = Flags;
 
             _win32ThumbButton.Mask = ThumbButtonMask.ThbFlags;

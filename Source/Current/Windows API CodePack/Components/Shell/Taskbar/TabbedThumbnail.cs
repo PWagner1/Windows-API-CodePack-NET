@@ -5,6 +5,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar;
 /// <summary>
 /// Represents a tabbed thumbnail on the taskbar for a given window or a control.
 /// </summary>
+/// <seealso cref="System.IDisposable" />
 public class TabbedThumbnail : IDisposable
 {
     #region Internal members
@@ -147,7 +148,7 @@ public class TabbedThumbnail : IDisposable
             if (_title != value)
             {
                 _title = value;
-                if (TitleChanged != null) { TitleChanged(this, EventArgs.Empty); }
+                TitleChanged?.Invoke(this, EventArgs.Empty);
             }
         }
     }
@@ -155,7 +156,7 @@ public class TabbedThumbnail : IDisposable
     private string? _tooltip = string.Empty;
     /// <summary>
     /// Tooltip to be shown for this thumbnail on the taskbar. 
-    /// By default this is full title of the window shown on the taskbar.
+    /// By default, this is full title of the window shown on the taskbar.
     /// </summary>
     public string? Tooltip
     {
@@ -165,7 +166,7 @@ public class TabbedThumbnail : IDisposable
             if (_tooltip != value)
             {
                 _tooltip = value;
-                if (TooltipChanged != null) { TooltipChanged(this, EventArgs.Empty); }
+                TooltipChanged?.Invoke(this, EventArgs.Empty);
             }
         }
     }
@@ -359,6 +360,8 @@ public class TabbedThumbnail : IDisposable
     /// </summary>
     public event EventHandler<TabbedThumbnailClosedEventArgs>? TabbedThumbnailClosed;
 
+    public event EventHandler<TabbedThumbnailClosingEventArgs>? TabbedThumbnailClosing;
+
     /// <summary>
     /// The event that occurs when a tab is maximized via the taskbar thumbnail preview (context menu).
     /// </summary>
@@ -415,7 +418,7 @@ public class TabbedThumbnail : IDisposable
     /// <returns>Returns true if the thumbnail was removed from the taskbar; false if it was not.</returns>
     internal bool OnTabbedThumbnailClosed()
     {
-        var closedHandler = TabbedThumbnailClosed;
+        var closedHandler = TabbedThumbnailClosing;
         if (closedHandler != null)
         {
             var closingEvent = GetTabbedThumbnailClosingEventArgs();
@@ -468,17 +471,17 @@ public class TabbedThumbnail : IDisposable
         }
     }
 
-    private TabbedThumbnailClosedEventArgs? GetTabbedThumbnailClosingEventArgs()
+    private TabbedThumbnailClosingEventArgs? GetTabbedThumbnailClosingEventArgs()
     {
-        TabbedThumbnailClosedEventArgs? eventArgs = null;
+        TabbedThumbnailClosingEventArgs? eventArgs = null;
 
         if (WindowHandle != IntPtr.Zero)
         {
-            eventArgs = new TabbedThumbnailClosedEventArgs(WindowHandle);
+            eventArgs = new TabbedThumbnailClosingEventArgs(WindowHandle);
         }
         else if (WindowsControl != null)
         {
-            eventArgs = new TabbedThumbnailClosedEventArgs(WindowsControl);
+            eventArgs = new TabbedThumbnailClosingEventArgs(WindowsControl);
         }
 
         return eventArgs;

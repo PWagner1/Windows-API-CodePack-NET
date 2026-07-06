@@ -49,24 +49,22 @@ public static class TabbedThumbnailScreenCapture
 
                 targetBitmap = new Bitmap(size.Width, size.Height);
 
-                using (Graphics targetGr = Graphics.FromImage(targetBitmap))
-                {
-                    IntPtr targetDC = targetGr.GetHdc();
-                    uint operation = 0x00CC0020 /*SRCCOPY*/;
+                using Graphics targetGr = Graphics.FromImage(targetBitmap);
+                IntPtr targetDC = targetGr.GetHdc();
+                uint operation = 0x00CC0020 /*SRCCOPY*/;
 
-                    Size ncArea = WindowUtilities.GetNonClientArea(windowHandle);
+                Size ncArea = WindowUtilities.GetNonClientArea(windowHandle);
 
-                    bool success = TabbedThumbnailNativeMethods.StretchBlt(
-                        targetDC, 0, 0, targetBitmap.Width, targetBitmap.Height,
-                        windowDC, ncArea.Width, ncArea.Height, realWindowSize.Width,
-                        realWindowSize.Height, operation);
+                bool success = TabbedThumbnailNativeMethods.StretchBlt(
+                    targetDC, 0, 0, targetBitmap.Width, targetBitmap.Height,
+                    windowDC, ncArea.Width, ncArea.Height, realWindowSize.Width,
+                    realWindowSize.Height, operation);
 
-                    targetGr.ReleaseHdc(targetDC);
+                targetGr.ReleaseHdc(targetDC);
 
-                    if (!success) { return null; }
+                if (!success) { return null; }
 
-                    return targetBitmap;
-                }
+                return targetBitmap;
             }
             catch
             {

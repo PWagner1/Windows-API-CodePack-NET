@@ -95,25 +95,23 @@ public class ShellPropertyWriter : IDisposable
             throw new InvalidOperationException("Writeable store has been closed.");
         }
 
-        using (PropVariant propVar = PropVariant.FromObject(value))
+        using PropVariant propVar = PropVariant.FromObject(value);
+        HResult result = WritablePropStore.SetValue(ref key, propVar);
+
+        if (!allowTruncatedValue && ((int)result == ShellNativeMethods.InPlaceStringTruncated))
         {
-            HResult result = WritablePropStore.SetValue(ref key, propVar);
+            // At this point we can't revert back the commit
+            // so don't commit, close the property store and throw an exception
+            // to let the user know.
+            Marshal.ReleaseComObject(WritablePropStore);
+            WritablePropStore = null;
 
-            if (!allowTruncatedValue && ((int)result == ShellNativeMethods.InPlaceStringTruncated))
-            {
-                // At this point we can't revert back the commit
-                // so don't commit, close the property store and throw an exception
-                // to let the user know.
-                Marshal.ReleaseComObject(WritablePropStore);
-                WritablePropStore = null;
+            throw new ArgumentOutOfRangeException(nameof(value), LocalizedMessages.ShellPropertyValueTruncated);
+        }
 
-                throw new ArgumentOutOfRangeException(nameof(value), LocalizedMessages.ShellPropertyValueTruncated);
-            }
-
-            if (!CoreErrorHelper.Succeeded(result))
-            {
-                throw new PropertySystemException(LocalizedMessages.ShellPropertySetValue, Marshal.GetExceptionForHR((int)result));
-            }
+        if (!CoreErrorHelper.Succeeded(result))
+        {
+            throw new PropertySystemException(LocalizedMessages.ShellPropertySetValue, Marshal.GetExceptionForHR((int)result));
         }
     }
 

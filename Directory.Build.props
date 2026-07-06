@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup>
-		<LibraryVersion>8.0.17</LibraryVersion>
-		<PackageVersion>8.0.17</PackageVersion>
+		<LibraryVersion>8.0.15.2</LibraryVersion>
+		<PackageVersion>8.0.15.2</PackageVersion>
 	</PropertyGroup>
 </Project>

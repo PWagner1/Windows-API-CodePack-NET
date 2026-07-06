@@ -185,10 +185,9 @@ public abstract class PreviewHandler : ICustomQueryInterface, IPreviewHandler, I
                     LocalizedMessages.PreviewHandlerUnsupportedInterfaceCalled,
                     "IPreviewFromStream"));
         }
-        using (var storageStream = new StorageStream(stream, fileMode != AccessModes.ReadWrite))
-        {
-            preview.Load(storageStream);
-        }
+
+        using var storageStream = new StorageStream(stream, fileMode != AccessModes.ReadWrite);
+        preview.Load(storageStream);
     }
 
     #endregion
@@ -204,10 +203,9 @@ public abstract class PreviewHandler : ICustomQueryInterface, IPreviewHandler, I
                     LocalizedMessages.PreviewHandlerUnsupportedInterfaceCalled,
                     "IPreviewFromShellObject"));
         }
-        using (var shellObject = ShellObjectFactory.Create(shellItem))
-        {
-            preview.Load(shellObject);
-        }
+
+        using var shellObject = ShellObjectFactory.Create(shellItem);
+        preview.Load(shellObject);
     }
 
     #endregion
@@ -307,12 +305,10 @@ public abstract class PreviewHandler : ICustomQueryInterface, IPreviewHandler, I
             Trace.WriteLine("Registering extension '" + extension + "' with previewer '" + guid + "'");
 
             // Set preview handler for specific extension
-            using (RegistryKey extensionKey = Registry.ClassesRoot.CreateSubKey(extension))
-            using (RegistryKey shellexKey = extensionKey.CreateSubKey("shellex"))
-            using (RegistryKey previewKey = shellexKey.CreateSubKey(HandlerNativeMethods.IPreviewHandlerGuid.ToString("B")))
-            {
-                previewKey.SetValue(null, guid, RegistryValueKind.String);
-            }
+            using RegistryKey extensionKey = Registry.ClassesRoot.CreateSubKey(extension);
+            using RegistryKey shellexKey = extensionKey.CreateSubKey("shellex");
+            using RegistryKey previewKey = shellexKey.CreateSubKey(HandlerNativeMethods.IPreviewHandlerGuid.ToString("B"));
+            previewKey.SetValue(null, guid, RegistryValueKind.String);
         }
     }
 
@@ -322,10 +318,8 @@ public abstract class PreviewHandler : ICustomQueryInterface, IPreviewHandler, I
         foreach (string extension in attribute.Extensions.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries))
         {
             Trace.WriteLine("Unregistering extension '" + extension + "' with previewer '" + guid + "'");
-            using (RegistryKey shellexKey = Registry.ClassesRoot.OpenSubKey(extension + "\\shellex", true))
-            {
-                shellexKey.DeleteSubKey(HandlerNativeMethods.IPreviewHandlerGuid.ToString(), false);
-            }
+            using RegistryKey shellexKey = Registry.ClassesRoot.OpenSubKey(extension + "\\shellex", true);
+            shellexKey.DeleteSubKey(HandlerNativeMethods.IPreviewHandlerGuid.ToString(), false);
         }
 
         using (RegistryKey appIdsKey = Registry.ClassesRoot.OpenSubKey("AppID", true))

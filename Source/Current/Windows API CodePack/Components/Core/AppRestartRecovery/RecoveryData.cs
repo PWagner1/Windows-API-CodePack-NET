@@ -48,6 +48,6 @@ public class RecoveryData
     /// </summary>
     public void Invoke()
     {
-        if (Callback != null) { Callback(State); }
+        Callback?.Invoke(State);
     }
 }

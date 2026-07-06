@@ -1062,10 +1062,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
     protected virtual void OnFileOk(CancelEventArgs e)
     {
         CancelEventHandler? handler = FileOk;
-        if (handler != null)
-        {
-            handler(this, e);
-        }
+        handler?.Invoke(this, e);
     }
     /// <summary>
     /// Raises the <see cref="FolderChanging"/> to stop navigation to a particular location.
@@ -1074,10 +1071,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
     protected virtual void OnFolderChanging(CommonFileDialogFolderChangeEventArgs e)
     {
         EventHandler<CommonFileDialogFolderChangeEventArgs>? handler = FolderChanging;
-        if (handler != null)
-        {
-            handler(this, e);
-        }
+        handler?.Invoke(this, e);
     }
     /// <summary>
     /// Raises the <see cref="CommonFileDialog.FolderChanged"/> event when the user navigates to a new folder.
@@ -1086,10 +1080,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
     protected virtual void OnFolderChanged(EventArgs e)
     {
         EventHandler? handler = FolderChanged;
-        if (handler != null)
-        {
-            handler(this, e);
-        }
+        handler?.Invoke(this, e);
     }
     /// <summary>
     /// Raises the <see cref="CommonFileDialog.SelectionChanged"/> event when the user changes the selection in the dialog's view.
@@ -1098,10 +1089,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
     protected virtual void OnSelectionChanged(/*EventArgs*/CommonFileDialogSelectionChangedEventArgs e)
     {
         var handler = SelectionChanged;
-        if (handler != null)
-        {
-            handler(this, e);
-        }
+        handler?.Invoke(this, e);
     }
     /// <summary>
     /// Raises the <see cref="CommonFileDialog.FileTypeChanged"/> event when the dialog is opened to notify the 
@@ -1111,10 +1099,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
     protected virtual void OnFileTypeChanged(EventArgs e)
     {
         EventHandler? handler = FileTypeChanged;
-        if (handler != null)
-        {
-            handler(this, e);
-        }
+        handler?.Invoke(this, e);
     }
     /// <summary>
     /// Raises the <see cref="CommonFileDialog.DialogOpening"/> event when the dialog is opened.
@@ -1123,10 +1108,7 @@ public abstract class CommonFileDialog : IDialogControlHost, IDisposable
     protected virtual void OnOpening(EventArgs e)
     {
         EventHandler? handler = DialogOpening;
-        if (handler != null)
-        {
-            handler(this, e);
-        }
+        handler?.Invoke(this, e);
     }
 
     #endregion

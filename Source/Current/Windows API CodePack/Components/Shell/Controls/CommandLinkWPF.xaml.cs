@@ -24,10 +24,7 @@ public partial class CommandLink : UserControl, INotifyPropertyChanged
     void button_Click(object? sender, RoutedEventArgs e)
     {
         e.Source = this;
-        if (Click != null)
-        {
-            Click(sender, e);
-        }
+        Click?.Invoke(sender, e);
     }
 
     /// <summary>
@@ -52,10 +49,7 @@ public partial class CommandLink : UserControl, INotifyPropertyChanged
         {
             _link = value;
 
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs("Link"));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Link"));
         }
     }
     private string? _note;
@@ -69,10 +63,7 @@ public partial class CommandLink : UserControl, INotifyPropertyChanged
         set
         {
             _note = value;
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs("Note"));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Note"));
         }
     }
     private ImageSource? _icon;
@@ -86,10 +77,7 @@ public partial class CommandLink : UserControl, INotifyPropertyChanged
         set
         {
             _icon = value;
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs("Icon"));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("Icon"));
         }
     }
 
