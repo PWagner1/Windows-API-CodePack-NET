@@ -75,11 +75,9 @@ public class ShellPropertyEnumType
         {
             if (_minValue == null)
             {
-                using (PropVariant propVar = new())
-                {
-                    NativePropertyEnumType.GetRangeMinValue(propVar);
-                    _minValue = propVar.Value;
-                }
+                using PropVariant propVar = new();
+                NativePropertyEnumType.GetRangeMinValue(propVar);
+                _minValue = propVar.Value;
             }
             return _minValue;
 
@@ -95,11 +93,9 @@ public class ShellPropertyEnumType
         {
             if (_setValue == null)
             {
-                using (PropVariant propVar = new())
-                {
-                    NativePropertyEnumType.GetRangeSetValue(propVar);
-                    _setValue = propVar.Value;
-                }
+                using PropVariant propVar = new();
+                NativePropertyEnumType.GetRangeSetValue(propVar);
+                _setValue = propVar.Value;
             }
             return _setValue;
 
@@ -115,11 +111,9 @@ public class ShellPropertyEnumType
         {
             if (_enumerationValue == null)
             {
-                using (PropVariant propVar = new())
-                {
-                    NativePropertyEnumType.GetValue(propVar);
-                    _enumerationValue = propVar.Value;
-                }
+                using PropVariant propVar = new();
+                NativePropertyEnumType.GetValue(propVar);
+                _enumerationValue = propVar.Value;
             }
             return _enumerationValue;
         }

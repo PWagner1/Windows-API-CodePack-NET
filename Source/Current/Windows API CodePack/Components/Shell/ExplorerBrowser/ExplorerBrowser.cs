@@ -1574,10 +1574,7 @@ public sealed class ExplorerBrowser :
 
     internal void FireSelectionChanged()
     {
-        if (SelectionChanged != null)
-        {
-            SelectionChanged(this, EventArgs.Empty);
-        }
+        SelectionChanged?.Invoke(this, EventArgs.Empty);
     }
 
     internal void FireSelectedItemChanged()

@@ -24,22 +24,20 @@ public class SensorData : IDictionary<Guid, IList<object>>
             for (uint index = 0; index < items; index++)
             {
                 PropertyKey key;
-                using (PropVariant propValue = new())
-                {
-                    keyCollection.GetAt(index, out key);
-                    valuesCollection?.GetValue(ref key, propValue);
+                using PropVariant propValue = new();
+                keyCollection.GetAt(index, out key);
+                valuesCollection?.GetValue(ref key, propValue);
 
-                    if (data.ContainsKey(key.FormatId))
+                if (data.ContainsKey(key.FormatId))
+                {
+                    if (propValue.Value != null)
                     {
-                        if (propValue.Value != null)
-                        {
-                            data[key.FormatId].Add(propValue.Value);
-                        }
+                        data[key.FormatId].Add(propValue.Value);
                     }
-                    else
-                    {
-                        data.Add(key.FormatId, new List<object> { propValue.Value! });
-                    }
+                }
+                else
+                {
+                    data.Add(key.FormatId, new List<object> { propValue.Value! });
                 }
             }
 

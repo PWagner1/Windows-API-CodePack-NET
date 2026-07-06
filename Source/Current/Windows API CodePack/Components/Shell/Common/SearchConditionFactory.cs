@@ -26,10 +26,8 @@ public static class SearchConditionFactory
     /// </remarks>
     public static SearchCondition? CreateLeafCondition(string? propertyName, string? value, SearchConditionOperation operation)
     {
-        using (PropVariant propVar = new(value))
-        {
-            return CreateLeafCondition(propertyName, propVar, null, operation);
-        }
+        using PropVariant propVar = new(value);
+        return CreateLeafCondition(propertyName, propVar, null, operation);
     }
 
     /// <summary>
@@ -48,10 +46,8 @@ public static class SearchConditionFactory
     /// </remarks>
     public static SearchCondition? CreateLeafCondition(string? propertyName, DateTime value, SearchConditionOperation operation)
     {
-        using (PropVariant propVar = new(value))
-        {
-            return CreateLeafCondition(propertyName, propVar, "System.StructuredQuery.CustomProperty.DateTime", operation);
-        }
+        using PropVariant propVar = new(value);
+        return CreateLeafCondition(propertyName, propVar, "System.StructuredQuery.CustomProperty.DateTime", operation);
     }
 
     /// <summary>
@@ -69,10 +65,8 @@ public static class SearchConditionFactory
     /// </remarks>
     public static SearchCondition? CreateLeafCondition(string? propertyName, int value, SearchConditionOperation operation)
     {
-        using (PropVariant propVar = new(value))
-        {
-            return CreateLeafCondition(propertyName, propVar, "System.StructuredQuery.CustomProperty.Integer", operation);
-        }
+        using PropVariant propVar = new(value);
+        return CreateLeafCondition(propertyName, propVar, "System.StructuredQuery.CustomProperty.Integer", operation);
     }
 
     /// <summary>
@@ -90,10 +84,8 @@ public static class SearchConditionFactory
     /// </remarks>
     public static SearchCondition? CreateLeafCondition(string? propertyName, bool value, SearchConditionOperation operation)
     {
-        using (PropVariant propVar = new(value))
-        {
-            return CreateLeafCondition(propertyName, propVar, "System.StructuredQuery.CustomProperty.Boolean", operation);
-        }
+        using PropVariant propVar = new(value);
+        return CreateLeafCondition(propertyName, propVar, "System.StructuredQuery.CustomProperty.Boolean", operation);
     }
 
     /// <summary>
@@ -111,10 +103,8 @@ public static class SearchConditionFactory
     /// </remarks>
     public static SearchCondition? CreateLeafCondition(string? propertyName, double value, SearchConditionOperation operation)
     {
-        using (PropVariant propVar = new(value))
-        {
-            return CreateLeafCondition(propertyName, propVar, "System.StructuredQuery.CustomProperty.FloatingPoint", operation);
-        }
+        using PropVariant propVar = new(value);
+        return CreateLeafCondition(propertyName, propVar, "System.StructuredQuery.CustomProperty.FloatingPoint", operation);
     }
 
     [SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope")]

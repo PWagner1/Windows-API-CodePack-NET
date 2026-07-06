@@ -1,5 +1,14 @@
 # Changelog
 
+13/05/2026  
+
+Version 8.0.15.2
+
+* Fixed [#47](https://github.com/PWagner1/Windows-API-CodePack-NET/pull/47), `WindowsAPICodePackSensors` throws a `NullReferenceException` when enumerating ambient light sensors (thanks to [xaviergonz](https://github.com/xaviergonz))
+* Fixed file & NuGet package version alignment
+
+=========
+
 02/04/2026
 
 Version 8.0.15.1

@@ -130,10 +130,8 @@ public abstract class ThumbnailProvider : IThumbnailProvider, ICustomQueryInterf
 
             if (guidKey != null)
             {
-                using (RegistryKey inproc = guidKey.OpenSubKey("InprocServer32", true))
-                {
-                    inproc.SetValue("ThreadingModel", "Apartment", RegistryValueKind.String);
-                }
+                using RegistryKey inproc = guidKey.OpenSubKey("InprocServer32", true);
+                inproc.SetValue("ThreadingModel", "Apartment", RegistryValueKind.String);
             }
         }
 
@@ -148,35 +146,33 @@ public abstract class ThumbnailProvider : IThumbnailProvider, ICustomQueryInterf
         string[] extensions = attribute.Extensions.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
         foreach (string extension in extensions)
         {
-            using (RegistryKey extensionKey = Registry.ClassesRoot.CreateSubKey(extension)) // Create makes it writable
-            using (RegistryKey shellExKey = extensionKey.CreateSubKey("shellex"))
-            using (RegistryKey providerKey = shellExKey.CreateSubKey(HandlerNativeMethods.IThumbnailProviderGuid.ToString("B")))
+            using RegistryKey extensionKey = Registry.ClassesRoot.CreateSubKey(extension);
+            using RegistryKey shellExKey = extensionKey.CreateSubKey("shellex");
+            using RegistryKey providerKey = shellExKey.CreateSubKey(HandlerNativeMethods.IThumbnailProviderGuid.ToString("B"));
+            providerKey.SetValue(null, guid, RegistryValueKind.String);
+
+            if (attribute.ThumbnailCutoff == ThumbnailCutoffSize.Square20)
             {
-                providerKey.SetValue(null, guid, RegistryValueKind.String);
-
-                if (attribute.ThumbnailCutoff == ThumbnailCutoffSize.Square20)
-                {
-                    extensionKey.DeleteValue("ThumbnailCutoff", false);
-                }
-                else
-                {
-                    extensionKey.SetValue("ThumbnailCutoff", (int)attribute.ThumbnailCutoff, RegistryValueKind.DWord);
-                }
+                extensionKey.DeleteValue("ThumbnailCutoff", false);
+            }
+            else
+            {
+                extensionKey.SetValue("ThumbnailCutoff", (int)attribute.ThumbnailCutoff, RegistryValueKind.DWord);
+            }
 
 
-                if (attribute.TypeOverlay != null)
-                {
-                    extensionKey.SetValue("TypeOverlay", attribute.TypeOverlay, RegistryValueKind.String);
-                }
+            if (attribute.TypeOverlay != null)
+            {
+                extensionKey.SetValue("TypeOverlay", attribute.TypeOverlay, RegistryValueKind.String);
+            }
 
-                if (attribute.ThumbnailAdornment == ThumbnailAdornment.Default)
-                {
-                    extensionKey.DeleteValue("Treatment", false);
-                }
-                else
-                {
-                    extensionKey.SetValue("Treatment", (int)attribute.ThumbnailAdornment, RegistryValueKind.DWord);
-                }
+            if (attribute.ThumbnailAdornment == ThumbnailAdornment.Default)
+            {
+                extensionKey.DeleteValue("Treatment", false);
+            }
+            else
+            {
+                extensionKey.SetValue("Treatment", (int)attribute.ThumbnailAdornment, RegistryValueKind.DWord);
             }
         }
     }
@@ -205,22 +201,18 @@ public abstract class ThumbnailProvider : IThumbnailProvider, ICustomQueryInterf
         string[] extensions = attribute.Extensions.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
         foreach (string extension in extensions)
         {
-            using (RegistryKey extKey = Registry.ClassesRoot.OpenSubKey(extension, true))
-            using (RegistryKey shellexKey = extKey.OpenSubKey("shellex", true))
-            {
-                shellexKey.DeleteSubKey(HandlerNativeMethods.IThumbnailProviderGuid.ToString("B"), false);
+            using RegistryKey extKey = Registry.ClassesRoot.OpenSubKey(extension, true);
+            using RegistryKey shellexKey = extKey.OpenSubKey("shellex", true);
+            shellexKey.DeleteSubKey(HandlerNativeMethods.IThumbnailProviderGuid.ToString("B"), false);
 
-                extKey.DeleteValue("ThumbnailCutoff", false);
-                extKey.DeleteValue("TypeOverlay", false);
-                extKey.DeleteValue("Treatment", false); // Thumbnail adornment
-            }
+            extKey.DeleteValue("ThumbnailCutoff", false);
+            extKey.DeleteValue("TypeOverlay", false);
+            extKey.DeleteValue("Treatment", false); // Thumbnail adornment
         }
 
-        using (RegistryKey approvedShellExtensions = Registry.LocalMachine.OpenSubKey(
-                   @"SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved", true))
-        {
-            approvedShellExtensions.DeleteValue(guid, false);
-        }
+        using RegistryKey approvedShellExtensions = Registry.LocalMachine.OpenSubKey(
+            @"SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Approved", true);
+        approvedShellExtensions.DeleteValue(guid, false);
     }
 
     private static void ThrowIfInvalid(Type type, ThumbnailProviderAttribute? attribute)

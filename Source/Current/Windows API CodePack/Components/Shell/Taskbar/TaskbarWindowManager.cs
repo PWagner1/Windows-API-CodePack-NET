@@ -10,7 +10,7 @@ namespace Microsoft.WindowsAPICodePack.Taskbar;
 
 internal static class TaskbarWindowManager
 {
-    internal static List<TaskbarWindow?> _taskbarWindowList = new();
+    internal static IList<TaskbarWindow?> TaskbarWindowList = new List<TaskbarWindow?>();
 
     private static bool _buttonsAdded;
 
@@ -56,7 +56,7 @@ internal static class TaskbarWindowManager
     {
         if (add)
         {
-            _taskbarWindowList.Add(taskbarWindow);
+            TaskbarWindowList.Add(taskbarWindow);
         }
         else if (taskbarWindow!.ThumbnailButtons == null)
         {
@@ -81,7 +81,7 @@ internal static class TaskbarWindowManager
         if (taskbarWindow == null)
         {
             taskbarWindow = new TaskbarWindow(preview);
-            _taskbarWindowList.Add(taskbarWindow);
+            TaskbarWindowList.Add(taskbarWindow);
         }
         else if (taskbarWindow.TabbedThumbnail == null)
         {
@@ -126,7 +126,7 @@ internal static class TaskbarWindowManager
     {
         if (windowsControl == null) { throw new ArgumentNullException(nameof(windowsControl)); }
 
-        TaskbarWindow? toReturn = _taskbarWindowList.FirstOrDefault(window => (window?.TabbedThumbnail != null && window.TabbedThumbnail.WindowsControl == windowsControl) ||
+        TaskbarWindow? toReturn = TaskbarWindowList.FirstOrDefault(window => (window?.TabbedThumbnail != null && window.TabbedThumbnail.WindowsControl == windowsControl) ||
                                                                               (window?.ThumbnailToolbarProxyWindow != null &&
                                                                                window.ThumbnailToolbarProxyWindow.WindowsControl == windowsControl));
 
@@ -153,7 +153,7 @@ internal static class TaskbarWindowManager
             throw new ArgumentException(LocalizedMessages.CommonFileDialogInvalidHandle, nameof(userWindowHandle));
         }
 
-        TaskbarWindow? toReturn = _taskbarWindowList.FirstOrDefault(window => window?.UserWindowHandle == userWindowHandle);
+        TaskbarWindow? toReturn = TaskbarWindowList.FirstOrDefault(window => window?.UserWindowHandle == userWindowHandle);
 
         // If it's not in the list, return null so it can be added.            
         if (toReturn != null)
@@ -504,9 +504,9 @@ internal static class TaskbarWindowManager
             taskbarWindow!.TabbedThumbnail?.OnTabbedThumbnailClosed();
 
             // Remove the taskbar window from our internal list
-            if (_taskbarWindowList.Contains(taskbarWindow))
+            if (TaskbarWindowList.Contains(taskbarWindow))
             {
-                _taskbarWindowList.Remove(taskbarWindow);
+                TaskbarWindowList.Remove(taskbarWindow);
             }
 
             taskbarWindow.Dispose();
@@ -526,9 +526,9 @@ internal static class TaskbarWindowManager
                 if (taskbarWindow!.TabbedThumbnail!.OnTabbedThumbnailClosed())
                 {
                     // Remove the taskbar window from our internal list
-                    if (_taskbarWindowList.Contains(taskbarWindow))
+                    if (TaskbarWindowList.Contains(taskbarWindow))
                     {
-                        _taskbarWindowList.Remove(taskbarWindow);
+                        TaskbarWindowList.Remove(taskbarWindow);
                     }
 
                     taskbarWindow.Dispose();

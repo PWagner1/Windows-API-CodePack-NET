@@ -24,19 +24,17 @@ public class SearchCondition : IDisposable
 
         if (ConditionType == SearchConditionType.Leaf)
         {
-            using (PropVariant propVar = new())
+            using PropVariant propVar = new();
+            hr = NativeSearchCondition.GetComparisonInfo(out _canonicalName, out _conditionOperation, propVar);
+
+            if (!CoreErrorHelper.Succeeded(hr))
             {
-                hr = NativeSearchCondition.GetComparisonInfo(out _canonicalName, out _conditionOperation, propVar);
+                throw new ShellException(hr);
+            }
 
-                if (!CoreErrorHelper.Succeeded(hr))
-                {
-                    throw new ShellException(hr);
-                }
-
-                if (propVar.Value != null)
-                {
-                    PropertyValue = propVar.Value.ToString();
-                }
+            if (propVar.Value != null)
+            {
+                PropertyValue = propVar.Value.ToString();
             }
         }
     }

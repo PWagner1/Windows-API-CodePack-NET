@@ -1,7 +1,7 @@
 ﻿
-namespace Microsoft.WindowsAPICodePack.Shell.Taskbar;
+namespace Microsoft.WindowsAPICodePack.Taskbar;
 
-/// <summary>
+// <summary>
 /// Event args for the TabbedThumbnailClosing event. The application should set
 /// the Cancel property to true if the thumbnail should not be removed.
 /// </summary>

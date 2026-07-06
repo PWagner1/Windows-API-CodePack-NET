@@ -1140,10 +1140,7 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
     internal void RaiseHyperlinkClickEvent(string link)
     {
         EventHandler<TaskDialogHyperlinkClickedEventArgs>? handler = HyperlinkClick;
-        if (handler != null)
-        {
-            handler(this, new TaskDialogHyperlinkClickedEventArgs(link));
-        }
+        handler?.Invoke(this, new TaskDialogHyperlinkClickedEventArgs(link));
     }
 
     // Gives event subscriber a chance to prevent 
@@ -1193,17 +1190,17 @@ public sealed class TaskDialog : IDialogControlHost, IDisposable
 
     internal void RaiseHelpInvokedEvent()
     {
-        if (HelpInvoked != null) { HelpInvoked(this, EventArgs.Empty); }
+        HelpInvoked?.Invoke(this, EventArgs.Empty);
     }
 
     internal void RaiseOpenedEvent()
     {
-        if (Opened != null) { Opened(this, EventArgs.Empty); }
+        Opened?.Invoke(this, EventArgs.Empty);
     }
 
     internal void RaiseTickEvent(int ticks)
     {
-        if (Tick != null) { Tick(this, new TaskDialogTickEventArgs(ticks)); }
+        Tick?.Invoke(this, new TaskDialogTickEventArgs(ticks));
     }
 
     #endregion

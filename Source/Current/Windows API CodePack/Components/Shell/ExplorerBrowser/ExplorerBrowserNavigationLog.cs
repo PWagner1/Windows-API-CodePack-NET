@@ -29,10 +29,7 @@ public class ExplorerBrowserNavigationLog
             CanNavigateBackwardChanged = (oldCanNavigateBackward != CanNavigateBackward),
             CanNavigateForwardChanged = (oldCanNavigateForward != CanNavigateForward)
         };
-        if (NavigationLogChanged != null)
-        {
-            NavigationLogChanged(this, args);
-        }
+        NavigationLogChanged?.Invoke(this, args);
     }
     #endregion
 
@@ -167,10 +164,7 @@ public class ExplorerBrowserNavigationLog
         eventArgs.CanNavigateBackwardChanged = (oldCanNavigateBackward != CanNavigateBackward);
         eventArgs.CanNavigateForwardChanged = (oldCanNavigateForward != CanNavigateForward);
 
-        if (NavigationLogChanged != null)
-        {
-            NavigationLogChanged(this, eventArgs);
-        }
+        NavigationLogChanged?.Invoke(this, eventArgs);
     }
 
     internal bool NavigateLog(NavigationLogDirection direction)
